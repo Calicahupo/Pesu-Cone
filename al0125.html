@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 122</title>
+		<title>Aldiode 125</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -113,16 +113,20 @@ function initDomainPlanes() { var buffer; var p; var d; var res;
 					else if(y==r && x>r){buffer.push(d.rat.waves[r-1][x-r]); }
 					else if(y<r && x==r){buffer.push(d.abs.waves[r-1][y-x]); }
 					else if(y>r && x==r){buffer.push(d.tng.waves[r-1][x-y]); }
-					else if(y==r && x==r){buffer.push(d.wave); }}
+					else if(y==r && x==r){buffer.push(d.wave);
+					else if(y==r && x<0 )}}
 					p[p.length].push(buffer); } d.planes[d.planes.length].push(p); }}}
 function initPlanes() { initDomainPlanes(); initVersionPlanes(); }
 // PLANE
 // X is frequency, Y is amplitude, V or value is volume, locations are waves
 //origins can overflow. one can adjust amplitude of origins in general, affecting all vectors of that origin
 // WAVE
-function initZeroWaves(d,r,b) {
-
-}
+function initZeroWaves(d,r,b) { var halt=findZeroBand(d,r,b); if(!halt) { r--; m=measureZeroBand(b);
+	var F=new ZeroWave(false,false,d,r,b.F);var S=new ZeroWave(false,true,d,r,b.S);
+	var T=new ZeroWave(true,false,d,r,b.T); var N=new ZeroWave(true,true,d,r,b.N);
+	d.F.waves[r][m]=F; d.S.waves[r][m]=S; d.T.waves[r][m]; d.N.waves[r][m]; }}
+function ZeroWave(d,r,c) { this.name = nameZeroWave(d,r,c); this.domain=d; this.resolution=r+1;
+	var n = normaliseWave(d,r,c); this.rational = n.X; this.abstract = n.Y; this.X=c.X; this.Y=c.Y; AL.waves.push(this); }
 function findWaveName(r,c) { var names; if(r == 3) { if(c.X != 0 && c.Y != 0) { if(c.X < 0 && c.Y < 0) { names = [
 	["belief",	"like",		"motive",	"peace"],
 	["worry",	"love",		"style",	"can"],
@@ -159,10 +163,10 @@ function initWaves(d,r,b,x,y) { var halt=findBand(d,r,b); if(!halt) { r--; //oli
 	d.obj.waves[r][y][x]=obj; d.log.waves[r][y][x]=log; }}
 // WAVE
 // BAND
-function ZeroBand(d,r,x,y) { var g=d.gender; var o=d.other; var ver=d.version; var val=quantifyBand(g,r,x,y); this.val=val;
-	this.gender=d.gender; this.other=d.other; this.version=d.version; this.resolution=r; this.x=x; this.y=y; }
+function ZeroBand(d,r,x,y) { var g=d.gender; var o=d.other; var ver=d.version; var vol=quantifyBand(g,r,x,y); this.vol=vol;
+	var q=qualifyBand(d,r,X,Y); this.X=q.X; this.Y=q.Y; this.gender=g;this.other=o;this.version=ver;this.resolution=r; }
 function findBand(d,r,b) { var b=d.bands[r]; for(var i = 0; i<d.bands[r]; i++) {
-	if(b[i].sub == sub || b[i].mys == mys || b[i].obj == obj || b[i].log == log) { return b[i]; } else return null; }}
+	if(b[i].sub==sub || b[i].mys==mys || b[i].obj==obj || b[i].log==log) { return b[i]; } else return null; }}
 function qualifyBand(d,r,x,y) { var b={ X:0,Y:0,sub:{X:0,Y:0},mys:{X:0,Y:0},obj:{X:0,Y:0},log:{X:0,Y:0}};
 	if(!d.g) { if(x<=y) { b.X=y; b.Y=x; } b.X=r-b.X; b.Y=r-b.Y; } else { b.X=x; b.Y=y; }	if(!d.g && !d.o) {
 		b.sub.X= -x; b.sub.Y= -y; b.mys.X = x; b.mys.Y = y; b.obj.X = x; b.obj.Y = y; b.log.X= -x; b.log.Y= -y; } 
@@ -174,17 +178,17 @@ function qualifyBand(d,r,x,y) { var b={ X:0,Y:0,sub:{X:0,Y:0},mys:{X:0,Y:0},obj:
 		b.sub.X= -x; b.sub.Y= -y; b.mys.X= -x; b.mys.Y= -y; b.obj.X= -x; b.obj.Y= -y; b.log.X= -x; b.log.Y= -y;}return b; }
 function quantifyBand(g,r,x,y) { var v; var R = r+1; if(x >= y) { v = y; if(!g) { v = R-x; }} else { v = x-y; } return v; }
 function Band(d,r,x,y) { var g = d.gender; var o = d.other; var ver = d.version; var X = x+1; var Y = y+1;
-	this.gender=d.gender;this.other=d.other;this.version=d.version;this.resolution=r;this.x=x;this.y=y;
+	this.gender=g;this.other=o;this.version=ver;this.resolution=r;this.x=x;this.y=y;
 	var val = quantifyBand(g,r,X,Y); this.val = val; var q = qualifyBand(d,r,X,Y); //from the viewpoint of masculine self
 	var sub = { X: q.sub.X, Y: q.sub.Y }; var mys = { X: q.mys.X, Y: q.mys.Y }; //need to normalise for other viewpoints?
 	var obj = { X: q.obj.X, Y: q.obj.Y }; var log = { X: q.log.X, Y: q.log.Y };
 	this.sub=sub; this.mys=mys; this.obj=obj; this.log=log; }
 function initBands(){ var buffer; var band; var bands; var d; var res; var b; var zb;
-	for(var i=0;i<AL.domains.length;i++) { bands = []; zeroBands = []; res = 1; d = AL.domains[i];
+	for(var i=0;i<AL.domains.length;i++) { bands=[]; zeroBands=[]; res=1; d=AL.domains[i];
 		zb = new ZeroBand(d,0,0,0);
-		for(var r=1;r<=AL.resolution;r++) { band = []; zeroBand = [];
+		for(var r=1;r<=AL.resolution;r++) { band=[]; zeroBand=[];
 			initZeroWave(d,r,zb);
-			for(var y=0;y<res;y++) { buffer = []; zBuffer = [];
+			for(var y=0;y<res;y++) { buffer=[]; zBuffer=[];
 				zb = new ZeroBand(d,r,0,y+1);	initZeroWaves(d,r,zb);
 				zb = new ZeroBand(d,r,y+1,0);	initZeroWaves(d,r,zb);
 				for(var x=0; x<res; x++) {
@@ -224,11 +228,11 @@ function colorDomains() { var p; var xy; var xY; var Xy; var XY; var d;
 		else if (d.other && !d.gender) { d.sub.colors=p[0]; d.mys.colors=p[2]; d.obj.colors=p[1]; d.log.colors=p[3]; }
 		else 							{d.sub.colors=p[3]; d.mys.colors=p[2]; d.obj.colors=p[1];d.log.colors=p[0];}}}
 function qualifyDomain(other,version,gender,quadrants) { var w = []; var buffer;
-	for(var y = 1; y <= AL.resolution; y++) { buffer = []; for(var x = 0; x < y; x++) { buffer.push([]); } f.push(buffer); }
-	var sub = { X:quadrants.sub.X, Y:quadrants.sub.Y, w:f };
-	var mys = { X:quadrants.mys.X, Y:quadrants.mys.Y, w:f };
-	var obj = { X:quadrants.obj.X, Y:quadrants.obj.Y, w:f };
-	var log = { X:quadrants.log.X, Y:quadrants.log.Y, w:f }; return { sub:sub, mys:mys, obj:obj, log:log }; }
+	for(var y = 1; y <= AL.resolution; y++) { buffer = []; for(var x = 0; x < y; x++) { buffer.push([]); } w.push(buffer); }
+	var sub = { X:quadrants.sub.X, Y:quadrants.sub.Y, w:w };
+	var mys = { X:quadrants.mys.X, Y:quadrants.mys.Y, w:w };
+	var obj = { X:quadrants.obj.X, Y:quadrants.obj.Y, w:w };
+	var log = { X:quadrants.log.X, Y:quadrants.log.Y, w:w }; return { sub:sub, mys:mys, obj:obj, log:log }; }
 function signDomain(gender,other,version) { var sub; var mys; var obj; var log; var ret;
 	if	   (!gender && !other){sub={X:true,Y:true}; mys={X:false,Y:true}; obj={X:true,Y:false}; log={X:false,Y:false};}
 	else if(!gender && other) {sub={X:false,Y:false}; mys={X:true,Y:false}; obj={X:false,Y:true}; log={X:true,Y:true};}
@@ -334,7 +338,7 @@ function refreshMosaicCanvas(t,id) { var canvas = document.getElementById(id);
 	for(var y = 0; y < t.yRes; y++) { for(var x = 0; x < t.yRes; x++) {
 		c.fillStyle = p[x][y].colorHex;	c.fillRect(x*t.cellWidth, y*cellHeight, t.cellWidth, t.cellHeight);	}}}
 // MOSAIC
-
+// Jesus was valued for showing poor people an example on how to behave like kings. But do kings behave well? And what about women?
 		</script>
 	</head>
 	<body onload="init();">
