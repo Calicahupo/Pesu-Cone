@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 130</title>
+		<title>Aldiode 132</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -210,8 +210,32 @@ function initBands(){ var buffer; var band; var bands; var d; var res; var b; va
 			if(res<AL.resolution) { bands.push(band); res++; } else { break; }}
 		bands.push(band); d.bands=bands; }}
 // "waveforms" are waveforms and in final application there should also be a "signal".
-// BAND
-// DOMAIN
+// BAND 
+// interpreting intuition Ni, manifesting intuition Ne
+// COLOR
+// #aeff00 neon green blend for bad imaginary quality, #ffd000 for good? or blend to white or black?
+function createScalarPalettes(d) { var v; var res; var c={ F:[], S:[], T:[], N:[],
+	lowF:{r:0,g:0,b:0,h:""}, highF:{r:0,g:0,b:0,h:""}, lowS:{r:0,g:0,b:0,h:""}, highS:{r:0,g:0,b:0,h:""}, //sievennä v[1]?
+	lowT:{r:0,g:0,b:0,h:""}, highT:{r:0,g:0,b:0,h:""}, lowN:{r:0,g:0,b:0,h:""}, highN:{r:0,g:0,b:0,h:""}}; if(d.gender) {
+		v=blendColors(3,d.mys.colors.lowB, d.sub.colors.lowB); v=v[1]; if (d.other) { c.lowT=v; } else { c.lowF=v; }
+		v=blendColors(3,d.sub.colors.lowB, d.obj.colors.lowB); v=v[1]; if (d.other) { c.lowN=v; } else { c.lowS=v; }
+		v=blendColors(3,d.obj.colors.lowB, d.log.colors.lowB); v=v[1]; if (d.other) { c.lowF=v; } else { c.lowT=v; }
+		v=blendColors(3,d.log.colors.lowB, d.mys.colors.lowB); v=v[1]; if (d.other) { c.lowS=v; } else { c.lowN=v; }
+		v=blendColors(3,d.mys.colors.highB,d.sub.colors.highB);v=v[1]; if (d.other) { c.highT=v;} else { c.highF=v;}
+		v=blendColors(3,d.sub.colors.highB,d.obj.colors.highB);v=v[1]; if (d.other) { c.highN=v;} else { c.highS=v;}
+		v=blendColors(3,d.obj.colors.highB,d.log.colors.highB);v=v[1]; if (d.other) { c.highF=v;} else { c.highT=v;}
+		v=blendColors(3,d.log.colors.highB,d.mys.colors.highB);v=v[1]; if (d.other) { c.highS=v;} else {c.highN=v;}} else {
+		v=blendColors(3,d.mys.colors.highB,d.log.colors.highB);v=v[1]; if (d.other) { c.lowT=v; } else { c.lowF=v; }
+		v=blendColors(3,d.log.colors.highB,d.obj.colors.highB);v=v[1]; if (d.other) { c.lowN=v; } else { c.lowS=v; }
+		v=blendColors(3,d.obj.colors.highB,d.sub.colors.highB);v=v[1]; if (d.other) { c.lowF=v; } else { c.lowT=v; }
+		v=blendColors(3,d.sub.colors.highB,d.mys.colors.highB);v=v[1]; if (d.other) { c.lowS=v; } else { c.lowN=v; }
+		v=blendColors(3,d.mys.colors.farB,d.log.colors.farB);  v=v[1]; if (d.other) { c.highT=v;} else { c.highF=v;}
+		v=blendColors(3,d.log.colors.farB,d.obj.colors.farB);  v=v[1]; if (d.other) { c.highN=v;} else { c.highS=v;}
+		v=blendColors(3,d.obj.colors.farB,d.sub.colors.farB);  v=v[1]; if (d.other) { c.highF=v;} else { c.highT=v;}
+		v=blendColors(3,d.sub.colors.farB,d.mys.colors.farB);  v=v[1]; if (d.other) { c.highS=v;} else {c.highN=v;}}
+	for(var r = 1; r <= AL.resolution; r++) {
+		v=blendColors(r,c.lowF,c.highF); c.F.a.push(v); v=blendColors(r,c.lowS,c.highS); c.S.a.push(v);
+		v=blendColors(r,c.lowT,c.highT); c.T.a.push(v); v=blendColors(r,c.lowN,c.highN);c.N.a.push(v);} return c; }
 function componentToH(c) { var hex = c.toString(16); return hex.length == 1 ? "0" + hex : hex; }
 function rgbToH(r,g,b) { if(r != null) { return "#"+componentToH(r)+componentToH(g)+componentToH(b); } else { return ""; }}
 function hToRgb(hex) { var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return result ? {
@@ -222,9 +246,9 @@ function blendColors(n,from,to) { var ret = [];
 function chunkify(n,from,to) { var ret = []; var size = Math.floor((to-from) / (n-1)); if(n % 2 == 0) {
 	for(var i = 0; i < n; i++) { ret.push(from + (i * size)); } return ret; } else { ret = [from];
 	for(var i = 1; i < (n-1); i++) { ret.push(from + (i * size)); }} ret.push(to); return ret; }
-function createPalette(d,lowBh,lowGh,farBh,farGh,highBh,highGh) { var c =
-	{lowB:{r:0,g:0,b:0,h:"",a:[]},lowG:{r:0,g:0,b:0,h:"",a:[]}, farB:{r:0,g:0,b:0,h:"",a:[]},farG:{r:0,g:0,b:0,h:"",a:[]},
-	highB:{r:0,g:0,b:0,h:"",a:[]},highG:{r:0,g:0,b:0,h:"",a:[]}}; this.color = c;
+function createPalette(d,lowBh,lowGh,farBh,farGh,highBh,highGh) { var j; var c ={ // 'a' means array. why wasn't j declared?
+	lowB: {r:0,g:0,b:0,h:"",a:[]}, lowG:{r:0,g:0,b:0,h:"",a:[]}, farB:{r:0,g:0,b:0,h:"",a:[]}, farG:{r:0,g:0,b:0,h:"",a:[]},
+	highB:{r:0,g:0,b:0,h:"",a:[]}, highG:{r:0,g:0,b:0,h:"",a:[]}}; this.color = c;
 	if(d.gender){ c.lowB.h=lowBh;c.lowG.h=lowGh;c.farB.h=farBh;c.farG.h=farGh;c.highB.h=highBh;c.highG.h=highGh; }
 	else 		{ c.lowB.h=highBh;c.lowG.h=farGh;c.farB.h=highBh;c.farG.h=farGh;c.highB.h=farBh;c.highG.h=lowGh; } var v;
 	v=hToRgb(lowBh); c.lowB.r=v.r; c.lowB.g=v.g; c.lowB.b=v.b; v=hToRgb(lowGh); c.lowG.r=v.r; c.lowG.g=v.g; c.lowG.b=v.b;
@@ -241,7 +265,10 @@ function colorDomains() { var p; var xy; var xY; var Xy; var XY; var d;
 		if		(!d.other&& !d.gender) { d.sub.colors=p[3]; d.mys.colors=p[1]; d.obj.colors=p[2]; d.log.colors=p[0]; }
 		else if (!d.other&& d.gender ) { d.sub.colors=p[0]; d.mys.colors=p[1]; d.obj.colors=p[2]; d.log.colors=p[3]; }
 		else if (d.other && !d.gender) { d.sub.colors=p[0]; d.mys.colors=p[2]; d.obj.colors=p[1]; d.log.colors=p[3]; }
-		else 							{d.sub.colors=p[3]; d.mys.colors=p[2]; d.obj.colors=p[1];d.log.colors=p[0];}}}
+		else 							{d.sub.colors=p[3]; d.mys.colors=p[2]; d.obj.colors=p[1]; d.log.colors=p[0];}}
+		createScalarPalettes(d); }
+// COLOR
+// DOMAIN
 function qualifyDomain(other,version,gender,quadrants) { var w = []; var buffer;
 	for(var y = 1; y <= AL.resolution; y++) { buffer=[]; for(var x = 0; x < y; x++) { buffer.push([]); } w.push(buffer); }
 	var sub = { X:quadrants.sub.X, Y:quadrants.sub.Y, w:w };
