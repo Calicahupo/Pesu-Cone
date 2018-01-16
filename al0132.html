@@ -214,7 +214,7 @@ function initBands(){ var buffer; var band; var bands; var d; var res; var b; va
 // interpreting intuition Ni, manifesting intuition Ne
 // COLOR
 // #aeff00 neon green blend for bad imaginary quality, #ffd000 for good? or blend to white or black?
-function createScalarPalettes(d) { var v; var c={ F:[], S:[], T:[], N:[],
+function createScalarPalettes(d) { var v; var res; var c={ F:[], S:[], T:[], N:[],
 	lowF:{r:0,g:0,b:0,h:""}, highF:{r:0,g:0,b:0,h:""}, lowS:{r:0,g:0,b:0,h:""}, highS:{r:0,g:0,b:0,h:""}, //sievennä v[1]?
 	lowT:{r:0,g:0,b:0,h:""}, highT:{r:0,g:0,b:0,h:""}, lowN:{r:0,g:0,b:0,h:""}, highN:{r:0,g:0,b:0,h:""}}; if(d.gender) {
 		v=blendColors(3,d.mys.colors.lowB, d.sub.colors.lowB); v=v[1]; if (d.other) { c.lowT=v; } else { c.lowF=v; }
