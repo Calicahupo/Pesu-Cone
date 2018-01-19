@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 132</title>
+		<title>Aldiode 133</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -159,8 +159,7 @@ function Wave(rational,abstract,d,r,c) { this.name = nameWave(d,r,c); this.domai
 function initWaves(d,r,b,x,y) { var halt=findBand(d,r,b); if(!halt) { r--; //oli vähä vaikee toi r--
 	var sub=new Wave(false,false,d,r,b.sub);var mys=new Wave(false,true,d,r,b.mys);
 	var obj=new Wave(true,false,d,r,b.obj);	var log=new Wave(true,true,d,r,b.log);
-	d.sub.waves[r][y][x]=sub; d.mys.waves[r][y][x]=mys;
-	d.obj.waves[r][y][x]=obj; d.log.waves[r][y][x]=log; }}
+	d.sub.waves[r][y][x]=sub; d.mys.waves[r][y][x]=mys;	d.obj.waves[r][y][x]=obj; d.log.waves[r][y][x]=log; }}
 // WAVE
 // substitute normalisation by rat / abs?
 // metaevil = man behaves like a woman when only men can notice. this conditioning is probably difficult to sustain. only a robot can do it. ability to conduct and sustain metaevil is especially effective for weakening F type buddhas
@@ -381,6 +380,7 @@ function refreshMosaicCanvas(t,id) { var canvas = document.getElementById(id);
 		c.fillStyle = p[x][y].colorHex;	c.fillRect(x*t.cellWidth, y*cellHeight, t.cellWidth, t.cellHeight);	}}}
 // MOSAIC
 // Jesus was valued for showing poor people an example on how to behave like kings. But do kings behave well? And what about women?
+// I have been told that there can't be an enemy of Islam that shall destroy Islam. But I haven't been told there can't be a friend or lover of Islam that shall metaphorically destroy Islam in certain places or contexts despite the fact that the numerous merits of Islam are obvious. If that entity should have a name then I'd consider calling that "Anti-Mahdi".
 		</script>
 	</head>
 	<body onload="init();">
