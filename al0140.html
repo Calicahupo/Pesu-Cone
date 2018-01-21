@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 139</title>
+		<title>Aldiode 140</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -44,6 +44,7 @@
 		<script>//white glow on increased quality, black on decreased. in tables, later
 		// The Slavs appear to have a most genuine desire to be human, which is rare among whites.
 		// A woman measures her charisma according to how permitted it is for her to be like a man.
+		// Could objectivity as a mindset be interpreted as activity motivated by avoidance of stress?
 var AL = {
 	//UI
 	tab:		"mosaic",		tabs:		["mosaic"],
@@ -102,6 +103,29 @@ function initBands(){ var buffer; var bands; var zeroBands; var d; var res; var 
 function initSpace() {}
 // SPACE
 // PLANE
+
+function interleaveDomains(d1,d2) {}
+
+function initVersionPlanes() { 
+	for(i=0; i<AL.domains.length; i+=2) {
+		d1=d[i]; d2=d[i+1];
+	}
+
+	for(y=0; y<domainMatrix.length; y++) {
+		for(x=0; x<domainMatrix[y].length; x++) { d = domainMatrix[y][x];
+			for(r=0; r<d.plane)
+		}
+	}
+
+
+	var buffer; var res; var plane; var row;
+	for(i=0; i<AL.domains.length; i++) { d = AL.domains[i]; 
+		for(var r=0;r<=d[i].planes[r].length;r++) { plane = d[i].planes[r];
+			for(var j=0; j<plane.length; j++) { row = d[i].planes[r][j];
+				for(var k=0; k<row.length; k++)
+
+			}}}
+}
 function initDomainPlanes() { var buffer; var p; var d; var res;
 	for(var i=0; i<AL.domains.length; i++){ d = AL.domains[i];
 		for(var r=1;r<=AL.resolution;r++) { p = []; d.planes.push([]);
@@ -302,11 +326,11 @@ function initDomains() { new Domain(false,false,false); new Domain(false,false,t
 function initMetaphysics() { initDomains(); initBands(); console.log(AL.domains); initPlanes(); console.log(AL.planes); initSpace(); }
 
 /*5{[1}\+!&8pS49h5&J                   X XXX
-EE5^~*^!!!_XX46L35ur   XYX XX  XXX XYX X X
-EBEVrr^\/\-JS4h&vovr    X   XX  X   X  XX+XX
-EEQ}r>+*\;^4493ontjj    X   X X X   X    X X
-QQHKj;^+;|x&5oTujjj}    X   X  XX   X  XXX X
-J5u53r^^\+/\cjj>>"\;    X   X   X   X    X
+EE5^~*^!!!_XX46L35ur   XYX XX  XXX XYX X H
+EBEVrr^\/\-JS4h&vovr    X   XX  X   X  XDQNX
+EEQ}r>+*\;^4493ontjj    X   X X X   X   /T\X
+QQHKj;^+;|x&5oTujjj}    X   X  XX   X  XXX|X
+J5u53r^^\+/\cjj>>"\;    X   X   X   X   | |
 j52xLJl}|\"}}{".` !^   XXX XXX XXX XXX  XXX
 JT5555nr[r?1>[?{+;*/
 function init() { initMetaphysics(); initUI(); displayTab(AL.tab); }
