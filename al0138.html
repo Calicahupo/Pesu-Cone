@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 133</title>
+		<title>Aldiode 138</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -121,13 +121,17 @@ function initPlanes() { initDomainPlanes(); initVersionPlanes(); }
 // X is frequency, Y is amplitude, V or value is volume, locations are waves
 //origins can overflow. one can adjust amplitude of origins in general, affecting all vectors of that origin
 // WAVE
+function colorScalarWave(d,r,c) { var ret; c.X=Math.abs(c.X); c.Y=Math.abs(c.Y); var m=Math.max(c.X,c.Y);
+	if		(c.X<0){ ret=d.colors.F[r][m]; }else if(c.Y<0){ ret=d.colors.S[r][m]; }
+	else if (c.X>0){ ret=d.colors.T[r][m]; }else if(c.Y>0){ ret=d.colors.N[r][m]; } return ret;}
 function initScalarWaves(d,r,b) { var halt=findScalarBand(d,r,b); if(!halt) { r--; m=b.scalar;
 	var F=new ScalarWave(false,false,d,r,b.F);var S=new ScalarWave(false,true,d,r,b.S);
 	var T=new ScalarWave(true,false,d,r,b.T); var N=new ScalarWave(true,true,d,r,b.N);
 	d.F.waves[r][m]=F; d.S.waves[r][m]=S; d.T.waves[r][m]; d.N.waves[r][m]; }}
-function ScalarWave(d,r,c) { this.name = nameScalarWave(d,r,c); this.domain=d; this.resolution=r+1;
+function ScalarWave(d,r,c) { this.name=nameWave(d,r,c);this.domain=d;this.resolution=r+1;this.color=colorScalarWave(d,r,c);
 	var n = normaliseWave(d,r,c); this.rational = n.X; this.abstract = n.Y; this.X=c.X; this.Y=c.Y; AL.waves.push(this); }
-function findWaveName(r,c) { var names; if(r == 3) { if(c.X != 0 && c.Y != 0) { if(c.X < 0 && c.Y < 0) { names = [
+function nameWave(d,r,c) { if(!(d.g && !d.o)) { c = normaliseWave(d,r,c); } c.X=Math.abs(c.X)-1; c.Y=Math.abs(c.Y)-1;
+	var names; if(r == 3) { if(c.X != 0 && c.Y != 0) { if(c.X < 0 && c.Y < 0) { names = [
 	["belief",	"like",		"motive",	"peace"],
 	["worry",	"love",		"style",	"can"],
 	["detach",	"burden",	"happy",	"fun"],
@@ -143,17 +147,20 @@ function findWaveName(r,c) { var names; if(r == 3) { if(c.X != 0 && c.Y != 0) { 
 	["form",	"meaning",	"kind",		"reason"],
 	["exclude",	"purpose",	"use",		"would"],
 	["impose",	"reject",	"metalevel","connect"],
-	["madness",	"deceive",	"disconnect","wisdom"]]; }
-	c.X = Math.abs(c.X)-1; c.Y = Math.abs(c.Y)-1; return names[c.Y][c.X]; }}}
+	["madness",	"deceive",	"disconnect","wisdom"]]; } return names[c.Y][c.X];}}
+	else if(!(c.X==0 && c.Y==0)) { var m = Math.max(c.X,c.Y); if(X<0){ names = [
+	"typical feeling",  "stereotypical feeling",  "special feeling",  "ideal feeling"  ];} else if(Y<0) { names = [
+	"typical sensation","stereotypical sensation","special sensation","ideal sensation"];} else if(X>0) { names = [
+	"typical thinking", "stereotypical thinking", "special thinking", "ideal thinking" ];} else if(Y>0) { names = [
+	"typical intuition","stereotypical intuition","special intuition","ideal intuition"];} return names[m]; } else {
+	if(!d.gender && !d.other) { return "feminine self"; } else if(d.gender && !d.other) { return "masculine self"; }
+	else if(d.gender && d.other) { return "masculine other"; } else if(!d.gender && d.other) { return "feminine other"; }}}
 function judgeWave(X,Y) { X=Math.abs(X); Y=Math.abs(Y); if(Y>X) { return true; } else { return false; }}
 function normaliseWave(d,r,c) { var n={ X:c.X, Y:c.Y }; var B=judgeWave(c.X,c.Y); 
 	if(!d.g) { if(B) { n.X=c.X; n.Y=c.Y; } else { n.X=c.Y; n.Y=c.X; }}
 	if(!d.g && !d.o) { if ( n.X * n.Y < 0 ) { n.X= -n.X; n.Y= -n.Y; }}
 	else if(!d.g && d.o){if(n.X * n.Y > 0 ) { n.X= -n.X; n.Y= -n.Y; }}
 	else if(d.g && d.o) { n.X = -n.X; n.Y = -n.Y; } return n; }
-function nameWave(d,r,c) { var ret = ""; if(!(d.g && !d.o)) { c = normaliseWave(d,r,c); }
-	console.log(c);
-	ret += findWaveName(r,c); return ret; }
 function Wave(rational,abstract,d,r,c) { this.name = nameWave(d,r,c); this.domain=d; this.resolution=r+1;
 	this.rational=rational; this.abstract=abstract;  this.X=c.X; this.Y=c.Y; AL.waves.push(this); }
 function initWaves(d,r,b,x,y) { var halt=findBand(d,r,b); if(!halt) { r--; //oli vähä vaikee toi r--
@@ -216,22 +223,22 @@ function initBands(){ var buffer; var band; var bands; var d; var res; var b; va
 function createScalarPalettes(d) { var v; var c={ F:[], S:[], T:[], N:[],
 	lowF:{r:0,g:0,b:0,h:""}, highF:{r:0,g:0,b:0,h:""}, lowS:{r:0,g:0,b:0,h:""}, highS:{r:0,g:0,b:0,h:""}, //sievennä v[1]?
 	lowT:{r:0,g:0,b:0,h:""}, highT:{r:0,g:0,b:0,h:""}, lowN:{r:0,g:0,b:0,h:""}, highN:{r:0,g:0,b:0,h:""}}; if(d.gender) {
-		v=blendColors(3,d.mys.colors.lowB, d.sub.colors.lowB); v=v[1]; if (d.other) { c.lowT=v; } else { c.lowF=v; }
-		v=blendColors(3,d.sub.colors.lowB, d.obj.colors.lowB); v=v[1]; if (d.other) { c.lowN=v; } else { c.lowS=v; }
-		v=blendColors(3,d.obj.colors.lowB, d.log.colors.lowB); v=v[1]; if (d.other) { c.lowF=v; } else { c.lowT=v; }
-		v=blendColors(3,d.log.colors.lowB, d.mys.colors.lowB); v=v[1]; if (d.other) { c.lowS=v; } else { c.lowN=v; }
-		v=blendColors(3,d.mys.colors.highB,d.sub.colors.highB);v=v[1]; if (d.other) { c.highT=v;} else { c.highF=v;}
-		v=blendColors(3,d.sub.colors.highB,d.obj.colors.highB);v=v[1]; if (d.other) { c.highN=v;} else { c.highS=v;}
-		v=blendColors(3,d.obj.colors.highB,d.log.colors.highB);v=v[1]; if (d.other) { c.highF=v;} else { c.highT=v;}
-		v=blendColors(3,d.log.colors.highB,d.mys.colors.highB);v=v[1]; if (d.other) { c.highS=v;} else {c.highN=v;}} else {
-		v=blendColors(3,d.mys.colors.highB,d.log.colors.highB);v=v[1]; if (d.other) { c.lowT=v; } else { c.lowF=v; }
-		v=blendColors(3,d.log.colors.highB,d.obj.colors.highB);v=v[1]; if (d.other) { c.lowN=v; } else { c.lowS=v; }
-		v=blendColors(3,d.obj.colors.highB,d.sub.colors.highB);v=v[1]; if (d.other) { c.lowF=v; } else { c.lowT=v; }
-		v=blendColors(3,d.sub.colors.highB,d.mys.colors.highB);v=v[1]; if (d.other) { c.lowS=v; } else { c.lowN=v; }
-		v=blendColors(3,d.mys.colors.farB,d.log.colors.farB);  v=v[1]; if (d.other) { c.highT=v;} else { c.highF=v;}
-		v=blendColors(3,d.log.colors.farB,d.obj.colors.farB);  v=v[1]; if (d.other) { c.highN=v;} else { c.highS=v;}
-		v=blendColors(3,d.obj.colors.farB,d.sub.colors.farB);  v=v[1]; if (d.other) { c.highF=v;} else { c.highT=v;}
-		v=blendColors(3,d.sub.colors.farB,d.mys.colors.farB);  v=v[1]; if (d.other) { c.highS=v;} else {c.highN=v;}}
+		v=blendColors(3,d.mys.colors.lowB, d.sub.colors.lowB); v=v[1]; if(d.other){ c.lowT=v;  }else{ c.lowF=v; }
+		v=blendColors(3,d.sub.colors.lowB, d.obj.colors.lowB); v=v[1]; if(d.other){ c.lowN=v;  }else{ c.lowS=v; }
+		v=blendColors(3,d.obj.colors.lowB, d.log.colors.lowB); v=v[1]; if(d.other){ c.lowF=v;  }else{ c.lowT=v; }
+		v=blendColors(3,d.log.colors.lowB, d.mys.colors.lowB); v=v[1]; if(d.other){ c.lowS=v;  }else{ c.lowN=v; }
+		v=blendColors(3,d.mys.colors.highB,d.sub.colors.highB);v=v[1]; if(d.other){ c.highT=v; }else{ c.highF=v;}
+		v=blendColors(3,d.sub.colors.highB,d.obj.colors.highB);v=v[1]; if(d.other){ c.highN=v; }else{ c.highS=v;}
+		v=blendColors(3,d.obj.colors.highB,d.log.colors.highB);v=v[1]; if(d.other){ c.highF=v; }else{ c.highT=v;}
+		v=blendColors(3,d.log.colors.highB,d.mys.colors.highB);v=v[1]; if(d.other){ c.highS=v; }else{c.highN=v;}}else{
+		v=blendColors(3,d.mys.colors.highB,d.log.colors.highB);v=v[1]; if(d.other){ c.lowT=v;  }else{ c.lowF=v; }
+		v=blendColors(3,d.log.colors.highB,d.obj.colors.highB);v=v[1]; if(d.other){ c.lowN=v;  }else{ c.lowS=v; }
+		v=blendColors(3,d.obj.colors.highB,d.sub.colors.highB);v=v[1]; if(d.other){ c.lowF=v;  }else{ c.lowT=v; }
+		v=blendColors(3,d.sub.colors.highB,d.mys.colors.highB);v=v[1]; if(d.other){ c.lowS=v;  }else{ c.lowN=v; }
+		v=blendColors(3,d.mys.colors.farB,d.log.colors.farB);  v=v[1]; if(d.other){ c.highT=v; }else{ c.highF=v;}
+		v=blendColors(3,d.log.colors.farB,d.obj.colors.farB);  v=v[1]; if(d.other){ c.highN=v; }else{ c.highS=v;}
+		v=blendColors(3,d.obj.colors.farB,d.sub.colors.farB);  v=v[1]; if(d.other){ c.highF=v; }else{ c.highT=v;}
+		v=blendColors(3,d.sub.colors.farB,d.mys.colors.farB);  v=v[1]; if(d.other){ c.highS=v; }else{c.highN=v;}}
 	for(var r = 1; r <= AL.resolution; r++) {
 		v=blendColors(r,c.lowF,c.highF); c.F.a.push(v); v=blendColors(r,c.lowS,c.highS); c.S.a.push(v);
 		v=blendColors(r,c.lowT,c.highT); c.T.a.push(v); v=blendColors(r,c.lowN,c.highN);c.N.a.push(v);} return c; }
@@ -268,28 +275,32 @@ function colorDomains() { var p; var xy; var xY; var Xy; var XY; var d;
 		createScalarPalettes(d); }
 // COLOR
 // DOMAIN
-function qualifyDomain(other,version,gender,quadrants) { var w = []; var buffer;
+function qualifyDomain(gender,other,version,quadrants) { var w = []; var buffer;
 	for(var y = 1; y <= AL.resolution; y++) { buffer=[]; for(var x = 0; x < y; x++) { buffer.push([]); } w.push(buffer); }
-	var sub = { X:quadrants.sub.X, Y:quadrants.sub.Y, w:w };
-	var mys = { X:quadrants.mys.X, Y:quadrants.mys.Y, w:w };
-	var obj = { X:quadrants.obj.X, Y:quadrants.obj.Y, w:w };
-	var log = { X:quadrants.log.X, Y:quadrants.log.Y, w:w }; return { sub:sub, mys:mys, obj:obj, log:log }; }
-function signDomain(gender,other,version) { var sub; var mys; var obj; var log; var ret;
-	if	   (!gender && !other){sub={X:true,Y:true}; mys={X:false,Y:true}; obj={X:true,Y:false}; log={X:false,Y:false};}
-	else if(!gender && other) {sub={X:false,Y:false}; mys={X:true,Y:false}; obj={X:false,Y:true}; log={X:true,Y:true};}
-	else if(gender && !other) {sub={X:false,Y:false}; mys={X:false,Y:true}; obj={X:true,Y:false}; log={X:true,Y:true};}
-	else					  {sub={X:true,Y:true}; mys={X:true,Y:false}; obj={X:false,Y:true}; log={X:false,Y:false};}
-	ret = { sub:sub, mys:mys, obj:obj, log:log }; return ret; }
+	var sub = { X:quadrants.sub.X, Y:quadrants.sub.Y, w:w }; var mys = { X:quadrants.mys.X, Y:quadrants.mys.Y, w:w };
+	var obj = { X:quadrants.obj.X, Y:quadrants.obj.Y, w:w }; var log = { X:quadrants.log.X, Y:quadrants.log.Y, w:w };
+	return { sub:sub, mys:mys, obj:obj, log:log }; }
+function signDomain(gender,other,version) { var sub; var mys; var obj; var log; var F; var S; var T; var N; var ret;
+	if	   (!gender && !other){sub={X:true,Y:true}; mys={X:false,Y:true}; obj={X:true,Y:false}; log={X:false,Y:false};
+		N={X:-1,Y:0}; T={X:0,Y:-1}; S={X:1,Y:0}; F={X:0,Y:1}; }
+	else if(!gender && other) {sub={X:false,Y:false}; mys={X:true,Y:false}; obj={X:false,Y:true}; log={X:true,Y:true};
+		T={X:-1,Y:0}; N={X:0,Y:-1}; F={X:1,Y:0}; S={X:0,Y:1}; }
+	else if(gender && !other) {sub={X:false,Y:false}; mys={X:false,Y:true}; obj={X:true,Y:false}; log={X:true,Y:true};
+		F={X:-1,Y:0}; S={X:0,Y:-1}; T={X:1,Y:0}; N={X:0,Y:1}; }
+	else					  {sub={X:true,Y:true}; mys={X:true,Y:false}; obj={X:false,Y:true}; log={X:false,Y:false};
+		S={X:-1,Y:0}; F={X:0,Y:-1}; N={X:1,Y:0}; T={X:0,Y:1}; }
+	ret = { sub:sub, mys:mys, obj:obj, log:log, F:F, S:S, T:T, N:N }; return ret; }
 function Domain(gender,other,version) { var signs = signDomain(other,version,gender); this.planes = [];
-	var quadrants = qualifyDomain(other,version,gender,signs); this.bands = []; this.scalarBands = [];
+	var quadrants = qualifyDomain(gender,other,version,signs);
+	this.bands = []; this.scalarBands = []; this.other=other; this.gender=gender; this.version=version;
 	this.sub=quadrants.sub; this.mys=quadrants.mys; this.obj=quadrants.obj; this.log=quadrants.log;
-	this.other=other; this.gender=gender; this.version=version; AL.domains.push(this); }
+	this.F=signs.F; this.S=signs.S; this.T=signs.T; this.N=signs.N; AL.domains.push(this); }
 function initDomains() { new Domain(false,false,false); new Domain(false,false,true); new Domain(false,true,false); new Domain(false,true,true); new Domain(true,false,false); new Domain(true,false,true); new Domain(true,true,false); new Domain(true,true,true); colorDomains(); }
 
 function initMetaphysics() { initDomains(); initBands(); console.log(AL.domains); initPlanes(); console.log(AL.planes); initSpace(); }
 
 /*5{[1}\+!&8pS49h5&J                   X XXX
-EE5^~*^!!!_XX46L35ur   XXX XX  XXX XXX X X
+EE5^~*^!!!_XX46L35ur   XYX XX  XXX XYX X X
 EBEVrr^\/\-JS4h&vovr    X   XX  X   X  XX+XX
 EEQ}r>+*\;^4493ontjj    X   X X X   X    X X
 QQHKj;^+;|x&5oTujjj}    X   X  XX   X  XXX X
