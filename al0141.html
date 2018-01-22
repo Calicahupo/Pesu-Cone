@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 140</title>
+		<title>Aldiode 141</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -53,7 +53,7 @@ var AL = {
 	refreshCanvas:66,			refreshDOM: 500,			timeUnit: 66,			trackingMosaic: false,
 	//UI
 	//CORE
-	resolution: 4,				planes: 	[[],[]],		domains:	[],				quadrants:	[],
+	domains:	[],				resolution: 4,				plane:	 	[],			planes: [[],[]],
 	bands: 		[],				waves: 		[],				points:		[],
 	events:		[], /*ex turns*/beings:		[],				items:		[] }
 	//CORE
@@ -73,59 +73,19 @@ var AL = {
 // sid & id acc: need?
 // sid & id prod: mean?
 
-function initPlanes() { 
-//	AL.xRes = p[0].length - 1; AL.yRes = p[0][0].length - 1;
- }
-
-function mapQuadrant(colors,xRes,yRes) { var ret = []; var buffer = []; //console.log(colors);
-	if(typeof xRes == "undefined") { xRes = AL.resolution; }	if(typeof yRes == "undefined") { yRes = AL.resolution; }
-	for(var y = 0; y < yRes; y++) { buffer = []; for(var x = 0; x < xRes; x++) {
-		new Location(x,y,buffer); } ret.push(buffer); } ret = colorQuadrant(ret,colors); return ret; }
-
-
-function createMap(d,res) {	var ret = []; for(var y=0; y<res; y++) { for(var x=0; x<res; x++) {
-	var lowB = d.sub.colors.lowB; var lowG = d.sub.colors.lowG; var farB=d.sub.colors.farB
-}}}
-
-
-function initBands(){ var buffer; var bands; var zeroBands; var d; var res; var b;
-	for(var i=0;i<AL.domains.length;i++) { bands = []; res = 1; d = AL.domains[i];
-		for(var r=1;r<=AL.resolution;r++) { band = [];
-			for(var y=0;y<res;y++) { buffer = [];
-				for(var x=0; x<res; x++) {
-					b = new Band(d,r,x,y); buffer.push(b); initWaves(d,r,b,x,y); }
-				band.push(buffer); } if(res<AL.resolution) { bands.push(band); res++; } else { break; }} bands.push(band);
-		d.bands=bands; }}
-
-
-
 // SPACE
-function initSpace() {}
+//function Wave(rational,abstract,d,r,c) { this.name = nameWave(d,r,c); this.domain=d; this.resolution=r+1; this.rational=rational; this.abstract=abstract;  this.X=c.X; this.Y=c.Y; AL.waves.push(this); }
+function SpaceWave(w,version) { this.domain = w.domain; this.resolution = w.resolution; this.rational = w.rational; this.abstract = w.abstract; this.X = w.X; this.Y = w.Y; if(version) { this.Z = +0; } else { this.Z = -0; }}
+function createSpaceWave(w) {
+	var i = new SpaceWave(w,false); var e = new SpaceWave(w,true); AL.planes[0].push(i); AL.planes[1].push(e); }
+function initSpace() { for(var i=0; i<AL.waves.length; i++) { createSpaceWave(AL.waves[i]; }}
 // SPACE
 // PLANE
-
-function interleaveDomains(d1,d2) {}
-
-function initVersionPlanes() { 
-	for(i=0; i<AL.domains.length; i+=2) {
-		d1=d[i]; d2=d[i+1];
-	}
-
-	for(y=0; y<domainMatrix.length; y++) {
-		for(x=0; x<domainMatrix[y].length; x++) { d = domainMatrix[y][x];
-			for(r=0; r<d.plane)
-		}
-	}
-
-
-	var buffer; var res; var plane; var row;
-	for(i=0; i<AL.domains.length; i++) { d = AL.domains[i]; 
-		for(var r=0;r<=d[i].planes[r].length;r++) { plane = d[i].planes[r];
-			for(var j=0; j<plane.length; j++) { row = d[i].planes[r][j];
-				for(var k=0; k<row.length; k++)
-
-			}}}
-}
+function interleavePlanes(p1,p2) {var ret=[]; for(var i=0; i<p1.length; i++) {ret.push(p1[i].concat(p2[i]));} return ret;}
+function initRealPlane() {
+	var r1 = interleavePlanes(AL.domains[0].plane,AL.domains[1].plane);
+	var r2 = interleavePlanes(AL.domains[2].plane,AL.domains[3].plane);
+	var ret = r1.concat(r2); AL.plane=ret; }
 function initDomainPlanes() { var buffer; var p; var d; var res;
 	for(var i=0; i<AL.domains.length; i++){ d = AL.domains[i];
 		for(var r=1;r<=AL.resolution;r++) { p = []; d.planes.push([]);
@@ -142,8 +102,9 @@ function initDomainPlanes() { var buffer; var p; var d; var res;
 					else if(y==r && x==r){buffer.push(d.wave); }}
 				p[p.length].push(buffer); }
 			d.planes[d.planes.length].push(p); }}}
-function initPlanes() { initDomainPlanes(); initVersionPlanes(); }
+function initPlanes() { initDomainPlanes(); initRealPlane(); }
 // PLANE
+// differentiate version only later???? not in domain init
 // X is frequency, Y is amplitude, V or value is volume, locations are waves
 //origins can overflow. one can adjust amplitude of origins in general, affecting all vectors of that origin
 // WAVE
