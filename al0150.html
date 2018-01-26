@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 149</title>
+		<title>Aldiode 150</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -116,13 +116,16 @@ function initPlanes() { initDomainPlanes(); initRealPlane(); initPlanarWaves(); 
 // X is frequency, Y is amplitude, V or value is volume, locations are waves
 // origins can overflow. one can adjust amplitude of origins in general, affecting all vectors of that origin
 // WAVE
-function initScalarWaves(d,r,b) { console.log(b); var halt=findScalarBand(d,r,b); if(!halt) { r--; m=b.scalar;
+function initScalarWaves(d,r,b) { console.log("initScalarWaves(b): "); console.log(b); var halt=findScalarBand(d,r,b); if(!halt) { r--; m=b.scalar;
 	var F=new ScalarWave(false,false,d,r,b.F);var S=new ScalarWave(false,true,d,r,b.S);
 	var T=new ScalarWave(true,false,d,r,b.T); var N=new ScalarWave(true,true,d,r,b.N);
 	d.F.waves[r][m]=F; d.S.waves[r][m]=S; d.T.waves[r][m]; d.N.waves[r][m]; }}
 function ScalarWave(d,r,c) { this.name=nameWave(d,r,c);this.domain=d;this.resolution=r+1;this.color=colorScalarWave(d,r,c);
-	var n = normaliseWave(d,r,c); this.rational = n.X; this.abstract = n.Y; this.X=c.X; this.Y=c.Y; AL.waves.push(this); }
-function nameWave(d,r,c) { console.log(c); if(!(d.g && !d.o)) { c = normaliseWave(d,r,c); } c.X=Math.abs(c.X)-1; c.Y=Math.abs(c.Y)-1;
+	var n = normaliseWave(d,r,c); this.rational = n.X; this.abstract = n.Y; this.X=c.X; this.Y=c.Y;
+	
+		//grxy
+		AL.waves.push(this); }
+function nameWave(d,r,c) { console.log("nameWave(c): "); console.log(c); if(!(d.g && !d.o)) { c = normaliseWave(d,r,c); } c.X=Math.abs(c.X)-1; c.Y=Math.abs(c.Y)-1;
 	var names; if(r == 3) { if(c.X != 0 && c.Y != 0) { if(c.X < 0 && c.Y < 0) { names = [
 	["belief",	"like",		"motive",	"peace"],
 	["worry",	"love",		"style",	"can"],
@@ -188,7 +191,13 @@ function qualifyBand(d,r,x,y) { var b={ x:0,y:0,sub:{X:0,Y:0},cul:{X:0,Y:0},obj:
 	else if(d.g && d.o) {
 		b.sub.X= -b.x;b.sub.Y= -b.y;b.cul.X= -b.x;b.cul.Y= -b.y;b.obj.X= -b.x;b.obj.Y= -b.y;b.log.X= -b.x;b.log.Y= -b.y;}
 	return b; }
-function quantifyBand(g,r,x,y) { var v; var R = r+1; if(x >= y) { v = y; if(!g) { v = R-x; }} else { v = x-y; } return v; }
+function quantifyBand(g,r,x,y) {
+	console.log("quantifyBand(grxy): ");
+	console.log(g);
+	console.log(r);
+	console.log(x);
+	console.log(y);
+	var v; var R = r+1; if(x >= y) { v = y; if(!g) { v = R-x; }} else { v = x-y; } console.log("v: "); console.log(v); return v; }
 function Band(d,r,x,y) { var g = d.gender; var o = d.other; var X = x+1; var Y = y+1;
 	this.gender=g;this.other=o;this.resolution=r;this.x=x;this.y=y;
 	var val = quantifyBand(g,r,X,Y); this.val = val; var q = qualifyBand(d,r,X,Y); //from the viewpoint of masculine self
