@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 152</title>
+		<title>Aldiode 157</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -127,16 +127,15 @@ function initPlanes() { initDomainPlanes(); initRealPlane(); initPlanarWaves(); 
 // X is frequency, Y is amplitude, V or value is volume, locations are waves
 // origins can overflow. one can adjust amplitude of origins in general, affecting all vectors of that origin
 // WAVE
-function initScalarWaves(d,r,b) { console.log("initScalarWaves(b): "); console.log(b); var halt=findScalarBand(d,r,b); if(!halt) { r--; m=b.scalar;
+function quantifyWave(d,r,x,y) { var ret; x = Math.abs(x); y = Math.abs(y);
+	if(x >= y) { ret = y; if(!d.gender) { ret = r+1 - x; }} else { ret = x - y; } return ret; }
+function initScalarWaves(d,r,b) { var halt=findScalarBand(d,r,b); if(!halt) { r--; m=b.scalar;
 	var F=new ScalarWave(false,false,d,r,b.F);var S=new ScalarWave(false,true,d,r,b.S);
 	var T=new ScalarWave(true,false,d,r,b.T); var N=new ScalarWave(true,true,d,r,b.N);
-	d.F.waves[r][m]=F; d.S.waves[r][m]=S; d.T.waves[r][m]; d.N.waves[r][m]; }}
-function ScalarWave(d,r,c) { this.name=nameWave(d,r,c);this.domain=d;this.resolution=r+1;this.color=colorScalarWave(d,r,c);
-	var n = normaliseWave(d,r,c); this.rational = n.X; this.abstract = n.Y; this.X=c.X; this.Y=c.Y;
-	
-		//grxy
-		AL.waves.push(this); }
-function nameWave(d,r,c) { console.log("nameWave(c): "); console.log(c); if(!(d.g && !d.o)) { c = normaliseWave(d,r,c); } c.X=Math.abs(c.X)-1; c.Y=Math.abs(c.Y)-1;
+	d.F.w[r].push(F); d.S.w[r].push(S); d.T.w[r].push(T); d.N.w[r].push(N); }}
+function ScalarWave(nonLog,nonSen,d,r,c) { this.name=nameWave(d,r,c);this.domain=d;this.resolution=r+1;this.color=colorScalarWave(d,r,c); this.nonLog = nonLog; this.nonSen = nonSen;
+	var n = normaliseWave(d,r,c); this.rational = n.X; this.abstract = n.Y; this.X=c.X; this.Y=c.Y; this.vol = quantifyWave(d,r,c.X,c.Y); /*toimisi myös n?*/ this.scalar = Math.max(n.X,n.Y); AL.waves.push(this); }
+function nameWave(d,r,c) { if(!(d.g && !d.o)) { c = normaliseWave(d,r,c); }	c.X=Math.abs(c.X)-1; c.Y=Math.abs(c.Y)-1;
 	var names; if(r == 3) { if(c.X != 0 && c.Y != 0) { if(c.X < 0 && c.Y < 0) { names = [
 	["belief",	"like",		"motive",	"peace"],
 	["worry",	"love",		"style",	"can"],
@@ -154,10 +153,10 @@ function nameWave(d,r,c) { console.log("nameWave(c): "); console.log(c); if(!(d.
 	["exclude",	"purpose",	"use",		"would"],
 	["impose",	"reject",	"metalevel","connect"],
 	["madness",	"deceive",	"disconnect","wisdom"]]; } return names[c.Y][c.X];}}
-	else if(!(c.X==0 && c.Y==0)) { var m = Math.max(c.X,c.Y); if(X<0){ names = [
-	"typical feeling",  "stereotypical feeling",  "special feeling",  "ideal feeling"  ];} else if(Y<0) { names = [
-	"typical sensation","stereotypical sensation","special sensation","ideal sensation"];} else if(X>0) { names = [
-	"typical thinking", "stereotypical thinking", "special thinking", "ideal thinking" ];} else if(Y>0) { names = [
+	else if(!(c.X==0 && c.Y==0)) { var m = Math.max(c.X,c.Y); if(c.X<0){ names = [
+	"typical feeling",  "stereotypical feeling",  "special feeling",  "ideal feeling"  ];} else if(c.Y<0) { names = [
+	"typical sensation","stereotypical sensation","special sensation","ideal sensation"];} else if(c.X>0) { names = [
+	"typical thinking", "stereotypical thinking", "special thinking", "ideal thinking" ];} else if(c.Y>0) { names = [
 	"typical intuition","stereotypical intuition","special intuition","ideal intuition"];} return names[m]; } else {
 	if(!d.gender && !d.other) { return "feminine self"; } else if(d.gender && !d.other) { return "masculine self"; }
 	else if(d.gender && d.other) { return "masculine other"; } else if(!d.gender && d.other) { return "feminine other"; }}}
@@ -172,7 +171,7 @@ function Wave(rational,abstract,d,r,c) { this.name = nameWave(d,r,c); this.domai
 function initWaves(d,r,b,x,y) { var halt=findBand(d,r,b); if(!halt) { r--; //oli vähä vaikee toi r--
 	var sub=new Wave(false,false,d,r,b.sub);var cul=new Wave(false,true,d,r,b.cul);
 	var obj=new Wave(true,false,d,r,b.obj);	var log=new Wave(true,true,d,r,b.log);
-	d.sub.waves[r][y][x]=sub; d.cul.waves[r][y][x]=cul;	d.obj.waves[r][y][x]=obj; d.log.waves[r][y][x]=log; }}
+	d.sub.w[r][y][x]=sub; d.cul.w[r][y][x]=cul;	d.obj.w[r][y][x]=obj; d.log.w[r][y][x]=log; }}
 // WAVE
 // substitute normalisation by rat / abs?
 // metaevil = man behaves like a woman when only men can notice. this conditioning is probably difficult to sustain. only a robot can do it. ability to conduct and sustain metaevil is especially effective for weakening F type buddhas
@@ -184,9 +183,8 @@ function qualifyScalarBand(d,r,m) { var b={F:{X:0,Y:0},S:{X:0,Y:0},T:{X:0,Y:0},N
 	else if(!d.g && d.o) { b.S.X= -m; b.S.Y = 0; b.F.X = 0; b.F.Y= -m; b.N.X = m; b.N.Y = 0; b.T.X = 0; b.T.Y = m; }
 	else if(d.g && d.o)  { b.T.X= -m; b.T.Y = 0; b.N.X = 0; b.N.Y= -m; b.F.X = m; b.F.Y = 0; b.S.X = 0; b.S.Y = m; }
 	return b; }
-function ScalarBand(d,r,m,x,y) { var g=d.gender; var o=d.other;
-	var vol=quantifyBand(g,r,x,y); this.vol=vol; var q=qualifyScalarBand(d,r,m); this.scalar=m;
-	var F={X:q.F.X,y:q.F.Y}; var S={X:q.S.X,y:q.S.Y}; var T={X:q.T.X,y:q.T.Y}; var N={X:q.N.X,y:q.N.Y};
+function ScalarBand(d,r,m,x,y) { var g=d.gender; var o=d.other; var q=qualifyScalarBand(d,r,m); this.scalar=m;
+	var F={X:q.F.X,Y:q.F.Y}; var S={X:q.S.X,Y:q.S.Y}; var T={X:q.T.X,Y:q.T.Y}; var N={X:q.N.X,Y:q.N.Y};
 	this.F=F; this.S=S; this.T=T; this.N=N; this.gender=g; this.other=o; this.resolution=r; }
 function findScalarBand(d,r,b) { var b=d.scalarBands[r]; for(var i = 0; i<d.scalarBands[r]; i++) {
 	if(b[i].F || b[i].S || b[i].T || b[i].N) { return b[i]; } else return null; }}
@@ -203,12 +201,7 @@ function qualifyBand(d,r,x,y) { var b={ x:0,y:0,sub:{X:0,Y:0},cul:{X:0,Y:0},obj:
 		b.sub.X= -b.x;b.sub.Y= -b.y;b.cul.X= -b.x;b.cul.Y= -b.y;b.obj.X= -b.x;b.obj.Y= -b.y;b.log.X= -b.x;b.log.Y= -b.y;}
 	return b; }
 function quantifyBand(g,r,x,y) {
-	console.log("quantifyBand(grxy): ");
-	console.log(g);
-	console.log(r);
-	console.log(x);
-	console.log(y);
-	var v; var R = r+1; if(x >= y) { v = y; if(!g) { v = R-x; }} else { v = x-y; } console.log("v: "); console.log(v); return v; }
+	var v; var R = r+1; if(x >= y) { v = y; if(!g) { v = R-x; }} else { v = x-y; } return v; }
 function Band(d,r,x,y) { var g = d.gender; var o = d.other; var X = x+1; var Y = y+1;
 	this.gender=g;this.other=o;this.resolution=r;this.x=x;this.y=y;
 	var val = quantifyBand(g,r,X,Y); this.val = val; var q = qualifyBand(d,r,X,Y); //from the viewpoint of masculine self
@@ -241,9 +234,12 @@ function colorAreaWaves() { var d; var w; var w1=null; var w2=null; var halt1; v
 					if(halt1) { halt2 = isThresholdWave(w); } else { halt1 = isThresholdWave(w); }
 					if(halt2) { colorAreaRow(wa,w1,w2); w1=null; w2=null; wa=[]; } else { wa.push(w); }}}}}}
 function isThresholdWave(w) { var x=Math.abs(w.X); var y=Math.abs(w.Y);	if((x != 0 && y != 0) && x===1 || y===1 || x===AL.resolution || y===AL.resolution || x===y || x===y-1){ return true; } else { return false; }}
-function colorScalarWave(d,r,c) { var ret; c.X=Math.abs(c.X); c.Y=Math.abs(c.Y); var m=Math.max(c.X,c.Y);
-	if		(c.X<0){ ret=d.colors.F[r][m]; }else if(c.Y<0){ ret=d.colors.S[r][m]; }
-	else if (c.X>0){ ret=d.colors.T[r][m]; }else if(c.Y>0){ ret=d.colors.N[r][m]; } return ret;}
+function colorScalarWave(d,r,c) { console.log(c); var ret; c.X=Math.abs(c.X); c.Y=Math.abs(c.Y); var m=Math.max(c.X,c.Y);
+	console.log(d);
+	console.log(m);
+	console.log(d.colors);
+	if		(c.X<0){ ret=d.F.colors[r][m]; }else if(c.Y<0){ ret=d.S.colors[r][m]; }
+	else if (c.X>0){ ret=d.T.colors[r][m]; }else if(c.Y>0){ ret=d.N.colors[r][m]; } return ret;}
 function createScalarPalettes(d) { var v; var c={ F:[], S:[], T:[], N:[],
 	lowF:{r:0,g:0,b:0,h:""},highF:{r:0,g:0,b:0,h:""}, lowS:{r:0,g:0,b:0,h:""},highS:{r:0,g:0,b:0,h:""},
 	lowT:{r:0,g:0,b:0,h:""},highT:{r:0,g:0,b:0,h:""}, lowN:{r:0,g:0,b:0,h:""},highN:{r:0,g:0,b:0,h:""}};
@@ -267,7 +263,7 @@ function createScalarPalettes(d) { var v; var c={ F:[], S:[], T:[], N:[],
 		v=blendColors(3,d.sub.colors.farB,d.cul.colors.farB)[1];  if(d.other){ c.highS=v; }else{c.highN=v;}}
 	for(var r = 1; r <= AL.resolution; r++) {
 		v=blendColors(r,c.lowF,c.highF); c.F.push(v); v=blendColors(r,c.lowS,c.highS); c.S.push(v);
-		v=blendColors(r,c.lowT,c.highT); c.T.push(v); v=blendColors(r,c.lowN,c.highN); c.N.push(v);} return c; }
+		v=blendColors(r,c.lowT,c.highT); c.T.push(v); v=blendColors(r,c.lowN,c.highN); c.N.push(v);} d.colors=c; }
 function componentToH(n) { var hex = n.toString(16); return hex.length == 1 ? "0" + hex : hex; }
 function rgbToH(r,g,b) { if(r != null) { return "#"+componentToH(r)+componentToH(g)+componentToH(b); } else { return ""; }}
 function hToRgb(hex) { var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return result ? {
@@ -298,14 +294,18 @@ function colorDomains() { var p; var xy; var xY; var Xy; var XY; var d;
 		else if (!d.other&& d.gender ) { d.sub.colors=p[0]; d.cul.colors=p[1]; d.obj.colors=p[2]; d.log.colors=p[3]; }
 		else if (d.other && !d.gender) { d.sub.colors=p[0]; d.cul.colors=p[2]; d.obj.colors=p[1]; d.log.colors=p[3]; }
 		else 							{d.sub.colors=p[3]; d.cul.colors=p[2]; d.obj.colors=p[1]; d.log.colors=p[0];}}
-		createScalarPalettes(d); }
+	createScalarPalettes(d); }
 // COLOR
 // DOMAIN
-function qualifyDomain(gender,other,quadrants) { var w = []; var buffer;
-	for(var y = 1; y <= AL.resolution; y++) { buffer=[]; for(var x = 0; x < y; x++) { buffer.push([]); } w.push(buffer); }
-	var sub = { X:quadrants.sub.X, Y:quadrants.sub.Y, w:w }; var cul = { X:quadrants.cul.X, Y:quadrants.cul.Y, w:w };
-	var obj = { X:quadrants.obj.X, Y:quadrants.obj.Y, w:w }; var log = { X:quadrants.log.X, Y:quadrants.log.Y, w:w };
-	return { sub:sub, cul:cul, obj:obj, log:log }; }
+function qualifyDomain(gender,other,q) { var w=[]; var sW=[]; var buffer;
+	for(var y = 1; y <= AL.resolution; y++) { buffer=[]; sW.push([]);
+		for(var x = 0; x < y; x++) { buffer.push([]); } w.push(buffer); }
+	var F = { X:q.F.X, Y:q.F.Y, w:sW }; var S = { X:q.S.X, Y:q.S.Y, w:sW }; 
+	var T = { X:q.T.X, Y:q.T.Y, w:sW }; var N = { X:q.N.X, Y:q.N.Y, w:sW }; 
+	console.log(N);
+	var sub = { X:q.sub.X, Y:q.sub.Y, w:w }; var cul = { X:q.cul.X, Y:q.cul.Y, w:w };
+	var obj = { X:q.obj.X, Y:q.obj.Y, w:w }; var log = { X:q.log.X, Y:q.log.Y, w:w };
+	return { F:F, S:S, T:T, N:N, sub:sub, cul:cul, obj:obj, log:log }; }
 function signDomain(gender,other) { var sub; var cul; var obj; var log; var F; var S; var T; var N; var ret;
 	if	   (!gender && !other){sub={X:true,Y:true}; cul={X:false,Y:true}; obj={X:true,Y:false}; log={X:false,Y:false};
 		N={X:-1,Y:0}; T={X:0,Y:-1}; S={X:1,Y:0}; F={X:0,Y:1}; }
@@ -316,12 +316,12 @@ function signDomain(gender,other) { var sub; var cul; var obj; var log; var F; v
 	else					  {sub={X:true,Y:true}; cul={X:true,Y:false}; obj={X:false,Y:true}; log={X:false,Y:false};
 		S={X:-1,Y:0}; F={X:0,Y:-1}; N={X:1,Y:0}; T={X:0,Y:1}; }
 	ret = { sub:sub, cul:cul, obj:obj, log:log, F:F, S:S, T:T, N:N }; return ret; }
-function Domain(gender,other) { var signs = signDomain(other,gender); this.planes = [];
-	var quadrants = qualifyDomain(gender,other,signs);
-	this.bands = []; this.scalarBands = []; this.other=other; this.gender=gender;
-	this.sub=quadrants.sub; this.cul=quadrants.cul; this.obj=quadrants.obj; this.log=quadrants.log;
-	this.F=signs.F; this.S=signs.S; this.T=signs.T; this.N=signs.N; AL.domains.push(this); }
-function initDomains() { new Domain(false,false,false); new Domain(false,true,false); new Domain(true,false,false); new Domain(true,true,false); colorDomains(); }
+function Domain(gender,other) { var signs = signDomain(other,gender); var qualities = qualifyDomain(gender,other,signs);
+	this.bands = []; this.scalarBands = []; this.other=other; this.gender=gender; this.plane = [];
+	this.sub=qualities.sub; this.cul=qualities.cul; this.obj=qualities.obj; this.log=qualities.log;
+	this.F=qualities.F; 	this.S=qualities.S; 	this.T=qualities.T; 	this.N=qualities.N; AL.domains.push(this); }
+function initDomains() { new Domain(false,false);new Domain(false,true);
+						 new Domain(true,false); new Domain(true,true); colorDomains(); }
 
 function initMetaphysics() { initDomains(); initBands(); console.log(AL.domains); initPlanes(); console.log(AL.planes); initSpace(); }
 
