@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 157</title>
+		<title>Aldiode 197</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -16,7 +16,6 @@
 		.topLeft { top:0px; left:0px; }	.topRight{ top:0px; right:0px;}
 		.absolute { position:absolute; } .half { width: 50%; } .left { float:left; } .right{ float:right;}
 		.cell { position:relative; color: red; }
-
 
 		.personInHeader { position: relative; float:left; margin: 0px 2px; padding: 0px 2px; background-color: rgba(0,0,0,0.1618); height: 100%; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
 		.avatarInHeader { display:inline-block; position:relative; margin: 0px 5px 0px 2px; padding: 0px 5px; top:5px; text-align:center; }
@@ -49,9 +48,13 @@
 //solution: feeling -> ethics, thinking -> logic EVEN THOUGH IT IS FACTUALLY INCORRECT
 //result: a naming convention that differentiates model m from other jungian psychology
 //
+//infra and supra circuits should be evaluated according to when acc or prod function is valued. determining their strength should be trivial.
+//prod func should ask acc funct to act
+//
 //imaginary waves need own array in AL?
 //white glow on increased quality, black on decreased. in tables, later
 //
+// Japan's culture is delta and symbolically opposes beta but seriously resists gamma
 // The Slavs appear to have a most genuine desire to be human, which is rare among whites.
 // A woman measures her charisma according to how permitted it is for her to be like a man.
 // Could objectivity as a mindset be interpreted as activity motivated by avoidance of stress?
@@ -63,6 +66,7 @@
 Element:Event		Thing		Issue
 Set:	Context 	Situation	Circumstance
 Both:	Abstract	Tangible	Pattern*/
+//can't have gays and pedophilia at the same time
 var AL = {
 	//UI
 	tab:		"mosaic",		tabs:		["mosaic"],
@@ -71,7 +75,7 @@ var AL = {
 	//UI
 	//CORE
 	domains:	[],				resolution: 4,				plane:	 	[],			planes: [[],[]],
-	bands: 		[],				waves: 		[],				planarWaves:[],
+	bands: 		[],				scalarBands:[],				waves: 		[],			scalarWaves:[],
 	events:		[], /*ex turns*/beings:		[],				items:		[] }
 	//CORE
 
@@ -129,10 +133,18 @@ function initPlanes() { initDomainPlanes(); initRealPlane(); initPlanarWaves(); 
 // WAVE
 function quantifyWave(d,r,x,y) { var ret; x = Math.abs(x); y = Math.abs(y);
 	if(x >= y) { ret = y; if(!d.gender) { ret = r+1 - x; }} else { ret = x - y; } return ret; }
-function initScalarWaves(d,r,b) { var halt=findScalarBand(d,r,b); if(!halt) { r--; m=b.scalar;
+/*
+function scaleDomain() { var ret=[];
+	for(var r=1; r<=AL.resolution; r++) { ret.push([]);
+		for(var i=0; i<r; i++) { ret[r-1].push(null); }} return ret; }
+		*/
+function initScalarWaves(d,r,b) { var halt=findScalarBand(d,r,b); if(!halt) { r++;
+	//m=b.scalar;
 	var F=new ScalarWave(false,false,d,r,b.F);var S=new ScalarWave(false,true,d,r,b.S);
 	var T=new ScalarWave(true,false,d,r,b.T); var N=new ScalarWave(true,true,d,r,b.N);
-	d.F.w[r].push(F); d.S.w[r].push(S); d.T.w[r].push(T); d.N.w[r].push(N); }}
+	d.F.w[r].push(F); d.S.w[r].push(S); d.T.w[r].push(T); d.N.w[r].push(N); d.scalarWaves.concat([F,S,T,N]); }}
+
+
 function ScalarWave(nonLog,nonSen,d,r,c) { this.name=nameWave(d,r,c);this.domain=d;this.resolution=r+1;this.color=colorScalarWave(d,r,c); this.nonLog = nonLog; this.nonSen = nonSen;
 	var n = normaliseWave(d,r,c); this.rational = n.X; this.abstract = n.Y; this.X=c.X; this.Y=c.Y; this.vol = quantifyWave(d,r,c.X,c.Y); /*toimisi myös n?*/ this.scalar = Math.max(n.X,n.Y); AL.waves.push(this); }
 function nameWave(d,r,c) { if(!(d.g && !d.o)) { c = normaliseWave(d,r,c); }	c.X=Math.abs(c.X)-1; c.Y=Math.abs(c.Y)-1;
@@ -183,10 +195,9 @@ function qualifyScalarBand(d,r,m) { var b={F:{X:0,Y:0},S:{X:0,Y:0},T:{X:0,Y:0},N
 	else if(!d.g && d.o) { b.S.X= -m; b.S.Y = 0; b.F.X = 0; b.F.Y= -m; b.N.X = m; b.N.Y = 0; b.T.X = 0; b.T.Y = m; }
 	else if(d.g && d.o)  { b.T.X= -m; b.T.Y = 0; b.N.X = 0; b.N.Y= -m; b.F.X = m; b.F.Y = 0; b.S.X = 0; b.S.Y = m; }
 	return b; }
-function ScalarBand(d,r,m,x,y) { var g=d.gender; var o=d.other; var q=qualifyScalarBand(d,r,m); this.scalar=m;
-	var F={X:q.F.X,Y:q.F.Y}; var S={X:q.S.X,Y:q.S.Y}; var T={X:q.T.X,Y:q.T.Y}; var N={X:q.N.X,Y:q.N.Y};
-	this.F=F; this.S=S; this.T=T; this.N=N; this.gender=g; this.other=o; this.resolution=r; }
-function findScalarBand(d,r,b) { var b=d.scalarBands[r]; for(var i = 0; i<d.scalarBands[r]; i++) {
+function ScalarBand(d,r,x,y) { var g=d.gender;var o=d.other; var m=Math.max(x,y); q=qualifyScalarBand(d,r,Math.max(x,y));
+	var F={X:q.F.X,Y:q.F.Y};var S={X:q.S.X,Y:q.S.Y};var T={X:q.T.X,Y:q.T.Y};var N={X:q.N.X,Y:q.N.Y};this.scalar=m;this.F=F;this.S=S;this.T=T;this.N=N;this.domain=d;this.gender=g;this.other=o;this.resolution=r;AL.scalarBands.push(this); }
+function findScalarBand(d,r,b) { var b=d.scalarBands[r]; for(var i = 0; i<d.scalarBands[r].length; i++) {
 	if(b[i].F || b[i].S || b[i].T || b[i].N) { return b[i]; } else return null; }}
 function findBand(d,r,b) { var b=d.bands[r]; for(var i = 0; i<d.bands[r]; i++) {
 	if(b[i].sub || b[i].cul || b[i].obj || b[i].log) { return b[i]; } else return null; }}
@@ -208,12 +219,12 @@ function Band(d,r,x,y) { var g = d.gender; var o = d.other; var X = x+1; var Y =
 	var sub = { X: q.sub.X, Y: q.sub.Y }; var cul = { X: q.cul.X, Y: q.cul.Y }; //need to normalise for other viewpoints?
 	var obj = { X: q.obj.X, Y: q.obj.Y }; var log = { X: q.log.X, Y: q.log.Y };
 	this.sub=sub; this.cul=cul; this.obj=obj; this.log=log; }
-function initBands(){ var buffer; var band; var bands; var d; var res; var b; var zb;
-	for(var i=0;i<AL.domains.length;i++) { bands=[]; scalarBands=[]; res=1; d=AL.domains[i];
-		zb = new ScalarBand(d,0,0,0,0);
-		for(var r=1;r<=AL.resolution;r++) { band=[]; scalarBand=[];
-			for(var y=0;y<res;y++) { buffer=[]; zBuffer=[];
-				zb = new ScalarBand(d,r,y,x,y); initScalarWaves(d,r,zb);
+function initBands(){ var buffer; var band; var bands; var d; var res; var b; var sB;
+	for(var i=0;i<AL.domains.length;i++) { bands=[]; res=1; d=AL.domains[i];
+		sB = new ScalarBand(d,0,0,0,0); d.scalarBand = sB;
+		for(var r=1;r<=AL.resolution;r++) { band=[];
+			for(var y=0;y<res;y++) { buffer=[];
+				sB = new ScalarBand(d,r,x,y); initScalarWaves(d,r-1,sB);
 				for(var x=0; x<res; x++) {
 					b = new Band(d,r,x,y); buffer.push(b); initWaves(d,r,b,x,y); }
 				band.push(buffer); }
@@ -234,10 +245,10 @@ function colorAreaWaves() { var d; var w; var w1=null; var w2=null; var halt1; v
 					if(halt1) { halt2 = isThresholdWave(w); } else { halt1 = isThresholdWave(w); }
 					if(halt2) { colorAreaRow(wa,w1,w2); w1=null; w2=null; wa=[]; } else { wa.push(w); }}}}}}
 function isThresholdWave(w) { var x=Math.abs(w.X); var y=Math.abs(w.Y);	if((x != 0 && y != 0) && x===1 || y===1 || x===AL.resolution || y===AL.resolution || x===y || x===y-1){ return true; } else { return false; }}
-function colorScalarWave(d,r,c) { console.log(c); var ret; c.X=Math.abs(c.X); c.Y=Math.abs(c.Y); var m=Math.max(c.X,c.Y);
+function colorScalarWave(d,r,c) { console.log("COLORSCALARWAVE START");console.log(c);
+	var ret; c.X=Math.abs(c.X); c.Y=Math.abs(c.Y); var m=Math.max(c.X,c.Y);
 	console.log(d);
-	console.log(m);
-	console.log(d.colors);
+	console.log(m); console.log("COLORSCALARWAVE END");
 	if		(c.X<0){ ret=d.F.colors[r][m]; }else if(c.Y<0){ ret=d.S.colors[r][m]; }
 	else if (c.X>0){ ret=d.T.colors[r][m]; }else if(c.Y>0){ ret=d.N.colors[r][m]; } return ret;}
 function createScalarPalettes(d) { var v; var c={ F:[], S:[], T:[], N:[],
@@ -263,7 +274,13 @@ function createScalarPalettes(d) { var v; var c={ F:[], S:[], T:[], N:[],
 		v=blendColors(3,d.sub.colors.farB,d.cul.colors.farB)[1];  if(d.other){ c.highS=v; }else{c.highN=v;}}
 	for(var r = 1; r <= AL.resolution; r++) {
 		v=blendColors(r,c.lowF,c.highF); c.F.push(v); v=blendColors(r,c.lowS,c.highS); c.S.push(v);
-		v=blendColors(r,c.lowT,c.highT); c.T.push(v); v=blendColors(r,c.lowN,c.highN); c.N.push(v);} d.colors=c; }
+		v=blendColors(r,c.lowT,c.highT); c.T.push(v); v=blendColors(r,c.lowN,c.highN); c.N.push(v);}
+	d.F.h = "MOI";
+	console.log("createScalarPalettes");
+	console.log(c);
+	console.log(d);
+		d.scalarColors=c;
+	}
 function componentToH(n) { var hex = n.toString(16); return hex.length == 1 ? "0" + hex : hex; }
 function rgbToH(r,g,b) { if(r != null) { return "#"+componentToH(r)+componentToH(g)+componentToH(b); } else { return ""; }}
 function hToRgb(hex) { var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return result ? {
@@ -297,12 +314,18 @@ function colorDomains() { var p; var xy; var xY; var Xy; var XY; var d;
 	createScalarPalettes(d); }
 // COLOR
 // DOMAIN
-function qualifyDomain(gender,other,q) { var w=[]; var sW=[]; var buffer;
-	for(var y = 1; y <= AL.resolution; y++) { buffer=[]; sW.push([]);
+// if x==y then 0 value is possible
+// scalar bands should be domain independent and gender dependent
+// in imaginary quality M.far should be M.high, or at least this is some kind of perfectionism. In place of M.high there could already be negative imaginary quality.
+function scaleDomain() { var ret=[];
+	for(var r=1; r<=AL.resolution; r++) { ret.push([]);
+		for(var i=0; i<r; i++) { ret[r-1].push({}); }} return ret; }
+function qualifyDomain(q) { var w=[]; var sW=[]; var buffer; var scale=scaleDomain();
+	for(var y = 1; y <= AL.resolution; y++) { buffer=[]; sW.push([scale[y-1]]);
 		for(var x = 0; x < y; x++) { buffer.push([]); } w.push(buffer); }
 	var F = { X:q.F.X, Y:q.F.Y, w:sW }; var S = { X:q.S.X, Y:q.S.Y, w:sW }; 
 	var T = { X:q.T.X, Y:q.T.Y, w:sW }; var N = { X:q.N.X, Y:q.N.Y, w:sW }; 
-	console.log(N);
+	//console.log(N);
 	var sub = { X:q.sub.X, Y:q.sub.Y, w:w }; var cul = { X:q.cul.X, Y:q.cul.Y, w:w };
 	var obj = { X:q.obj.X, Y:q.obj.Y, w:w }; var log = { X:q.log.X, Y:q.log.Y, w:w };
 	return { F:F, S:S, T:T, N:N, sub:sub, cul:cul, obj:obj, log:log }; }
@@ -316,14 +339,129 @@ function signDomain(gender,other) { var sub; var cul; var obj; var log; var F; v
 	else					  {sub={X:true,Y:true}; cul={X:true,Y:false}; obj={X:false,Y:true}; log={X:false,Y:false};
 		S={X:-1,Y:0}; F={X:0,Y:-1}; N={X:1,Y:0}; T={X:0,Y:1}; }
 	ret = { sub:sub, cul:cul, obj:obj, log:log, F:F, S:S, T:T, N:N }; return ret; }
-function Domain(gender,other) { var signs = signDomain(other,gender); var qualities = qualifyDomain(gender,other,signs);
-	this.bands = []; this.scalarBands = []; this.other=other; this.gender=gender; this.plane = [];
+function Domain(gender,other) { this.gender=gender;this.other=other; this.bands=[];this.plane=[];this.scalarWaves=[]; 
+	var signs=signDomain(other,gender); var qualities=qualifyDomain(signs); this.scalarBands=scaleDomain();
 	this.sub=qualities.sub; this.cul=qualities.cul; this.obj=qualities.obj; this.log=qualities.log;
 	this.F=qualities.F; 	this.S=qualities.S; 	this.T=qualities.T; 	this.N=qualities.N; AL.domains.push(this); }
 function initDomains() { new Domain(false,false);new Domain(false,true);
 						 new Domain(true,false); new Domain(true,true); colorDomains(); }
 
-function initMetaphysics() { initDomains(); initBands(); console.log(AL.domains); initPlanes(); console.log(AL.planes); initSpace(); }
+
+
+// On olemassa vain kaksi sukupuolta, top ja bottom. Bottom ei tiedä, kumpi on kumpi ;D
+
+/*
+H = (C == 0 ? null :
+    V == r ? (g - b) / C :
+    V == g ? (b - r) / C + 2 :
+             (r - g) / C + 4
+    );*/
+/*function iPC(n,G,U,R) { var ret={n:n,G:G,U:U,R:R,r:0,g:0,b:0,h:""};
+	n==0 ? ret=iPC0(ret,G,U,R) : n==1 ? ret=iPC1(ret,G,U,R) : ret=iPC2(ret,G,U,R) }*/
+
+//
+
+
+
+
+
+// i and e are tensor planes
+
+// super ego quantifies according to a high low swap for bad. all weak functions do?
+// mental ring can value only two IE simultaneously, vital ring doesn't work in a binary manner like that
+
+//perfect, inittarzanjane
+
+//child conditioning is similar to Id conditioning. check this later
+
+// in effect, low far flip implies no quantification or even qualification of low quality. populations that are culturally expected to perform this flip (children) conceal the difference between those who can make use of this information and those who can't. trying to reverse the flip causes accusation of bad manners and arrogance from those who find themselves responsible of what's generally happening everywhere.
+
+function strongToWeak(o) { var ret="moi"; }
+function selfToOther(o,sex)	{ var ret; sex ? ret=swapRatAbs(o) : ret=swapSubLog(o); return ret; }
+function initOrigins(s) {
+	var m = { self:m, other:selfToOther(m)};//, weak:strongToWeak(m), weakOther:strongToWeak(selfToOther(m)) };
+	var M = { self:M, other:selfToOther(M)};//, weak:strongToWeak(M), weakOther:strongToWeak(selfToOther(M)) };
+	var f = { self:f, other:selfToOther(f)};//, weak:strongToWeak(f), weakOther:strongToWeak(selfToOther(f)) };
+	var F = { self:F, other:selfToOther(F)};//, weak:strongToWeak(F), weakOther:strongToWeak(selfToOther(F)) };
+	return { M:M, m:m, F:F, f:f }; }
+// ORIGINS
+// SELVES
+function Self(adult,male,vertexPlane) { this.adult=adult; this.male=male; this.vertexPlane=vertexPlane; }
+function initSelves(c) {
+	var M = initMasculinity(c); console.log(M); // PASSED VAR OK SO FAR
+	var m = manToBoy(M.vertexPlane);
+	var f = manToGirl(M.vertexPlane);
+	var F = manToWoman(M.vertexPlane);
+	return { M:M, m:m, F:F, f:f }; }
+function manToWoman(o)		{ var ret=flipLowFar(flipLowHigh(o,true),false); ret=new Self(true,false,ret); return ret; }
+function manToGirl(o)		{ var ret=flipLowFar(o,true); ret=new Self(false,false,ret);return ret; }
+function manToBoy(o)		{ var ret=flipLowFar(o,false);ret=new Self(false,true,ret); return ret; }
+function initMasculinity(c) {
+	var bUL=new Triplane(c.low.bUL,c.far.bUL,c.high.bUL); var gUL=new Triplane(c.low.gUL,c.far.gUL,c.high.gUL);
+	var bUR=new Triplane(c.low.bUR,c.far.bUR,c.high.bUR); var gUR=new Triplane(c.low.gUR,c.far.gUR,c.high.gUR);
+	var bDL=new Triplane(c.low.bDL,c.far.bDL,c.high.bDL); var gDL=new Triplane(c.low.gDL,c.far.gDL,c.high.gDL);
+	var bDR=new Triplane(c.low.bDR,c.far.bDR,c.high.bDR); var gDR=new Triplane(c.low.gDR,c.far.gDR,c.high.gDR);
+	var uL=new Quadrant(bUL,gUL);var uR=new Quadrant(bUR,gUR);var dL=new Quadrant(bDL,gDL);var dR=new Quadrant(bDR,gDR);
+	var ret={ uL:uL, uR:uR, dL:dL, dR:dR };	ret=new Self(true,true,ret); return ret; } 
+// SELVES
+// COLORS
+function flipLowFar(s,g) { f=flip(0,s,g); return f; }
+function flipFarHigh(s,g){ f=flip(1,s,g); return f; }
+function flipLowHigh(s,g){ f=flip(2,s,g); return f; }
+//function initFlip(n,s,g) { var ret;
+//	n==0 ? ret=[far,low,high] : n==1 ? ret=[low,high,far] : ret=[high,far,low]; return ret; }
+function flip(n,s,g) {
+	function f1(q) { var re;
+		function f2() {
+			function f3() { var rtr; n==0 ? rtr=new Triplane(q.far,q.low,q.high) : n==1 ? rtr=new Triplane(q.low,q.high,q.far) : rtr=new Triplane(q.high,q.far,q.low); return rtr; }
+			var r; var t=f3(); g ? r=new Quadrant(q.bad,t,q.U,q.R) : r=new Quadrant(t,q.good,q.U,q.R); return r; }
+		g ? re = f2(q.g,g) : re = f2(q.b,g); return re; }
+	var uL=f1(s.uL); var uR=f1(s.uR); var dL=f1(s.dL); var dR=f1(s.dR);
+	var ret={ uL:uL, uR:uR, dL:dL, dR:dR }; /*console.log(ret);*/ return ret; }
+/*function flipLowFar(s,g) {
+	function f1(a) { var re;
+		function f2() {	var r; var t=new Triplane(a.far,a.low,a.high);
+			g ? r=new Quadrant(a.bad,t,a.U,a.R) : r=new Quadrant(t,a.good,a.U,a.R); return r; }
+		g ? re = f2(a.g,g) : re = f2(a.b,g);return re; }
+	var uL=f1(s.uL);var uR=f1(s.uR);var dL=f1(s.dL);var dR=f1(s.dR);
+	var ret={ uL:uL, uR:uR, dL:dL, dR:dR }; console.log(ret);return ret;}
+function flipFarHigh(s,g) {
+	function f1(a) { var re;
+		function f2() {	var r; var t=new Triplane(a.low,a.high,a.far);
+			g ? r=new Quadrant(a.bad,t,a.U,a.R) : r=new Quadrant(t,a.good,a.U,a.R); return r; }
+		g ? re = f2(a.g,g) : re = f2(a.b,g);return re; } var uL=f1(s.uL);var uR=f1(s.uR);var dL=f1(s.dL);var dR=f1(s.dR);
+	var ret={ uL:uL, uR:uR, dL:dL, dR:dR }; console.log(ret);return ret;}
+function flipLowHigh(s,g) {
+	function f1(a) { var re;
+		function f2() {	var r; var t=new Triplane(a.high,a.far,a.low);
+			g ? r=new Quadrant(a.bad,t,a.U,a.R) : r=new Quadrant(t,a.good,a.U,a.R); return r; }
+		g ? re = f2(a.g,g) : re = f2(a.b,g);return re; } var uL=f1(s.uL);var uR=f1(s.uR);var dL=f1(s.dL);var dR=f1(s.dR);
+	var ret={ uL:uL, uR:uR, dL:dL, dR:dR }; console.log(ret);return ret;}*/
+function Quadrant(b,g,ratX,absY){ this.bad=b; this.good=g;
+	if(typeof ratX=="undefined"){ this.ratX=true; this.absY=true; }else{ this.ratX=ratX; this.ratY=ratY; }}
+function Triplane(low,far,high) { this.low=low; this.far=far; this.high=high; }
+function iPC2(c,G,U,R) { if(G){if(U){if(R){c.h="GUR"}else{c.h="GUr"}}else{if(R){c.h="GuR"}else{c.h="Gur"}}}
+						 else {if(U){if(R){c.h="gUR"}else{c.h="gUr"}}else{if(R){c.h="guR"}else{c.h="gur"}}}return c;}
+function iPC1(c,G,U,R) { if(G){if(U){if(R){c.h="GUR"}else{c.h="GUr"}}else{if(R){c.h="GuR"}else{c.h="Gur"}}}
+						 else {if(U){if(R){c.h="gUR"}else{c.h="gUr"}}else{if(R){c.h="guR"}else{c.h="gur"}}}return c;}
+function iPC0(c,G,U,R) { if(G){if(U){if(R){c.h="GUR"}else{c.h="GUr"}}else{if(R){c.h="GuR"}else{c.h="Gur"}}}
+						 else {if(U){if(R){c.h="gUR"}else{c.h="gUr"}}else{if(R){c.h="guR"}else{c.h="gur"}}}return c;}
+function iPC(n,G,U,R) { var ret = { n:n, G:G, U:U, R:R, r:0, g:0, b:0, h:"" };
+	n==0 ? ret = iPC0(ret,G,U,R) : n==1 ? ret = iPC1(ret,G,U,R) : ret = iPC2(ret,G,U,R); return ret; }
+function initVectorColors() { var ret=
+	{low:{	bUL:iPC(0,false,true,false),bUR:iPC(0,false,true,true),bDL:iPC(0,false,false,false),bDR:iPC(0,false,false,true),
+			gUL:iPC(0,true,true,false), gUR:iPC(0,true,true,true), gDL:iPC(0,true,false,false), gDR:iPC(0,true,false,true)},
+	far: {	bUL:iPC(1,false,true,false),bUR:iPC(1,false,true,true),bDL:iPC(1,false,false,false),bDR:iPC(1,false,false,true),
+			gUL:iPC(1,true,true,false), gUR:iPC(1,true,true,true), gDL:iPC(1,true,false,false), gDR:iPC(1,true,false,true)},
+	high:{	bUL:iPC(2,false,true,false),bUR:iPC(2,false,true,true),bDL:iPC(2,false,false,false),bDR:iPC(2,false,false,true),
+			gUL:iPC(2,true,true,false), gUR:iPC(2,true,true,true), gDL:iPC(2,true,false,false),gDR:iPC(2,true,false,true)}};
+	return ret; }
+function initMetaphysics() { var test = initSelves(initVectorColors()); //console.log(test);
+
+	//initOrigins(initSelves(initVectorColors())); console.log(test);
+
+	initColors(); initVertexPlanes(); initSelves();
+	 initDomains(); initBands(); console.log(AL.domains); initPlanes(); console.log(AL.planes); initSpace(); console.log(AL); }
 
 /*5{[1}\+!&8pS49h5&J                   X XXX
 EE5^~*^!!!_XX46L35ur   XYX XX  XXX XYX X H
