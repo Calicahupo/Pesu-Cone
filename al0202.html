@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html><head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8">
-		<title>Aldiode 197</title>
+		<title>Aldiode 202</title>
 		<style>
 
 		@font-face { font-family:'profont';
@@ -350,6 +350,12 @@ function initDomains() { new Domain(false,false);new Domain(false,true);
 
 // On olemassa vain kaksi sukupuolta, top ja bottom. Bottom ei tiedä, kumpi on kumpi ;D
 
+// Jotta, sinä voisit kasvaa, kun minä heikkenen? ;D
+
+// Hölmöjen ja onnellisten naisten maailmassa ei mitään pahaa ole, sillä ei kukaan uskaltaisi heille tehdä mitään
+
+// Some years ago a Finnish artist said if there will be no change in socioeconomy there will be war. He doesn't know much about socioeconomy as far as I can tell. There could be a change in culture that would cause a change in socioeconomy but he didn't say that because he can't make that change. This program is that change. Maybe you shouldn't give me too much since you apparently need to like me so you shouldn't envy me.
+
 /*
 H = (C == 0 ? null :
     V == r ? (g - b) / C :
@@ -363,7 +369,7 @@ H = (C == 0 ? null :
 
 
 
-
+// if I valued Ti I'd feel bad when I have to start over again. I don't so I feel good because starting over again is the easiest part.
 
 // i and e are tensor planes
 
@@ -376,48 +382,6 @@ H = (C == 0 ? null :
 
 // in effect, low far flip implies no quantification or even qualification of low quality. populations that are culturally expected to perform this flip (children) conceal the difference between those who can make use of this information and those who can't. trying to reverse the flip causes accusation of bad manners and arrogance from those who find themselves responsible of what's generally happening everywhere.
 
-function strongToWeak(o) { var ret="moi"; }
-function selfToOther(o,sex)	{ var ret; sex ? ret=swapRatAbs(o) : ret=swapSubLog(o); return ret; }
-function initOrigins(s) {
-	var m = { self:m, other:selfToOther(m)};//, weak:strongToWeak(m), weakOther:strongToWeak(selfToOther(m)) };
-	var M = { self:M, other:selfToOther(M)};//, weak:strongToWeak(M), weakOther:strongToWeak(selfToOther(M)) };
-	var f = { self:f, other:selfToOther(f)};//, weak:strongToWeak(f), weakOther:strongToWeak(selfToOther(f)) };
-	var F = { self:F, other:selfToOther(F)};//, weak:strongToWeak(F), weakOther:strongToWeak(selfToOther(F)) };
-	return { M:M, m:m, F:F, f:f }; }
-// ORIGINS
-// SELVES
-function Self(adult,male,vertexPlane) { this.adult=adult; this.male=male; this.vertexPlane=vertexPlane; }
-function initSelves(c) {
-	var M = initMasculinity(c); console.log(M); // PASSED VAR OK SO FAR
-	var m = manToBoy(M.vertexPlane);
-	var f = manToGirl(M.vertexPlane);
-	var F = manToWoman(M.vertexPlane);
-	return { M:M, m:m, F:F, f:f }; }
-function manToWoman(o)		{ var ret=flipLowFar(flipLowHigh(o,true),false); ret=new Self(true,false,ret); return ret; }
-function manToGirl(o)		{ var ret=flipLowFar(o,true); ret=new Self(false,false,ret);return ret; }
-function manToBoy(o)		{ var ret=flipLowFar(o,false);ret=new Self(false,true,ret); return ret; }
-function initMasculinity(c) {
-	var bUL=new Triplane(c.low.bUL,c.far.bUL,c.high.bUL); var gUL=new Triplane(c.low.gUL,c.far.gUL,c.high.gUL);
-	var bUR=new Triplane(c.low.bUR,c.far.bUR,c.high.bUR); var gUR=new Triplane(c.low.gUR,c.far.gUR,c.high.gUR);
-	var bDL=new Triplane(c.low.bDL,c.far.bDL,c.high.bDL); var gDL=new Triplane(c.low.gDL,c.far.gDL,c.high.gDL);
-	var bDR=new Triplane(c.low.bDR,c.far.bDR,c.high.bDR); var gDR=new Triplane(c.low.gDR,c.far.gDR,c.high.gDR);
-	var uL=new Quadrant(bUL,gUL);var uR=new Quadrant(bUR,gUR);var dL=new Quadrant(bDL,gDL);var dR=new Quadrant(bDR,gDR);
-	var ret={ uL:uL, uR:uR, dL:dL, dR:dR };	ret=new Self(true,true,ret); return ret; } 
-// SELVES
-// COLORS
-function flipLowFar(s,g) { f=flip(0,s,g); return f; }
-function flipFarHigh(s,g){ f=flip(1,s,g); return f; }
-function flipLowHigh(s,g){ f=flip(2,s,g); return f; }
-//function initFlip(n,s,g) { var ret;
-//	n==0 ? ret=[far,low,high] : n==1 ? ret=[low,high,far] : ret=[high,far,low]; return ret; }
-function flip(n,s,g) {
-	function f1(q) { var re;
-		function f2() {
-			function f3() { var rtr; n==0 ? rtr=new Triplane(q.far,q.low,q.high) : n==1 ? rtr=new Triplane(q.low,q.high,q.far) : rtr=new Triplane(q.high,q.far,q.low); return rtr; }
-			var r; var t=f3(); g ? r=new Quadrant(q.bad,t,q.U,q.R) : r=new Quadrant(t,q.good,q.U,q.R); return r; }
-		g ? re = f2(q.g,g) : re = f2(q.b,g); return re; }
-	var uL=f1(s.uL); var uR=f1(s.uR); var dL=f1(s.dL); var dR=f1(s.dR);
-	var ret={ uL:uL, uR:uR, dL:dL, dR:dR }; /*console.log(ret);*/ return ret; }
 /*function flipLowFar(s,g) {
 	function f1(a) { var re;
 		function f2() {	var r; var t=new Triplane(a.far,a.low,a.high);
@@ -437,26 +401,68 @@ function flipLowHigh(s,g) {
 			g ? r=new Quadrant(a.bad,t,a.U,a.R) : r=new Quadrant(t,a.good,a.U,a.R); return r; }
 		g ? re = f2(a.g,g) : re = f2(a.b,g);return re; } var uL=f1(s.uL);var uR=f1(s.uR);var dL=f1(s.dL);var dR=f1(s.dR);
 	var ret={ uL:uL, uR:uR, dL:dL, dR:dR }; console.log(ret);return ret;}*/
+
+function strongToWeak(o) { var ret="moi"; }
+function selfToOther(o)	{ var ret=swapSubLog(swapRatAbs(o)); return ret; }
+function initOrigins(s) {
+	var m = { self:m, other:selfToOther(m)};//, weak:strongToWeak(m), weakOther:strongToWeak(selfToOther(m)) };
+	var M = { self:M, other:selfToOther(M)};//, weak:strongToWeak(M), weakOther:strongToWeak(selfToOther(M)) };
+	var f = { self:f, other:selfToOther(f)};//, weak:strongToWeak(f), weakOther:strongToWeak(selfToOther(f)) };
+	var F = { self:F, other:selfToOther(F)};//, weak:strongToWeak(F), weakOther:strongToWeak(selfToOther(F)) };
+	return { M:M, m:m, F:F, f:f }; }
+// ORIGINS
+// SELVES
+function Self(adult,male,vertexPlane) { this.adult=adult; this.male=male; this.vertexPlane=vertexPlane; }
+function swapRatAbs(s) { console.log(s.ratX); s.ratX = !s.ratX; console.log(s.ratX); s.absY = !s.absY; }
+function swapSubLog(s) { s.subX = !s.subX; s.absY = !s.absY; }
+function initSelves(c) {
+	var M = initMasculinity(c); console.log(M);
+	var m = manToBoy(M.vertexPlane);
+	var f = manToGirl(M.vertexPlane);
+	var F = manToWoman(M.vertexPlane);
+	return { M:M, m:m, F:F, f:f }; }
+function manToWoman(o){ var r=flipLowHigh(o,true); flipLowFar(r,false);console.log(r);r=new Self(true,false,r);swapSubLog(r);  return r; }
+function manToGirl(o) { var r=flipLowFar(o,true);			 		r=new Self(false,false,r);swapSubLog(r);return r; }
+function manToBoy(o)  { var r=flipLowFar(o,false);					r=new Self(false,true,r); swapRatAbs(r);return r; }
+function initMasculinity(c) {
+	var bUL=new Triplane(c.low.bUL,c.far.bUL,c.high.bUL); var gUL=new Triplane(c.low.gUL,c.far.gUL,c.high.gUL);
+	var bUR=new Triplane(c.low.bUR,c.far.bUR,c.high.bUR); var gUR=new Triplane(c.low.gUR,c.far.gUR,c.high.gUR);
+	var bDL=new Triplane(c.low.bDL,c.far.bDL,c.high.bDL); var gDL=new Triplane(c.low.gDL,c.far.gDL,c.high.gDL);
+	var bDR=new Triplane(c.low.bDR,c.far.bDR,c.high.bDR); var gDR=new Triplane(c.low.gDR,c.far.gDR,c.high.gDR);
+	var uL=new Quadrant(bUL,gUL);var uR=new Quadrant(bUR,gUR);var dL=new Quadrant(bDL,gDL);var dR=new Quadrant(bDR,gDR);
+	var ret={ uL:uL, uR:uR, dL:dL, dR:dR };	ret=new Self(true,true,ret); return ret; }
+function flipLowFar(s,g) { f=flip(0,s,g); return f; }
+function flipFarHigh(s,g){ f=flip(1,s,g); return f; }
+function flipLowHigh(s,g){ f=flip(2,s,g); return f; }
+function flip(n,s,g) {
+	function f1(q) { var re;
+		function f2() {
+			function f3() { var rtr; n==0 ? rtr=new Triplane(q.far,q.low,q.high) : n==1 ? rtr=new Triplane(q.low,q.high,q.far) : rtr=new Triplane(q.high,q.far,q.low); return rtr; }
+			console.log(q);var r;var t=f3(); g ? r=new Quadrant(q.bad,t) : r=new Quadrant(t,q.good);return r;}
+		g ? re = f2(q.g,g) : re = f2(q.b,g); return re; }
+	var uL=f1(s.uL); var uR=f1(s.uR); var dL=f1(s.dL); var dR=f1(s.dR);
+	var ret={ uL:uL, uR:uR, dL:dL, dR:dR }; console.log(ret); return ret; }
+function initVectorColors() {
+	function f(n,G,U,R) {
+		function f2(c,G,U,R) { if(G){if(U){if(R){c.h="GUR"}else{c.h="GUr"}}else{if(R){c.h="GuR"}else{c.h="Gur"}}}
+			else {if(U){if(R){c.h="gUR"}else{c.h="gUr"}}else{if(R){c.h="guR"}else{c.h="gur"}}}return c; }
+		function f1(c,G,U,R) { if(G){if(U){if(R){c.h="GUR"}else{c.h="GUr"}}else{if(R){c.h="GuR"}else{c.h="Gur"}}}
+			else {if(U){if(R){c.h="gUR"}else{c.h="gUr"}}else{if(R){c.h="guR"}else{c.h="gur"}}}return c; }
+		function f0(c,G,U,R) { if(G){if(U){if(R){c.h="GUR"}else{c.h="GUr"}}else{if(R){c.h="GuR"}else{c.h="Gur"}}}
+			else {if(U){if(R){c.h="gUR"}else{c.h="gUr"}}else{if(R){c.h="guR"}else{c.h="gur"}}}return c; }
+		var re = { n:n, G:G, U:U, R:R, r:0, g:0, b:0, h:"" };
+		n==0 ? re = f0(re,G,U,R) : n==1 ? re = f1(re,G,U,R) : re = f2(re,G,U,R); return re; } var ret=
+	{low:{	bUL:f(0,false,true,false),bUR:f(0,false,true,true),bDL:f(0,false,false,false),bDR:f(0,false,false,true),
+			gUL:f(0,true,true,false), gUR:f(0,true,true,true), gDL:f(0,true,false,false), gDR:f(0,true,false,true)},
+	far: {	bUL:f(1,false,true,false),bUR:f(1,false,true,true),bDL:f(1,false,false,false),bDR:f(1,false,false,true),
+			gUL:f(1,true,true,false), gUR:f(1,true,true,true), gDL:f(1,true,false,false), gDR:f(1,true,false,true)},
+	high:{	bUL:f(2,false,true,false),bUR:f(2,false,true,true),bDL:f(2,false,false,false),bDR:f(2,false,false,true),
+			gUL:f(2,true,true,false), gUR:f(2,true,true,true), gDL:f(2,true,false,false),gDR:f(2,true,false,true)}};
+	return ret; }
 function Quadrant(b,g,ratX,absY){ this.bad=b; this.good=g;
 	if(typeof ratX=="undefined"){ this.ratX=true; this.absY=true; }else{ this.ratX=ratX; this.ratY=ratY; }}
 function Triplane(low,far,high) { this.low=low; this.far=far; this.high=high; }
-function iPC2(c,G,U,R) { if(G){if(U){if(R){c.h="GUR"}else{c.h="GUr"}}else{if(R){c.h="GuR"}else{c.h="Gur"}}}
-						 else {if(U){if(R){c.h="gUR"}else{c.h="gUr"}}else{if(R){c.h="guR"}else{c.h="gur"}}}return c;}
-function iPC1(c,G,U,R) { if(G){if(U){if(R){c.h="GUR"}else{c.h="GUr"}}else{if(R){c.h="GuR"}else{c.h="Gur"}}}
-						 else {if(U){if(R){c.h="gUR"}else{c.h="gUr"}}else{if(R){c.h="guR"}else{c.h="gur"}}}return c;}
-function iPC0(c,G,U,R) { if(G){if(U){if(R){c.h="GUR"}else{c.h="GUr"}}else{if(R){c.h="GuR"}else{c.h="Gur"}}}
-						 else {if(U){if(R){c.h="gUR"}else{c.h="gUr"}}else{if(R){c.h="guR"}else{c.h="gur"}}}return c;}
-function iPC(n,G,U,R) { var ret = { n:n, G:G, U:U, R:R, r:0, g:0, b:0, h:"" };
-	n==0 ? ret = iPC0(ret,G,U,R) : n==1 ? ret = iPC1(ret,G,U,R) : ret = iPC2(ret,G,U,R); return ret; }
-function initVectorColors() { var ret=
-	{low:{	bUL:iPC(0,false,true,false),bUR:iPC(0,false,true,true),bDL:iPC(0,false,false,false),bDR:iPC(0,false,false,true),
-			gUL:iPC(0,true,true,false), gUR:iPC(0,true,true,true), gDL:iPC(0,true,false,false), gDR:iPC(0,true,false,true)},
-	far: {	bUL:iPC(1,false,true,false),bUR:iPC(1,false,true,true),bDL:iPC(1,false,false,false),bDR:iPC(1,false,false,true),
-			gUL:iPC(1,true,true,false), gUR:iPC(1,true,true,true), gDL:iPC(1,true,false,false), gDR:iPC(1,true,false,true)},
-	high:{	bUL:iPC(2,false,true,false),bUR:iPC(2,false,true,true),bDL:iPC(2,false,false,false),bDR:iPC(2,false,false,true),
-			gUL:iPC(2,true,true,false), gUR:iPC(2,true,true,true), gDL:iPC(2,true,false,false),gDR:iPC(2,true,false,true)}};
-	return ret; }
-function initMetaphysics() { var test = initSelves(initVectorColors()); //console.log(test);
+function initMetaphysics() { var test = initSelves(initVectorColors()); console.log(test);
 
 	//initOrigins(initSelves(initVectorColors())); console.log(test);
 
