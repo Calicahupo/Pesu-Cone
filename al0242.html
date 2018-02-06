@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta
+	name="viewport"
+	content="width=device-width, initial-scale=1.0"
+	http-equiv="Content-Type"
+	content="text/html; charset=utf-8"/>
+<title>Aldiode 242</title><style>
+	@font-face { font-family:'profont';
+		src:url('AL_files/profontwindows-webfont.woff2') format('woff2'),
+			url('AL_files/profontwindows-webfont.woff') format('woff');
+		font-weight:normal; font-style:normal; }
+	@font-face { font-family: 'strike_fighter';
+    	src:url('AL_files/strikefighter-webfont.woff2') format('woff2'),
+    		url('AL_files/strikefighter-webfont.woff') format('woff');
+    	font-weight: normal; font-style: normal; }
+	html,body { height:100%; margin:0px; font-family:profont; font-size:13px; }
+	.topLeft { top:0px; left:0px; }	.topRight{ top:0px; right:0px;}
+	.absolute { position:absolute; } .half { width: 50%; } .left { float:left; } .right{ float:right;}
+	.cell { position:relative; color: red; }
+	.personInHeader { position: relative; float:left; margin: 0px 2px; padding: 0px 2px; background-color: rgba(0,0,0,0.1618); height: 100%; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
+	.avatarInHeader { display:inline-block; position:relative; margin: 0px 5px 0px 2px; padding: 0px 5px; top:5px; text-align:center; }
+	.gender { position:absolute; margin-left: -5px; padding-top: 4px; }
+	.genderX{ position:absolute; right:0px; }
+	.genderx{ position:absolute; left:0px; }
+	.genderY{ position:absolute; width:inherit; text-align:center; }
+	.gendery{ position:absolute; bottom:0px; width:inherit; text-align:center; }
+	.setting { float: right; }
+	.cell { font-family:strike_fighter; text-align:right; }
+	.cellValue { width:inherit; position:absolute; }
+	.cellPieces { position:absolute; font-family:profont; width:auto; }
+	.avatar { position:absolute; }
+	.avatarInTurn { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080; }
+	#wrapper { min-height:100%; background-color:black; }
+	#header { background-color:#888; width: 100%; }
+	#content { background-color:black; color:white; }
+	.contentLeft { width: 50%; }
+</style>
+<script src="AL_files/jquery-2.js"></script>
+<script src="AL_files/underscore-min.js"></script>
+<script src="AL_files/three.min.js"></script>
+<script src="AL_files/aldiode-data.js"></script>
+<script>
+// Socionics helps you figure out who is your ideal partner. Unlike all other methods for that, this one really works. Of course.
+//updates to jungian psychology:
+//problem: nobody wants to be "sensor" because people think "sensors" aren't smart
+//solution: sensor -> ryhdikäs, intuitive -> veltto
+//problem: nobody wants to be "feeling" because T and F associate to "true" and "false", causing inequality
+//solution: feeling -> ethics, thinking -> logic EVEN THOUGH IT IS FACTUALLY INCORRECT
+//result: a naming convention that differentiates model m from other jungian psychology
+//
+//infra and supra circuits should be evaluated according to when acc or prod function is valued. determining their strength should be trivial.
+//prod func should ask acc funct to act
+//
+//imaginary waves need own array in AL?
+//white glow on increased quality, black on decreased. in tables, later
+//
+// Japan's culture is delta and symbolically opposes beta but seriously resists gamma. I feel uncomfortable pointing that out but doing so might be my job.
+// The Slavs appear to have a most genuine desire to be human, which is rare among whites.
+// A woman measures her charisma according to how permitted it is for her to be like a man.
+// Could objectivity as a mindset be interpreted as activity motivated by avoidance of stress?
+// When punishing unfamiliar women, always choose multiple targets.
+// For women it holds that there's an upper limit to beneficiality of attractiveness if that is measured as proportions of face and body and attractive movements. Once one doesn't need to change own conditioning to adult conditioning because one is so attractive in comparison to one's willpower, this kind of attractivity begins precluding more forms of excellence than it facilitates. This doesn't apply to men as much because external factors of appearance that are known to indicate masculinity are less relevant for finding a devoted partner.
+// Any pleasure a woman provides to another man as herself is pure evil from the viewpoint of other women? Revise current theories considering quality and otherness
+// Some anecdotes associate homosexuality to not differentiating the Ego from the Super-Ego. Homosexuality appears to be an extreme form of diaversion, that is, an extreme form of the more unisex subtype.
+/*		Abstract:	Tangible:	Both:
+Element:Event		Thing		Issue
+Set:	Context 	Situation	Circumstance
+Both:	Abstract	Tangible	Pattern*/
+//can't have gays and pedophilia at the same time
+//some people with asperger's syndrome etc similar can be very good parents but there is a risk that nobody ever finds this out
+//i wonder why does it feel uncomfortable to brush my teeth while wearing earplugs
+var AL = {
+	//UI
+	tab:		"mosaic",		tabs:		["mosaic"],
+	demo:		false,			dev:		false,			devHeader:	false,		headerHeight: 50,
+	uri:		location,		cellHeight:	0,				cellWidth: 0,			trackingMosaic: false,
+	//UI
+	//CORE
+	domains:	[],				resolution: 4,				plane:	 	[],			planes: [[],[]],
+	bands: 		[],				scalarBands:[],				waves: 		[],			scalarWaves:[],
+	events:		[], /*ex turns*/beings:		[],				items:		[] }
+	//CORE
+
+//game in which ai may inhabit robot bodies of different gender in order to convince people to agree to mind control, later augmented control
+
+// Imaginary quality: the real value v(i) of the imaginary part i equals i in masculinity but res-i in femininity. this value is experienced by those who share an origin, to some degree.
+
+// Theology can be used to differentiate criteria for excellence but otherwise less relevant 
+
+// interpretation of childhood: a location can be quantified before it's qualified, but it doesn't need to be quantified in order to identify it even if its origin is that of the other (of the same gender)
+
+// genders quantify mediocrity similarly
+
+// sego & ego acc: want?
+// sego & ego prod: like? 
+// sid & id acc: need?
+// sid & id prod: mean?
+
+// weak blocks generate value as response to stress reduction?
+
+// SPACE
+function signZ(n) { if(n===0 && (1/n)===-Infinity) { return -1; } else { return 1; }}
+
+function nameWave(d,r,c) { if(!(d.g && !d.o)) { c = normaliseWave(d,r,c); }	c.X=Math.abs(c.X)-1; c.Y=Math.abs(c.Y)-1;
+	var names; if(r == 3) { if(c.X != 0 && c.Y != 0) { if(c.X < 0 && c.Y < 0) { names = [
+	["belief",	"like",		"motive",	"peace"],
+	["worry",	"love",		"style",	"can"],
+	["detach",	"burden",	"happy",	"fun"],
+	["dysphoria","defeat",	"fake",		"euphoria"]]; } else if(c.X < 0 && c.Y > 0) { names = [
+	["norm",	"want",		"identity",	"innocence"],
+	["greed",	"culture",	"join",		"could"],
+	["hate",	"awkward",	"freedom",	"event"],
+	["destroy",	"confusion","boredom",	"beauty"]]; } else if(c.X > 0 && c.Y < 0) { names = [
+	["body",	"need",		"tool",		"method"],
+	["pain",	"life",		"order",	"should"],
+	["shame",	"problem",	"social",	"right"],
+	["failure",	"loss",		"wrong",	"success"]]; } else if(c.X > 0 && c.Y > 0) { names = [
+	["form",	"meaning",	"kind",		"reason"],
+	["exclude",	"purpose",	"use",		"would"],
+	["impose",	"reject",	"metalevel","learn"],
+	["madness",	"deceive",	"forget",	"wisdom"]]; } return names[c.Y][c.X];}}
+	else if(!(c.X==0 && c.Y==0)) { var m = Math.max(c.X,c.Y); if(c.X<0){ names = [
+	"typical feeling",  "stereotypical feeling",  "special feeling",  "ideal feeling"  ];} else if(c.Y<0) { names = [
+	"typical sensation","stereotypical sensation","special sensation","ideal sensation"];} else if(c.X>0) { names = [
+	"typical thinking", "stereotypical thinking", "special thinking", "ideal thinking" ];} else if(c.Y>0) { names = [
+	"typical intuition","stereotypical intuition","special intuition","ideal intuition"];} return names[m]; } else {
+	if(!d.gender && !d.other) { return "feminine self"; } else if(d.gender && !d.other) { return "masculine self"; }
+	else if(d.gender && d.other) { return "masculine other"; } else if(!d.gender && d.other) { return "feminine other"; }}}
+
+// SPACE
+// PLANE
+
+// PLANE
+// X is frequency, Y is amplitude, V or value is volume, locations are waves
+// origins can overflow. one can adjust amplitude of origins in general, affecting all vectors of that origin
+// WAVE
+
+// WAVE
+// substitute normalisation by rat / abs?
+// metaevil = man behaves like a woman when only men can notice. this conditioning is probably difficult to sustain. only a robot can do it. ability to conduct and sustain metaevil is especially effective for weakening F type buddhas
+// BAND
+// qualify gender first, then otherness (in truth tables, like in colors already)
+// "waveforms" are waveforms and in final application there should also be a "signal".
+// BAND 
+// interpreting intuition Ni, manifesting intuition Ne
+// COLOR
+// #aeff00 neon green blend for bad imaginary quality, #ffd000 for good? or blend to white or black?
+
+// COLOR
+// DOMAIN
+// if x==y then 0 value is possible
+// scalar bands should be domain independent and gender dependent
+// in imaginary quality M.far should be M.high, or at least this is some kind of perfectionism. In place of M.high there could already be negative imaginary quality.
+
+// On olemassa vain kaksi sukupuolta, top ja bottom. Bottom ei tiedä, kumpi on kumpi ;D
+
+// Jotta, sinä voisit kasvaa, kun minä heikkenen? ;D
+
+// Hölmöjen ja onnellisten naisten maailmassa ei mitään pahaa ole, sillä ei kukaan uskaltaisi heille tehdä mitään
+
+// Some years ago a Finnish artist said if there will be no change in socioeconomy there will be war. He doesn't know much about socioeconomy as far as I can tell. There could be a change in culture that would cause a change in socioeconomy but he didn't say that because he can't make that change. This program is that change. Maybe you shouldn't give me too much since you apparently need to like me so you shouldn't envy me.
+
+// if I valued Ti I'd feel bad when I have to start programming the core over again. I don't so I feel good because starting over again is the easiest part.
+
+// i and e are tensor planes
+
+// super ego quantifies according to a high low swap for bad. all weak functions do?
+// mental ring can value only two IE simultaneously, vital ring doesn't work in a binary manner like that
+
+//child conditioning is similar to Id conditioning. check this later
+
+// in effect, low far flip implies no quantification or even qualification of low quality. populations that are culturally expected to perform this flip (children) conceal the difference between those who can make use of this information and those who can't. trying to reverse the flip aggravates those who find themselves responsible of what's generally happening everywhere. they may accuse those who reverse that flip of arrogance or bad manners.
+
+/* We could call counting from zero "original numbers" and counting from one "tangible numbers".
+INTU|RATI
+----N----
+NATU|NEGA
+*/
+
+/*
+
+INFp appearance: 1001, content: 0110 INTp;
+ISTp appearance: 1111, content: 0000 INTp; ENTp appearance: 1111, content: 1001 ESTp;
+	so the relation is named right in terms of how it appears to outsiders, but not what it feels like
+INTj appearance: 0110, content: 1111 INTp;
+ENTp appearance: 0000, content: 1001 INTp;
+
+ESTp app: 0000 INFp; "they seem like they don't even like each other"
+ESFp app: 1001 INTp;
+ISTp app: 0110 ENFp;
+ENTp app: 1111 ISFp; "they don't seem to like anything else than each other"
+
+*/
+
+// Te is about language. Speaking inside your mind without uttering words others can hear can count as Te. Ti includes the kind of thinking Einstein called "faster than language".
+// Ni is about language and Ne isn't so much about that.
+// The word "but" often occurs at the apex/peak of a triangle wave.
+
+function strongToWeak(o) { var ret="moi"; }
+function selfToOther(o)	{ var ret=swapSubLog(swapRatAbs(o)); return ret; }
+function initOrigins(s) {
+	var m = { self:m, other:selfToOther(m)};//, weak:strongToWeak(m), weakOther:strongToWeak(selfToOther(m)) };
+	var M = { self:M, other:selfToOther(M)};//, weak:strongToWeak(M), weakOther:strongToWeak(selfToOther(M)) };
+	var f = { self:f, other:selfToOther(f)};//, weak:strongToWeak(f), weakOther:strongToWeak(selfToOther(f)) };
+	var F = { self:F, other:selfToOther(F)};//, weak:strongToWeak(F), weakOther:strongToWeak(selfToOther(F)) };
+	return { M:M, m:m, F:F, f:f }; }
+// ORIGINS
+// SELVES
+function Self(adult,male,vertexPlane) { this.adult=adult; this.male=male; this.vertexPlane=vertexPlane;
+	function Projection() { 
+		this.sX=false; this.sY=false; this.cX=false; this.cY=true;
+		this.oX=true;  this.oY=false; this.lX=true;  this.lY=true; }
+	var s = new Projection(); this.signs=s;	var s = signAxes(s); this.scalarSigns=s; }
+function Quadrant(b,g){ this.bad=b; this.good=g; }
+function Triplane(low,far,high) { // too simplistic. to do: diagonal, proximal, axial
+	typeof low == "undefined" ? this.low="...." : this.low=low;
+	typeof far == "undefined" ? this.far="...." : this.far=far;
+	typeof high== "undefined" ? this.high="...." :this.high=high; }
+function signAxes(s){
+	function signAx(x1,y1,x2,y2) { var ret={X:undefined,Y:undefined}; x1 == x2 ? ret.X = x1 : ret.Y = y1; return ret; }
+	var F=signAx(s.sX,s.sY,s.cX,s.cY); var S=signAx(s.sX,s.sY,s.oX,s.oY);
+	var T=signAx(s.oX,s.oY,s.lX,s.lY); var N=signAx(s.cX,s.cY,s.lX,s.lY); return {F:F,S:S,T:T,N:N}; }
+
+
+
+function initManMoods(plane) { var ret=createMoods(plane);
+	ret.weak.fight = 	flipLowHigh(ret.weak.fight,false);
+	ret.weak.flight =	flipLowFar(ret.weak.fight,false);
+	ret.strong.hostile= flipFarHigh(ret.strong.hostile,true);
+	ret.strong.fight =	flipLowHigh(ret.strong.hostile,false);
+	ret.strong.flight = flipLowFar(ret.strong.fight,false);	return ret;}
+function createMoods(plane){
+	var weakFlight =	copyVertexPlane(plane);	var weakFight =		copyVertexPlane(plane);
+	var strongFriendly= copyVertexPlane(plane);	var strongHostile = copyVertexPlane(plane);
+	var strongFlight =	copyVertexPlane(plane); var strongFight =	copyVertexPlane(plane);
+	var ret={weak:{ flight:weakFlight,		fight:weakFight },
+		strong: { friendly:strongFriendly,	hostile:strongHostile,
+					flight:strongFlight,	fight:strongFight }}; return ret;}
+function initPrimalMoods(selves) {
+	selves.M.primalMoods = initManMoods(selves.M.vertexPlane);
+	selves.m.primalMoods = initBoyMoods(selves.m.vertexPlane);
+	selves.f.primalMoods = initGirlMoods(selves.f.vertexPlane);
+	selves.F.primalMoods = initWomanMoods(selves.F.vertexPlane); return selves; }
+function swapSubLog(plane) { var ret=copyVertexPlane(plane); ret.uR=plane.dL; ret.dL=plane.uR; return ret; }
+function initSelves(c) {
+	var M = initMasculinity(c);
+	var m = manToBoy(M.vertexPlane);
+	var f = manToGirl(M.vertexPlane);
+	var F = manToWoman(M.vertexPlane);
+	return { M:M, m:m, F:F, f:f }; }
+function manToWoman(plane){	var ret=swapSubLog(flipLowFar(flipLowHigh(plane,true),false));
+	ret=new Self(true,false,ret); return ret; }
+function manToGirl(plane) {	var ret=swapSubLog(flipLowFar(plane,true));
+	ret=new Self(false,false,ret);return ret; }
+function manToBoy(plane)  {	var ret=flipLowFar(plane,false);
+	ret=new Self(false,true,ret); return ret; }
+function initMasculinity(c) {
+	var bUL=new Triplane(c.low.bUL,c.far.bUL,c.high.bUL); var gUL=new Triplane(c.low.gUL,c.far.gUL,c.high.gUL);
+	var bUR=new Triplane(c.low.bUR,c.far.bUR,c.high.bUR); var gUR=new Triplane(c.low.gUR,c.far.gUR,c.high.gUR);
+	var bDL=new Triplane(c.low.bDL,c.far.bDL,c.high.bDL); var gDL=new Triplane(c.low.gDL,c.far.gDL,c.high.gDL);
+	var bDR=new Triplane(c.low.bDR,c.far.bDR,c.high.bDR); var gDR=new Triplane(c.low.gDR,c.far.gDR,c.high.gDR);
+	var uL=new Quadrant(bUL,gUL);var uR=new Quadrant(bUR,gUR);var dL=new Quadrant(bDL,gDL);var dR=new Quadrant(bDR,gDR);
+	var ret={ uL:uL, uR:uR, dL:dL, dR:dR };	ret=new Self(true,true,ret); return ret; }
+function copyVertexPlane(plane) { var ret={ uL:plane.uL, uR:plane.uR, dL:plane.dL, dR:plane.dR }; return ret; }
+function flipLowFar(plane,good) { var ret=copyVertexPlane(plane); flip(0,ret,good); return ret; }
+function flipFarHigh(plane,good){ var ret=copyVertexPlane(plane); flip(1,ret,good); return ret; }
+function flipLowHigh(plane,good){ var ret=copyVertexPlane(plane); flip(2,ret,good); return ret; }
+function flip(n,plane,good) {
+	function f(q) { var re = { bad:null, good:null };
+		if(n==0) {
+			if(good) {
+				re.bad = new Triplane(q.bad.low, q.bad.far, q.bad.high );
+				re.good= new Triplane(q.good.far,q.good.low,q.good.high); }
+			else {
+				re.bad = new Triplane(q.bad.far, q.bad.low, q.bad.high );
+				re.good= new Triplane(q.good.low,q.good.far,q.good.high); }}
+		else if(n==1) {
+			if(good) {
+				re.bad = new Triplane(q.bad.low, q.bad.far, q.bad.high );
+				re.good= new Triplane(q.good.low,q.good.high,q.good.far); }
+			else {
+				re.bad = new Triplane(q.bad.low, q.bad.high, q.bad.far );
+				re.good= new Triplane(q.good.low,q.good.far,q.good.high); }}
+		else {
+			if(good) {
+				re.bad = new Triplane(q.bad.low, q.bad.far, q.bad.high );
+				re.good= new Triplane(q.good.high,q.good.far,q.good.low); }
+			else {
+				re.bad = new Triplane(q.bad.high, q.bad.far, q.bad.low );
+				re.good= new Triplane(q.good.low,q.good.far,q.good.high); }}
+		re = new Quadrant(re.bad, re.good); return re; }
+	plane.uL=f(plane.uL); plane.uR=f(plane.uR); plane.dL=f(plane.dL); plane.dR=f(plane.dR); }
+function initVectorColors() {
+	function f(n,G,U,R) { var re = { n:n, G:G, U:U, R:R, r:0, g:0, b:0, h:"" };
+		function f2 (c,G,U,R) { G ? U ? R ? c.h="#ff7700" : c.h="#fffe00" : R ? c.h="#ff0000" : c.h="#ff00bf" :
+									U ? R ? c.h="#0043ff" : c.h="#8900fe" : R ? c.h="#00ffff" : c.h="#2eff62" ; return c; }
+		function f1 (c,G,U,R) { G ? U ? R ? c.h="#462300" : c.h="#424100" : R ? c.h="#443233" : c.h="#543e4d" :
+									U ? R ? c.h="#00257F" : c.h="#48007E" : R ? c.h="#1C8080" : c.h="#1C8035" ; return c; }
+		function f0 (c,G,U,R) { G ? U ? R ? c.h="#FFDDBC" : c.h="#FFFEBC" : R ? c.h="#FFBBBD" : c.h="#FFBBD5" :
+									U ? R ? c.h="#B9CDFF" : c.h="#C87CFF" : R ? c.h="#BAFFFF" : c.h="#BAFFCC" ; return c; }
+		n==0 ? re = f0(re,G,U,R) : n==1 ? re = f1(re,G,U,R) : re = f2(re,G,U,R); return re; } var ret=
+	{low:{	bUL:f(0,false,true,false),bUR:f(0,false,true,true),bDL:f(0,false,false,false),bDR:f(0,false,false,true),
+			gUL:f(0,true,true,false), gUR:f(0,true,true,true), gDL:f(0,true,false,false), gDR:f(0,true,false,true)},
+	far: {	bUL:f(1,false,true,false),bUR:f(1,false,true,true),bDL:f(1,false,false,false),bDR:f(1,false,false,true),
+			gUL:f(1,true,true,false), gUR:f(1,true,true,true), gDL:f(1,true,false,false), gDR:f(1,true,false,true)},
+	high:{	bUL:f(2,false,true,false),bUR:f(2,false,true,true),bDL:f(2,false,false,false),bDR:f(2,false,false,true),
+			gUL:f(2,true,true,false), gUR:f(2,true,true,true), gDL:f(2,true,false,false),gDR:f(2,true,false,true)}};
+	return ret; }
+function initMetaphysics() { var test = initSelves(initVectorColors()); draw(test); drawSVG();
+
+	//initOrigins(initSelves(initVectorColors())); console.log(test);
+
+	initColors(); initVertexPlanes(); initSelves();
+	 initDomains(); initBands(); console.log(AL.domains); initPlanes(); console.log(AL.planes); initSpace(); console.log(AL); }
+
+function draw(t) { console.log(t); var c = document.getElementById("content"); var h="";
+	function d(label,p) {
+		function f(v) { if(typeof v == "undefined") { h+="...."; } else {var z = "<span style='background-color:"+v+";'>&nbsp;&nbsp;&nbsp;</span>"; h+=z; }}
+		h += "<br />&nbsp;&nbsp;&nbsp;"; h+= label; h+="<br />&nbsp;&nbsp;&nbsp;";
+		f(p.uL.good.high.h);f(p.uL.bad.far.h); f(p.uL.bad.high.h); h+=" X ";
+		f(p.uR.bad.high.h); f(p.uR.bad.far.h); f(p.uR.good.high.h);h+="<br />&nbsp;&nbsp;&nbsp;";
+		f(p.uL.good.far.h); f(p.uL.good.low.h);f(p.uL.bad.low.h);  h+=" X ";
+		f(p.uR.bad.low.h);  f(p.uR.good.low.h);f(p.uR.good.far.h); h+="<br />&nbsp;&nbsp;&nbsp;";
+		f(p.dL.good.far.h); f(p.dL.good.low.h);f(p.dL.bad.low.h);  h+=" X ";
+		f(p.dR.bad.low.h);  f(p.dR.good.low.h);f(p.dR.good.far.h); h+="<br />&nbsp;&nbsp;&nbsp;";
+		f(p.dL.good.high.h);f(p.dL.bad.far.h); f(p.dL.bad.high.h); h+=" X ";
+		f(p.dR.bad.high.h); f(p.dR.bad.far.h); f(p.dR.good.high.h);h+="<br />&nbsp;&nbsp;&nbsp;"; }
+	d("Man",t.M.vertexPlane);
+	d("Boy",t.m.vertexPlane);
+	d("Girl",t.f.vertexPlane);
+	d("Woman",t.F.vertexPlane);
+	c.innerHTML=h; }
+
+/*5{[1}\+!&8pS49h5&J                   X XXX
+EE5^~*^!!!_XX46L35ur   XYX XX  XXX XYX X H
+EBEVrr^\/\-JS4h&vovr    X   XX  X   X  XDQNX
+EEQ}r>+*\;^4493ontjj    X   X X X   X   /T\X
+QQHKj;^+;|x&5oTujjj}    X   X  XX   X  XXX|X
+J5u53r^^\+/\cjj>>"\;    X   X   X   X   | |
+j52xLJl}|\"}}{".` !^   XXX XXX XXX XXX  XXX
+JT5555nr[r?1>[?{+;*/
+function init() { initMetaphysics(); initUI(); displayTab(AL.tab); }
+
+function initUI() { initTabs(); initControls(); }
+function initControls() { window.addEventListener("resize", AL.tab.funcs.init, true); }
+function initTabs() { for(var i = 0; i < AL.tabs.length; i++) { AL.tabs[i] = initTab(AL.tabs[i]); }}
+function initTab(handle) { var label; var parameters; var demo; var code; var dev; var funcs;
+	if(handle == "mosaic") { label = "Mosaic";
+		parameters = { stereo: false,
+			displayLeft: { xDim:"X", yDim:"Y", domain:{other:false,version:false,gender:false}, cellWidth:0, cellHeight:0,
+				xRes:AL.xRes, yRes:AL.yRes, xPos:AL.xRes/2, yPos:AL.yRes/2 },
+			displayRight:{ xDim:"Z", yDim:"Y", domain:{other:false,version:false,gender:false}, cellWidth:0, cellHeight:0,
+				xRes:AL.xRes, yRes:AL.yRes, xPos:AL.xRes/2, yPos:AL.yRes/2 }};
+		demo = [""];
+		code = ["<svg id='mosaic' style='width:100%;height:100%;'></svg>"];
+		dev  = [""];
+		funcs = {
+			init : function() { var t = AL.tab.parameters; createTabHTML(AL.tab);
+				var windowWidth = window.innerWidth; var windowHeight = window.innerHeight;
+				initMosaicDisplay(t,windowWidth,windowHeight);	initMosaicCanvases(t); },
+			refresh : function() { var t = AL.tab.parameters;
+				lookAtMosaic(t);
+				refreshMosaicCanvas(t.displayLeft,"leftCanvas");
+				refreshMosaicDOM(t.displayLeft,"leftPanelFront");
+				if(t.stereo) {
+					refreshMosaicCanvas(t.displayRight,"rightCanvas");
+					refreshMosaicDOM(t.displayRight,"rightPanelFront"); }}}}
+	var ret = new Tab(handle,parameters,label,demo,code,dev,funcs); return ret; }
+function Tab(handle,parameters,label,demo,code,dev,funcs) { this.active = false; this.handle = handle; this.parameters = parameters; this.label = label; this.demo = demo; this.code = code; this.dev = dev; this.funcs = funcs; }
+function getTabByHandle(handle) {
+	for(var i = 0; i < AL.tabs.length; i++) { if(handle == AL.tabs[i].handle) { return AL.tabs[i]; }}}
+function displayTab(handle) { AL.tab = getTabByHandle(handle); AL.tab.funcs.init(); }
+function createTabHTML(tab) { var div = document.getElementById("content");
+	for(var i = 0; i < Math.max(tab.demo.length,tab.code.length,tab.dev.length); i++) {
+		if(typeof tab.demo[i] == "string") { div.innerHTML += tab.demo[i]; }
+		if(typeof tab.code[i] == "string") { div.innerHTML += tab.code[i]; }
+		if(typeof tab.dev[i] == "string") { div.innerHTML += tab.dev[i]; }}}
+// TAB
+// SVG TEST
+function drawSVG() {}
+/*<svg width="100" height="100">
+  <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+</svg>*/
+//SVG TEST
+// MOSAIC
+function lookAtMosaic(t) { AL.mosaics = findMosaics(t); AL.tab.funcs.refresh(); }
+function findMosaic(t) { var mosaicX = t.xPos-(AL.xRes/2); var mosaicY = t.yPos-(AL.yRes/2); var buffer = []; var ret = [];
+	if(!t.version) { var p = AL.planes[0]; } else { var p = AL.planes[1]; }
+	while(mosaicX < 0) { mosaicX += AL.xRes; } while(mosaicX >= AL.xRes) { mosaicX -= AL.xRes; }
+	while(mosaicY < 0) { mosaicY += AL.yRes; } while(mosaicY >= AL.yRes) { mosaicY -= AL.yRes; }
+	for(var x = mosaicX; x < mosaicX+t.xRes; x++) {
+		for(var y = mosaicY; y < mosaicY+t.yRes; y++) {
+			if(x < p[0].length) { if(y < p.length) { buffer.push(p[x][y]); } else { buffer.push(p[x][y-AL.yRes]); }}
+			else if(y < p.length) { buffer.push(p[x-AL.xRes][y]); } else { buffer.push(p[x-AL.xRes][y-AL.yRes]); }}
+		ret.push(buffer); } return ret; }
+function findMosaics(t) { t.displayLeft.mosaicData = findMosaic(t.displayLeft);
+	if(t.stereo) { t.displayRight.mosaicData = findMosaic(t.displayRight);}}
+function initMosaicDisplay(t,windowWidth,windowHeight) {
+	t.displayLeft.cellWidth = Math.floor(windowWidth / t.displayLeft.xRes);
+	if(t.stereo) { t.displayLeft.cellwidth = Math.floor(t.displayLeft.cellWidth / 2);
+		t.displayRight.cellWidth=Math.floor((windowWidth / t.displayRight.xRes) / 2);}			
+	if(AL.demo) { t.displayLeft.cellHeight = Math.floor(windowHeight / t.displayLeft.yRes); }
+	else if(!AL.devHeader) { t.displayLeft.cellHeight = Math.floor(windowHeight / t.displayLeft.yRes + 1); }
+	else { t.displayLeft.cellHeight = Math.floor((innerHeight-AL.headerHeight) / t.displayLeft.yRes); }
+	if(t.stereo) { if(AL.demo) { t.displayRight.cellHeight = Math.floor(windowHeight / t.displayRight.yRes); }
+		else if(!AL.devHeader) { t.displayRight.cellHeight = Math.floor(windowHeight / t.displayRight.yRes + 1); }
+		else { t.displayRight.cellHeight = Math.floor((innerHeight-AL.headerHeight) / t.displayRight.yRes); }}}
+function initMosaicCanvases(t) { var rightBack;
+	createMosaicCanvas(t.displayLeft,"left"); if(t.stereo) { createMosaicCanvas(t.displayRight,"right"); }
+	else { rightBack = document.getElementById("rightPanelBack"); rightBack.style.display = "none"; }}
+function createMosaicCanvas(t,id) { var div = document.getElementById(id + "PanelBack");
+	var c = document.createElement("canvas"); c.id = id + "Canvas";
+	c.width = t.cellWidth * t.xRes; c.height = t.cellHeight * t.yRes; div.appendChild(c); }
+function refreshMosaicDOM(t,id) { var div = document.getElementById(id + "PanelFront");	var buffer = "";
+	for(var x = 0; x < t.xRes; x++) { for(var y = 0; y < t.yRes; y++) { buffer +=
+		"<div class='cell "+id+"' id='cell"+x+"-"+y+"' style='width:"+t.cellWidth+"px;height:"+t.cellHeight+"px'>\
+			<div class='absolute topLeft cellBack'>" + x + "</div>\
+			<div class='absolute topRight cellFront'>&nbsp;" + y + "</div>\
+		</div>"; } buffer += "<br />"; } console.log(buffer); div.innerHTML = buffer; }
+function refreshMosaicCanvas(t,id) { var canvas = document.getElementById(id);
+	var c = canvas.getContext("2d",{alpha:false}); if(!t.version) {var p = AL.planes[0];} else {var p = AL.planes[1];}
+	for(var y = 0; y < t.yRes; y++) { for(var x = 0; x < t.yRes; x++) {
+		c.fillStyle = p[x][y].colorHex;	c.fillRect(x*t.cellWidth, y*cellHeight, t.cellWidth, t.cellHeight);	}}}
+// MOSAIC
+// Jesus was valued for showing poor people an example on how to behave like kings. But do kings behave well? And what about women?
+// I have been told that there can't be an enemy of Islam that shall destroy Islam. But I haven't been told there can't be a friend or lover of Islam that shall metaphorically destroy Islam in certain places or contexts despite the fact that the numerous merits of Islam are obvious. If that entity should have a name then I'd consider calling that "Anti-Mahdi".
+// WHAT IS GOD
+// Why is this word in most languages "even though most people don't need it"?
+// Why do most people understand what this means "even though most people don't believe in it?"
+// Do people of current times think people of the old times gone understood God any better than they themselves do?
+// Or did the people of the gone times merely believe in God?
+</script></head><body onload="init();"><div id="wrapper"><div id="header"></div><div id="content">
+</div></div></body></html>
