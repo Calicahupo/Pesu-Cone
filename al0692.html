@@ -1,0 +1,686 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"
+	http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>Aldiode 692</title><style>
+	@font-face { font-family:'profont';
+		src:url('AL_files/profontwindows-webfont.woff2') format('woff2'),
+			url('AL_files/profontwindows-webfont.woff') format('woff');	font-weight:normal; font-style:normal; }
+	@font-face { font-family: 'strike_fighter';
+    	src:url('AL_files/strikefighter-webfont.woff2') format('woff2'),
+    		url('AL_files/strikefighter-webfont.woff') format('woff'); font-weight: normal; font-style: normal; }
+	html,body { height:100%; margin:0px; font-family:profont; font-size:13px; background-color:black; color:white; }
+	#wrapper{ min-height:100%; background-color:black; }
+	#sidebar{ position:fixed; min-height:100%; right:0px; background-color:#222222; padding:0; top:-3px;  }
+		.sidebar-option{ padding-left:16px; padding-right:11px; height: 14px; padding-top: 6px; color:white; }
+	.divrow { width:100%; }	.rowblock { float:left; }
+	#uL{float:left;}
+	#uR{float:left;}
+
+	.topLeft { top:0px; left:0px; }	.topRight{ top:0px; right:0px;}
+	.absolute { position:absolute; } .half { width: 50%; } .left { float:left; } .right{ float:right;}
+	.cell { position:relative; color: red; }
+	.personInHeader { position: relative; float:left; margin: 0px 2px; padding: 0px 2px; background-color: rgba(0,0,0,0.1618); height: 100%; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
+	.avatarInHeader { display:inline-block; position:relative; margin: 0px 5px 0px 2px; padding: 0px 5px; top:5px; text-align:center; }
+	.cell { font-family:strike_fighter; text-align:right; }
+	.avatarInTurn { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 20px #ff0080, 0 0 30px #ff0080, 0 0 40px #ff0080, 0 0 55px #ff0080, 0 0 75px #ff0080; }
+	#header { background-color:#888; width: 100%; }
+	#content { background-color:black; color:white; }
+	.contentLeft { width: 50%; }
+</style>
+<script src="AL_files/jquery-2.js"></script>
+<script src="AL_files/underscore-min.js"></script>
+<script src="AL_files/three.min.js"></script>
+<script src="AL_files/aldiode-data.js"></script>
+<script>
+var svg   = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+var svgNS = svg.namespaceURI;
+var AL = {
+	//CORE
+	beings: null, 				mas: null,					fem: null,					devBuffer: [],
+	resolution:	 8,				mosaic:		"XY",			mosaics: 	["XY","XZ","YZ"],
+	//ENGINE
+	T:0, 						time:0,				 		defaultTime: 6516,
+	//UI
+	tab:		"mosaic",		tabs:		["beings","mosaic","parser"],
+	prevTab: false,
+	fontSize: 	13,
+	devHeader:	false,			headerHeight:50,
+	sidebar: 	true,			sidebarSVG:true, 			sidebarWidth: 	66,
+	sidebarTabHei: 20,			sidebarTabPadL: 16,			sidebarTabPadT: 6,
+	mosaicDisplays: { mono:null, uL:null, uR:null, dL:null, dR:null },
+	uri:		location,
+	trackingMosaic: false }
+
+// ENTITIES
+function initEntities() {}
+
+//fill','#DDB300'):barTab.setAttribute('fill','#95B300');
+
+// MULTIPOLAR SPACE
+/*
+function colorSpace(mosaic,zSign,space,hoc,R,r) {
+	for(var z=0;z<R;z++) {
+		for(var y=0; y<r; y++) {
+			for(var x=0; x<r; x++) {
+
+			}
+		}
+	}
+}
+function createHoctantMatrix(R,hoc) { var m=makeNullSpace(R,R,R);
+	for(var z=0; z < R; z++) {
+		for(var y=0; y < R; y++) {
+			for(var x=0; x < R; x++) {
+
+			}
+		}
+	}}
+
+
+
+function blendHoctant(hoc) { var rt = { oa:null,od:null,oD:null,aD:null,dD:null};
+	rt.oa = blendColors(R, hoc.prox, hoc.axia);	rt.od = blendColors(R, hoc.prox, hoc.diag);
+	rt.oD = blendColors(R, hoc.prox, hoc.daxi);	rt.aD = blendColors(R, hoc.axia, hoc.daxi);
+	rt.dD = blendColors(R, hoc.diag, hoc.daxi); return rt }
+function Hoctant(prox, axia, diag, daxi) { this.prox = prox; this.axia = axia; this.diag = diag; this.daxi = daxi; }
+function makeNullSpace(X,Y,Z){var r=[];var buf=null;for(var z=0;z<Z;z++){buf=makeNullMatrix(X,Y);r.push(buf)}return r}
+function initSpace(mosaic,R,beings) { var r = 2 * (1 + (2*R)); var negZ=makeNullSpace(r,r,R); var posZ=makeNullSpace(r,r,R);
+	var colz = new Hoctant(hToRgb("#ffffff"),hToRgb("#888888"),hToRgb("#95B300"),hToRgb("#DDB300"));
+	var colZ = new Hoctant(hToRgb("#ffffff"),hToRgb("#888888"),hToRgb("#1e00b3"),hToRgb("#0029dd"));
+	var blez = blendHoctant(R,colz);
+	var bleZ = blendHoctant(R,colZ);
+	var hocz = createHoctantMatrix(R,colz);
+	var hocZ = createHoctantMatrix(R,colZ);
+	var quaz = createQuadrantMatrix(R,hocz);
+	var quaZ = createQuadrantMatrix(R,hocZ);
+	colorSpace(mosaic,false,negZ,colz,R,r);
+	colorSpace(mosaic,true,posZ,colZ,R,r);
+	console.log(negZ);
+	console.log(posZ);
+	}*/
+
+
+//function initSpace(mosaic,R,beings) { 
+//	var bCol { uL:}}
+
+
+/*function initOctant(R,q) { var b = new Hoctant(R, q.bad.proximal, "#888888",  )}
+function biBlend(c1,c2) { var rt = blendColors(3,c1,c2)[1]; return rt }
+function quadBlend(hoc,R,X,Y) { var rt = biBlend( biBlend( pa[X], pn[Y] ), biBlend( nd[X], ad[Y] )); return rt }
+function makeHoctantPlane(R,hoc) { var m = makeNullMatrix(R,R);	for(var y = 0; y < R; y++) { for(var x = 0; x < R; x++) {
+	m[y][x] = quadBlend(hoc,R,x,y); }} return m }
+function Hoctant(R,prox,axia,norm,diag) { var rt = { pa:null,pn:null,ad:null,nd:null,m:null};
+	rt.pa = blendColors(R, prox, axia);	rt.pn = blendColors(R, prox, norm);
+	rt.ad = blendColors(R, axia, diag);	rt.nd = blendColors(R, norm, diag);
+	rt.m = makeHoctantPlane(R,rt); }*/
+
+
+function beingToMosaic(b,R){ var vp=b.vertexPlane;
+	function display(v,r) {if(typeof r=="undefined"){ sketchMosaic(v,"uL",R,(R*2)+1) }
+						else if(r==1) {sketchMosaic(v,"uL",1,(R*2)+1)}
+						else if(r==3) {sketchMosaic(v,"uL",(R*2)+1,(R*2)+1); }}
+	function punctuate(n) {sketchMosaic(mp.uL,"uL",n,n); }
+	var mp={uL:null,u:null,uR:null,l:null,o:null,r:null,dL:null,d:null,dR:null,plane:null};
+	mp.uL=colorQuadrant(vp.uL,R,b,"uL");	mp.u=colorAxis(vp.u,R);		mp.uR=colorQuadrant(vp.uR,R,b,"uR");
+	mp.l =colorAxis(vp.l,R); 				mp.o=vp.origin;				mp.r =colorAxis(vp.r,R);
+	mp.dL=colorQuadrant(vp.dL,R,b,"dL");	mp.d=colorAxis(vp.d,R);		mp.dR=colorQuadrant(vp.dR,R,b,"dR");
+	var top		= interleaveQuadrants( R, mp.uL, mp.u, mp.uR );	var bottom  = interleaveQuadrants( R, mp.dL, mp.d, mp.dR );
+	var middle  = mp.l.concat(mp.o).concat(mp.r);				var plane = colorDomain(R, top, bottom, middle);
+	mp.plane=plane; return mp }
+function Mosaic(uL,uR,dL,dR,R) { if(typeof R=="undefined") {R=AL.resolution}var sign=[[uL.sign,uR.sign],[dL.sign,dR.sign]];	uL.mosaic=beingToMosaic(uL,R);uR.mosaic=beingToMosaic(uR,R);dL.mosaic=beingToMosaic(dL,R);dR.mosaic=beingToMosaic(dR,R);
+	var p=createMosaic(uL.mosaic.plane, uR.mosaic.plane, dL.mosaic.plane, dR.mosaic.plane, R);
+	this.plane=p; this.uL=uL;this.uR=uR;this.dL=dL;this.dR=dR; this.sign=sign; }
+function createMosaic(uL,uR,dL,dR,R) { function display() { sketchMosaic(ret,"uL",2*((2*R)+1)) }
+	var U = interleaveDomains(R,uL,uR); var D = interleaveDomains(R,dL,dR);	var ret = U.concat(D); return ret }
+function interleaveDomains(R,lM,rM) { var r = (2*R)+1; var X = 2*r; var Y = r; var m = makeNullMatrix(X,Y);
+	function display() { sketchMosaic(m,"uL",r,X) }
+	for(var y=0; y<Y; y++){	for(var x=0; x<X; x++) { if(x<r) { m[y][x] = lM[y][x] }
+													 else 	 { m[y][x] = rM[y][x-r] }}} return m }
+function paintQuadrant(R,off,g,b) {	function display() { sketchMosaic(q,"uL",R); }
+	function combine(x,y) { 
+		if(g[y][x]==null) {	if(off) { if(y<R) { q[y][x]=b[y-1][x] }} else { q[y][x]=b[y][x] }} else { q[y][x]=g[y][x] }}
+	var q = makeNullMatrix(R,R); for(var y = 0; y < R; y++) { for(var x = 0; x < R; x++) { combine(x,y) }}  return q }
+function offsetRight(matrix,n){	for(var i = 0; i < n; i++) { for(var j = n-1; j >= 0; j--) {
+			matrix[i][j] = matrix[i][j-1]; } if(j==1) { matrix[i][j-1] = null; }}}
+function rotate(matrix,n) {	var r=Math.ceil(n/2); if(n%2==1) { r--; }
+    for (var i = 0; i < n/2; i++) { for (var j = 0; j < r; j++) {
+            var temp = matrix[i][j]; matrix[i][j] = matrix[n-1-j][i]; matrix[n-1-j][i] = matrix[n-1-i][n-1-j];
+            matrix[n-1-i][n-1-j] = matrix[j][n-1-i]; matrix[j][n-1-i] = temp; }} return matrix }
+function flipDiagonal(matrix,n) { for (var i = 0; i < n; i++) { for (var j = 0; j < n; j++) {
+        	if(j < i) {	var temp = matrix[j][i]; matrix[j][i] = matrix[i][j]; matrix[i][j] = temp; }}} return matrix }
+function stroke(c) { var ret={r:c.r, g:c.g, b:c.b, h:c.h }; return ret; }
+function paintTriplane(t,m,g,R) {	var X; var Y; var bRes=R; var src=null; var dst=null; var b=null; var yi=Infinity;
+	function draw(x,y) { if(x<=y) {	if 		(x==y) 		  	 { m[y][x] = stroke(t.d[y]) }
+									else if (x==0&&y<R-1)	 { m[y][x] = stroke(t.v[y]) }
+									else if (y==R-1) 	 	 { m[y][x] = stroke(t.h[x]) }	
+									else { if(y>yi||b==null) { src=stroke(t.v[y]);dst=stroke(t.d[y]);//if(bRes%2==1){bRes--}
+										b=blendColors(bRes, src, dst); yi=y; } m[y][x] = stroke(b[x]) }}}
+								for(var y=0; y<R; y++) { b=null; yi=Infinity;
+									for(var x=0; x<R; x++) { draw(x,y); }} return m }
+function colorTriplane(t,R) { var ax=stroke(t.axial); var prox=stroke(t.proximal); var diag=stroke(t.diagonal); 
+	var v=blendColors(R+1,prox,ax);	var d=blendColors(R+1,prox,diag); var h=blendColors(R+3,ax,diag); return{ h:h,v:v,d:d }}
+function makeNullArray(R) { var r=[]; for(var i=0; i<=R; i++) { r.push(null); } return r; }
+function makeNullMatrix(X,Y){var r=[];var b;for(var y=0;y<Y;y++){b=[];for(var x=0;x<X;x++){b.push(null)}r.push(b)}return r}
+function colorQuadrant(q,R,b,code) { var offsetDown=false; // dont need b here???
+	function situateHor(tp,s,res) {
+							if(code=="uL"||code=="dL") { offsetRight(tp,res) }
+							if(code=="dL"||code=="dR") { offsetDown=true }}
+	function orient(tp,s,g,res) { 
+							if(code=="uL" && !g) { rotate(rotate(tp,res),res) }
+							if(code=="uL" &&  g) { flipDiagonal(rotate(rotate(tp,res),res),res) }
+							if(code=="uR" &&  g) { flipDiagonal(rotate(flipDiagonal(tp,res),res),res) }
+							if(code=="uR" && !g) { rotate(rotate(rotate(flipDiagonal(tp,res),res),res),res) }
+							if(code=="dL" &&  g) { flipDiagonal(rotate(tp,res),res) }
+							if(code=="dL" && !g) { rotate(rotate(rotate(tp,res),res),res) }
+							if(code=="dL") 		 { flipDiagonal(tp,res) }
+							if(code=="dR" &&  g) { flipDiagonal(tp,res) }}
+	function apply(triplane,matrix,colors,res){ var r=paintTriplane(colors, matrix, triplane.good, res); return r }
+	function display() { sketchMosaic(goodTriplane,"uL",R); sketchMosaic(badTriplane,"uR",R); }
+	var badMatrix = makeNullMatrix(R,R);					 var goodMatrix = makeNullMatrix(R,R);
+	var badColors = colorTriplane(q.bad, R-1); 				 var goodColors = colorTriplane(q.good, R);
+	var badTriplane=apply(q.bad, badMatrix, badColors, R-1); var goodTriplane=apply(q.good, goodMatrix, goodColors, R);
+	orient(badTriplane, q.sign.vis, false, R-1);			 orient(goodTriplane, q.sign.vis, true, R);
+	situateHor(badTriplane,q.sign.vis, R); var r = paintQuadrant(R, offsetDown, goodTriplane, badTriplane);	 return r }
+function colorAxis(a,R) { var ret=[]; if(typeof R=="undefined") { R=AL.resolution }
+	if(a.sign.syn=="u"||a.sign.syn=="d") { R++ }
+	var colors=blendColors(R,a.crucial,a.peripheral); //colors = colors.slice(1,R);
+	if(a.sign.syn=="l"||a.sign.syn=="u"){ colors.reverse()}return colors}
+function interleaveQuadrants(R,l,v,r) { var X = (2*R)+1; var Y = R; var m = makeNullMatrix(X,Y);
+	for(var y=0; y<Y; y++){	for(var x=0; x<X; x++) { if(x<R)  { m[y][x] = l[y][x] }
+												else if(x==R) { m[y][x] = v[y] }
+												else 		  { m[y][x] = m[y][x] = r[y][x-R-1] }}} return m }
+function colorDomain(R,top,btm,mid) { var r=(R*2)+1; var m=makeNullMatrix(r,r);
+	for(var y=0; y<r; y++){ for(var x=0; x<r; x++) { if(y<R)  { m[y][x] = top[y][x] }
+												else if(y==R) { m[y][x] = mid[x] }
+												else 		  { m[y][x] = btm[y-R-1][x] }}} return m }
+function componentToH(n) { var hex = n.toString(16); return hex.length == 1 ? "0" + hex : hex; }
+function rgbToH(r,g,b) { if(r != null) { return "#"+componentToH(r)+componentToH(g)+componentToH(b); } else { return "" }}
+function hToRgb(hex) { var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex); return result ? {
+	r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16), h: hex } : null; }	
+function blendColors(n,from,to) { var rt = [];
+	var r = chunkify(n, from.r, to.r); var g = chunkify(n, from.g, to.g); var b = chunkify(n, from.b, to.b);
+	for(var i = 0; i < n; i++) { h = rgbToH(r[i],g[i],b[i]); rt.push({r:r[i],g:g[i],b:b[i],h:h}); } return rt }
+function chunkify(n,from,to) { var ret = []; var size = Math.floor((to-from) / (n-1)); if(n % 2 == 0) {
+	for(var i = 0; i < n; i++) { ret.push(from + (i * size)); } return ret } else { ret = [from];
+	for(var i = 1; i < (n-1); i++) { ret.push(from + (i * size)); }} ret.push(to); return ret }
+function initVectorColors() {
+	function f(n,G,U,R) { var re = { n:n, G:G, U:U, R:R, r:0, g:0, b:0, h:"" };
+		function f2 (c,G,U,R) { G ? U ? R ? c.h="#ff7700" : c.h="#fffe00" : R ? c.h="#ff0000" : c.h="#ff00bf" :
+									U ? R ? c.h="#0043ff" : c.h="#8900fe" : R ? c.h="#00ffff" : c.h="#2eff62" ; return c }
+		function f1 (c,G,U,R) { G ? U ? R ? c.h="#462300" : c.h="#424100" : R ? c.h="#44323E" : c.h="#543e4d" :
+									U ? R ? c.h="#00257F" : c.h="#48007E" : R ? c.h="#1C8080" : c.h="#1C8035" ; return c }
+		function f0 (c,G,U,R) { G ? U ? R ? c.h="#FFDDBC" : c.h="#FFFEBC" : R ? c.h="#FFBBBD" : c.h="#FFBEFF" :
+									U ? R ? c.h="#B9CDFF" : c.h="#C87CFF" : R ? c.h="#BAFFFF" : c.h="#BAFFCC" ; return c }
+		n==0 ? re = f0(re,G,U,R) : n==1 ? re = f1(re,G,U,R) : re = f2(re,G,U,R);
+		var rgb=hToRgb(re.h); re.r=rgb.r; re.g=rgb.g; re.b=rgb.b; return re; } var ret=
+	{low:{	bUL:f(0,false,true,false),bUR:f(0,false,true,true),bDL:f(0,false,false,false),bDR:f(0,false,false,true),
+			gUL:f(0,true,true,false), gUR:f(0,true,true,true), gDL:f(0,true,false,false), gDR:f(0,true,false,true)},
+	far: {	bUL:f(1,false,true,false),bUR:f(1,false,true,true),bDL:f(1,false,false,false),bDR:f(1,false,false,true),
+			gUL:f(1,true,true,false), gUR:f(1,true,true,true), gDL:f(1,true,false,false), gDR:f(1,true,false,true)},
+	high:{	bUL:f(2,false,true,false),bUR:f(2,false,true,true),bDL:f(2,false,false,false),bDR:f(2,false,false,true),
+			gUL:f(2,true,true,false), gUR:f(2,true,true,true), gDL:f(2,true,false,false),gDR:f(2,true,false,true)}};
+	return ret }
+
+// BEINGS, CORE
+function initSelves(c) {
+	var M = initMasculinity(c);
+	var m = manToBoy(M.vertexPlane);
+	var f = manToGirl(M.vertexPlane);
+	var F = manToWoman(M.vertexPlane);
+	return { M:M, m:m, F:F, f:f }}
+function createOther(being) { var vertexPlane = swapRatAbs(being.vertexPlane, being.male, being.other);
+	var ret = new Being(being.adult, being.male, vertexPlane, true, being.sign+"O");
+	ret.moods=initMoods(ret.adult, ret.male, ret.vertexPlane, true, ret.sign); return ret }
+function initOthers(selves) { var others={
+		M:createOther(selves.M),
+		m:createOther(selves.m),
+		f:createOther(selves.f),
+		F:createOther(selves.F)};
+	return { mas: { selves: { adult: selves.M, child: selves.m }, others: { adult:others.M, child:others.m }},
+			 fem: { selves: { adult: selves.F, child: selves.f }, others: { adult:others.F, child:others.f}}}}
+function createMoods(plane) { var src=copyVertexPlane(plane); var ret = {
+	peaceful:src, enemy:src, playful:src, hostile:src, escorting:src, runaway:src }; return ret }
+function initMoods(adult,G,plane,O,sign) { var ret=createMoods(plane);
+	ret.peaceful =									ret.peaceful = new Being( adult, G, ret.peaceful, O, sign+"pce");
+	ret.escorting= synFlip(ret.escorting,1,0,G,O);	ret.escorting= new Being( adult, G, ret.escorting,O, sign+"prn");
+	ret.playful  = synFlip(ret.playful,  2,0,G,O);	ret.playful  = new Being( adult, G, ret.playful,  O, sign+"pla");
+	ret.hostile  = synFlip(ret.hostile,  0,2,G,O); 	ret.hostile  = new Being( adult, G, ret.hostile,  O, sign+"hst");
+	ret.runaway  = synFlip(ret.runaway, 1,2,G,O);	ret.runaway  = new Being( adult, G, ret.runaway, O, sign+"esc");
+	ret.enemy    = synFlip(ret.enemy,	 2,2,G,O);  ret.enemy 	 = new Being( adult, G, ret.enemy, 	  O, sign+"nmy");
+	return ret }
+function initPrimalMoods(beings) {
+	beings.M.moods = initMoods(beings.M.adult, beings.M.male, beings.M.vertexPlane, false);
+	beings.m.moods = initMoods(beings.m.adult, beings.m.male, beings.m.vertexPlane, false);
+	beings.f.moods = initMoods(beings.f.adult, beings.f.male, beings.f.vertexPlane, false);
+	beings.F.moods = initMoods(beings.F.adult, beings.F.male, beings.F.vertexPlane, false); return beings }
+function manToWoman(plane){var r=swapSubLog(flipLowHigh(plane,true),true);r=new Being(true,false, r,false,"F");return r}
+function manToGirl(plane) {var r=swapSubLog(flipLowFar(plane,true),true); r=new Being(false,false,r,false,"f");return r}
+function manToBoy(plane)  {var r=flipLowFar(plane,false);			 	  r=new Being(false,true, r,false,"m");return r}
+function BiblAde(crucial,peripheral,amplifying,sign) { this.crucial=crucial; this.peripheral=peripheral; this.sign=sign;
+	if(amplifying) { this.little=crucial; this.much=peripheral; } else { this.little=peripheral; this.much=crucial; }}
+function createAxis(crucial,peripheral,amplifying,semSign,synSign){ var sign={sem:semSign, syn:synSign};
+	var ret = {crucial:hToRgb(crucial), peripheral:hToRgb(peripheral)};
+	var ret = new BiblAde(ret.crucial, ret.peripheral, amplifying, sign); return ret }
+function initMasculinity(c) {
+	var bUL=new Triplane(c.low.bUL,c.far.bUL,c.high.bUL,false); var gUL=new Triplane(c.low.gUL,c.far.gUL,c.high.gUL,true);
+	var bUR=new Triplane(c.low.bUR,c.far.bUR,c.high.bUR,false); var gUR=new Triplane(c.low.gUR,c.far.gUR,c.high.gUR,true);
+	var bDL=new Triplane(c.low.bDL,c.far.bDL,c.high.bDL,false); var gDL=new Triplane(c.low.gDL,c.far.gDL,c.high.gDL,true);
+	var bDR=new Triplane(c.low.bDR,c.far.bDR,c.high.bDR,false); var gDR=new Triplane(c.low.gDR,c.far.gDR,c.high.gDR,true);
+	var uL=new Quadrant(bUL,gUL,false,true ); var uR=new Quadrant(bUR,gUR,true,true );
+	var dL=new Quadrant(bDL,gDL,false,false); var dR=new Quadrant(bDR,gDR,true,false);
+	var r={uL:uL,uR:uR,dL:dL,dR:dR,u:null,r:null,d:null,l:null,g:[],b:[]}; r=new Being(true,true,r,false,"M"); return r }
+function copyVertexPlane(p){var ret={ g:p.g,b:p.b,uL:p.uL,uR:p.uR,dL:p.dL,dR:p.dR,
+										u:p.u,r:p.r,d:p.d,l:p.l,origin:p.origin }; return ret;} // next 3 only for mas self
+function flipLowFar(plane,good) {var ret=null; good ? ret=synFlip(plane,0,1,true,false):ret=synFlip(plane,1,0);return ret }
+function flipFarHigh(plane,good){var ret=null; good ? ret=synFlip(plane,0,2,true,false):ret=synFlip(plane,2,0);return ret }
+function flipLowHigh(plane,good){var ret=null; good ? ret=synFlip(plane,0,3,true,false):ret=synFlip(plane,3,0);return ret }
+function synFlip(plane,bad,good,G,O) { var ret = copyVertexPlane(plane); syntacticFlip(ret, bad, good, G, O); return ret; }
+function syntacticFlip(plane,bad,good,G,O) { if(bad!=0){plane.b.push(bad)} if(good!=0){plane.g.push(good)}
+	function f(q) { var r = { bad: q.bad, good: q.good }; switch(good) { //sievennä?
+		case 1: r.good= new TripLane(r.good.axial, 	  r.good.proximal,r.good.diagonal,true);break;
+		case 2: r.good= new TripLane(r.good.proximal, r.good.diagonal,r.good.axial,   true);break;
+		case 3: r.good= new TripLane(r.good.diagonal, r.good.axial,   r.good.proximal,true);break} switch(bad) {
+		case 1: r.bad = new TripLane(r.bad.axial, 	  r.bad.proximal, r.bad.diagonal,false);break;
+		case 2: r.bad = new TripLane(r.bad.proximal,  r.bad.diagonal, r.bad.axial, 	 false);break;
+		case 3: r.bad = new TripLane(r.bad.diagonal,  r.bad.axial, 	  r.bad.proximal,false);break}
+		r = new QuadRant(r.bad, r.good, q.sign); return r } //tähän 
+	plane.uL=f(plane.uL); plane.uR=f(plane.uR); plane.dL=f(plane.dL); plane.dR=f(plane.dR); }
+function TripLane(proximal,axial,diagonal,good) { var low; var far; var high;
+	typeof proximal == "undefined" ? this.proximal="...." : this.proximal=proximal;
+	typeof axial 	== "undefined" ? this.axial="...." 	  : this.axial=axial;
+	typeof diagonal == "undefined" ? this.diagonal="...." : this.diagonal=diagonal; if(good){
+		this.low=proximal;this.far=axial;this.high=diagonal; } else { this.low=proximal;this.far=diagonal;this.high=axial; }this.good=good; var sign = proximal.sign+axial.sign+diagonal.sign; this.sign=sign; }
+function Triplane(low,far,high,good) { low.sign="α"; far.sign="β"; high.sign="γ"; var proximal; var axial; var diagonal;
+	typeof low == "undefined" ? this.low="...." : this.low=low;  // Triplane object hardcoded for M
+	typeof far == "undefined" ? this.far="...." : this.far=far;
+	typeof high== "undefined" ? this.high="....": this.high=high;
+	if(good){ proximal=low; axial=far; diagonal=high; } else { proximal=low; axial=high; diagonal=far; }
+	this.proximal=proximal;this.axial=axial;this.diagonal=diagonal; this.good=good; this.sign=low.sign+far.sign+high.sign; }
+function Being(adult,male,plane,other,sign){ plane=scaleAxes(adult,male,plane);
+	this.adult=adult; this.male=male; this.other=other; this.sign=sign;	this.vertexPlane=plane;
+	male ? this.vertexPlane.origin=hToRgb("#000000") : this.vertexPlane.origin=hToRgb("#ffffff"); }
+function cloneSign(s) { var r = { sem:s.sem, syn:{ X:s.syn.X, Y:s.syn.Y }, vis: { X:s.vis.X, Y:s.vis.Y }}; return r; }
+function QuadRant(b,g,sign){ this.bad=b; this.good=g; this.sign=sign; }
+function Quadrant(b,g,X,Y,G,O){ this.bad=b; this.good=g; var sem = null;
+	if(typeof G=="undefined") { sem = signQuadrantSemantics(X,Y) } else { sem = signQuadrantSemantics(X,Y,G,O) }
+	var sign = { sem:sem, syn:{ X:X, Y:Y }, vis:{ X:X, Y:Y }}; this.sign=sign; }
+function swapSubLog(p,G,O) { var r=copyVertexPlane(p); var g = !G;
+	r.uR = p.dL; var uR = signQuadrant(r.uR.sign.syn, r.uR.sign.sem, true, true, g, O); r.uR.sign = uR;
+	r.dL = p.uR; var dL = signQuadrant(r.dL.sign.syn, r.dL.sign.sem, false,false,g, O); r.dL.sign = dL; return r }
+function swapRatAbs(p,G,O) { var r=copyVertexPlane(p); var o = !O;
+	r.uL = p.dR; var uL = signQuadrant(r.uL.sign.syn, r.uL.sign.sem, false,true, G, o); r.uL.sign = uL;
+	r.uR = p.dL; var uR = signQuadrant(r.uR.sign.syn, r.uR.sign.sem, true, true, G, o); r.uR.sign = uR;
+	r.dL = p.uR; var dL = signQuadrant(r.dL.sign.syn, r.dL.sign.sem, false,false,G, o); r.dL.sign = dL;
+	r.dR = p.uL; var dR = signQuadrant(r.dR.sign.syn, r.dR.sign.sem, true, false,G, o); r.dR.sign = dR; return r }
+function scaleAxes(adult,male,p,other) {
+	var l = signAxisSemantics(p.uL.sign.sem, p.dL.sign.sem); var r = signAxisSemantics(p.uR.sign.sem, p.dR.sign.sem);
+	var u = signAxisSemantics(p.uL.sign.sem, p.uR.sign.sem); var d = signAxisSemantics(p.dR.sign.sem, p.dL.sign.sem);
+	var crucU = blendColors(3,p.uL.bad.proximal, p.uR.bad.proximal)[1];
+	var periU = blendColors(3,p.uL.bad.axial,    p.uR.bad.axial)[1];
+	var crucD = blendColors(3,p.dL.bad.proximal, p.dR.bad.proximal)[1];
+	var periD = blendColors(3,p.dL.bad.axial,    p.dR.bad.axial)[1];
+	if(male) {		p.l=createAxis("#222222","#888888", true, l, "l"); p.r=createAxis("#222222","#888888", true, r, "r");
+					p.u=createAxis(crucU.h,  periU.h,   true, u, "u"); p.d=createAxis(crucD.h,  periD.h,   true, d, "d")}
+	else if(!adult){p.l=createAxis("#dddddd","#aaaaaa", true, l, "l"); p.r=createAxis("#dddddd","#aaaaaa", true, r, "r");
+					p.u=createAxis(crucU.h,  periU.h,   true, u, "u"); p.d=createAxis(crucD.h,  periD.h,   true, d, "d")}
+	else {			p.l=createAxis("#dddddd","#aaaaaa",false, l, "l"); p.r=createAxis("#dddddd","#aaaaaa",false, r, "r");
+					p.u=createAxis(crucU.h,  periU.h,   true, u, "u"); p.d=createAxis(crucD.h,periD.h,true,d,"d")}return p}
+function signAxisSemantics(q1,q2){ var r=""; var L=false; var C=false; var O=false; var S=false;
+	if( q1=="L" || q2=="L" ) { L=true } if( q1=="C" || q2=="C" ) { C=true }
+	if( q1=="O" || q2=="O" ) { O=true } if( q1=="S" || q2=="S" ) { S=true }
+	if( L&&C ) { r="N" } else if( L&&O ) { r="T" } else if( O&&S ) { r="R" } else if( S&&C ) { r="F" } return r }
+function signQuadrant(syn,sem,visX,visY,G,O) {
+	var r = { syn:{ X:syn.X, Y:syn.Y }, vis:{ X:visX, Y:visY }, sem: sem }; return r }
+function signQuadrantSemantics(X,Y,G,O){ var r=""; if((typeof G=="undefined")||
+			(G && !O)) { if(X && Y){r="L"}else if(X && !Y){r="O"}else if(!X && Y){r="C"}else if(!X && !Y){r="S"}}
+	else if(!G && !O)  { if(X && Y){r="S"}else if(X && !Y){r="O"}else if(!X && Y){r="C"}else if(!X && !Y){r="L"}}
+	else if(!G &&  O)  { if(X && Y){r="L"}else if(X && !Y){r="C"}else if(!X && Y){r="O"}else if(!X && !Y){r="S"}}
+	else if (G &&  O)  { if(X && Y){r="S"}else if(X && !Y){r="C"}else if(!X && Y){r="O"}else if(!X && !Y){r="L"}} return r }
+function parseTriplaneSign(g, s) {
+	var rt=parseArithmetic(interpretTriplaneSign(g,s));
+	return rt;
+		}
+function parseArithmetic(s) { }
+function interpretTriplaneSign(g, s) { var Q = ""; var R = "";
+		 if( g && s=="αβγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="βγα" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="γαβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="γβα" ) { Q = "X+Y"; R = "X-Y";  console.log("über")}
+	else if(!g && s=="αβγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="βγα" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="γαβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="γβα" ) { Q = "X+Y"; R = "X-Y"; }
+	console.log(s);
+	return { Q:Q, R:R }}
+function quantifyAs(bng) {
+	var g = parseTriplaneSign(true, bng.vertexPlane.uR.good.sign);
+	//var b = parseTriplaneSign(false,bng.vertexPlane.uR.bad.sign );
+	console.log(g);
+	//console.log(b);
+}
+function initQuantification(beings) { var q = quantifyAs(beings.fem.others.adult);
+	return beings; }
+function initMetaphysics() {
+	AL.beings   = initQuantification(initOthers(initPrimalMoods(initSelves(initVectorColors()))));
+	AL.mas 		= AL.beings.mas; 				AL.fem 		= AL.beings.fem;
+				console.log(AL.beings);
+	AL.mosaic  = new Mosaic(AL.mas.selves.adult,AL.mas.others.adult,AL.fem.selves.adult,AL.fem.others.adult,AL.resolution);
+				console.log(AL.mosaic);
+	//initSpace(mosaic,AL.resolution,beings); 
+}
+
+// PROCESS
+//function parseTriplaneSign(t,g) { }
+function quantTile(X,Y,R,d,q,t) { var x = Math.abs(Y); var y = Math.abs(Y); 
+	return t.sign; }
+
+function quantifyLocationValue(l) { var ret;
+	var x = Math.abs(l.X);
+	var y = Math.abs(l.Y);
+	if(x >= y) { ret = y;
+		if(!l.sex) { ret = 5 - x; }}
+	else { ret = x - y; }	
+	return ret; }
+
+// ENGINE
+/*while (condition)
+  statement*/
+function moveToTile(id) { }
+function startTime(time) { if(AL.time==0) {	typeof time=="undefined" ? AL.time = AL.defaultTime : AL.time = time;
+	/*while(AL.time!=0) { }*/}
+}
+
+/*5{[1}\+!&8pS49h5&J                   X XXX
+EE5^~*^!!!_XX46L35ur   XYX XI  XXX ☆?☽ X H
+EBEVrr^\/\-JS4h&vovr    X   XI  X   !  XDQNX
+EEQ}r>+*\;^4493ontjj    X   X I X   ✝   /T\X
+QQHKj;^+;|x&5oTujjj}    X   X  NX   V  XXX|X
+J5u53r^^\+/\cjj>>"\;    X   X   E   X   |⊞|
+j52xLJl}|\"}}{".` !^   XXX XXX XXE XWX  XXX
+JT5555nr[r?1>[?{+;*/
+function init() { initMetaphysics(); initEntities(); initUI();
+	 displayTab(AL.tab); }
+function postDOMinit() { initControls(AL.tab.params.SVG); /*AL.autoplay?startTime();*/ }
+function initControls(SVG) { window.addEventListener("resize", AL.tab.funcs.resize, true); if(SVG) {
+	var elements = Array.from(document.querySelectorAll('svg .barTab'));
+	elements.forEach(function(el) {	el.addEventListener("mousemove",function() { barTabMouseover(el.id); } ); });
+	elements.forEach(function(el) {	el.addEventListener("click", 	function() { barTabClick(el.id); 	 } ); });
+	var elements = Array.from(document.querySelectorAll('svg .mosaic-uL-tile'));
+	elements.forEach(function(el) {	el.addEventListener("mousemove",function() { tileMouseover(el.id); 	} ); });
+	elements.forEach(function(el) {	el.addEventListener("click", 	function() { tileClick(el.id); 	 	} ); }); } else {
+	var elements = Array.from(document.querySelectorAll('.sidebar-option'));
+	elements.forEach(function(el) {	el.addEventListener("click", 	function() { barTabClick(el.id); 	 } ); }); }}
+
+// DISP:::TABS
+function barTabMouseover(id){ /*console.log(id + " mouseover");*/ }
+function barTabClick(id) 	{ var Id = id.split("_").pop(); changeTab(Id); }
+function tileMouseover(id) 	{ /*console.log(id + " tile mouseover");*/ }
+function tileClick(id) 		{ /*console.log(id);*/ var Id = id.split("-").pop(); /*console.log(Id);*/ moveToTile(Id); }
+function initUI() { measureWindow(); initMosaicDisplays(AL.winWid,AL.winHei,AL.resolution);
+	for(var i = 0; i < AL.tabs.length; i++) { AL.tabs[i] = initTab(AL.tabs[i]); }}
+function measureWindow() { var winWid=window.innerWidth; AL.winWid=winWid; var winHei=window.innerHeight; AL.winHei=winHei;}
+function initTab(handle) { function noDivs()  { code = [""]; demo = [""]; dev  = [""]; }
+	var label; var params; var SVG; var demo; var code; var dev; var funcs;
+	function initTab(resize) { var params = AL.tab.params;
+		params.active = true;
+		measureWindow();
+		if(params.SVG) 	{
+			var w = document.getElementById("wrapper");
+			if(w!=null) { w.remove() }
+			svg.setAttribute('display','visible');
+			if(resize && handle == "mosaic"){ resizeMosaicDisplays( AL.winWid, AL.winHei, AL.resolution ) }}
+		else if(!resize) {
+							var wrapper=document.createElement("div"); wrapper.setAttribute('id','wrapper');
+							var sidebar=document.createElement("div"); sidebar.setAttribute('id','sidebar');
+							var content=document.createElement("div"); content.setAttribute('id','content');
+							wrapper.appendChild(sidebar); wrapper.appendChild(content); AL.tab.params.HTML=wrapper; }
+		prepareTabContent( params, AL.winWid, AL.winHei) }
+	function resizeTab() { initTab(true) }
+	function showTab(refresh) { var params = AL.tab.params;
+			 if(handle=="beings") { createTabHTML(AL.tab,refresh); console.log(refresh); }
+		else if(handle=="mosaic") { showMosaicDisplays(AL.winWid,AL.winHei,AL.tab.params) }}
+	if(handle == "beings") { label = "Beings"; params = { SVG:false, HTML:null }; demo = [""]; code = ["\
+			<div class='divrow' id='r1'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r2'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r3'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r4'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r5'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r6'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r7'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r8'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r9'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r10'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r11'></div><div style='clear:both;'></div>\
+			<div class='divrow' id='r12'></div>"]; dev=[""];
+		funcs={ init 	 : function() 		{ initTab(false); },
+				generate : function()		{ showTab(); },
+				resize 	 : function() 		{ resizeTab(); }}} /*;initBeingsDisplay(beings)*/
+	else if(handle == "mosaic") { label = "Mosaic"; params = { SVG:true, mono:true }; noDivs();
+		funcs={ init 	 : function() 		{ initTab(false);  },
+				generate : function()		{ showTab(); },
+				resize 	 : function() 		{ resizeTab();}}}
+	else if(handle == "parser") { label = "Parser";	params = { SVG:true }; code = [""]; demo = [""]; dev  = [""];
+		funcs={ init 	 : function() 		{ initTab(false); },
+				generate : function()		{ showTab(); },
+				resize 	 : function() 		{ resizeTab();}}}
+	var ret = new Tab(handle,params,label,demo,code,dev,funcs); return ret; }
+function Tab(handle,params,label,demo,code,dev,funcs) { this.handle = handle; this.params = params; this.label = label; this.demo = demo; this.code = code; this.dev = dev; this.funcs = funcs; this.active = false; }
+function getTabByHandle(h)  { for(var i=0; i<AL.tabs.length; i++) { if(h==AL.tabs[i].handle) { return AL.tabs[i]; }}}
+function deactivateOldTab() { if(AL.prevTab != AL.tab) { AL.prevTab.active = false; AL.prevTab = AL.tab; }}
+function displayTab(handle) { AL.tab=getTabByHandle(handle); deactivateOldTab(); AL.tab.funcs.init() }
+function changeTab(id) 		{ var i=parseInt(id); if(AL.tab!=AL.tabs[i]) {
+	AL.tab=AL.tabs[i]; deactivateOldTab(); AL.tab.funcs.init() }}
+function prepareTabContent(params,winWid,winHei) { initSidebar(params,winWid,winHei); AL.tab.funcs.generate();
+	$( document ).ready(function() { postDOMinit() }); }
+function sidebarClick(n) {console.log("moi");}
+function initSidebar(params, winWid, winHei) { if(params.SVG) {
+	var barWid = AL.sidebarWidth;
+	var offset = winWid - barWid;
+	var tabHei = AL.sidebarTabHei;
+	var tabOff = offset + AL.sidebarTabPadL;
+	var barTabClass = "barTab";
+	var fontSize = AL.fontSize;
+	svg.setAttribute('height',winHei); 	svg.setAttribute('width',winWid);
+	var bar=document.createElementNS(svgNS,'rect');
+	bar.setAttribute('x',offset); 		bar.setAttribute('y',0);
+	bar.setAttribute('width',barWid); 	bar.setAttribute('height',winHei);
+	bar.setAttribute('fill','#95B3D7');	svg.appendChild(bar);
+    for(var i=0; i<AL.tabs.length; i++) { 
+    	var barTabId=barTabClass+"_"+i;	
+    	var barTab=document.createElementNS(svgNS,'rect');  
+    	barTab.setAttribute('class', barTabClass);	barTab.setAttribute('id', barTabId);
+    	barTab.setAttribute('x',offset); 			barTab.setAttribute('y',i*tabHei);
+    	barTab.setAttribute('width',barWid);		barTab.setAttribute('height',tabHei);
+    	AL.tab.handle==AL.tabs[i].handle?barTab.setAttribute('fill','#DDB300'):barTab.setAttribute('fill','#95B300');
+    	var label = document.createElementNS(svgNS,"text");
+    	label.setAttributeNS(null,'class',barTabClass); label.setAttributeNS(null,'id',barTabId);
+		label.setAttributeNS(null,"x",tabOff);			label.setAttributeNS(null,"y",(i*tabHei)+fontSize); 
+		label.setAttributeNS(null,"font-size",fontSize);label.setAttributeNS(null,"fill","white");
+		var textNode = document.createTextNode(AL.tabs[i].label);
+		label.appendChild(textNode);
+		svg.appendChild(barTab); svg.appendChild(label);  }
+	var rect = document.createElementNS(svgNS,'rect');
+    rect.setAttribute('x',5); rect.setAttribute('y',50); rect.setAttribute('width',700); rect.setAttribute('height',800);
+    rect.setAttribute('fill','#95B3D7'); svg.appendChild(rect); document.body.appendChild(svg); }}
+
+// DISP:::MOSAIC
+function drawMosaic(code, depth, m, res, disWid, disHei, disOffX, disOffY, tilWid, tilHei, winWid, winHei) { 
+	var mosaicClass = 'mosaic';				var mosaicId 	= mosaicClass+"-"+code;
+	var scr=document.createElementNS(svgNS,'rect');
+	/*temp*/scr.setAttribute('fill','#3583A7');
+	scr.setAttribute('class',mosaicClass); 	scr.setAttribute('id',mosaicId);
+	scr.setAttribute('x',disOffX); 			scr.setAttribute('y',disOffY);
+	scr.setAttribute('width',disWid); 		scr.setAttribute('height',disHei);
+	svg.appendChild(scr);
+	var tileClass = mosaicId+"-tile";
+	for(var y=0; y<res; y++) { for(var x=0; x<res; x++) { var tileId = tileClass+"_"+x+"-"+y;
+		var tilOffX = disOffX + (x * tilWid);	var tilOffY = disOffY + (y * tilHei);
+		var tile=document.createElementNS(svgNS,"rect"); tile.setAttribute('id',tileId);
+		tile.setAttribute('class',tileClass);		
+		tile.setAttribute('x',tilOffX); 		tile.setAttribute('y',tilOffY);
+		tile.setAttribute('width',tilWid); 		tile.setAttribute('height',tilHei);
+		tile.setAttribute('fill',m[y][x].h); 	svg.appendChild(tile); }}
+	document.body.appendChild(svg); }
+function showMosaic(code,depth,dp,winWid,winHei) { 
+	drawMosaic(code, AL.depth, AL.mosaic.plane, dp.dim.resX, dp.dim.disWid, dp.dim.disHei, dp.dim.dpOffX, dp.dim.dpOffY, dp.dim.tilWid, dp.dim.tilHei, winWid, winHei ) }
+function showMosaicUI(winWid,winHei,params) {
+	var xOffUI = winWid - AL.sidebarWidth;
+}
+function showMosaicDisplays(winWid,winHei,params){ 
+	if(params.mono){ showMosaic("mono",false,AL.mosaicDisplays.mono,winWid,winHei) } else {
+	showMosaic("uL",false,AL.mosaicDisplays.uL,winWid,winHei); showMosaic("dL",true, AL.mosaicDisplays.dL,winWid,winHei);
+	showMosaic("dR",true, AL.mosaicDisplays.dR,winWid,winHei); showMosaicUI(winWid,winHei,params); }}
+function situateMosaic(mosDim, mosPos, code) { 
+	if(code=="dL"||code=="dR") { mosDim.dpOffY += mosDim.disHei; 	mosPos.y.off += mosDim.heiDif; }
+	if(code=="uR"||code=="uR") { mosDim.dpOffX += mosDim.disWid; 	mosPos.x.off += mosDim.widDif; }
+	else if(code=="mono") { mosPos.x.off = Math.floor(mosDim.widDif / 2); mosPos.y.off = Math.floor(mosDim.heiDif / 2); }
+	var rt = { dim: mosDim, pos: mosPos }; return rt; }
+function measureMosaic(code, winWid, winHei, x, y) { 
+	var rt = { disWid:0, disHei:0, tilWid:0, tilHei:0, widDif:0, heiDif:0, dpOffX:0, dpOffY:0, resX:x, resY:y };
+	if(code!="mono"){ rt.disWid = Math.floor( winWid / 2 ); 	rt.disHei = Math.floor( winHei / 2 ); }
+	else 			{ rt.disWid = winWid; 						rt.disHei = winHei; }
+	rt.tilWid = Math.floor( rt.disWid / x); 	rt.tilHei = Math.floor( rt.disHei / y);
+	rt.widDif = rt.disWid - (rt.tilWid * x); 	rt.heiDif = rt.disHei - (rt.tilHei * y); return rt }
+function configureMosaic(code, winWid, winHei, x, y) {
+	var x = 2*((x*2)+1); if(typeof y=="undefined"){ var y=x }
+	var winWid = winWid-AL.sidebarWidth;
+	var mosPos = { x:{ res:x, crd:0, off:0, zoo:1}, y:{ res:y, crd:0, off:0, zoo:1}};
+	var mosDim = measureMosaic(code, winWid, winHei, x, y);
+	var disPos = situateMosaic(mosDim, mosPos, code); return disPos }
+function MosaicDisplay(code, winWid, winHei, x, y){ 
+	if(typeof y != "undefined") { var disPos = configureMosaic(code, winWid, winHei, x, y) }
+	else 						{ var disPos = configureMosaic(code, winWid, winHei, x) }
+	this.pos=disPos.pos; this.dim=disPos.dim; this.code=code; }
+function initMosaicDisplays(winWid,winHei,R) { var rt=AL.mosaicDisplays;
+	var uL = new MosaicDisplay("uL", winWid, winHei, R); var uR= new MosaicDisplay("uR", winWid, winHei, R);
+	var dL = new MosaicDisplay("dL", winWid, winHei, R); var dR = new MosaicDisplay("dR", winWid, winHei, R);
+	var mono = new MosaicDisplay("mono", winWid, winHei, R);  rt.uL=uL; rt.uR=uR; rt.dL=dL; rt.dR=dR; rt.mono=mono; }
+function resizeMosaicDisplays(winWid,winHei,R) {
+	resizeMosaicDisplay(AL.mosaicDisplays.mono, winWid, winHei, R) }
+function resizeMosaicDisplay(mosaic, winWid, winHei, R) { var cfg=configureMosaic(mosaic.code, winWid, winHei, R);
+	mosaic.pos = cfg.pos; mosaic.dim = cfg.dim; }
+function sketchMosaic(q,dest,Y,X) {
+	function mosaicTileLabel(x,y) {	var xCrd = "" + x; var yCrd = "" + y;
+		if(xCrd.length==1) { xCrd = "&nbsp;"+xCrd } if(yCrd.length==1) { yCrd = yCrd+"&nbsp;" } var r=xCrd+yCrd; return r }
+	if(typeof X=="undefined") { var X = Y; } var c; var doc = document.getElementById(dest); var r=""; var t=""; var tmp;
+	for(var y=0;y<Y;y++) { t="<div>"; r+=t;
+		for(var x=0;x<X;x++) {
+			if(Y==1) { tmp=mosaicTileLabel(x,y);
+				r+="<span style='background-color:"+q[y].h+";'>"+tmp+"</span>"; }
+			else if(q[y][x]==null){r+="<span>::::</span>"}
+			else if(typeof q[y][x]=="string"){r+="<span>"+q[y][x]+"</span>"}
+			else { tmp=mosaicTileLabel(x,y);
+				r+="<span style='background-color:"+q[y][x].h+";'>"+tmp+"</span>";}}}
+	r+="</div>"; doc.innerHTML +=r; }
+
+
+
+// DISP:::BEINGS
+function createTabHTML(tab,resize) {
+	//var w = document.getElementById("wrapper");
+	//		if(w!=null) { w.remove() }
+
+	function createBarTabHTML(label,n){ var btn = document.createElement("div");
+										var btnId = "barTab_"+n;
+										btn.setAttribute('class','sidebar-option');
+										btn.setAttribute('id',btnId);
+										var btnText = document.createTextNode(label);
+										btn.appendChild(btnText);
+										return btn; }
+	if(!resize) {
+		var sidebar = tab.params.HTML.childNodes[0];
+		var h=""; var btn=null;
+		for(var i=0; i<AL.tabs.length; i++) {
+			btn = createBarTabHTML(AL.tabs[i].label,i);
+			sidebar.appendChild(btn); }
+		var content = tab.params.HTML.childNodes[1];
+		for(var i = 0; i < tab.dev.length; i++) {
+			if(typeof tab.demo[i] == "string"){	content.innerHTML += tab.demo[i]; }
+			if(typeof tab.code[i] == "string"){ content.innerHTML += tab.code[i]; }
+			if(typeof tab.dev[i] == "string") { content.innerHTML += tab.dev[i]; }}
+		svg.setAttribute('display','none');
+		document.body.appendChild(tab.params.HTML);
+		if(tab.handle == "beings") { initBeingsDisplay(AL.beings) }}}
+function initBeingsDisplay(v) { 
+	//drawBeings(v.mas.selves.adult,"r1"); drawBeings(v.mas.others.adult,"r2");
+
+	drawBeings(v.mas.selves.adult,"r1"); drawBeings(v.mas.selves.child,"r2");
+	drawBeings(v.fem.selves.child,"r3"); drawBeings(v.fem.selves.adult,"r4");
+	drawBeings(v.mas.others.adult,"r5"); drawBeings(v.mas.others.child,"r6");
+	drawBeings(v.fem.others.child,"r7"); drawBeings(v.fem.others.adult,"r8"); }
+function drawBeings(bng,row) {
+	//drawBeing(bng.male, bng.adult, bng.other, 	 0, 	bng.vertexPlane, 				row);
+	drawBeing(bng.male, bng.adult, bng.other, 	-3,		bng.moods.hostile.vertexPlane, 	row);
+	drawBeing(bng.male, bng.adult, bng.other, 	-1,		bng.moods.enemy.vertexPlane, 	row);
+	drawBeing(bng.male, bng.adult, bng.other, 	-2,		bng.moods.runaway.vertexPlane, row);
+	drawBeing(bng.male, bng.adult, bng.other,  	 3,		bng.moods.peaceful.vertexPlane, row);
+	drawBeing(bng.male, bng.adult, bng.other, 	 1,		bng.moods.playful.vertexPlane,	row);
+	drawBeing(bng.male, bng.adult, bng.other, 	 2,		bng.moods.escorting.vertexPlane,row);}
+function drawBeing(male,adult,other,mood,p,row,input) {
+	var r = document.getElementById(row); var h="<div class='rowblock'>";
+	function makeLabel() { var z="<span style='background-color:black;color:white;'>";
+		if(mood==6) { z+=input; }
+		else {
+			mood== -3?z+="Hostile " :mood== 3?z+="Peaceful ":
+			mood== -1?z+="Enemy "   :mood== 1?z+="Playful ":
+			mood== -2?z+="Runaway ":mood== 2?z+="Escorting ":z+="Plain ";
+			if(other){z+="Other "} adult?male?z+="Man":z+="Woman":male?z+="Boy":z+="Girl"; }
+		z+="</span>"; return z;	}
+	function d(p) { var label=makeLabel();
+		function w(v,zj) { var zi=l(v); var str=""+zj.proximal.sign+zj.axial.sign+zj.diagonal.sign;
+			var z = "<span style='background-color:"+v+";color:"+zi+";'><span style='position:absolute;font-size:10px;margin-left:1px;'>"+str+"</span>&nbsp;&nbsp;&nbsp;</span>"; h+=z;}
+		function u(v) { var zi=l(v); var adu=n(); var oth=q();
+			var z = "<span style='background-color:"+v+";color:"+zi+";'>"+adu+" "+oth+"</span>"; h+=z; }
+		function s(v) { var zi=l(v); var zj=Math.abs(mood); var z = "<span style='background-color:"+v+";color:"+zi+";'>";
+			mood<0?z+="-":z+="&nbsp;";
+			zj<3?z+=zj:z+="<span style='position:absolute;margin-left:-2px;margin-top:-1px;'>&#8734;</span>&nbsp;";
+			z+="&nbsp;</span>"; h+=z; }
+		function q() { var z; other?z="o":z="s"; return z; }
+		function o() { var z="<span style='position:absolute;margin-left:-4px;margin-top:-2px;'>";
+			male?z+="&#x2642;":z+="&#x2640;"; z+="</span>&nbsp;"; return z; }
+		function n() { var z; adult?z="a":z="c"; return z; }
+		function m(v) { var zi=l(v); var gen=o();
+			var z = "<span style='background-color:"+v+";color:"+zi+";'>&nbsp;"+gen+"&nbsp;</span>"; h+=z; }
+		function l(v) {var z=hToRgb(v);var zi=(255*3)/2;var zj=z.r+z.g+z.b;if(zj<zi){z="#ffffff"}else{z="#000000"}return z;}
+		function k(v) { var zi=l(v); var z = "<span style='background-color:"+v+";color:"+zi+";'>B:"+p.b+"</span>"; h+=z; }
+		function j(v) { var zi=l(v); var z = "<span style='background-color:"+v+";color:"+zi+";'>G:"+p.g+"</span>"; h+=z; }
+		function i(v,a) { if(typeof v=="undefined"){h+="....";}else{if(typeof a=="undefined"){h+=",,,,";}else{ var zi=l(v);
+			var z = "<span style='background-color:"+v+";color:"+zi+";'>&nbsp;"+a.sign.sem+"&nbsp;</span>"; h+=z; }}}
+		function g(v,q) { if(typeof v=="undefined"){h+="....";}else{ var zi=l(v); var signs="";
+			q.sign.syn.X ? signs+="+" : signs+="-"; signs+=q.sign.sem; q.sign.syn.Y ? signs+="+" : signs+="-";
+			var z = "<span style='background-color:"+v+";color:"+zi+";'>"+signs+"</span>"; h+=z; }}
+		function f(v) { if(typeof v == "undefined") { h+="...."; } else {
+			var z = "<span style='background-color:"+v+";'>&nbsp;&nbsp;&nbsp;</span>"; h+=z; }}
+		h += "<br />&nbsp;&nbsp;&nbsp;"; h+= label; h+="<br />&nbsp;&nbsp;&nbsp;";
+		g(p.uL.good.diagonal.h,p.uL);		w(p.uL.bad.diagonal.h,p.uL.bad);	f(p.uL.bad.axial.h);
+		i(p.u.peripheral.h,p.u);
+		f(p.uR.bad.axial.h); 				w(p.uR.bad.diagonal.h,p.uR.bad);	g(p.uR.good.diagonal.h,p.uR);
+		h+="<br />&nbsp;&nbsp;&nbsp;";
+		w(p.uL.good.axial.h,p.uL.good);		f(p.uL.good.proximal.h);			f(p.uL.bad.proximal.h);
+		s(p.u.crucial.h);
+		f(p.uR.bad.proximal.h);				f(p.uR.good.proximal.h);			w(p.uR.good.axial.h,p.uR.good);
+		h+="<br />&nbsp;&nbsp;&nbsp;";
+		i(p.l.peripheral.h,p.l);			f(p.l.crucial.h); 					f(p.origin.h);/*j*/
+		m(p.origin.h);
+		f(p.origin.h);/*k*/					f(p.r.crucial.h); 					i(p.r.peripheral.h,p.r);
+		h+="<br />&nbsp;&nbsp;&nbsp;";
+		w(p.dL.good.axial.h,p.dL.good);		f(p.dL.good.proximal.h);			f(p.dL.bad.proximal.h);
+		u(p.d.crucial.h);
+		f(p.dR.bad.proximal.h);				f(p.dR.good.proximal.h);			w(p.dR.good.axial.h,p.dR.good);
+		h+="<br />&nbsp;&nbsp;&nbsp;";
+		g(p.dL.good.diagonal.h,p.dL);		w(p.dL.bad.diagonal.h,p.dL.bad);	f(p.dL.bad.axial.h);
+		i(p.d.peripheral.h,p.d);
+		f(p.dR.bad.axial.h); 				w(p.dR.bad.diagonal.h,p.dR.bad);	g(p.dR.good.diagonal.h,p.dR);
+		h+="</div>"; }
+	d(p);
+	r.innerHTML+=h; }
+
+</script></head><body onload="init();"></body></html>
