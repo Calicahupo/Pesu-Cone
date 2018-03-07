@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"
 	http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>Aldiode 692</title><style>
+<title>Aldiode 696</title><style>
 	@font-face { font-family:'profont';
 		src:url('AL_files/profontwindows-webfont.woff2') format('woff2'),
 			url('AL_files/profontwindows-webfont.woff') format('woff');	font-weight:normal; font-style:normal; }
@@ -36,12 +36,12 @@ var svg   = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 var svgNS = svg.namespaceURI;
 var AL = {
 	//CORE
-	beings: null, 				mas: null,					fem: null,					devBuffer: [],
+	dharmas: null, 				mas: null,					fem: null,					devBuffer: [],
 	resolution:	 8,				mosaic:		"XY",			mosaics: 	["XY","XZ","YZ"],
 	//ENGINE
-	T:0, 						time:0,				 		defaultTime: 6516,
+	initDone: false, 			T:0, 						time:0,				 		defaultTime: 6516,
 	//UI
-	tab:		"mosaic",		tabs:		["beings","mosaic","parser"],
+	tab:		"mosaic",		tabs:		["dharma","mosaic","parser"],
 	prevTab: false,
 	fontSize: 	13,
 	devHeader:	false,			headerHeight:50,
@@ -84,7 +84,7 @@ function blendHoctant(hoc) { var rt = { oa:null,od:null,oD:null,aD:null,dD:null}
 	rt.dD = blendColors(R, hoc.diag, hoc.daxi); return rt }
 function Hoctant(prox, axia, diag, daxi) { this.prox = prox; this.axia = axia; this.diag = diag; this.daxi = daxi; }
 function makeNullSpace(X,Y,Z){var r=[];var buf=null;for(var z=0;z<Z;z++){buf=makeNullMatrix(X,Y);r.push(buf)}return r}
-function initSpace(mosaic,R,beings) { var r = 2 * (1 + (2*R)); var negZ=makeNullSpace(r,r,R); var posZ=makeNullSpace(r,r,R);
+function initSpace(mosaic,R,dharmas) { var r = 2 * (1 + (2*R)); var negZ=makeNullSpace(r,r,R); var posZ=makeNullSpace(r,r,R);
 	var colz = new Hoctant(hToRgb("#ffffff"),hToRgb("#888888"),hToRgb("#95B300"),hToRgb("#DDB300"));
 	var colZ = new Hoctant(hToRgb("#ffffff"),hToRgb("#888888"),hToRgb("#1e00b3"),hToRgb("#0029dd"));
 	var blez = blendHoctant(R,colz);
@@ -100,7 +100,7 @@ function initSpace(mosaic,R,beings) { var r = 2 * (1 + (2*R)); var negZ=makeNull
 	}*/
 
 
-//function initSpace(mosaic,R,beings) { 
+//function initSpace(mosaic,R,dharmas) { 
 //	var bCol { uL:}}
 
 
@@ -115,7 +115,7 @@ function Hoctant(R,prox,axia,norm,diag) { var rt = { pa:null,pn:null,ad:null,nd:
 	rt.m = makeHoctantPlane(R,rt); }*/
 
 
-function beingToMosaic(b,R){ var vp=b.vertexPlane;
+function dharmaToMosaic(b,R){ var vp=b.vertexPlane;
 	function display(v,r) {if(typeof r=="undefined"){ sketchMosaic(v,"uL",R,(R*2)+1) }
 						else if(r==1) {sketchMosaic(v,"uL",1,(R*2)+1)}
 						else if(r==3) {sketchMosaic(v,"uL",(R*2)+1,(R*2)+1); }}
@@ -127,7 +127,8 @@ function beingToMosaic(b,R){ var vp=b.vertexPlane;
 	var top		= interleaveQuadrants( R, mp.uL, mp.u, mp.uR );	var bottom  = interleaveQuadrants( R, mp.dL, mp.d, mp.dR );
 	var middle  = mp.l.concat(mp.o).concat(mp.r);				var plane = colorDomain(R, top, bottom, middle);
 	mp.plane=plane; return mp }
-function Mosaic(uL,uR,dL,dR,R) { if(typeof R=="undefined") {R=AL.resolution}var sign=[[uL.sign,uR.sign],[dL.sign,dR.sign]];	uL.mosaic=beingToMosaic(uL,R);uR.mosaic=beingToMosaic(uR,R);dL.mosaic=beingToMosaic(dL,R);dR.mosaic=beingToMosaic(dR,R);
+function Mosaic(uL,uR,dL,dR,R) { if(typeof R=="undefined") {R=AL.resolution}var sign=[[uL.sign,uR.sign],[dL.sign,dR.sign]];	uL.mosaic=dharmaToMosaic(uL,R);uR.mosaic=dharmaToMosaic(uR,R);
+	dL.mosaic=dharmaToMosaic(dL,R);dR.mosaic=dharmaToMosaic(dR,R);
 	var p=createMosaic(uL.mosaic.plane, uR.mosaic.plane, dL.mosaic.plane, dR.mosaic.plane, R);
 	this.plane=p; this.uL=uL;this.uR=uR;this.dL=dL;this.dR=dR; this.sign=sign; }
 function createMosaic(uL,uR,dL,dR,R) { function display() { sketchMosaic(ret,"uL",2*((2*R)+1)) }
@@ -228,8 +229,8 @@ function initSelves(c) {
 	var f = manToGirl(M.vertexPlane);
 	var F = manToWoman(M.vertexPlane);
 	return { M:M, m:m, F:F, f:f }}
-function createOther(being) { var vertexPlane = swapRatAbs(being.vertexPlane, being.male, being.other);
-	var ret = new Being(being.adult, being.male, vertexPlane, true, being.sign+"O");
+function createOther(dharma) { var vertexPlane = swapRatAbs(dharma.vertexPlane, dharma.male, dharma.other);
+	var ret = new Dharma(dharma.adult, dharma.male, vertexPlane, true, dharma.sign+"O");
 	ret.moods=initMoods(ret.adult, ret.male, ret.vertexPlane, true, ret.sign); return ret }
 function initOthers(selves) { var others={
 		M:createOther(selves.M),
@@ -241,21 +242,21 @@ function initOthers(selves) { var others={
 function createMoods(plane) { var src=copyVertexPlane(plane); var ret = {
 	peaceful:src, enemy:src, playful:src, hostile:src, escorting:src, runaway:src }; return ret }
 function initMoods(adult,G,plane,O,sign) { var ret=createMoods(plane);
-	ret.peaceful =									ret.peaceful = new Being( adult, G, ret.peaceful, O, sign+"pce");
-	ret.escorting= synFlip(ret.escorting,1,0,G,O);	ret.escorting= new Being( adult, G, ret.escorting,O, sign+"prn");
-	ret.playful  = synFlip(ret.playful,  2,0,G,O);	ret.playful  = new Being( adult, G, ret.playful,  O, sign+"pla");
-	ret.hostile  = synFlip(ret.hostile,  0,2,G,O); 	ret.hostile  = new Being( adult, G, ret.hostile,  O, sign+"hst");
-	ret.runaway  = synFlip(ret.runaway, 1,2,G,O);	ret.runaway  = new Being( adult, G, ret.runaway, O, sign+"esc");
-	ret.enemy    = synFlip(ret.enemy,	 2,2,G,O);  ret.enemy 	 = new Being( adult, G, ret.enemy, 	  O, sign+"nmy");
+	ret.peaceful =									ret.peaceful = new Dharma( adult, G, ret.peaceful, O, sign+"pce");
+	ret.escorting= synFlip(ret.escorting,1,0,G,O);	ret.escorting= new Dharma( adult, G, ret.escorting,O, sign+"prn");
+	ret.playful  = synFlip(ret.playful,  2,0,G,O);	ret.playful  = new Dharma( adult, G, ret.playful,  O, sign+"pla");
+	ret.hostile  = synFlip(ret.hostile,  0,2,G,O); 	ret.hostile  = new Dharma( adult, G, ret.hostile,  O, sign+"hst");
+	ret.runaway  = synFlip(ret.runaway, 1,2,G,O);	ret.runaway  = new Dharma( adult, G, ret.runaway, O, sign+"esc");
+	ret.enemy    = synFlip(ret.enemy,	 2,2,G,O);  ret.enemy 	 = new Dharma( adult, G, ret.enemy, 	  O, sign+"nmy");
 	return ret }
-function initPrimalMoods(beings) {
-	beings.M.moods = initMoods(beings.M.adult, beings.M.male, beings.M.vertexPlane, false);
-	beings.m.moods = initMoods(beings.m.adult, beings.m.male, beings.m.vertexPlane, false);
-	beings.f.moods = initMoods(beings.f.adult, beings.f.male, beings.f.vertexPlane, false);
-	beings.F.moods = initMoods(beings.F.adult, beings.F.male, beings.F.vertexPlane, false); return beings }
-function manToWoman(plane){var r=swapSubLog(flipLowHigh(plane,true),true);r=new Being(true,false, r,false,"F");return r}
-function manToGirl(plane) {var r=swapSubLog(flipLowFar(plane,true),true); r=new Being(false,false,r,false,"f");return r}
-function manToBoy(plane)  {var r=flipLowFar(plane,false);			 	  r=new Being(false,true, r,false,"m");return r}
+function initPrimalMoods(dharmas) {
+	dharmas.M.moods = initMoods(dharmas.M.adult, dharmas.M.male, dharmas.M.vertexPlane, false);
+	dharmas.m.moods = initMoods(dharmas.m.adult, dharmas.m.male, dharmas.m.vertexPlane, false);
+	dharmas.f.moods = initMoods(dharmas.f.adult, dharmas.f.male, dharmas.f.vertexPlane, false);
+	dharmas.F.moods = initMoods(dharmas.F.adult, dharmas.F.male, dharmas.F.vertexPlane, false); return dharmas }
+function manToWoman(plane){var r=swapSubLog(flipLowHigh(plane,true),true);r=new Dharma(true,false, r,false,"F");return r}
+function manToGirl(plane) {var r=swapSubLog(flipLowFar(plane,true),true); r=new Dharma(false,false,r,false,"f");return r}
+function manToBoy(plane)  {var r=flipLowFar(plane,false);			 	  r=new Dharma(false,true, r,false,"m");return r}
 function BiblAde(crucial,peripheral,amplifying,sign) { this.crucial=crucial; this.peripheral=peripheral; this.sign=sign;
 	if(amplifying) { this.little=crucial; this.much=peripheral; } else { this.little=peripheral; this.much=crucial; }}
 function createAxis(crucial,peripheral,amplifying,semSign,synSign){ var sign={sem:semSign, syn:synSign};
@@ -268,7 +269,7 @@ function initMasculinity(c) {
 	var bDR=new Triplane(c.low.bDR,c.far.bDR,c.high.bDR,false); var gDR=new Triplane(c.low.gDR,c.far.gDR,c.high.gDR,true);
 	var uL=new Quadrant(bUL,gUL,false,true ); var uR=new Quadrant(bUR,gUR,true,true );
 	var dL=new Quadrant(bDL,gDL,false,false); var dR=new Quadrant(bDR,gDR,true,false);
-	var r={uL:uL,uR:uR,dL:dL,dR:dR,u:null,r:null,d:null,l:null,g:[],b:[]}; r=new Being(true,true,r,false,"M"); return r }
+	var r={uL:uL,uR:uR,dL:dL,dR:dR,u:null,r:null,d:null,l:null,g:[],b:[]}; r=new Dharma(true,true,r,false,"M"); return r }
 function copyVertexPlane(p){var ret={ g:p.g,b:p.b,uL:p.uL,uR:p.uR,dL:p.dL,dR:p.dR,
 										u:p.u,r:p.r,d:p.d,l:p.l,origin:p.origin }; return ret;} // next 3 only for mas self
 function flipLowFar(plane,good) {var ret=null; good ? ret=synFlip(plane,0,1,true,false):ret=synFlip(plane,1,0);return ret }
@@ -296,7 +297,7 @@ function Triplane(low,far,high,good) { low.sign="α"; far.sign="β"; high.sign="
 	typeof high== "undefined" ? this.high="....": this.high=high;
 	if(good){ proximal=low; axial=far; diagonal=high; } else { proximal=low; axial=high; diagonal=far; }
 	this.proximal=proximal;this.axial=axial;this.diagonal=diagonal; this.good=good; this.sign=low.sign+far.sign+high.sign; }
-function Being(adult,male,plane,other,sign){ plane=scaleAxes(adult,male,plane);
+function Dharma(adult,male,plane,other,sign){ plane=scaleAxes(adult,male,plane);
 	this.adult=adult; this.male=male; this.other=other; this.sign=sign;	this.vertexPlane=plane;
 	male ? this.vertexPlane.origin=hToRgb("#000000") : this.vertexPlane.origin=hToRgb("#ffffff"); }
 function cloneSign(s) { var r = { sem:s.sem, syn:{ X:s.syn.X, Y:s.syn.Y }, vis: { X:s.vis.X, Y:s.vis.Y }}; return r; }
@@ -366,15 +367,15 @@ function quantifyAs(bng) {
 	console.log(g);
 	//console.log(b);
 }
-function initQuantification(beings) { var q = quantifyAs(beings.fem.others.adult);
-	return beings; }
+function initQuantification(dharmas) { var q = quantifyAs(dharmas.fem.others.adult);
+	return dharmas; }
 function initMetaphysics() {
-	AL.beings   = initQuantification(initOthers(initPrimalMoods(initSelves(initVectorColors()))));
-	AL.mas 		= AL.beings.mas; 				AL.fem 		= AL.beings.fem;
-				console.log(AL.beings);
+	AL.dharma   = initQuantification(initOthers(initPrimalMoods(initSelves(initVectorColors()))));
+	AL.mas 		= AL.dharma.mas; 				AL.fem 		= AL.dharma.fem;
+				console.log(AL.dharmas);
 	AL.mosaic  = new Mosaic(AL.mas.selves.adult,AL.mas.others.adult,AL.fem.selves.adult,AL.fem.others.adult,AL.resolution);
 				console.log(AL.mosaic);
-	//initSpace(mosaic,AL.resolution,beings); 
+	//initSpace(mosaic,AL.resolution,dharmas); 
 }
 
 // PROCESS
@@ -408,7 +409,8 @@ j52xLJl}|\"}}{".` !^   XXX XXX XXE XWX  XXX
 JT5555nr[r?1>[?{+;*/
 function init() { initMetaphysics(); initEntities(); initUI();
 	 displayTab(AL.tab); }
-function postDOMinit() { initControls(AL.tab.params.SVG); /*AL.autoplay?startTime();*/ }
+function postDOMinit() { initControls(AL.tab.params.SVG); AL.prevTab = AL.tab; AL.initDone = true;
+/*AL.autoplay?startTime();*/ }
 function initControls(SVG) { window.addEventListener("resize", AL.tab.funcs.resize, true); if(SVG) {
 	var elements = Array.from(document.querySelectorAll('svg .barTab'));
 	elements.forEach(function(el) {	el.addEventListener("mousemove",function() { barTabMouseover(el.id); } ); });
@@ -430,7 +432,6 @@ function measureWindow() { var winWid=window.innerWidth; AL.winWid=winWid; var w
 function initTab(handle) { function noDivs()  { code = [""]; demo = [""]; dev  = [""]; }
 	var label; var params; var SVG; var demo; var code; var dev; var funcs;
 	function initTab(resize) { var params = AL.tab.params;
-		params.active = true;
 		measureWindow();
 		if(params.SVG) 	{
 			var w = document.getElementById("wrapper");
@@ -444,10 +445,10 @@ function initTab(handle) { function noDivs()  { code = [""]; demo = [""]; dev  =
 							wrapper.appendChild(sidebar); wrapper.appendChild(content); AL.tab.params.HTML=wrapper; }
 		prepareTabContent( params, AL.winWid, AL.winHei) }
 	function resizeTab() { initTab(true) }
-	function showTab(refresh) { var params = AL.tab.params;
-			 if(handle=="beings") { createTabHTML(AL.tab,refresh); console.log(refresh); }
+	function showTab() { var params = AL.tab.params;
+			 if(handle=="dharma") { createTabHTML(AL.tab); }
 		else if(handle=="mosaic") { showMosaicDisplays(AL.winWid,AL.winHei,AL.tab.params) }}
-	if(handle == "beings") { label = "Beings"; params = { SVG:false, HTML:null }; demo = [""]; code = ["\
+	if(handle == "dharma") { label = "Dharma"; params = { SVG:false, HTML:null, HTMLinit:false }; demo = [""]; code = ["\
 			<div class='divrow' id='r1'></div><div style='clear:both;'></div>\
 			<div class='divrow' id='r2'></div><div style='clear:both;'></div>\
 			<div class='divrow' id='r3'></div><div style='clear:both;'></div>\
@@ -462,7 +463,7 @@ function initTab(handle) { function noDivs()  { code = [""]; demo = [""]; dev  =
 			<div class='divrow' id='r12'></div>"]; dev=[""];
 		funcs={ init 	 : function() 		{ initTab(false); },
 				generate : function()		{ showTab(); },
-				resize 	 : function() 		{ resizeTab(); }}} /*;initBeingsDisplay(beings)*/
+				resize 	 : function() 		{ resizeTab(); }}} /*;initDharmaDisplay(dharmas)*/
 	else if(handle == "mosaic") { label = "Mosaic"; params = { SVG:true, mono:true }; noDivs();
 		funcs={ init 	 : function() 		{ initTab(false);  },
 				generate : function()		{ showTab(); },
@@ -474,7 +475,8 @@ function initTab(handle) { function noDivs()  { code = [""]; demo = [""]; dev  =
 	var ret = new Tab(handle,params,label,demo,code,dev,funcs); return ret; }
 function Tab(handle,params,label,demo,code,dev,funcs) { this.handle = handle; this.params = params; this.label = label; this.demo = demo; this.code = code; this.dev = dev; this.funcs = funcs; this.active = false; }
 function getTabByHandle(h)  { for(var i=0; i<AL.tabs.length; i++) { if(h==AL.tabs[i].handle) { return AL.tabs[i]; }}}
-function deactivateOldTab() { if(AL.prevTab != AL.tab) { AL.prevTab.active = false; AL.prevTab = AL.tab; }}
+function deactivateOldTab() { if((AL.prevTab != AL.tab) && AL.initDone) {
+	AL.prevTab.active = false; AL.prevTab.params.HTMLinit = false;	AL.prevTab = AL.tab; }}
 function displayTab(handle) { AL.tab=getTabByHandle(handle); deactivateOldTab(); AL.tab.funcs.init() }
 function changeTab(id) 		{ var i=parseInt(id); if(AL.tab!=AL.tabs[i]) {
 	AL.tab=AL.tabs[i]; deactivateOldTab(); AL.tab.funcs.init() }}
@@ -581,13 +583,8 @@ function sketchMosaic(q,dest,Y,X) {
 				r+="<span style='background-color:"+q[y][x].h+";'>"+tmp+"</span>";}}}
 	r+="</div>"; doc.innerHTML +=r; }
 
-
-
-// DISP:::BEINGS
+// DISP:::DOM
 function createTabHTML(tab,resize) {
-	//var w = document.getElementById("wrapper");
-	//		if(w!=null) { w.remove() }
-
 	function createBarTabHTML(label,n){ var btn = document.createElement("div");
 										var btnId = "barTab_"+n;
 										btn.setAttribute('class','sidebar-option');
@@ -595,36 +592,37 @@ function createTabHTML(tab,resize) {
 										var btnText = document.createTextNode(label);
 										btn.appendChild(btnText);
 										return btn; }
-	if(!resize) {
+	if(!resize && !tab.params.HTMLinit && AL.initDone) {
 		var sidebar = tab.params.HTML.childNodes[0];
 		var h=""; var btn=null;
 		for(var i=0; i<AL.tabs.length; i++) {
 			btn = createBarTabHTML(AL.tabs[i].label,i);
 			sidebar.appendChild(btn); }
 		var content = tab.params.HTML.childNodes[1];
+		svg.setAttribute('display','none');
 		for(var i = 0; i < tab.dev.length; i++) {
 			if(typeof tab.demo[i] == "string"){	content.innerHTML += tab.demo[i]; }
 			if(typeof tab.code[i] == "string"){ content.innerHTML += tab.code[i]; }
 			if(typeof tab.dev[i] == "string") { content.innerHTML += tab.dev[i]; }}
-		svg.setAttribute('display','none');
+		tab.params.HTMLinit = true;
 		document.body.appendChild(tab.params.HTML);
-		if(tab.handle == "beings") { initBeingsDisplay(AL.beings) }}}
-function initBeingsDisplay(v) { 
-	//drawBeings(v.mas.selves.adult,"r1"); drawBeings(v.mas.others.adult,"r2");
-
-	drawBeings(v.mas.selves.adult,"r1"); drawBeings(v.mas.selves.child,"r2");
-	drawBeings(v.fem.selves.child,"r3"); drawBeings(v.fem.selves.adult,"r4");
-	drawBeings(v.mas.others.adult,"r5"); drawBeings(v.mas.others.child,"r6");
-	drawBeings(v.fem.others.child,"r7"); drawBeings(v.fem.others.adult,"r8"); }
-function drawBeings(bng,row) {
-	//drawBeing(bng.male, bng.adult, bng.other, 	 0, 	bng.vertexPlane, 				row);
-	drawBeing(bng.male, bng.adult, bng.other, 	-3,		bng.moods.hostile.vertexPlane, 	row);
-	drawBeing(bng.male, bng.adult, bng.other, 	-1,		bng.moods.enemy.vertexPlane, 	row);
-	drawBeing(bng.male, bng.adult, bng.other, 	-2,		bng.moods.runaway.vertexPlane, row);
-	drawBeing(bng.male, bng.adult, bng.other,  	 3,		bng.moods.peaceful.vertexPlane, row);
-	drawBeing(bng.male, bng.adult, bng.other, 	 1,		bng.moods.playful.vertexPlane,	row);
-	drawBeing(bng.male, bng.adult, bng.other, 	 2,		bng.moods.escorting.vertexPlane,row);}
-function drawBeing(male,adult,other,mood,p,row,input) {
+		if(tab.handle == "dharma") { initDharmaDisplay(AL.dharma,tab) }}}
+function initDharmaDisplay(v,tab) {  console.log(tab);
+	if(!tab.params.active) {
+	//drawDharmas(v.mas.selves.adult,"r1"); drawDharmas(v.mas.others.adult,"r2");
+	drawDharmas(v.mas.selves.adult,"r1"); drawDharmas(v.mas.selves.child,"r2");
+	drawDharmas(v.fem.selves.child,"r3"); drawDharmas(v.fem.selves.adult,"r4");
+	drawDharmas(v.mas.others.adult,"r5"); drawDharmas(v.mas.others.child,"r6");
+	drawDharmas(v.fem.others.child,"r7"); drawDharmas(v.fem.others.adult,"r8"); }}
+function drawDharmas(dhr,row) {
+  //drawDharma(dhr.male, dhr.adult, dhr.other, 	 0, 	dhr.vertexPlane, 				row);
+	drawDharma(dhr.male, dhr.adult, dhr.other, 	-3,		dhr.moods.hostile.vertexPlane, 	row);
+	drawDharma(dhr.male, dhr.adult, dhr.other, 	-1,		dhr.moods.enemy.vertexPlane, 	row);
+	drawDharma(dhr.male, dhr.adult, dhr.other, 	-2,		dhr.moods.runaway.vertexPlane,  row);
+	drawDharma(dhr.male, dhr.adult, dhr.other,   3,		dhr.moods.peaceful.vertexPlane, row);
+	drawDharma(dhr.male, dhr.adult, dhr.other, 	 1,		dhr.moods.playful.vertexPlane,	row);
+	drawDharma(dhr.male, dhr.adult, dhr.other, 	 2,		dhr.moods.escorting.vertexPlane,row);}
+function drawDharma(male,adult,other,mood,p,row,input) {
 	var r = document.getElementById(row); var h="<div class='rowblock'>";
 	function makeLabel() { var z="<span style='background-color:black;color:white;'>";
 		if(mood==6) { z+=input; }
