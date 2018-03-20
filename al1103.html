@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"
 	http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>aldiodi 930</title><style>
+<title>aldiodi 1103</title><style>
 	@font-face { font-family:'profont';
 		src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
 			url('diodi/profontwindows-webfont.woff') format('woff');	font-weight:normal; font-style:normal; }
@@ -82,7 +82,7 @@
 
 	#dharmaParser { height:78px; background-color:#222; position:fixed; left:173px; bottom:19px; min-width:100%; }
 	#devBar{ height: 19px; position:fixed; right:66px; bottom:0px; background-color:black; width:100%;
-		text-align:right; padding-right: 9px; color:red; font-size:15px;}
+		text-align:right; padding-right: 9px; color:red; font-size:15px; padding-bottom:1px;} /*h+1, pb+1*/
 
 	#dharmaColumnWrapper{width:100%;min-height:100%;background-color:#181818; position:absolute;top:25px;
 		margin-left:173px; padding:66px; }
@@ -94,11 +94,15 @@
 	.dharmaColumn  { width:25px; background-color:white; border: 1px solid black; padding:66px; float:left; }
 	#leftDharmaColumn { min-height: 100%; width:50%; background-color:#111; }
 	#rightDharmaColumn{ min-height: 100%; width:50%; background-color:#111; }
+
+	#display3DuR { position:fixed; left: 88px; top:88px; }
+
 	.divrow { width:100%; }	.rowblock { float:left; }
 	#uL{float:left;}		#uR{float:left;}
 	#content { background-color:black; color:white; }
 </style>
 <script src="diodi/jquery-2.js"></script>
+<script src="diodi/three.min.js"></script>
 <script>
 var svg   = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 var svgNS = svg.namespaceURI;
@@ -107,11 +111,13 @@ var AL = {
 /*CORE    */dharma: { mas:null, fem:null, beings:null, mosaic:null, space:null, tmprmnt:null, ontology:null },
 /*XY      */resolution:	 8,				mosaic:		"XY",			mosaics: 	["XY","XZ","YZ"],
 /*TAXONOMY*/ontology:null, 				epistemology:null, 			morality:null, 				ethics:null,
-/*UI      */tab:		"dharma",		tabs:		["test","dharma","mosaic"], 				prevTab: false,
+/*UI      */tab:		"mosaic",		tabs:		["test","dharma","mosaic"], 				prevTab: false,
 			fontSize: 	15, 			devHeader:	false,			headerHeight:50,
 			sidebar: 	true,			sidebarSVG:true, 			sidebarWidth: 	66,
 			sidebarTabHei: 41,			sidebarTabPadL: 11,			sidebarTabPadT: 6,
-/*DHARMA  */dharmaProfile:null, 		dharmaProfiles: [], 	dharmaProfileIndex: 1, 		dharmaLogy: null,
+/*CONTROLS*/lArr: false, 				uArr: false, 				rArr: false, 				dArr: false,
+/*3D*/ 		unitDistD3d: 10,/*to-be:16*/defaultVelD3d: 10, 			defaultRotD3d: 0.1,
+/*DHARMA  */dharmaProfile:null, 		dharmaProfiles: [], 		dharmaProfileIndex: 1, 		dharmaLogy: null,
 /*MISC    */uri:		location,		trackingMosaic: false, 		help:true }
 
 // "There are no taxonomies in America!" "And no Cartesian coordinates, either!"
@@ -132,10 +138,6 @@ function initEpistemology(dharma) { dharma.epistemology = ["vertexPlane","circui
 		for(var i=0; i < arr.length; i++) { bf = initEpistemologies(dharma, arr[i]); rt.push(bf); } return rt }
 	dharma.epistemology = applyEpistemology(dharma, initTaxonomy(generate(dharma.epistemology)));
 	AL.epistemology = dharma.epistemology; return dharma }
-function initOntology(dharma) { dharma.beings = { mas: dharma.mas, fem: dharma.fem };
-	var ontologies = ["beings", "tmprmnt"]
-	ontologies = initTaxonomy(initOntologies(dharma, ontologies));
-	AL.ontology = ontologies[0]; dharma.ontology = ontologies; return dharma }
 function assignEpistemologiesTo(ont,epi) {}
 function initEpistemologies(dharma, epi) { var label; var rt;
 	function makeCatalogue(hnd) { 
@@ -144,6 +146,71 @@ function initEpistemologies(dharma, epi) { var label; var rt;
 				["judging","perceiving","resilient","intuitive","thinking","feeling"]); }
 		rt = new Catalogue(epi, label, rt); return rt; }
 	var r = makeCatalogue(epi); return r }
+
+     /*¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨*
+    / yuu blockheed !!         /|
+   /.                         / |
+  /                          /  |
+ /                          /   |
+/                          /    |
+|¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨|     |    "Well, I certainly prefer Morgenthau !!"
+|                       ◉ |     |
+|                         |     |    "BICYCLE KIIICK !!!"
+|                         |     |
+|                         |     |
+|    TEMPERAMENT          |     |
+|                         |     /
+|    5 lbs                |    /
+|                         |   /
+|    TO: EAST BERLN       |  /
+|                         | /
+|_________________________*/
+
+function initNET(t) {
+	t.temperament = null;
+	console.log(t);
+	return t }
+function initTemperament(dharma) {
+	dharma = initCircuitFunctions(dharma);
+	var ts = getOnt(dharma,"tmprmnt").content.items;
+	var t  = initNET(ts.find(function(e) { return e.label == "NET" }));
+	return dharma }
+function initCircuitFunctions(dharma) {
+	var Fi = new InformationElement(	dharma, 	false,	false,	false,	"Fi"	);
+	var Fe = new InformationElement(	dharma, 	false,	false,	true, 	"Fe"	);
+	var Ni = new InformationElement(	dharma, 	false,	true, 	false,	"Ni"	);
+	var Ne = new InformationElement(	dharma, 	false,	true, 	true, 	"Ne"	);
+	var Ri = new InformationElement(	dharma, 	true,	false,	false,	"Ri"	);
+	var Re = new InformationElement(	dharma, 	true,	false,	true, 	"Re"	);
+	var Ti = new InformationElement(	dharma, 	true,	true,	false,	"Ti"	);
+	var Te = new InformationElement(	dharma, 	true,	true, 	true, 	"Te"	);
+	dharma.tmprmnt = { functions:{ Fi:Fi, Fe:Fe, Ni:Ni, Ne:Ne, Ri:Ri, Re:Re, Ti:Ti, Te:Te }};
+	console.log(dharma);
+	return dharma }
+function InformationElement( d, x, y, z, code ){ var X; var Y; var Z;
+	if 		( !x && !y && !z ) 	{	X = -1; 	Y =  0; 	Z = -1 	}
+	else if ( !x && !y &&  z ) 	{ 	X = -1; 	Y =  0; 	Z =  1 	}
+	else if ( !x &&  y && !z ) 	{ 	X =  0; 	Y =  1; 	Z = -1 	}
+	else if ( !x &&  y &&  z ) 	{ 	X =  0; 	Y =  1; 	Z =  1 	}
+	else if (  x && !y && !z ) 	{ 	X =  0; 	Y = -1; 	Z = -1 	}
+	else if (  x && !y &&  z ) 	{ 	X =  0; 	Y = -1; 	Z =  1 	}
+	else if (  x &&  y && !z ) 	{ 	X = -1; 	Y =  0; 	Z = -1 	}
+	else if (  x &&  y &&  z ) 	{ 	X = -1; 	Y =  0; 	Z =  1 	}
+	var sign = {bin: { x: x, y: y, z: z },car: { X: X, Y: Y, Z: Z }};
+	var axes = getAxes(d, sign);
+	this.axes = axes; this.sign = sign; this.code = code; }
+function getAxes(d, sign) { var rt=[];
+	var axes = getOnt(d, "beings").content.items;
+}
+
+//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
+//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
+//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
+//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
+function initOntology(dharma) { dharma.beings = { mas: dharma.mas, fem: dharma.fem };
+	var ontologies = ["beings", "tmprmnt"]
+	ontologies = initTaxonomy(initOntologies(dharma, ontologies));
+	AL.ontology = ontologies[0]; dharma.ontology = ontologies; return dharma }
 function initOntologies(dharma, arr) { var rt=[]; var bf=null; var label;
 	function makeCatalogue(hnd) {
 		if 		(hnd=="beings") { label = "Beings";		 bf = listBeings(dharma.beings,
@@ -153,6 +220,10 @@ function initOntologies(dharma, arr) { var rt=[]; var bf=null; var label;
 		bf = new Catalogue(arr[i], label, bf); rt.push(bf); }
 	for(var i=0; i<arr.length; i++){ makeCatalogue(arr[i]) } return rt }
 function Catalogue(handle,label,content){this.handle=handle; this.label=label; this.content=content; }
+//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
+//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
+//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
+//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
 function getOnt(d,hnd) { for(var i=0; i<d.ontology.length;i++){if(hnd==d.ontology[i].handle){return d.ontology[i]}}}
 function getOntology(hnd){ for(var i=0;i<AL.dharma.ontology.length;i++){
 	if(hnd==AL.dharma.ontology[i].handle){ return AL.dharma.ontology[i] }}}
@@ -162,6 +233,10 @@ function listVertexPlanes(b,types) { var rt = { items: null, categories: [] }; v
 	rt.items = getVertexPlanes(b); return rt }
 function listCircuits(t,types) { var rt = { items: null, categories: [] }; var buf;
 	rt.items = [ {sign:"α"},{sign:"β"},{sign:"γ"},{sign:"δ"},{sign:"ε"},{sign:"ζ"},{sign:"η"},{sign:"θ"},{sign:"ι"},{sign:"κ"},{sign:"λ"},{sign:"μ"} ];	return rt }
+//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
+//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
+//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
+//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
 function listBeings(b,types) { var rt = { items: null, categories: [] }; var buf;
 	rt.items = [
 		b.mas.selves.adult,
@@ -257,8 +332,16 @@ function listBeings(b,types) { var rt = { items: null, categories: [] }; var buf
 		b.fem.others.child.moods.hostile, b.fem.others.child.moods.enemy, b.fem.others.child.moods.runaway, b.fem.others.child.moods.peaceful, b.fem.others.child.moods.playful, b.fem.others.child.moods.escorting] };
 		rt.categories.push(buf); }}
 	return rt}
+//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
+//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
+//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
+//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
 function listTemperaments(t,types) { var rt = { handle: "", items: null, categories: [] }; var buf;
 	rt.items = [ { label: "FIN"},{ label: "FIR"},{ label: "FEN"},{ label: "FER"},{ label: "NIF"},{ label: "NIT"},{ label: "NEF"},{ label: "NET"},{ label: "RIF"},{ label: "RIT"},{ label: "REF"},{ label: "RET"},{ label: "TIN"},{ label: "TIR"},{ label: "TEN"},{ label: "TER"} ];	return rt }
+//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
+//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
+//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
+//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
 
 
 function remFromArr(arr,obj) { var index = arr.indexOf(obj); if (index > -1) { array.splice(index, 1) }}
@@ -286,12 +369,12 @@ function DharmaProfile(label,sel) { var index=AL.dharmaProfileIndex;  this.index
 	this.hidden = false; AL.dharmaProfiles.push(this); AL.dharmaProfileIndex++; }
 function selectDharmas(hnd,sub,sel) { var rt={ont: null, sub:null, sel:null}; rt.ont = getOntology(hnd);
 	if(typeof sub != "undefined") { rt.sub = sub } if(typeof sel != "undefined") { rt.sel = sel } return rt }
-function initDharmaProfiles() {
-	var bng = selectDharmas("beings",[7]);
-	var tpr = selectDharmas("tmprmnt",[]);
-	var v = new DharmaProfile("Beings",bng);
+function initDharmaProfiles(tabHandle) { var r = []; switch(tabHandle) {
+		case "dharma" 	:	var bng = selectDharmas("beings",[7]); 			var v = new DharmaProfile("Beings",bng);
+							var tpr = selectDharmas("tmprmnt",[]);
+	
 	AL.dharmaProfile = v;
-	var v = new DharmaProfile("Temperaments",tpr); }
+	var v = new DharmaProfile("Temperaments",tpr); }}
 function populateDharmaProfiles() {
 	var d = document.getElementById('dharmaHeaderTabs');
 	for(var i=0; i < AL.dharmaProfiles.length; i++) { createDharmaHeaderTab(d,i,AL.dharmaProfiles[i]) } return d }
@@ -547,74 +630,6 @@ function signQuadrantSemantics(X,Y,G,O){ var r=""; if((typeof G=="undefined")||
 	else if(!G && !O)  { if(X && Y){r="S"}else if(X && !Y){r="O"}else if(!X && Y){r="C"}else if(!X && !Y){r="L"}}
 	else if(!G &&  O)  { if(X && Y){r="L"}else if(X && !Y){r="C"}else if(!X && Y){r="O"}else if(!X && !Y){r="S"}}
 	else if (G &&  O)  { if(X && Y){r="S"}else if(X && !Y){r="C"}else if(!X && Y){r="O"}else if(!X && !Y){r="L"}}return r }
-/*
-                                                                                         
-                      XX                                                      2222          XX
-                X       XX                                                  222  222          XX
-XX              X        XX    XXXXXXXX    EEEE  EE   EE  EEEEe EE EE   EE 222    222     XX   XX
-XXXXXXXXXX   XXXXXXX     XX                EE    EEE  EE EE     EE EEE  EE 2222222222     XXOHIXMÄN!
-XX              X        XX    XXXXXXXX    EEEE  EE E EE EE EEE EE EE E EE 222            XX   XX
-                X      333                 EE    EE  EEE EE  EE EE EE  EEE  222  222 	     βββ
-                       X                   EEEE  EE   EE  EEEE  EE EE   EE    2222           X
-                       X                                                                     X
-*/
-function parseTriplaneSign(g, s) {
-	var rt=parseArithmetic(interpretTriplaneSign(g,s));
-	return rt;
-		}
-function parseArithmetic(s) { }
-function interpretTriplaneSign(g, s) { var Q = ""; var R = "";
-		 if( g && s=="αβγ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if( g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if( g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if( g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if( g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if( g && s=="βγα" ) { Q = "X+Y"; R = "X-Y"; }
-	else if( g && s=="γαβ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if( g && s=="γβα" ) { Q = "X+Y"; R = "X-Y";  console.log("über")}
-	else if(!g && s=="αβγ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if(!g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if(!g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if(!g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if(!g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if(!g && s=="βγα" ) { Q = "X+Y"; R = "X-Y"; }
-	else if(!g && s=="γαβ" ) { Q = "X+Y"; R = "X-Y"; }
-	else if(!g && s=="γβα" ) { Q = "X+Y"; R = "X-Y"; }
-	console.log(s);
-	return { Q:Q, R:R }}
-function quantifyAs(bng) {
-	var g = parseTriplaneSign(true, bng.vertexPlane.uR.good.sign);
-	//var b = parseTriplaneSign(false,bng.vertexPlane.uR.bad.sign );
-	console.log(g);
-	//console.log(b);
-}
-function initQuantification(dharmas) { var q = quantifyAs(beings.fem.others.adult);
-	return beings; } //sociotypes also quantify
-function initMetaphysics() {
-	AL.dharma   = initEpistemology(initOntology(initMosaic(initOthers(initPrimalMoods(initSelves(initVectorColors()))))));
-	//initSpace(mosaic,AL.resolution,dharmas); 
-}
-
-// PROCESS
-//function parseTriplaneSign(t,g) { }
-function quantTile(X,Y,R,d,q,t) { var x = Math.abs(Y); var y = Math.abs(Y); 
-	return t.sign; }
-
-function quantifyLocationValue(l) { var ret;
-	var x = Math.abs(l.X);
-	var y = Math.abs(l.Y);
-	if(x >= y) { ret = y;
-		if(!l.sex) { ret = 5 - x; }}
-	else { ret = x - y; }	
-	return ret; }
-
-// ENGINE
-/*while (condition)
-  statement*/
-function moveToTile(id) { }
-function startTime(time) { if(AL.time==0) {	typeof time=="undefined" ? AL.time = AL.defaultTime : AL.time = time;
-	/*while(AL.time!=0) { }*/}
-}
 
 /*5{[1}\+!&8pS49h5&J                   X XXX
 EE5^~*^!!!_XX46L35ur   XYX XI  XXX ☆?☽ X H
@@ -624,22 +639,79 @@ QQHKj;^+;|x&5oTujjj}    X   X  NX   V  XXX|X
 J5u53r^^\+/\cjj>>"\;    X   X   E   X   |⊞|
 j52xLJl}|\"}}{".` !^   XXX XXX XXE XWX  XXX
 JT5555nr[r?1>[?{+;*/
+function initMetaphysics() {
+	AL.dharma   = 	initEpistemology(
+						initTemperament(
+							initOntology(
+								initMosaic(
+									initOthers(
+										initPrimalMoods(
+											initSelves(
+												initVectorColors()))))))) }
+                     /*X                                                      2222          XX
+                X       XX                                                  222  222          XX
+XX              X        XX    XXXXXXXX    EEEE  EE   EE  EEEEe EE EE   EE 222    222     XX   XX
+XXXXXXXXXX   XXXXXXX     XX                EE    EEE  EE EE     EE EEE  EE 2222222222     XXOHIXMÄN!
+XX              X        XX    XXXXXXXX    EEEE  EE E EE EE EEE EE EE E EE 222            XX   XX
+                X      333                 EE    EE  EEE EE  EE EE EE  EEE  222  222 	     βββ
+                       X                   EEEE  EE   EE  EEEE  EE EE   EE    2222           X
+                       X                                                                     */
 function viimeinenSana() { initMetaphysics(); initExistence(); initUI(); virginTab() }
 function initUI() {	measureWindow(); for(var i = 0; i < AL.tabs.length; i++) { AL.tabs[i] = initTab(AL.tabs[i]) }} 
-function initControls(SVG) { window.addEventListener("resize", AL.tab.funcs.resize, true);
-							 SVG ? initSVGControls() : initDOMControls() }
-function initSVGControls() {
-	var elements = Array.from(document.querySelectorAll('svg .barTab'));
-	elements.forEach(function(el) {	el.addEventListener("mousemove",function() { barTabMouseover(el.id) } ); });
-	elements.forEach(function(el) {	el.addEventListener("click", 	function() { barTabClick(el.id)	 	} ); });
+function initControls(SVG) {	window.addEventListener("resize", AL.tab.funcs.resize, true);
+								SVG ? initSVGControls() : initDOMControls() }
+function initDevKey() {	if(typeof AL.tab.features.devKey != "undefined") { if(AL.tab.features.devKey) {
+	document.addEventListener('keydown', 	(event) => {
+		const keyName = event.key; console.log('keydown event\n\n' + 'key: ' + keyName); }); }}}
+function initControls3D() { if(typeof AL.tab.features.d3d != "undefined") { if(AL.tab.features.d3d) {
+	document.addEventListener('keydown', 	(e) => { const keyName = e.key; switch(keyName) {
+		case "ArrowLeft" : AL.lArr=true;navigate3D(e.shiftKey,e.altKey,e.ctrlKey,AL.tab.display.d3d,AL.tab.speed);break;
+		case "ArrowUp" 	 : AL.uArr=true;navigate3D(e.shiftKey,e.altKey,e.ctrlKey,AL.tab.display.d3d,AL.tab.speed);break;
+		case "ArrowRight": AL.rArr=true;navigate3D(e.shiftKey,e.altKey,e.ctrlKey,AL.tab.display.d3d,AL.tab.speed);break;
+		case "ArrowDown" : AL.dArr=true;navigate3D(e.shiftKey,e.altKey,e.ctrlKey,AL.tab.display.d3d,AL.tab.speed);break}});
+	document.addEventListener('keyup', 		(event) => { const keyName = event.key; switch(keyName) {
+		case "ArrowLeft" : AL.lArr = false; break;
+		case "ArrowUp" 	 : AL.uArr = false; break;
+		case "ArrowRight": AL.rArr = false; break;
+		case "ArrowDown" : AL.dArr = false; break; }}); }}}
+function initSVGControls() { initDevKey(); initControls3D();
+	commonBindArr('svg .barTab', 		function(e,id) 	{ barTab(e, id) 				} );
 	var elements = Array.from(document.querySelectorAll('svg .mosaic-uL-tile'));
 	elements.forEach(function(el) {	el.addEventListener("mousemove",function() { tileMouseover(el.id) 	} ); });
 	elements.forEach(function(el) {	el.addEventListener("click", 	function() { tileClick(el.id) 	 	} ); }); }
-function initDOMControls() {
-	var elements = Array.from(document.querySelectorAll('.sidebar-option'));
-	elements.forEach(function(el) {	el.addEventListener("click", 	function() { barTabClick(el.id)		} ); });
-	var elements = Array.from(document.querySelectorAll('.sidebar-option-selected'));
-	elements.forEach(function(el) {	el.addEventListener("click", 	function() { barTabClick(el.id)		} ); });
+/*.click().contextmenu().dblclick()[.hover()Bind one or two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.].mousedown().mouseenter()[.mouseleave()Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.].mousemove().mouseout().mouseover().mouseup()*/
+function commonBindOne(selector, callback) { 	var e=document.querySelector(selector);
+							e.addEventListener("click",  		function() { callback("click", 			e.id ) 	});
+			if(!AL.tab.SVG){e.addEventListener("mousemove", 	function() { callback("mousemove", 		e.id ) 	});
+							e.addEventListener("mouseleave",	function() { help() 						 	})}}
+function commonBindArr(selector, c) { var e=Array.from(document.querySelectorAll(selector));
+					e.forEach( function(e) { e.addEventListener("click",  		function() { c("click", 	e.id ) 	})});
+	if(!AL.tab.SVG){e.forEach( function(e) { e.addEventListener("mousemove",	function() { c("mousemove", e.id ) 	})});
+					e.forEach( function(e) { e.addEventListener("mouseleave",	function() { help() 				})})}}
+function initDOMControls() { initDevKey(); initControls3D();
+	commonBindArr('.sidebar-option', 			function(e,id) 		{ barTab(e, id) 				} );
+	commonBindOne('.sidebar-option-selected', 	function(e,id) 		{ barTab(e, id) 				} );
+	commonBindOne("[id^='keyundo_']", 			function(e) { keyUndoRedo_undo(e) 			} );
+	commonBindOne("[id^='keyredo_']", 			function(e) { keyUndoRedo_redo(e) 			} );
+	commonBindOne("[id^='keySTOP_']", 			function(e) { keyStopPlayRec_stop(e) 		} );
+	commonBindOne("[id^='keyPLAY_']", 			function(e) { keyStopPlayRec_play(e) 		} );
+	commonBindOne("[id^='keyREC_']", 			function(e) { keyStopPlayRec_rec(e) 		} );
+	commonBindOne("[id^='keySAVE_']", 			function(e) { keySaveLoad_save(e) 			} );
+	commonBindOne("[id^='keyLOAD_']", 			function(e) { keySaveLoad_load(e) 			} );
+	commonBindOne("[id^='keySTACK_']", 			function(e) { keyStackConst_stack(e) 		} );
+	commonBindOne("[id^='keyCOLLAPSE_']", 		function(e) { keyStackConst_collapse(e) 	} );
+	commonBindOne("[id^='keyCONSTL_']", 		function(e) { keyConstLabel(e) 				} );
+	commonBindOne("[id^='keyMONOCOL_']", 		function(e) { keyHorVer_monoCol(e) 			} );
+	commonBindOne("[id^='keyMONOROW_']", 		function(e) { keyHorVer_monoRow(e) 			} );
+	commonBindOne("[id^='keyHIGHERR_']", 		function(e) { keyHorVer_higherRow(e)		} );
+	commonBindOne("[id^='keySYMMETRY_']",		function(e) { keyHorVer_symmetry(e) 		} );
+	commonBindOne("[id^='keyHIGHROW_']", 		function(e) { keyHorVer_highRow(e) 			} );
+	commonBindOne("[id^='keyHIGHCOL_']", 		function(e) { keyHorVer_highCol(e) 			} );
+	commonBindOne("[id^='keyHIGHERC_']", 		function(e) { keyHorVer_higherCol(e)		} );
+	commonBindOne("[id^='keyMETATOOL_']", 		function(e) { keyMetaTool(e)				} );
+
+// tab specific dharma profiles
+
 	var elements = Array.from(document.querySelectorAll('#removeDharmaProfile'));
 	elements.forEach(function(el) { el.addEventListener('click', 	function() { removeDharmaProfile() 	} ); });
 	var elements = Array.from(document.querySelectorAll('#createDharmaProfile'));
@@ -670,43 +742,47 @@ function tileClick(id) 		{ /*console.log(id);*/ var Id = id.split("-").pop(); /*
 									 X	  Z   X  X  Z  Z    X  X
 						  XXXXXXXXXXXX   ZZZ  X  X XXXX  XXX   XXXXXXXXXX*/  
 
-function barTabMouseover(id){ /*console.log(id + " mouseover");*/ }
-function barTabClick(id) 	{ var Id = id.split("_").pop(); displayTabById(Id); }
+function help(text) { if(AL.help && !AL.tab.SVG){ if(typeof text == 'undefined') { devBar() } else { devBar(text) }}}
+function barTab(event,id) 	{ var Id = id.split("_").pop(); switch(event) {
+	case "click" 		: 	displayTabById(Id); 				break;
+	case "mousemove" 	: 	help(getTabByStrInt(Id).devBar); 	}}
 function measureWindow(){ var winWid=window.innerWidth;AL.winWid=winWid; var winHei=window.innerHeight;AL.winHei=winHei }
-function initTab(handle) {	var tab = null;
-							if 		(handle=='mosaic') {
-								tab = initSVGTab(handle) }
-							else if (handle=="test"||handle=="dharma"){
-								tab = initDOMTab(handle) } return tab }
-function Tab(handle,SVG,label,display,features,funcs) {
-	this.handle=handle; this.SVG=SVG; this.label=label; this.display=display; this.features=features; this.funcs=funcs }
-function initSVGTab(handle) { var SVG=true; var params = { dharmaProfiles:[] };
-	var label; var display; var features; var tools; var funcs;
-	if 		( handle == 'mosaic' ){ label = "Mosaic"; tools = initTools(handle);
-		features = { mono:false, tools:tools };
-		display = initMosaicDisplays(AL.winWid,AL.winHei,AL.resolution);
+function initTab(handle) {	var tab = null;	 if 		(handle=='mosaic') {
+												tab = initSVGTab(handle) }
+										else if (handle=="test"||handle=="dharma"){
+												tab = initDOMTab(handle) } return tab }
+function Tab(handle,SVG,label,display,features,funcs,devBar) { this.handle=handle; this.label=label; this.devBar=devBar;
+	this.SVG=SVG; this.display=display; this.features=features; this.funcs=funcs }
+function initSVGTab(handle) { var SVG=true;	var label; var display; var features; var funcs; var devBar;
+	if 		( handle == 'mosaic' ){ label = "Mosaic";
+		devBar = "multipolar wrapped cartesian space with integer coordinates and dynamic resolution";
+		features = { tools:initTools(handle), mono:false, d3d:true, devKey:true };
+		display = initMosaicDisplays(AL.winWid,AL.winHei,AL.resolution,AL.unitDistD3d);
 		funcs={ show 	: function() { showSVGTab() },
 				hide 	: function() { hideSVGTab() },
 				resize 	: function() { resizeSVGTab() },
 				refresh : function() { refreshSVGTab() },
 				clear 	: function() { clearSVGTab() }}}
-	var rt = new Tab( handle, SVG, label, display, features, funcs ); return rt }
-function initDOMTab(handle) { var SVG=false; var params = { dharmaProfiles:[] };
-	var label; var display; var features=null; var tools=null; var funcs;
-	if 		( handle == 'test' ){ label = "Legend"; display = initTestDisplay();
+	var rt = new Tab( handle, SVG, label, display, features, funcs, devBar ); return rt }
+function initDOMTab(handle) { var SVG=false; var label; var display; var features=null; var funcs; var devBar;
+	if 		( handle == 'test' ){ label = "Legend";
+		devBar = "●'ve seen the 1 hu got a way";
+		display = initTestDisplay();
 		funcs={ show 	: function() { showDOMTab() },
 				hide 	: function() { hideDOMTab() },
 				resize 	: function() { resizeDOMTab() },
 				refresh : function() { refreshDOMTab() }}}
-	else if ( handle == 'dharma' ){ label = "Dharma"; tools = initTools(handle);
-	 	features = { tools:tools }
+	else if ( handle == 'dharma' ){ label = "Dharma";
+		devBar = "dharma explorer and sequencer";
+		features = { profiles: initDharmaProfiles(handle), tools: initTools(handle), devKey:false };
 		display = initDharmaDisplay();		
 		funcs={ show 	: function() { showDOMTab() },
 				hide 	: function() { hideDOMTab() },
 				resize 	: function() { resizeDOMTab() },
 				refresh : function() { refreshDOMTab() }}}
-	var rt = new Tab( handle, SVG, label, display, features, funcs ); return rt }
-function getTabByHandle (h) { for(var i=0; i<AL.tabs.length; i++) { if(h==AL.tabs[i].handle) { return AL.tabs[i]; }}}
+	var rt = new Tab( handle, SVG, label, display, features, funcs, devBar ); return rt }
+function getTabByHandle (h) { var l=AL.tabs.length;for(var i=0; i<l; i++){if(h==AL.tabs[i].handle){ return AL.tabs[i] }}}
+function getTabByStrInt(id) { var i=parseInt(id); return AL.tabs[i] }
 function virginTab (handle) { var tab = getTabByHandle(AL.tab);					switchTabs( null, 	tab )}
 function displayTab(handle) { var tab = getTabByHandle(handle); 				switchTabs( AL.tab, tab )}
 function displayTabById(id) { var i=parseInt(id); if( AL.tab != AL.tabs[i] )  { switchTabs( AL.tab, AL.tabs[i] )}}
@@ -714,15 +790,18 @@ function switchTabs(ex, to) { if(ex != null) { ex.funcs.hide() } AL.tab = to; to
 function hideDOMTab() { var w = document.getElementById("wrapper");	if(w != null) { w.remove() }}
 function hideSVGTab() { svg.setAttribute('display','none') }
 function showSVGTab() {	svg.setAttribute('display','block'); 
-						showSVGSidebar( AL.winWid, AL.winHei ); 
+						showSVGSidebar( AL.winWid, AL.winHei, AL.tab ); 
 						document.body.appendChild(svg);
-						switch(AL.tab.handle){ case "mosaic" : showMosaicDisplays( AL.winWid, AL.winHei, AL.tab) }
+						switch(AL.tab.handle){
+							case "mosaic" : showMosaicDisplays( AL.winWid, AL.winHei, AL.tab );
+											if(AL.tab.features.d3d){ show3D( AL.tab.display.d3d )} break; }
 						$( document ).ready(function() { initControls(true) } ) }
 function showDOMTab() { var wrapper = document.createElement('div');		wrapper.setAttribute('id','wrapper');
 						var content = AL.tab.display.cloneNode(true); 		wrapper.appendChild(content);
 						document.body.appendChild(wrapper);
 						AL.tab.funcs.refresh();
 						var sidebar = makeDOMSidebar(); 					wrapper.appendChild(sidebar);
+						AL.help && devBar();
 						$( document ).ready(function() { initControls(false) } ) }
 function resizeDOMTab() {}
 function resizeSVGTab() {}
@@ -746,10 +825,10 @@ function refreshSVGTab(){}
 
 function keyHandleToLabel(handle) { switch(handle) {
 	case "undo" 	: return "<span style='font-size:13px; position:absolute; top:10px; left: 4px;'>undo</span>";
-	case "redo" 	: return "<span style='font-size:13px; position:absolute; top:10px; right:4px;'>redo</span>";
+	case "redo" 	: return "<span style='font-size:13px; position:absolute; top:10px; right:3px;'>redo</span>";
 	case "STOP" 	: return "<span style='font-size:25px;'>⬛</span>"; //&#9632;
 	case "PLAY" 	: return "<span style='font-size:19px;'>⭓</span>";
-	case "REC" 		: return "<span style='color:#8b0000; font-size:39px;'>⬤</span>"; //●'ve seen the 1 hu got a way
+	case "REC" 		: return "<span style='color:#8b0000; font-size:39px;'>⬤</span>";
 	case "SAVE" 	: return "<span style='font-size:19px;'>⬇</span>";
 	case "LOAD" 	: return "<span style='font-size:19px;'>⬆</span>";
 	case "STACK"	: return "按";
@@ -787,40 +866,21 @@ function initTools(handle) { var r=[]; var key=[]; var tool=null;	function T(p,s
 	r = cutToolKeys(r); return r }
 function Tool(handle, key) { this.handle=handle; this.key=key}
 function cutToolKeys(tools) { var bf=null;
-			function setKeyElementClass(e,arity){ if (arity==1) { e.setAttribute('class','unaryFeature')   }
-											 else if (arity==2) { e.setAttribute('class','binaryFeature')  }
-											 else if (arity==3) { e.setAttribute('class','trinaryFeature') } return e }
-			function setKeyElementId(e,handle,n,arity) {
-				var id = ""; id += "key"; id += handle;	id += "_"; id += n;	id += "-"; id += arity;
-				e.setAttribute('id',id); return e }
-		function cutDOM(tri) { var r=[];
-			function terDOM() {	priDOM(); secDOM();	var e=document.createElement('div'); e=setKeyElementClass(e, tri.n);
+				function setKeyElementClass(e,arity){ if (arity==1) { e.setAttribute('class','unaryFeature')   }
+												 else if (arity==2) { e.setAttribute('class','binaryFeature')  }
+												 else if (arity==3) { e.setAttribute('class','trinaryFeature') } return e }
+				function setKeyElementId(e,handle,n,arity) {
+					var id = ""; id += "key"; id += handle;	id += "_"; id += n;	id += "-"; id += arity;
+					e.setAttribute('id',id); return e }
+			function cutDOM(tri) { var r=[];
+				function terDOM() {priDOM();secDOM(); var e=document.createElement('div'); e=setKeyElementClass(e, tri.n);
 							e=setKeyElementId(e, tri.ter, 3, tri.n); e.innerHTML=keyHandleToLabel(tri.ter); r.push(e); }
-			function secDOM() { priDOM(); 			var e=document.createElement('div'); e=setKeyElementClass(e, tri.n);
+				function secDOM() {priDOM(); 		  var e=document.createElement('div'); e=setKeyElementClass(e, tri.n);
 		 					e=setKeyElementId(e, tri.sec, 2, tri.n); e.innerHTML=keyHandleToLabel(tri.sec); r.push(e); }
-			function priDOM() { 					var e=document.createElement('div'); e=setKeyElementClass(e, tri.n);
+				function priDOM() { 				  var e=document.createElement('div'); e=setKeyElementClass(e, tri.n);
 		 					e=setKeyElementId(e, tri.pri, 1, tri.n); e.innerHTML=keyHandleToLabel(tri.pri); r.push(e); }
-			tri.n==3 ? terDOM() : tri.n==2 ? secDOM() : priDOM(); return r }
-		function cutSVG(arity,labels,select,handle) {}
-		function cutFuncs(handle) { var f; var fs = []; var ident = "key"+handle; switch(ident) {
-				case "keyUndoRedo" 	  	: 	f = function() { keyUndoRedo_undo() 		}; fs.push(f);
-											f = function() { keyUndoRedo_redo() 		}; fs.push(f); break;
-				case "keyStopPlayRec" 	: 	f = function() { keyStopPlayRec_stop() 		}; fs.push(f);
-											f = function() { keyStopPlayRec_play() 		}; fs.push(f);
-											f = function() { keyStopPlayRec_rec() 		}; fs.push(f); break;
-				case "keySaveLoad" 		: 	f = function() { keySaveLoad_save() 		}; fs.push(f);
-											f = function() { keySaveLoad_load() 		}; fs.push(f); break;
-				case "keyStackConst"	: 	f = function() { keyStackConst_stack() 		}; fs.push(f);
-											f = function() { keyStackConst_collapse() 	}; fs.push(f); break;
-				case "keyConstLabel" 	: 	f = function() { keyConstLabel() 			}; fs.push(f); break;
-				case "keyHorVer" 		: 	f = function() { keyHorVer_monoCol() 		}; fs.push(f);
-											f = function() { keyHorVer_monoRow() 		}; fs.push(f);
-											f = function() { keyHorVer_higherRow()	 	}; fs.push(f);
-											f = function() { keyHorVer_symmetry() 		}; fs.push(f);
-											f = function() { keyHorVer_highRow() 		}; fs.push(f);
-											f = function() { keyHorVer_highCol() 		}; fs.push(f);
-											f = function() { keyHorVer_higherCol() 		}; fs.push(f); break;
-				case "keyMetaTool" 		: 	f = function() { keyMetaTool() 				}; fs.push(f); break} return fs }
+				tri.n==3 ? terDOM() : tri.n==2 ? secDOM() : priDOM(); return r }
+			function cutSVG(arity,labels,select,handle) {}
 			function cutState(handle) { var s; var ss = []; var ident = "key"+handle; switch(ident) {
 				case "keyUndoRedo" 	  	: 	s = { keyUndoRedo_undo: 		null		}; ss.push(s);
 											s = { keyUndoRedo_redo: 		null		}; ss.push(s); break;
@@ -840,19 +900,35 @@ function cutToolKeys(tools) { var bf=null;
 											s = { keyHorVer_highCol: 		null 		}; ss.push(s);
 											s = { keyHorVer_higherCol: 		null 		}; ss.push(s); break;
 				case "keyMetaTool" 		: 	s = { keyMetaTool: 				null 		}; ss.push(s); break} return ss }
-		function makeCut(triple,tool) { var buf=null; var cut={ state:null, DOM:[], SVG:[], funcs:null };
+		function makeCut(triple,tool) { var buf=null; var cut={ state:null, DOM:[], SVG:[] };
 			cut.state 	= cutState(tool.handle);
 			cut.DOM 	= cutDOM  (triple);
-			cut.SVG 	= cutSVG  ();
-			cut.funcs 	= cutFuncs(tool.handle); return cut }
-	function cutKey(tool){ var cut=null; var cuts={ state:[], DOM:[], SVG:[], funcs:[] };
+			cut.SVG 	= cutSVG  (); return cut }
+	function cutKey(tool){ var cut=null; var cuts={ state:[], DOM:[], SVG:[] };
 		for(var j=0;j<tool.key.length;j++) {
 			cut = makeCut(tool.key[j], tool);
 			cuts.state.push (cut.state); //here was if state
 			cuts.DOM.push 	(cut.DOM);
-			cuts.SVG.push 	(cut.SVG);
-			cuts.funcs.push (cut.funcs)} return cuts }
+			cuts.SVG.push 	(cut.SVG)} return cuts }
 	for(var i=0; i < tools.length; i++){ bf = cutKey(tools[i]); tools[i].key = bf; } return tools }
+function keyUndoRedo_undo(e) 		{console.log(e)}
+function keyUndoRedo_redo(e) 		{console.log(e)}
+function keyStopPlayRec_stop(e) 	{console.log(e)}
+function keyStopPlayRec_play(e) 	{console.log(e)}
+function keyStopPlayRec_rec(e) 		{console.log(e)}
+function keySaveLoad_save(e) 		{console.log(e)}
+function keySaveLoad_load(e) 		{console.log(e)}
+function keyStackConst_stack(e) 	{console.log(e)}
+function keyStackConst_collapse(e)	{console.log(e)}
+function keyConstLabel(e) 			{console.log(e)}
+function keyHorVer_monoCol(e) 		{console.log(e)}
+function keyHorVer_monoRow(e) 		{console.log(e)}
+function keyHorVer_higherRow(e)		{console.log(e)}
+function keyHorVer_symmetry(e) 		{console.log(e)}
+function keyHorVer_highRow(e) 		{console.log(e)}
+function keyHorVer_highCol(e) 		{console.log(e)}
+function keyHorVer_higherCol(e) 	{console.log(e)}
+function keyMetaTool(e) 			{console.log(e)}
                                                                   /*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
                                                                                 XXX      XXX.   XXX.    XXX     XX
                                                                                X.       X.     X.  X.  X.  X.  X  X
@@ -884,7 +960,8 @@ function populateDOMSidebarFeatures() {
 	var f = document.createElement('div'); f.setAttribute('id','sidebarFeatures');
 	var tools = AL.tab.features.tools;
 	for(var i=0; i < tools.length; i++) { make(tools[i].key.DOM) } return f }
-function showSVGSidebar(winWid, winHei) {
+function showSVGSidebar(winWid, winHei, tab) {
+	var tabs = AL.tabs.length;
 	var barWid = AL.sidebarWidth;
 	var offset = winWid - barWid;
 	var tabHei = AL.sidebarTabHei;
@@ -896,7 +973,7 @@ function showSVGSidebar(winWid, winHei) {
 	bar.setAttribute('x',offset); 		bar.setAttribute('y',0);
 	bar.setAttribute('width',barWid); 	bar.setAttribute('height',winHei);
 	bar.setAttribute('fill','#95B3D7');	svg.appendChild(bar);
-    for(var i=0; i<AL.tabs.length; i++) { 
+    for(var i=0; i<tabs; i++) { 
     	var barTabId=barTabClass+"_"+i;	
     	var barTab=document.createElementNS(svgNS,'rect');  
     	barTab.setAttribute('class', barTabClass);	barTab.setAttribute('id', barTabId);
@@ -943,14 +1020,42 @@ function drawMosaic(code,depth,m,res, disWid,disHei, disOffX,disOffY, widDif,hei
 function showMosaic(code,depth,dp,winWid,winHei) { 
 	drawMosaic(code, AL.depth, AL.dharma.mosaic.plane, dp.dim.resX, dp.dim.disWid, dp.dim.disHei, dp.dim.dpOffX, dp.dim.dpOffY, dp.dim.widDif, dp.dim.heiDif, dp.dim.tilWid, dp.dim.tilHei, winWid, winHei ) }
 function showMosaicDisplays(winWid,winHei,tab){
-	if(tab.features.mono){ showMosaic("mono",false,tab.display.mono,winWid,winHei) } else {
-	showMosaic("uL",false,tab.display.uL,winWid,winHei); showMosaic("dL",true, tab.display.dL,winWid,winHei);
-	showMosaic("dR",true, tab.display.dR,winWid,winHei); }}
-function situateMosaic(mosDim, mosPos, code) { 
+	if(tab.features.mono) { showMosaic("mono",false,tab.display.mono,winWid,winHei) }
+	else 				  { showMosaic("uL",false,tab.display.uL,winWid,winHei);
+							showMosaic("dL",true, tab.display.dL,winWid,winHei);
+							showMosaic("dR",true, tab.display.dR,winWid,winHei); }
+							showMosaicHUD(tab) }
+function showMosaicHUD(tab) { 	var loc = getCamLocationHUD(tab);
+								var textNode = document.createTextNode(loc);
+								var hud = document.createElementNS(svgNS,'rect');
+								hud.setAttribute('fill',tab.display.hud.hudCol);
+								hud.setAttribute('x',tab.display.hud.xOff);
+								hud.setAttribute('y',tab.display.hud.yOff);
+								hud.setAttribute('width',tab.display.hudWid);
+								hud.setAttribute('height',tab.display.hudHei);
+								var txt = document.createElementNS(svgNS,"text");
+								txt.setAttributeNS(null,'x',tab.display.hud.xOff);
+								txt.setAttributeNS(null,'y',(tab.display.hud.yOff * (2*AL.sidebarTabPadT)));
+								txt.setAttributeNS(null,'font-size',AL.fontSize);
+								txt.setAttributeNS(null,'fill',tab.display.hud.txtCol);
+								txt.appendChild(textNode);
+								svg.appendChild(hud);
+								svg.appendChild(txt); }
+
+								/*var xOff = winWid - AL.sidebarWidth;				var yOff = (AL.tabs.length * AL.sidebarTabHei) + AL.sidebarTabPadT;
+	var hudWid = AL.sidebarWidth;						var hudHei = AL.fontSize;
+	var hud = document.createElementNS(svgNS,'rect'); 	hud.setAttribute('fill','#3583A7');
+	hud.setAttribute('x',xOff); 						hud.setAttribute('y',yOff);
+	hud.setAttribute('width',hudWid); 					hud.setAttribute('height',hudHei);
+	var locCam = document.createElementNS(svgNS,"text");
+	locCam.setAttributeNS(null,"x",xOff);				locCam.setAttributeNS(null,"y",yOff + (2*AL.sidebarTabPadT));
+	locCam.setAttributeNS(null,"font-size",AL.fontSize);locCam.setAttributeNS(null,"fill","white");
+	var rt = { back: hud, front: locCam }; return rt }*/
+function situateDisplay(mosDim, mosPos, code) { 
 	if(code=="dL"||code=="dR") { mosDim.dpOffY += mosDim.disHei; 	mosPos.y.off += mosDim.heiDif; }
 	if(code=="uR"||code=="dR") { mosDim.dpOffX += mosDim.disWid; 	mosPos.x.off += mosDim.widDif; }
 	else if(code=="mono") { mosPos.x.off = Math.floor(mosDim.widDif / 2); mosPos.y.off = Math.floor(mosDim.heiDif / 2); }
-	var rt = { dim: mosDim, pos: mosPos }; return rt; }
+	var rt = { code:code, dim: mosDim, pos: mosPos }; return rt; }
 function measureMosaic(code, winWid, winHei, x, y) { 
 	var rt = { disWid:0, disHei:0, tilWid:0, tilHei:0, widDif:0, heiDif:0, dpOffX:0, dpOffY:0, resX:x, resY:y };
 	if(code!="mono"){ rt.disWid = Math.floor( winWid / 2 ); 	rt.disHei = Math.floor( winHei / 2 ); }
@@ -962,15 +1067,19 @@ function configureMosaic(code, winWid, winHei, x, y) {
 	var winWid = winWid-AL.sidebarWidth;
 	var mosPos = { x:{ res:x, crd:0, off:0, zoo:1}, y:{ res:y, crd:0, off:0, zoo:1}};
 	var mosDim = measureMosaic(code, winWid, winHei, x, y);
-	var disPos = situateMosaic(mosDim, mosPos, code); return disPos }
+	var disPos = situateDisplay(mosDim, mosPos, code); return disPos }
 function MosaicDisplay(code, winWid, winHei, x, y){ 
 	if(typeof y != "undefined") { var disPos = configureMosaic(code, winWid, winHei, x, y) }
 	else 						{ var disPos = configureMosaic(code, winWid, winHei, x) }
 	this.pos=disPos.pos; this.dim=disPos.dim; this.code=code; }
-function initMosaicDisplays(winWid,winHei,R) { var rt={ mono:null, uL:null, uR:null, dL:null, dR:null }
-	var uL = new MosaicDisplay("uL", winWid, winHei, R); var uR = new MosaicDisplay("uR", winWid, winHei, R);
-	var dL = new MosaicDisplay("dL", winWid, winHei, R); var dR = new MosaicDisplay("dR", winWid, winHei, R);
-	var mono = new MosaicDisplay("mono", winWid, winHei, R); rt.uL=uL;rt.uR=uR;rt.dL=dL;rt.dR=dR;rt.mono=mono; return rt }
+function initMosaicDisplays(winWid,winHei,R,unitDist) {
+	var rt={ mono:null,uL:null,uR:null,dL:null,dR:null,d3d:null,hud:null }
+	var mono= new MosaicDisplay("mono", winWid, winHei, R);	var uL = new MosaicDisplay("uL", winWid, winHei, R); 
+	var dL 	= new MosaicDisplay("dL", winWid, winHei, R); 	var dR = new MosaicDisplay("dR", winWid, winHei, R);
+	var d3d = initDisplays3D("uR", winWid, winHei); 		var uR = d3d;
+	var hud = initHUD3D(winWid, winHei, unitDist);
+	console.log(hud);
+	rt.mono=mono; rt.uL=uL; rt.uR=uR; rt.dL=dL; rt.dR=dR; rt.d3d=d3d; rt.hud=hud; return rt }
 function resizeMosaicDisplays(winWid,winHei,R) {
 	resizeMosaicDisplay(AL.mosaicDisplays.mono, winWid, winHei, R) }
 function resizeMosaicDisplay(mosaic, winWid, winHei, R) { var cfg=configureMosaic(mosaic.code, winWid, winHei, R);
@@ -987,7 +1096,180 @@ function sketchMosaic(q,dest,Y,X) {
 			else if(typeof q[y][x]=="string"){r+="<span>"+q[y][x]+"</span>"}
 			else { tmp=mosaicTileLabel(x,y);
 				r+="<span style='background-color:"+q[y][x].h+";'>"+tmp+"</span>";}}}
-	r+="</div>"; doc.innerHTML +=r; }/*
+	r+="</div>"; doc.innerHTML +=r; }
+
+/*GG GGGG G    G   G GGGG GGG  GGGG GGGG
+G    G  G G    GG GG G    G  G G    G
+G GG G  G G    G G G GGG  G  G GGG  GGG
+G  G G  G G    G   G G    G  G G    G
+GGGG GGGG GGGG G   G GGGG GGG  GGGG GGGG
+
+GGGG G   G G G   G  GG  G  GGG G  G G  G  GGG
+G  G GG GG G GG  G G  G G G    G  G G  G G
+G  G G G G G G G G GGGG G  GG  G  G G  G  GG    * kielitoimiston pitäisi suositella
+G  G G   G G G  GG G  G G    G G  G G  G    G 	vrt. "dhalikko" -> "talikko" lännestä 1500-luvulla tullut perversio,
+GGGG G   G G G   G G  G G GGG   GG   GG  G*/ 	// T. DUKE NUMEK
+
+function gearUp3D(cfg){var dis={cfg:cfg,rnd:null,per:null,ort:null,sce:null,lit:null,cam:null,unitCam:null,unitObj:null};
+	var aspect = cfg.disWid / cfg.disHei;
+	dis.rnd = new THREE.WebGLRenderer();
+	dis.per = new THREE.PerspectiveCamera( 45, aspect);
+	dis.ort = new THREE.OrthographicCamera();
+	dis.sce = new THREE.Scene();
+	dis.sce.add( dis.per );
+	dis.sce.add( dis.ort );
+	dis.lit = new THREE.AmbientLight( 0xffffff );
+	dis.sce.add( dis.lit );
+	//positionCameras( cfg, dis.per, dis.ort, dis.sce );
+	dis.rnd.setSize( cfg.disWid, cfg.disHei );
+	dis.rnd.setClearColor( 0xff0000, 1 );
+	dis.rnd.domElement.style.position = "fixed";
+	dis.rnd.domElement.style.top  = cfg.dpOffY + "px";
+	dis.rnd.domElement.style.left = cfg.dpOffX + "px";
+	dis.cam = dis.per;
+	return dis }
+/*function positionCameras(cfg,per,ort,sce) {
+	per.rotation._x = cfg.pos._x; 	per.rotation._y = cfg.pos._y; 	per.rotation._z = cfg.pos._z;
+	ort.rotation._x = cfg.pos._x; 	ort.rotation._y = cfg.pos._y; 	ort.rotation._z = cfg.pos._z;
+	per.position.x = cfg.pos.x; 	per.position.y = cfg.pos.y;		per.position.z = cfg.pos.z;
+	ort.position.x = cfg.pos.x; 	ort.position.y = cfg.pos.y;		ort.position.z = cfg.pos.z}*/
+// renderer.setPixelRatio( window.devicePixelRatio ); ???
+function measureDisplay3D(code, winWid, winHei, unitDist) { 
+	var rt = { code:code, disWid:0, disHei:0, dpOffX:0, dpOffY:0, unitDist:unitDist };
+	if(code!="mono"){ rt.disWid = Math.floor( winWid / 2 ); 	rt.disHei = Math.floor( winHei / 2 ); }
+	else 			{ rt.disWid = winWid; 						rt.disHei = winHei; } return rt }
+function situateDisplay3D(d) {  if(d.code=="dL"||d.code=="dR") { d.dpOffY += d.disHei }
+								if(d.code=="uR"||d.code=="dR") { d.dpOffX += d.disWid } return d }
+function configureDisplay3D(code, winWid, winHei, unitDist) { var winWid = winWid-AL.sidebarWidth;
+	var d3d = situateDisplay3D(measureDisplay3D( code, winWid, winHei, unitDist )); return d3d }
+function Display3D(code, winWid, winHei) { 	var d3d = gearUp3D(configureDisplay3D(code, winWid, winHei, AL.unitDistD3d ));
+	this.cfg=d3d.cfg; this.rnd=d3d.rnd; this.per=d3d.per; this.ort=d3d.ort; this.sce=d3d.sce; this.lit=d3d.lit
+	this.cam=d3d.cam; }
+function initDisplays3D(code,winWid,winHei) {
+	var rt = new Display3D( code, winWid, winHei );
+	mosaicToWires( rt, AL.dharma.mosaic.plane );
+	return rt }
+function initHUD3D(winWid, winHei, unitDist) {
+	var xOff = winWid - AL.sidebarWidth;				var yOff = (AL.tabs.length * AL.sidebarTabHei) + AL.sidebarTabPadT;
+	var hudWid = AL.sidebarWidth;						var hudHei = AL.fontSize;
+	var hudCol = "#3583A7";								var txtCol = "white";
+	var yOffTxt = yOff + (2*AL.sidebarTabPadT);
+	var rt={ xOff:xOff, yOff:yOff, hudWid:hudWid, hudHei:hudHei, hudCol:hudCol, txtCol:txtCol, yOffTxt:yOffTxt };return rt}
+function mosaicToWires( display, mosaic ) { var buf;
+	for(var y = 0; y < AL.resolution; y++) {
+		for(var x = 0; x < AL.resolution; x++) {
+			buf = tileToWire( mosaic[y][x] ); mosaic[y][x].wire = buf }}}
+function tileToWire(tile) {
+	var wire = { mat: null, geo: null };
+	var mat = new THREE.LineBasicMaterial( { color: tile.h } );
+	wire.mat = mat;
+	return wire }
+function generateTest3D(d3d) {
+	var material = new THREE.MeshLambertMaterial({
+    	color: 0x0033cc, transparent: true, opacity: 0.236, side: THREE.DoubleSide, depthWrite: false, depthTest: false });
+	var box = new THREE.Mesh( new THREE.BoxBufferGeometry( 10, 10, 10 ), material);  
+	box.position.x = 0; box.position.y = 0; box.position.z = -50;
+	return box }
+function show3D(d3d) {
+	var tmp = generateTest3D(d3d);
+	d3d.sce.add( tmp );
+	render3D(d3d);
+	document.body.appendChild(d3d.rnd.domElement) }
+function getControlDir() { 
+	var rt = { hor: 0, ver: 0 };
+	if(AL.uArr) { rt.ver =  1 } else if(AL.dArr) { rt.ver = -1 }
+	if(AL.lArr) { rt.hor = -1 } else if(AL.rArr) { rt.hor =  1 } return rt }
+function navigate3D(shift, alt, ctrl, dp) { var cmd = getControlDir();
+	alt ? rotateCam3D(shift,ctrl,dp,dp.cam,cmd,AL.defaultRotD3d) : moveCam3D(shift,ctrl,dp,dp.cam,cmd,AL.defaultVelD3d) }
+function rotateCam3D(opt, ctrl, d3d, cam, cmd, r) { if(ctrl) { r = degreesToRadians(90) }
+	function rotateCamHor3D(hor) { var axis = new THREE.Vector3( 0, 1, 0);
+		if(hor < 0) { cam.rotateOnAxis(axis, r) } else { cam.rotateOnAxis(axis, -r)}}
+	function rotateCamVer3D(ver) {
+		if(!opt) { 	var axis = new THREE.Vector3( 1, 0, 0 );
+			if(ver < 0) { cam.rotateOnAxis( axis,-r )} else { cam.rotateOnAxis( axis,r )}}}
+	var camDir = new THREE.Vector3( 0, 0,-1 );
+	camDir.applyQuaternion( cam.quaternion );
+	if(cmd.hor != 0) { rotateCamHor3D(cmd.hor) } 
+	if(cmd.ver != 0) { rotateCamVer3D(cmd.ver) }
+	render3D(d3d) }
+function moveCam3D(opt, ctrl, d3d, cam, cmd, vel) { var r = degreesToRadians(90); //if control vel*=res
+	function moveCamHor3D(hor){ var axis = new THREE.Vector3( 0, 1, 0 );
+		if(hor < 0) { camDir.applyAxisAngle( axis,r )} else { camDir.applyAxisAngle( axis, -r) }}
+	function moveCamVer3D(ver){
+		if(!opt){ if(ver < 0) { vel = -vel }}
+		else 	{ /*if(ver > 0) { vel = -vel }
+			var axis = new THREE.Vector3( 1, 0, -1 );
+			axis.applyQuaternion( cam.quaternion );
+			camDir.cross(axis); }*/}}
+	var camDir = new THREE.Vector3( 0, 0,-1 );
+	camDir.applyQuaternion( cam.quaternion );
+	if(cmd.hor != 0) { moveCamHor3D(cmd.hor) } 
+	if(cmd.ver != 0) { moveCamVer3D(cmd.ver) }
+	camDir.multiplyScalar(vel);
+	cam.position.add(camDir);
+	render3D(d3d) }
+function getCamLocationHUD(tab) {
+	function adjustCrd(str){if(str.length>3){ x="O/F" }
+							else 			{switch(str.length){ case 1: str = "_"+str+"_"; break;
+ 																 case 2: str = "_"+str;		break}} return str }
+	var x = tab.display.d3d.cam.position.x; x = Math.floor(x / AL.unitDistD3d); x = x.toString(); x = adjustCrd(x);
+	var y = tab.display.d3d.cam.position.y; y = Math.floor(y / AL.unitDistD3d); y = y.toString(); y = adjustCrd(y);
+	var z = tab.display.d3d.cam.position.z; z = Math.floor(z / AL.unitDistD3d); z = z.toString(); z = adjustCrd(z);
+	var rt = x+y+z; return rt }
+
+
+
+
+function moveCam3D3(opt,d3d,obj,cmd,vel){
+	function moveCamHor3D() { }
+	function moveCamVer3D() {}
+	
+
+	var quaternion = new THREE.Quaternion();
+	if(cmd.hor < 0) 	{ quaternion.setFromAxisAngle( new THREE.Vector3(-1, 0, 0), Math.PI / 2 )}
+	else if(cmd.hor > 0){ quaternion.setFromAxisAngle( new THREE.Vector3( 1, 0, 0), Math.PI / 2 )}
+
+	quaternion.setFromAxisAngle( new THREE.Vector3( 0, 1, 0 ), Math.PI / 2 );
+
+var vector = new THREE.Vector3( 1, 0, 0 );
+vector.applyQuaternion( quaternion );
+
+
+	
+	var dir = new THREE.Vector3( obj.rotation._x, obj.rotation._y, obj.rotation._z );
+	console.log(dir);
+	console.log(obj);
+	if 		(cmd.hor < 0) { 			dir.x -= r }else if(cmd.hor > 0){ dir.x += r }
+	if 		(cmd.ver < 0) { if(!opt){ 	dir.z += r }else 				{ dir.y -= r }}
+	else if (cmd.ver > 0) { if(!opt){ 	dir.z -= r }else 				{ dir.y += r }}
+	dir.multiplyScalar(vel);
+	obj.position.x += dir.x;
+	obj.position.y += dir.y;
+	obj.position.z += dir.z;
+	render3D(d3d) }
+function move3D2(opt, d3d, obj, cmd, vel) {
+	var r = degreesToRadians(90);
+	var dir = new THREE.Vector3( obj.rotation.x, obj.rotation.y, obj.rotation.z );
+	if 		(cmd.hor < 0) { dir.applyAxisAngle(d3d.z, -r) } else if(cmd.hor > 0) { dir.applyAxisAngle(d3d.z, r) }
+	if 		(cmd.ver < 0) { if(!opt) { dir.applyAxisAngle(d3d.x, -r) }else{ dir.applyAxisAngle(d3d.y, -r) }}
+	else if (cmd.ver > 0) { if(!opt) { dir.applyAxisAngle(d3d.x,  r) }else{ dir.applyAxisAngle(d3d.y,  r) }}
+	dir.multiplyScalar(vel);
+	obj.position.x += dir.x;
+	obj.position.y += dir.y;
+	obj.position.z += dir.z}
+function render3D(d3d) { 	d3d.rnd.clear();
+							d3d.rnd.render( d3d.sce, d3d.cam );
+							showMosaicHUD(AL.tab) }
+function degreesToRadians(degrees) { var pi = Math.PI; return degrees * (pi/180); }
+/*
+	console.log(dir);
+	if(cmd.hor < 0) 	{ obj.position.add -= vel } else if(cmd.hor > 0) { obj.position.x += vel }
+	if(cmd.ver < 0) 	{ if(opt) { obj.position.y -= vel } else { obj.position.z += vel }}
+	else if(cmd.ver > 0){ if(opt) { obj.position.y += vel } else { obj.position.z -= vel }}
+	d3d.rnd.clear();
+	d3d.rnd.render( d3d.sce, d3d.cam ); }*/
+
+/*
 
 DDDDDD ' OOOOO  OO     OO           (                         Ω
 DD  DDD OO° °OO OOO   OOO    +→    (   m mm mm        x.xx.    Ω
@@ -996,7 +1278,9 @@ DD   DD OOo oOO OO O O OO  +++++→  (    m  m  m   M×   x. x.   Ω
 DD  DDD OOOOOOO OO OOO OO    +→    (    m  m  m        x. x.   Ω
 DDDDDD   OOOOO  OO  O  OO           (  mm  m  mm      xx. xx. ω
 
-*/function populateDharmaTypeSelector(s) { for(var i = 0; i < AL.dharma.ontology.length; i++) {
+*/function devBar(text) { var d = document.getElementById('devBar');
+	if(typeof text == 'undefined') { d.innerHTML = "Press F1 For No Help ↧↥" } else { d.innerHTML = text }}
+function populateDharmaTypeSelector(s) { for(var i = 0; i < AL.dharma.ontology.length; i++) {
 		var option = document.createElement('option');	option.text = AL.dharma.ontology[i].label;	s.add(option); }}
 function populateDharmaSubtypeSelector(s) {	for(var i = 0; i < AL.ontology.content.categories.length; i++) {
 		var option = document.createElement('option');	option.text = AL.ontology.content.categories[i].handle;
@@ -1084,7 +1368,6 @@ function initDharmaSidebar() {
 	var parser = document.createElement('div'); 			parser.setAttribute('id','dharmaParser');
 
 	var devBar = document.createElement('div'); 			devBar.setAttribute('id','devBar');
-	if(AL.help) { devBar.innerHTML = "Press F1 For No Help ↧↥" }
 
 	var displayLock = document.createElement('div'); 		displayLock.setAttribute('id','dharmaDisplayLock');
 	var lockUpper = document.createElement('div'); 			lockUpper.setAttribute('id','dharmaUpperLock');
@@ -1158,6 +1441,9 @@ function closeHood(id,clas) {
 function baTang(d,el) { if(typeof d == "string") { var d = document.getElementById(d) }	d.appendChild(el) }
 
 
+//
+// dont remember this
+//
 
 /*
 function initDharmaColumns() {
@@ -1188,6 +1474,7 @@ $(document).ready(function(){
 
 // Press F2 For More Help
 // onhover: (mystery key: shift) 	// reverses dir in dharmasrcdst ctrls 
+// click on da hood !!
 
 // rect.setAttribute('fill','#95B3D7'); 
 
@@ -1212,6 +1499,59 @@ var d = document.createElement('div'); 	 d.setAttribute('id','dharmaColumns');
 	
 	d.appendChild(e);
 	return d }*/
+	function parseTriplaneSign(g, s) {
+	var rt=parseArithmetic(interpretTriplaneSign(g,s));
+	return rt;
+		}
+function parseArithmetic(s) { }
+function interpretTriplaneSign(g, s) { var Q = ""; var R = "";
+		 if( g && s=="αβγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="βγα" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="γαβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if( g && s=="γβα" ) { Q = "X+Y"; R = "X-Y";  console.log("über")}
+	else if(!g && s=="αβγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="αγβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="βαγ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="βγα" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="γαβ" ) { Q = "X+Y"; R = "X-Y"; }
+	else if(!g && s=="γβα" ) { Q = "X+Y"; R = "X-Y"; }
+	console.log(s);
+	return { Q:Q, R:R }}
+function quantifyAs(bng) {
+	var g = parseTriplaneSign(true, bng.vertexPlane.uR.good.sign);
+	//var b = parseTriplaneSign(false,bng.vertexPlane.uR.bad.sign );
+	console.log(g);
+	//console.log(b);
+}
+// PROCESS
+//function parseTriplaneSign(t,g) { }
+function quantTile(X,Y,R,d,q,t) { var x = Math.abs(Y); var y = Math.abs(Y); return t.sign; }
+
+function quantifyLocationValue(l) { var ret;
+	var x = Math.abs(l.X);
+	var y = Math.abs(l.Y);
+	if(x >= y) { ret = y;
+		if(!l.sex) { ret = 5 - x; }}
+	else { ret = x - y; }	
+	return ret; }
+
+// ENGINEwhile (condition)  statement
+function moveToTile(id) { }
+function startTime(time) { if(AL.time==0) {	typeof time=="undefined" ? AL.time = AL.defaultTime : AL.time = time;
+	/*while(AL.time!=0) { }*/}}
+function initQuantification(dharmas) { var q = quantifyAs(beings.fem.others.adult);
+	return beings; } //sociotypes also quantify //initSpace(mosaic,AL.resolution,dharmas); 
+
+
+//
+// dont remembert this
+//
 
 
 
