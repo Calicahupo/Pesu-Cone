@@ -1,13 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"
 	http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>aldiodi 1103</title><style>
+<title>YOZEN 1262</title><style>
 	@font-face { font-family:'profont';
 		src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
 			url('diodi/profontwindows-webfont.woff') format('woff');	font-weight:normal; font-style:normal; }
 	@font-face { font-family: 'strike_fighter';
     	src:url('diodi/strikefighter-webfont.woff2')format('woff2'),
     		url('diodi/strikefighter-webfont.woff') format('woff'); font-weight: normal; font-style: normal;}
+    @font-face {
+    font-family: 'VGA';
+    src: url('diodi/PerfectDOSVGA437.woff2') format('woff2'),
+        url('diodi/PerfectDOSVGA437.woff') format('woff'); font-weight: normal; font-style: normal;}
+
+
 	html,body{height:100%;padding:0px;margin:0px;font-family:profont;font-size:13px;background-color:black;color:white;}
 	button,select,input{font-family:profont;font-size:13px;}
 	#wrapper{ min-height:100%; background-color:black; }
@@ -77,12 +83,17 @@
 	#selRelsToDown 	{width:28px;height:18px;padding:0px;margin-left:2px;}
 	#allRelsToDown 	{width:28px;height:18px;padding:0px;}
 	.dharmaControlButtonLabel { position:relative; top:-3px;}
-	select#relationTypeSelector { width:173px; position:fixed; bottom:0px; background-color:#ccc;}
-	select#relationSubtypeSelector { width:173px; position:fixed; bottom:19px; height:78px; }
+	select#dharmaRelSelector { width:173px; position:fixed; bottom:0px; background-color:#ccc;}
+	select#dharmaSubrelSelector { width:173px; position:fixed; bottom:19px; height:78px; }
 
 	#dharmaParser { height:78px; background-color:#222; position:fixed; left:173px; bottom:19px; min-width:100%; }
 	#devBar{ height: 19px; position:fixed; right:66px; bottom:0px; background-color:black; width:100%;
 		text-align:right; padding-right: 9px; color:red; font-size:15px; padding-bottom:1px;} /*h+1, pb+1*/
+
+	#systemGrid_dharmaMono { background-color: #888844; }
+	.systemGrid_dharmaMono { background-color: #448844; }
+	.systemGridPixel { border: 1px solid #ffffff; }
+
 
 	#dharmaColumnWrapper{width:100%;min-height:100%;background-color:#181818; position:absolute;top:25px;
 		margin-left:173px; padding:66px; }
@@ -95,57 +106,124 @@
 	#leftDharmaColumn { min-height: 100%; width:50%; background-color:#111; }
 	#rightDharmaColumn{ min-height: 100%; width:50%; background-color:#111; }
 
+
+
 	#display3DuR { position:fixed; left: 88px; top:88px; }
 
-	.divrow { width:100%; }	.rowblock { float:left; }
 	#uL{float:left;}		#uR{float:left;}
 	#content { background-color:black; color:white; }
+	#monolithicBoilerPlate{
+		font-family:VGA; text-align:center; background-color:#0000ff; border-bottom: 1px solid white; padding-bottom:25px;}
+	#monolithicBoilerPlate a:link{ background-color:white; }
+	#monolithicBoilerPlate a:visited{ background-color:white; }
+	h1{ margin: 0px; padding-top: 25px; padding-left:25px; font-size: 16px; }
 </style>
+<script src="diodi/aldiodi.js"></script>
 <script src="diodi/jquery-2.js"></script>
 <script src="diodi/three.min.js"></script>
 <script>
-var svg   = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-var svgNS = svg.namespaceURI;
-var AL = {
+	/*, url('diodi/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg')*/
+
+var AL = {  tree: null,
+/*YOZEN   */posDim: 256,
 /*ENGINE  */initDone: false, 			T:0, 						time:0,				 		defaultTime: 6516,
-/*CORE    */dharma: { mas:null, fem:null, beings:null, mosaic:null, space:null, tmprmnt:null, ontology:null },
 /*XY      */resolution:	 8,				mosaic:		"XY",			mosaics: 	["XY","XZ","YZ"],
-/*TAXONOMY*/ontology:null, 				epistemology:null, 			morality:null, 				ethics:null,
-/*UI      */tab:		"mosaic",		tabs:		["test","dharma","mosaic"], 				prevTab: false,
-			fontSize: 	15, 			devHeader:	false,			headerHeight:50,
+/*TAXONOMY*/ontology: 	null, 				
+			epistemology: 	["vertexPlane","circuitScript"], 			
+			morality: 		["scalarQuanta","romanticQuanta"], 				
+			ethics: 	null,
+/*UI      */tab:		"dharma",
+ 			tabs:		["legend","dharma","mosaic","yozen"], 		prevTab: false, //dubious is this used
+			fontSize: 	15, 			headerHeight:50, 			sysGridRungHeight: 25,
 			sidebar: 	true,			sidebarSVG:true, 			sidebarWidth: 	66,
-			sidebarTabHei: 41,			sidebarTabPadL: 11,			sidebarTabPadT: 6,
+			sidebarTabHei: 41,			sidebarTabPadL: 11,			sidebarTabPadT: 6,	
 /*CONTROLS*/lArr: false, 				uArr: false, 				rArr: false, 				dArr: false,
 /*3D*/ 		unitDistD3d: 10,/*to-be:16*/defaultVelD3d: 10, 			defaultRotD3d: 0.1,
 /*DHARMA  */dharmaProfile:null, 		dharmaProfiles: [], 		dharmaProfileIndex: 1, 		dharmaLogy: null,
 /*MISC    */uri:		location,		trackingMosaic: false, 		help:true }
 
+function initEntities(dharma) { var e={
+	angels:null,
+	giants:null,
+	ghosts:null,
+	living:null};
+ 	e.angels = initAngels(dharma); return e }
+function initAngels(dharma) { var a; var b=[];
+	a = new Angel("Adam", 			dharma.mas.others.adult); b.push(a);
+	a = new Angel("Eve",  			dharma.fem.others.adult); b.push(a);
+	a = new Angel("Cain",  			dharma.mas.others.child); b.push(a);
+	a = new Angel("Fatima",  		dharma.fem.others.child); b.push(a); return dharma }
+function Angel(name,essence) { this.name=name; this.essence=essence; var loc={X:0,Y:0,Z:0}; this.loc=loc }
+
 // "There are no taxonomies in America!" "And no Cartesian coordinates, either!"
-function initTaxonomy(logies) {
-	for(var i=0; i < logies.length; i++) {
-		for(var j=0; j < logies[i].content.items.length; j++) {	var f = logies[i].content.items[j];
+function initTaxonomy(logies,cat) { var f; var k = logies.length; var l;
+	for(var i=0; i < k; i++) {
+		if(cat == "ont") { l=logies[i].content.items.length; for(var j=0; j < l; j++) {	f = logies[i].content.items[j];
 			f.hypot=false; 			f.hypotIn=[]; 			f.lemma=false; 			f.lemmaIn=[];
-			f.corollary=false;		f.corollaryIn=[]; 		f.hiddenDharma=false; 	f.hiddenDharmaIn=[]; }} return logies }
-function applyEpistemology(dharma,epistemology) { 	var bf; for(var i=0; i < dharma.ontology.length; i++) {
-													if 		(dharma.ontology[i].handle == "beings" ) {
-														bf = assignEpistemologiesTo(dharma.ontology[i], ["vertexPlane"]);
-														dharma.ontology[i].epistemology = bf; }
-													else if (dharma.ontology[i].handle == "tmprmnt" ){
-														bf = assignEpistemologiesTo(dharma.ontology[i], ["circuitScript"]);
-														dharma.ontology[i].epistemology = bf; }} return dharma }
-function initEpistemology(dharma) { dharma.epistemology = ["vertexPlane","circuitScript"];
-	function generate(arr) { var rt = []; var bf;
-		for(var i=0; i < arr.length; i++) { bf = initEpistemologies(dharma, arr[i]); rt.push(bf); } return rt }
-	dharma.epistemology = applyEpistemology(dharma, initTaxonomy(generate(dharma.epistemology)));
-	AL.epistemology = dharma.epistemology; return dharma }
-function assignEpistemologiesTo(ont,epi) {}
-function initEpistemologies(dharma, epi) { var label; var rt;
-	function makeCatalogue(hnd) { 
-		if 		(hnd=="vertexPlane") { label = "Vertex Planes";	rt = getOnt(dharma,'beings');  rt = listVertexPlanes(rt) }
-		else if (hnd=="circuitScript"){label = "Circuit Script";rt = getOnt(dharma,'tmprmnt'); rt = listCircuits(rt,
-				["judging","perceiving","resilient","intuitive","thinking","feeling"]); }
-		rt = new Catalogue(epi, label, rt); return rt; }
+			f.corollary=false;		f.corollaryIn=[]; 		f.hiddenDharma=false; 	f.hiddenDharmaIn=[]; }}
+		else if(cat == "epi"){ l=logies[i].content.length; for(var j=0; j < l; j++) { var k=logies[i].content[j].length;
+			f = logies[i].content[j];
+			f.hypot=false; 			f.hypotIn=[]; 			f.lemma=false; 			f.lemmaIn=[];
+			f.corollary=false;		f.corollaryIn=[]; 		f.hiddenDharma=false; 	f.hiddenDharmaIn=[]; }}}return logies }
+//["tangible","abstract","normal","extreme","weak","strong"]
+function initEthics(dharma) { return dharma }
+function initMoralities(dharma,mor) { var rt = [];
+	function makeCatalogue(hnd) { var rt=[]; var tp; var label;
+		if(hnd=="romanticQuanta"){label = "Romantic Quanta";
+			tp=listQuanta(getOnt(dharma,'beings').content.items); rt.push(tp) }
+		rt = new Catalogue(mor, label, "mor", rt); return rt }
+	var r = makeCatalogue(mor); return r }
+function initMorality(dharma) { dharma.morality = ["romanticQuality"];
+	function generate(arr) { var rt = []; var buf; var j=arr.length;
+		for(var i=0; i<j; i++) { buf = initMoralities(dharma, arr[i]); rt.push(buf) } return rt }
+	dharma.morality = applyMorality(dharma, initTaxonomy(generate(dharma.morality)));
+	AL.morality = dharma.morality; return dharma }
+function applyMorality(dharma,morality) {
+	function castMor(met,obj) {	console.log(obj) }
+	return dharma }
+// 3P|$7€|\/\(}\¨°n-lSz
+// 3P|$7€|\/\(}\¨°n-lS lllllll PPw  pp  zzzz  ääääääää llllll tt   tt  vvvvv  ss      vvvvv   nnnnn  pp lllllll  zzzz    /\ \/\/WUTU-TUMM⁂. ↯↯↯
+// 3P|$7€|\/\(}\¨°n-lS ll      PP w pp zz   z    ää    ll     ttt ttt vv   vv ss     vv   vv nn   nn pp ll      zz  zz  (  ) \/\/WUTU-TUMM⁂:. ↯↯↯
+// 3P|$7€|\/\(}\¨°n-lS ll      PP w pp zz        ää    ll     ttttttt vv   vv ss     vv   vv nn      pp ll      zz     (  ° ) \/\/WUTU-TUMM⁂:, ↯↯↯
+// 3P|$7€|\/\(}\¨°n-lS lllll   PPw  pp  zzzz     ää    lllll  tt t tt vv   vv ss     vv   vv nn      pp lllll    zzzz  ( ˆ } ) \/\/WUTU-TUMM⁂;. ↯↯↯
+// 3P|$7€|\/\(}\¨°n-lS ll      PP   pp     zz    ää    ll     tt   tt vv   vv ss     vv   vv nn  nnn pp ll          zz  ({  } ) \/\/WUTU-TUMM⁂:. ↯↯↯
+// 3P|$7€|\/\(}\¨°n-lS ll      PP   pp     zz    ää    ll     tt   tt vv   vv ss     vv   vv nn   nn pp ll          zz  ({∩} ) \/\/WUTU-TUMM⁂:,.⭃♥‽
+// 3P|$7€|\/\(}\¨°n-lS ll      PP   pp z   zz    ää    ll     tt   tt vv   vv ss     vv   vv nn   nn pp ll      zz  zz ( {∪}) \/\/WUTU-TUMM⁂;.. ↯↯↯
+// 3P|$7€|\/\(}\¨°n-lS lllllll PP   pp  zzzz     ää    llllll tt   tt  vvvvv  ssssss  vvvvv   nnnnn  pp lllllll  zzzz  ( { }) \/\/WUTU-TUMM⁂:. ↯↯↯
+// 3P|$7€|\/\(}\¨°n-lS                                                                                                 (  ö) \/\/WUTU-TUMM⁂:, ↯↯↯
+// 3P|$r e e y t l w v s p p z p z ä h w e p ö e e , r å ä z U ä h h u r v o e t e o e r r p t p l z w h p r h s s l ?  \/ \/\/WUTU-TUMM⁂:. ↯↯↯
+//                                                                ⤥y l r r h å wåurp Thtwlyl !! Llote äåsp ävurpthhu seqeeuze? Epweoeu vv öhzprrh-zhöv
+function applyEpistemology(dharma,epistemology) {
+	function castEpi(ont,epi) { var oi = ont.length;
+		function assignContext(on,ep) {
+			for (var o=0;o<oi;o++) { assignContext(ont[o],epi) }}}
+	var l; var j=dharma.ontology.length; for(var i=0; i < j; i++) {
+		l = castEpi(dharma.ontology[i], epistemology); dharma.ontology[i].epistemology=l } return dharma }
+function initEpistemology(dharma) { 
+	function generate(arr) { var j=arr.length; for(var i=0; i < j; i++) { arr[i] = initEpistemologies(dharma, arr[i]) }}
+	generate(AL.epistemology);
+	initTaxonomy(AL.epistemology,"epi");
+	console.log(AL.epistemology);
+	console.log(dharma);
+	dharma = applyEpistemology(dharma, dharma.epistemology);
+	console.log(dharma);
+	//dharma.epistemology = applyEpistemology(dharma, initTaxonomy(generate(dharma.epistemology)));
+	//AL.epistemology = dharma.epistemology; 
+	//console.log(AL.epistemology);
+	return dharma }
+function initEpistemologies(dharma, epi) { var label;
+	function makeCatalogue(hnd) { var rt=[]; var tp;
+		if 		(hnd=="vertexPlane") { label = "Vertex Planes";
+			tp=listVertexPlanes(getOnt(dharma,'beings').content.items); //here was not content items
+			rt.push(tp)}
+		else if (hnd=="circuitScript"){label = "Circuit Script";
+			tp=listCircuits(getOnt(dharma,'tmprmnt'),
+				["judging","perceiving","resilient","intuitive","thinking","feeling"]); rt.push(tp) }
+		rt = new Catalogue(epi, label, "epi", rt); return rt }
 	var r = makeCatalogue(epi); return r }
+function initDialectics(dharma) { var d =	initEthics(
+												initMorality(
+													initEpistemology(dharma))); return d }
 
      /*¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨*
     / yuu blockheed !!         /|
@@ -168,8 +246,10 @@ function initEpistemologies(dharma, epi) { var label; var rt;
 
 function initNET(t) {
 	t.temperament = null;
-	console.log(t);
+	//console.log(t);
 	return t }
+/*asymmetric TA implies S or C, j/p analogic with g/b*/
+// j/p orientation tikku-ukot asento suora tai poised, symmetrinen ero tyyliin armeica's army m16 ak47 ero
 function initTemperament(dharma) {
 	dharma = initCircuitFunctions(dharma);
 	var ts = getOnt(dharma,"tmprmnt").content.items;
@@ -184,8 +264,9 @@ function initCircuitFunctions(dharma) {
 	var Re = new InformationElement(	dharma, 	true,	false,	true, 	"Re"	);
 	var Ti = new InformationElement(	dharma, 	true,	true,	false,	"Ti"	);
 	var Te = new InformationElement(	dharma, 	true,	true, 	true, 	"Te"	);
-	dharma.tmprmnt = { functions:{ Fi:Fi, Fe:Fe, Ni:Ni, Ne:Ne, Ri:Ri, Re:Re, Ti:Ti, Te:Te }};
-	console.log(dharma);
+	var tmprmnt = { functions:{ Fi:Fi, Fe:Fe, Ni:Ni, Ne:Ne, Ri:Ri, Re:Re, Ti:Ti, Te:Te }};
+	dharma.neutral = { tmprmnt: tmprmnt };
+	//console.log(dharma);
 	return dharma }
 function InformationElement( d, x, y, z, code ){ var X; var Y; var Z;
 	if 		( !x && !y && !z ) 	{	X = -1; 	Y =  0; 	Z = -1 	}
@@ -207,32 +288,38 @@ function getAxes(d, sign) { var rt=[];
 //█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
 //█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
 //███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
-function initOntology(dharma) { dharma.beings = { mas: dharma.mas, fem: dharma.fem };
+function initOntology(dharma) {
+	dharma.beings = { mas: dharma.mas, fem: dharma.fem };
 	var ontologies = ["beings", "tmprmnt"]
-	ontologies = initTaxonomy(initOntologies(dharma, ontologies));
+	ontologies = initTaxonomy(initOntologies(dharma, ontologies), "ont");
 	AL.ontology = ontologies[0]; dharma.ontology = ontologies; return dharma }
-function initOntologies(dharma, arr) { var rt=[]; var bf=null; var label;
+function initOntologies(dharma, arr) { var rt=[]; var buf=null; var label;
 	function makeCatalogue(hnd) {
-		if 		(hnd=="beings") { label = "Beings";		 bf = listBeings(dharma.beings,
+		if 		(hnd=="beings") { label = "Beings";		 buf = listBeings(dharma.beings,
 				["masculine","feminine","self","other","adult","child","primal being","primal mood"]); }
-		else if (hnd=="tmprmnt"){ label = "Temperament"; bf = listTemperaments(dharma.tmprmnt,
+		else if (hnd=="tmprmnt"){ label = "Temperament"; buf = listTemperaments(dharma.tmprmnt,
 				["judging","perceiving","resilient","intuitive","thinking","feeling"]); }
-		bf = new Catalogue(arr[i], label, bf); rt.push(bf); }
+		buf = new Catalogue(arr[i], label, "ont", buf); rt.push(buf); }
 	for(var i=0; i<arr.length; i++){ makeCatalogue(arr[i]) } return rt }
-function Catalogue(handle,label,content){this.handle=handle; this.label=label; this.content=content; }
+function Catalogue(handle,label,cat,content){this.handle=handle; this.label=label; this.cat=cat; this.content=content; }
 //███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
 //█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
 //█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
 //███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
 function getOnt(d,hnd) { for(var i=0; i<d.ontology.length;i++){if(hnd==d.ontology[i].handle){return d.ontology[i]}}}
-function getOntology(hnd){ for(var i=0;i<AL.dharma.ontology.length;i++){
-	if(hnd==AL.dharma.ontology[i].handle){ return AL.dharma.ontology[i] }}}
-function getVertexPlanes(beings) { var rt = []; var bf = null; for(var i=0; i < beings.length; i++) {
-		bf={G:beings[i].vertexPlane.uR.good, B:beings[i].vertexPlane.uR.bad}; rt.push(bf) }	return rt }
+function getOntology(hnd){ var j=AL.ab.ontology.length; for(var i=0;i<j;i++){
+	if(hnd==AL.ab.ontology[i].handle){ return AL.ab.ontology[i] }}}
+function getVertexPlanes(beings) { var rt=[]; var j=beings.length; for(var i=0; i < j; i++) {
+	rt.push(beings[i].vertexPlane.uR.good); rt.push(beings[i].vertexPlane.uR.bad)}return rt }
 function listVertexPlanes(b,types) { var rt = { items: null, categories: [] }; var buf;
 	rt.items = getVertexPlanes(b); return rt }
 function listCircuits(t,types) { var rt = { items: null, categories: [] }; var buf;
 	rt.items = [ {sign:"α"},{sign:"β"},{sign:"γ"},{sign:"δ"},{sign:"ε"},{sign:"ζ"},{sign:"η"},{sign:"θ"},{sign:"ι"},{sign:"κ"},{sign:"λ"},{sign:"μ"} ];	return rt }
+function getQuanta(beings) { var rt = []; var bf = null; var j=beings.length; for(var i=0; i < j; i++) {
+ 	buf = [{ R:4, 	tang:["monolithic","binary","symbolic","diffuse"],
+ 					abst:["sensory","sensual","intentional","deliberate"]}]; rt.push(buf) } return rt }
+function listQuanta(b,types) { var rt = { items: null, categories: [] }; var buf;
+	rt.items = getQuanta(b); return rt }
 //███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
 //█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
 //█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
@@ -344,6 +431,8 @@ function listTemperaments(t,types) { var rt = { handle: "", items: null, categor
 //███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
 
 
+// "Vasen käsi ei tiedä että oikeaa onkaan", sanoi valkoinen mies.
+// "Perse edellä puuhun?" "Mutta niinhän puu itse kasvaa!"
 function remFromArr(arr,obj) { var index = arr.indexOf(obj); if (index > -1) { array.splice(index, 1) }}
 function dharmaHypothesis(str)  { var tab = AL.dharmaProfile; var dI = parseInt(str.split("_").pop());
 	var dharma = AL.ontology.content.items[dI];
@@ -390,8 +479,6 @@ function createDharmaProfile() { /*var profile = selectDharmas(AL.ontology.handl
 function removeDharmaProfile(n) { AL.currentDharmaProfile.hidden = true; } //kesken
 function labelBeings(arr) {	function labelBeing(b) { var l=""; if(b.other) { l += "Other " } if (b.adult &&  b.male) { l += "Man " }	else if (b.adult && !b.male) { l += "Woman "} else if (!b.adult && b.male) { l += "Boy " } else if(!b.adult && !b.male) { l += "Girl "}	l+=b.sign; return l; } for(var i=0; i < arr.length; i++) { labelBeing(arr[i]) } return arr }
 
-// ENTITIES
-function initExistence() { initDharmaProfiles() }
 /*     XX YY     YY
  XX   XX   YY   YY
   XX XX     YY YY
@@ -441,12 +528,12 @@ function paintTriplane(t,m,g,R) {	var X; var Y; var bRes=R; var src=null; var ds
 	function draw(x,y) { if(x<=y) {	if 		(x==y) 		  	 { m[y][x] = stroke(t.d[y]) }
 									else if (x==0&&y<R-1)	 { m[y][x] = stroke(t.v[y]) }
 									else if (y==R-1) 	 	 { m[y][x] = stroke(t.h[x]) }	
-									else { if(y>yi||b==null) { src=stroke(t.v[y]);dst=stroke(t.d[y]);//if(bRes%2==1){bRes--}
+									else { if(y>yi||b==null) { src=stroke(t.v[y]);dst=stroke(t.d[y]);//if(Res%2==1){bRes--}
 										b=blendColors(bRes, src, dst); yi=y; } m[y][x] = stroke(b[x]) }}}
 								for(var y=0; y<R; y++) { b=null; yi=Infinity;
 									for(var x=0; x<R; x++) { draw(x,y); }} return m }
 function colorTriplane(t,R) { var ax=stroke(t.axial); var prox=stroke(t.proximal); var diag=stroke(t.diagonal); 
-	var v=blendColors(R+1,prox,ax);	var d=blendColors(R+1,prox,diag); var h=blendColors(R+3,ax,diag); return{ h:h,v:v,d:d }}
+	var v=blendColors(R+1,prox,ax);	var d=blendColors(R+1,prox,diag); var h=blendColors(R+3,ax,diag);return{ h:h,v:v,d:d }}
 function makeNullArray(R) { var r=[]; for(var i=0; i<=R; i++) { r.push(null); } return r; }
 function makeNullMatrix(X,Y){var r=[];var b;for(var y=0;y<Y;y++){b=[];for(var x=0;x<X;x++){b.push(null)}r.push(b)}return r}
 function colorQuadrant(q,R,b,code) { var offsetDown=false; // dont need b here???
@@ -509,11 +596,11 @@ function initVectorColors() {
 			gUL:f(2,true,true,false), gUR:f(2,true,true,true), gDL:f(2,true,false,false),gDR:f(2,true,false,true)}};
 	return ret }
 
-	  /*¨¨¨¨\ 		  CC   CCC   CCCCC   PPPPP	
-	 /.\   /.\ 		 CC   CC CC  CC  CC  PP 	
-	/.  \ /  .\ 	CC   CC   CC CCCCC   PPPPP 	
-	\.  / \  ./ 	CC   CC   CC CC  CC  PP 	
-	 \./   \./ 		 CC   CC CC  CC  CC  PPPPP 	
+	  /*¨¨¨¨\ 		  CC   CCC   CCCCC   PPPPP	 
+	 /.\   /.\ 		 CC   CC CC  CC  CC  PP 		V3 as super-material missile
+	/.  \ /  .\ 	CC   CC   CC CCCCC   PPPPP 		HIGHLY UNANTICIPATED
+	\.  / \  ./ 	CC   CC   CC CC  CC  PP 		'Kolmas kerta toden sanoo!'
+	 \./   \./ 		 CC   CC CC  CC  CC  PPPPP 		VOIMAKAS PSYKOLOGINEN EFEKTI
 	  \_____/ 		  CC   CCC   CC  CC  PPPP*/ 
 
 function initSelves(c) {
@@ -536,7 +623,7 @@ function createMoods(plane) { var src=copyVertexPlane(plane); var ret = {
 	peaceful:src, enemy:src, playful:src, hostile:src, escorting:src, runaway:src }; return ret }
 function initMoods(adult,G,plane,O,sign) { var ret=createMoods(plane);
 	ret.peaceful =									ret.peaceful = new Being( adult, G, ret.peaceful, O, sign+"-pace");
-	ret.escorting= synFlip(ret.escorting,1,0,G,O);	ret.escorting= new Being( adult, G, ret.escorting,O, sign+"-escr");
+	ret.escorting= synFlip(ret.escorting,1,0,G,O);	ret.escorting= new Being( adult, G, ret.escorting,O, sign+"-esco");
 	ret.playful  = synFlip(ret.playful,  2,0,G,O);	ret.playful  = new Being( adult, G, ret.playful,  O, sign+"-play");
 	ret.hostile  = synFlip(ret.hostile,  0,2,G,O); 	ret.hostile  = new Being( adult, G, ret.hostile,  O, sign+"-hstl");
 	ret.runaway  = synFlip(ret.runaway,  1,2,G,O);	ret.runaway  = new Being( adult, G, ret.runaway,  O, sign+"-runa");
@@ -589,7 +676,7 @@ function Triplane(low,far,high,good) { low.sign="α"; far.sign="β"; high.sign="
 	typeof far == "undefined" ? this.far="...." : this.far=far;
 	typeof high== "undefined" ? this.high="....": this.high=high;
 	if(good){ proximal=low; axial=far; diagonal=high; } else { proximal=low; axial=high; diagonal=far; }
-	this.proximal=proximal;this.axial=axial;this.diagonal=diagonal; this.good=good; this.sign=low.sign+far.sign+high.sign; }
+	this.proximal=proximal;this.axial=axial;this.diagonal=diagonal; this.good=good; this.sign=low.sign+far.sign+high.sign;}
 function Being(adult,male,plane,other,sign){ plane=scaleAxes(adult,male,plane);
 	this.adult=adult; this.male=male; this.other=other; this.sign=sign;	this.vertexPlane=plane;
 	male ? this.vertexPlane.origin=hToRgb("#000000") : this.vertexPlane.origin=hToRgb("#ffffff"); }
@@ -639,100 +726,78 @@ QQHKj;^+;|x&5oTujjj}    X   X  NX   V  XXX|X
 J5u53r^^\+/\cjj>>"\;    X   X   E   X   |⊞|
 j52xLJl}|\"}}{".` !^   XXX XXX XXE XWX  XXX
 JT5555nr[r?1>[?{+;*/
-function initMetaphysics() {
-	AL.dharma   = 	initEpistemology(
+function initReality() {
+	var absolute = 	initDialectics(
 						initTemperament(
 							initOntology(
 								initMosaic(
 									initOthers(
 										initPrimalMoods(
 											initSelves(
-												initVectorColors()))))))) }
-                     /*X                                                      2222          XX
-                X       XX                                                  222  222          XX
-XX              X        XX    XXXXXXXX    EEEE  EE   EE  EEEEe EE EE   EE 222    222     XX   XX
-XXXXXXXXXX   XXXXXXX     XX                EE    EEE  EE EE     EE EEE  EE 2222222222     XXOHIXMÄN!
-XX              X        XX    XXXXXXXX    EEEE  EE E EE EE EEE EE EE E EE 222            XX   XX
-                X      333                 EE    EE  EEE EE  EE EE EE  EEE  222  222 	     βββ
-                       X                   EEEE  EE   EE  EEEE  EE EE   EE    2222           X
-                       X                                                                     */
-function viimeinenSana() { initMetaphysics(); initExistence(); initUI(); virginTab() }
-function initUI() {	measureWindow(); for(var i = 0; i < AL.tabs.length; i++) { AL.tabs[i] = initTab(AL.tabs[i]) }} 
-function initControls(SVG) {	window.addEventListener("resize", AL.tab.funcs.resize, true);
-								SVG ? initSVGControls() : initDOMControls() }
-function initDevKey() {	if(typeof AL.tab.features.devKey != "undefined") { if(AL.tab.features.devKey) {
-	document.addEventListener('keydown', 	(event) => {
-		const keyName = event.key; console.log('keydown event\n\n' + 'key: ' + keyName); }); }}}
-function initControls3D() { if(typeof AL.tab.features.d3d != "undefined") { if(AL.tab.features.d3d) {
-	document.addEventListener('keydown', 	(e) => { const keyName = e.key; switch(keyName) {
-		case "ArrowLeft" : AL.lArr=true;navigate3D(e.shiftKey,e.altKey,e.ctrlKey,AL.tab.display.d3d,AL.tab.speed);break;
-		case "ArrowUp" 	 : AL.uArr=true;navigate3D(e.shiftKey,e.altKey,e.ctrlKey,AL.tab.display.d3d,AL.tab.speed);break;
-		case "ArrowRight": AL.rArr=true;navigate3D(e.shiftKey,e.altKey,e.ctrlKey,AL.tab.display.d3d,AL.tab.speed);break;
-		case "ArrowDown" : AL.dArr=true;navigate3D(e.shiftKey,e.altKey,e.ctrlKey,AL.tab.display.d3d,AL.tab.speed);break}});
-	document.addEventListener('keyup', 		(event) => { const keyName = event.key; switch(keyName) {
-		case "ArrowLeft" : AL.lArr = false; break;
-		case "ArrowUp" 	 : AL.uArr = false; break;
-		case "ArrowRight": AL.rArr = false; break;
-		case "ArrowDown" : AL.dArr = false; break; }}); }}}
-function initSVGControls() { initDevKey(); initControls3D();
-	commonBindArr('svg .barTab', 		function(e,id) 	{ barTab(e, id) 				} );
-	var elements = Array.from(document.querySelectorAll('svg .mosaic-uL-tile'));
-	elements.forEach(function(el) {	el.addEventListener("mousemove",function() { tileMouseover(el.id) 	} ); });
-	elements.forEach(function(el) {	el.addEventListener("click", 	function() { tileClick(el.id) 	 	} ); }); }
-/*.click().contextmenu().dblclick()[.hover()Bind one or two handlers to the matched elements, to be executed when the mouse pointer enters and leaves the elements.].mousedown().mouseenter()[.mouseleave()Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.].mousemove().mouseout().mouseover().mouseup()*/
-function commonBindOne(selector, callback) { 	var e=document.querySelector(selector);
-							e.addEventListener("click",  		function() { callback("click", 			e.id ) 	});
-			if(!AL.tab.SVG){e.addEventListener("mousemove", 	function() { callback("mousemove", 		e.id ) 	});
-							e.addEventListener("mouseleave",	function() { help() 						 	})}}
-function commonBindArr(selector, c) { var e=Array.from(document.querySelectorAll(selector));
-					e.forEach( function(e) { e.addEventListener("click",  		function() { c("click", 	e.id ) 	})});
-	if(!AL.tab.SVG){e.forEach( function(e) { e.addEventListener("mousemove",	function() { c("mousemove", e.id ) 	})});
-					e.forEach( function(e) { e.addEventListener("mouseleave",	function() { help() 				})})}}
-function initDOMControls() { initDevKey(); initControls3D();
-	commonBindArr('.sidebar-option', 			function(e,id) 		{ barTab(e, id) 				} );
-	commonBindOne('.sidebar-option-selected', 	function(e,id) 		{ barTab(e, id) 				} );
-	commonBindOne("[id^='keyundo_']", 			function(e) { keyUndoRedo_undo(e) 			} );
-	commonBindOne("[id^='keyredo_']", 			function(e) { keyUndoRedo_redo(e) 			} );
-	commonBindOne("[id^='keySTOP_']", 			function(e) { keyStopPlayRec_stop(e) 		} );
-	commonBindOne("[id^='keyPLAY_']", 			function(e) { keyStopPlayRec_play(e) 		} );
-	commonBindOne("[id^='keyREC_']", 			function(e) { keyStopPlayRec_rec(e) 		} );
-	commonBindOne("[id^='keySAVE_']", 			function(e) { keySaveLoad_save(e) 			} );
-	commonBindOne("[id^='keyLOAD_']", 			function(e) { keySaveLoad_load(e) 			} );
-	commonBindOne("[id^='keySTACK_']", 			function(e) { keyStackConst_stack(e) 		} );
-	commonBindOne("[id^='keyCOLLAPSE_']", 		function(e) { keyStackConst_collapse(e) 	} );
-	commonBindOne("[id^='keyCONSTL_']", 		function(e) { keyConstLabel(e) 				} );
-	commonBindOne("[id^='keyMONOCOL_']", 		function(e) { keyHorVer_monoCol(e) 			} );
-	commonBindOne("[id^='keyMONOROW_']", 		function(e) { keyHorVer_monoRow(e) 			} );
-	commonBindOne("[id^='keyHIGHERR_']", 		function(e) { keyHorVer_higherRow(e)		} );
-	commonBindOne("[id^='keySYMMETRY_']",		function(e) { keyHorVer_symmetry(e) 		} );
-	commonBindOne("[id^='keyHIGHROW_']", 		function(e) { keyHorVer_highRow(e) 			} );
-	commonBindOne("[id^='keyHIGHCOL_']", 		function(e) { keyHorVer_highCol(e) 			} );
-	commonBindOne("[id^='keyHIGHERC_']", 		function(e) { keyHorVer_higherCol(e)		} );
-	commonBindOne("[id^='keyMETATOOL_']", 		function(e) { keyMetaTool(e)				} );
+												initVectorColors()))))))); AL.ab = absolute; return absolute; }
+function initExistence(absolute) {
+	var conditioned = initEntities(absolute);
+	var dualism = { ab: absolute, co: conditioned };
+	return dualism }
 
-// tab specific dharma profiles
 
-	var elements = Array.from(document.querySelectorAll('#removeDharmaProfile'));
-	elements.forEach(function(el) { el.addEventListener('click', 	function() { removeDharmaProfile() 	} ); });
-	var elements = Array.from(document.querySelectorAll('#createDharmaProfile'));
-	elements.forEach(function(el) { el.addEventListener('click', 	function() { createDharmaProfile() 	} ); });
-	var elements = Array.from(document.querySelectorAll('.dharmaSource .dharmaSourceSelected'));
-	elements.forEach(function(el) { el.addEventListener('click', 	function() { dharmaHypothesis(el.id)} ); });
-	var elements = Array.from(document.querySelectorAll('.dharmaTarget .dharmaTargetSelected'));
-	elements.forEach(function(el) { el.addEventListener('click', 	function() { dharmaLemma(el.id) 	} ); });
-	var elements = Array.from(document.querySelectorAll('.dharmaSidebarHood #dharmaSidebarHoodPaint'));
-	elements.forEach(function(el) { el.addEventListener('mouseover',function() {
-		console.log("HOOD"); openHood(el.id,el.class)} ); });
-	var elements = Array.from(document.querySelectorAll('#dharmaOntologySelector'));
-	elements.forEach(function(el) { el.addEventListener('click',	function() { setDharmaLogy("ont") 	} ); });
-	var elements = Array.from(document.querySelectorAll('#dharmaEpistemologySelector'));
-	elements.forEach(function(el) { el.addEventListener('click',	function() { setDharmaLogy("epi") 	} ); });
-	var elements = Array.from(document.querySelectorAll('#dharmaMoralitySelector'));
-	elements.forEach(function(el) { el.addEventListener('click',	function() { setDharmaLogy("mor") 	} ); });
-	var elements = Array.from(document.querySelectorAll('#dharmaEthicsSelector'));
-	elements.forEach(function(el) { el.addEventListener('click',	function() { setDharmaLogy("qua") 	} ); }); }
-function tileMouseover(id) 	{ console.log(id + " tile mouseover"); }
-function tileClick(id) 		{ /*console.log(id);*/ var Id = id.split("-").pop(); /*console.log(Id);*/ moveToTile(Id); }
+
+/*                              TÿE
+                               OÿÿÿNOB
+                                ÿÿÿ
+                                 Tÿÿ
+                                  Hÿÿ
+                                   Eÿÿ
+                                    ÿÿÿ
+               ÿ      ÿÿÿÿÿ¢        Wÿÿ
+                ÿÿÿ ÿÿÿÿÿÿÿÿÿÿ$     Hÿÿ
+                 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ€ TIÿÿÿ
+              ÿÿÿÿÿÿÿcamelÿcaseÿsEÿÿÿÿ
+               ÿÿÿÿÿÿlastÿseasonÿÿÿÿ
+                  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+                    ÿÿ¥ÿÿÿÿÿÿ
+                     ÿ   ÿÿ 
+                     ÿÿ_   ÿÿÿ_  
+
+*/
+/*function showSVGSidebar(winWid, winHei, tab) {
+	var tabs = AL.tabs.length;
+	var barWid = AL.sidebarWidth;
+	var offset = winWid - barWid;
+	var tabHei = AL.sidebarTabHei;
+	var tabOff = offset + AL.sidebarTabPadL;
+	var barTabClass = "barTab";
+	var fontSize = AL.fontSize;
+	svg.setAttribute('height',winHei); 	svg.setAttribute('width',winWid);
+	var bar=document.createElementNS(svgNS,'rect');
+	bar.setAttribute('x',offset); 		bar.setAttribute('y',0);
+	bar.setAttribute('width',barWid); 	bar.setAttribute('height',winHei);
+	bar.setAttribute('fill','#95B3D7');	svg.appendChild(bar);
+	for(var i=0; i<tabs; i++) { 
+    	var barTabId=barTabClass+"_"+i;	
+    	var barTab=document.createElementNS(svgNS,'rect');  
+    	barTab.setAttribute('class', barTabClass);	barTab.setAttribute('id', barTabId);
+    	barTab.setAttribute('x',offset); 			barTab.setAttribute('y',i*tabHei);
+    	barTab.setAttribute('width',barWid);		barTab.setAttribute('height',tabHei);
+    	AL.tab.handle==AL.tabs[i].handle?barTab.setAttribute('fill','#DDB300'):barTab.setAttribute('fill','#95B300');
+    	var label = document.createElementNS(svgNS,"text");
+    	label.setAttributeNS(null,'class',barTabClass); label.setAttributeNS(null,'id',barTabId);
+		label.setAttributeNS(null,"x",tabOff);			label.setAttributeNS(null,"y",(i*tabHei)+fontSize+9); 
+		label.setAttributeNS(null,"font-size",fontSize);label.setAttributeNS(null,"fill","white");
+		var textNode = document.createTextNode(AL.tabs[i].label);
+		label.appendChild(textNode);
+		svg.appendChild(barTab); svg.appendChild(label);  }}*/
+function Message(from,to,content,context) { this.from=from; this.to=to; this.content=content; this.context=context }
+function initYozen() {
+	function makeTestMessage() { var r = new Message(null,null,"Yozen",null); return r }
+	function pageMessage(msg) {
+		var e=document.createElementNS(svgNS,'rect'); e.setAttribute('width',AL.posDim);e.setAttribute('height',AL.posDim);
+		var t=document.createElementNS(svgNS,'text'); var T=document.createTextNode(msg.content);
+		t.appendChild(T); e.appendChild(t); return e }
+	var cnt = pageMessage(makeTestMessage());
+	var page = { content:cnt, index:[] };
+	return page }
+function showYozen() { }
 
                                        /*XXXXXXXXXXXXXXXXXVXXX
                                       X                       X
@@ -747,13 +812,13 @@ function barTab(event,id) 	{ var Id = id.split("_").pop(); switch(event) {
 	case "click" 		: 	displayTabById(Id); 				break;
 	case "mousemove" 	: 	help(getTabByStrInt(Id).devBar); 	}}
 function measureWindow(){ var winWid=window.innerWidth;AL.winWid=winWid; var winHei=window.innerHeight;AL.winHei=winHei }
-function initTab(handle) {	var tab = null;	 if 		(handle=='mosaic') {
+function initTab(handle) {	var tab = null;	 if (handle=='mosaic'||handle=='yozen') {
 												tab = initSVGTab(handle) }
-										else if (handle=="test"||handle=="dharma"){
+										else if (handle=="legend"||handle=="dharma"){
 												tab = initDOMTab(handle) } return tab }
 function Tab(handle,SVG,label,display,features,funcs,devBar) { this.handle=handle; this.label=label; this.devBar=devBar;
 	this.SVG=SVG; this.display=display; this.features=features; this.funcs=funcs }
-function initSVGTab(handle) { var SVG=true;	var label; var display; var features; var funcs; var devBar;
+function initSVGTab(handle) { var SVG=true;	var label; var display=null; var features; var funcs=null; var devBar;
 	if 		( handle == 'mosaic' ){ label = "Mosaic";
 		devBar = "multipolar wrapped cartesian space with integer coordinates and dynamic resolution";
 		features = { tools:initTools(handle), mono:false, d3d:true, devKey:true };
@@ -763,46 +828,76 @@ function initSVGTab(handle) { var SVG=true;	var label; var display; var features
 				resize 	: function() { resizeSVGTab() },
 				refresh : function() { refreshSVGTab() },
 				clear 	: function() { clearSVGTab() }}}
+	else if ( handle == 'yozen' ){ label = "Yozen";
+		devBar = "recovery from doomela's wirta";
+		features = { tools:initTools(handle) };
+		display = initYozen();
+		funcs={ show 	: function() { showSVGTab() },
+				hide 	: function() { hideSVGTab() },
+				resize 	: function() { resizeSVGTab() },
+				refresh : function() { refreshSVGTab() },
+				clear 	: function() { clearSVGTab() }}}
 	var rt = new Tab( handle, SVG, label, display, features, funcs, devBar ); return rt }
-function initDOMTab(handle) { var SVG=false; var label; var display; var features=null; var funcs; var devBar;
-	if 		( handle == 'test' ){ label = "Legend";
+function initDOMTab(handle) { var SVG=false; var label; var display; var features={tools:null}; var funcs; var devBar;
+	if 		( handle == 'legend' ){ label = "Legend";
 		devBar = "●'ve seen the 1 hu got a way";
-		display = initTestDisplay();
 		funcs={ show 	: function() { showDOMTab() },
 				hide 	: function() { hideDOMTab() },
-				resize 	: function() { resizeDOMTab() },
-				refresh : function() { refreshDOMTab() }}}
+				resize 	: function() { },
+				refresh : function() { }}}
 	else if ( handle == 'dharma' ){ label = "Dharma";
 		devBar = "dharma explorer and sequencer";
-		features = { profiles: initDharmaProfiles(handle), tools: initTools(handle), devKey:false };
-		display = initDharmaDisplay();		
+		features = { 	profiles: initDharmaProfiles(handle), tools: initTools(handle), sysGrid: null, devKey:false };
+		display = initDharmaDisplay(handle);		
 		funcs={ show 	: function() { showDOMTab() },
 				hide 	: function() { hideDOMTab() },
 				resize 	: function() { resizeDOMTab() },
 				refresh : function() { refreshDOMTab() }}}
 	var rt = new Tab( handle, SVG, label, display, features, funcs, devBar ); return rt }
-function getTabByHandle (h) { var l=AL.tabs.length;for(var i=0; i<l; i++){if(h==AL.tabs[i].handle){ return AL.tabs[i] }}}
+function getTabByHandle (h) { console.log(AL.tabs); var j=AL.tabs.length;for(var i=0; i<j; i++){if(h==AL.tabs[i].handle){ return AL.tabs[i] }}}
 function getTabByStrInt(id) { var i=parseInt(id); return AL.tabs[i] }
 function virginTab (handle) { var tab = getTabByHandle(AL.tab);					switchTabs( null, 	tab )}
 function displayTab(handle) { var tab = getTabByHandle(handle); 				switchTabs( AL.tab, tab )}
 function displayTabById(id) { var i=parseInt(id); if( AL.tab != AL.tabs[i] )  { switchTabs( AL.tab, AL.tabs[i] )}}
-function switchTabs(ex, to) { if(ex != null) { ex.funcs.hide() } AL.tab = to; to.funcs.show() }
+function switchTabs(ex, to) { if(ex != null) { ex.funcs.hide() } AL.tab = to;	to.funcs.show() }
 function hideDOMTab() { var w = document.getElementById("wrapper");	if(w != null) { w.remove() }}
-function hideSVGTab() { svg.setAttribute('display','none') }
+function hideSVGTab() { svg.setAttribute('display','none');
+						var d3d = document.getElementById('d3d');
+						if(typeof d3d != 'undefined' && d3d) { d3d.remove() }}
 function showSVGTab() {	svg.setAttribute('display','block'); 
 						showSVGSidebar( AL.winWid, AL.winHei, AL.tab ); 
 						document.body.appendChild(svg);
 						switch(AL.tab.handle){
-							case "mosaic" : showMosaicDisplays( AL.winWid, AL.winHei, AL.tab );
-											if(AL.tab.features.d3d){ show3D( AL.tab.display.d3d )} break; }
+							case "mosaic" : showMosaicDisplays( AL.winWid, AL.winHei, AL.tab ); 	break;
+							case "yozen"  : showYozen( AL.winWid, AL.winHei, AL.tab );				break;
+						if(AL.tab.features.d3d){ show3D( AL.tab.display.d3d )}}
 						$( document ).ready(function() { initControls(true) } ) }
-function showDOMTab() { var wrapper = document.createElement('div');		wrapper.setAttribute('id','wrapper');
-						var content = AL.tab.display.cloneNode(true); 		wrapper.appendChild(content);
-						document.body.appendChild(wrapper);
-						AL.tab.funcs.refresh();
-						var sidebar = makeDOMSidebar(); 					wrapper.appendChild(sidebar);
-						AL.help && devBar();
-						$( document ).ready(function() { initControls(false) } ) }
+function showDOMTab() {
+	if(AL.tab.handle=="legend") { showDOMStory() }
+	else 						{ showDOMApp()  }}
+function showDOMApp() {
+	var wrapper = document.createElement('div');		wrapper.setAttribute('id','wrapper');
+	var content = AL.tab.display.cloneNode(true);
+	wrapper.appendChild(content);
+	document.body.appendChild(wrapper);
+	AL.tab.funcs.refresh();
+	var sidebar = makeDOMSidebar(); 					wrapper.appendChild(sidebar);
+	help();
+	$( document ).ready(function() { initControls(false) } ) }
+function showDOMStory() {
+	var wrapper = document.createElement('div');		wrapper.setAttribute('id','wrapper');
+	var content = document.createElement('div');		content.setAttribute('id','content');
+	var devBar = document.createElement('div'); 		devBar.setAttribute('id','devBar');
+	var sidebar = makeDOMSidebar();
+
+	content.innerHTML = showLegendDisplay();
+	content.appendChild(devBar);
+	wrapper.appendChild(sidebar);
+
+	wrapper.appendChild(content);
+	document.body.appendChild(wrapper);	
+	help();
+	$( document ).ready(function() { initControls(false) } ) }
 function resizeDOMTab() {}
 function resizeSVGTab() {}
 function refreshDOMTab(){ switch(AL.tab.handle) {
@@ -812,6 +907,9 @@ function refreshDOMTab(){ switch(AL.tab.handle) {
 					var e = document.getElementById('dharmaSource');			populateDharmaSidebarSource(e);
 					var e = document.getElementById('dharmaRelation');			populateDharmaSidebarRelations(e);
 					var e = document.getElementById('dharmaTarget');			populateDharmaSidebarTarget(e);
+					var e = document.getElementById('dharmaSubrelSelector');	populateDharmaSubrelSelector(e);
+					var e = document.getElementById('dharmaRelSelector'); 		populateDharmaRelSelector(e);
+					populateSystemGrid(AL.tab.features.sysGrid);
 					break; }}
 function refreshSVGTab(){}
 
@@ -823,121 +921,6 @@ function refreshSVGTab(){}
 									 X                        X
 									 XXXXXXXXXXXXXXXXXXXXXXX*/
 
-function keyHandleToLabel(handle) { switch(handle) {
-	case "undo" 	: return "<span style='font-size:13px; position:absolute; top:10px; left: 4px;'>undo</span>";
-	case "redo" 	: return "<span style='font-size:13px; position:absolute; top:10px; right:3px;'>redo</span>";
-	case "STOP" 	: return "<span style='font-size:25px;'>⬛</span>"; //&#9632;
-	case "PLAY" 	: return "<span style='font-size:19px;'>⭓</span>";
-	case "REC" 		: return "<span style='color:#8b0000; font-size:39px;'>⬤</span>";
-	case "SAVE" 	: return "<span style='font-size:19px;'>⬇</span>";
-	case "LOAD" 	: return "<span style='font-size:19px;'>⬆</span>";
-	case "STACK"	: return "按";
-	case "COLLAPSE"	: return "易";
-	case "CONSTL" 	: return "搁";
-	case "MONOCOL" 	: return "│";
-	case "MONOROW"	: return "─";
-	case "HIGHERR"	: return "⫧";
-	case "SYMMETRY"	: return "<span style='font-size:12px;'>┼</span>";
-	case "HIGHROW"	: return "⫟";
-	case "HIGHCOL"	: return "<span style='font-size:27px;'>⫨</span>";
-	case "HIGHERC"	: return "<span style='font-size:27px;'>⫠</span>";
-	case "METATOOL" : return "▢"; /*"<span style='font-size:65px;'>□</span>";*/}}/*-□ later etc*/	
-function triple(pri,sec,ter){ var rt={ n:0, pri:null, sec:null, ter:null };
-	if 		(typeof ter!="undefined"){ rt.n=3; 	rt.ter=ter; rt.sec=sec; rt.pri=pri }
-	else if (typeof sec!="undefined"){ rt.n=2; 				rt.sec=sec; rt.pri=pri }
-	else 							 { rt.n=1; 							rt.pri=pri } return rt }
-function initTools(handle) { var r=[]; var key=[]; var tool=null;	function T(p,s,t)	{ var rt=triple(p,s,t); return rt }
-/*⊞ upon clikc? or sqrd minus etc*/									function K(tri) 	{ key.push(tri) }
-	if(handle=="dharma") {
-					K(T("undo","redo"));
-		tool = new Tool("UndoRedo", 		key); r.push(tool); var key=[];
-					K(T("STOP","PLAY")); K(T("REC"));
-		tool = new Tool("StopPlayRec", 		key); r.push(tool); var key=[];
-					K(T("SAVE","LOAD"));
-		tool = new Tool("SaveLoad", 		key); r.push(tool); var key=[];
-					K(T("STACK","COLLAPSE"));
-		tool = new Tool("StackConst", 		key); r.push(tool); var key=[];
-					K(T("CONSTL"));
-		tool = new Tool("ConstLabel", 		key); r.push(tool); var key=[];
-					K(T("MONOCOL","MONOROW")); K(T("HIGHERR","SYMMETRY","HIGHROW")); K(T("HIGHCOL","HIGHERC"));
-		tool = new Tool("HorVer",	 		key); r.push(tool); var key=[];
-					K(T("METATOOL"));
-		tool = new Tool("MetaTool",	 		key); r.push(tool); var key=[]}
-	r = cutToolKeys(r); return r }
-function Tool(handle, key) { this.handle=handle; this.key=key}
-function cutToolKeys(tools) { var bf=null;
-				function setKeyElementClass(e,arity){ if (arity==1) { e.setAttribute('class','unaryFeature')   }
-												 else if (arity==2) { e.setAttribute('class','binaryFeature')  }
-												 else if (arity==3) { e.setAttribute('class','trinaryFeature') } return e }
-				function setKeyElementId(e,handle,n,arity) {
-					var id = ""; id += "key"; id += handle;	id += "_"; id += n;	id += "-"; id += arity;
-					e.setAttribute('id',id); return e }
-			function cutDOM(tri) { var r=[];
-				function terDOM() {priDOM();secDOM(); var e=document.createElement('div'); e=setKeyElementClass(e, tri.n);
-							e=setKeyElementId(e, tri.ter, 3, tri.n); e.innerHTML=keyHandleToLabel(tri.ter); r.push(e); }
-				function secDOM() {priDOM(); 		  var e=document.createElement('div'); e=setKeyElementClass(e, tri.n);
-		 					e=setKeyElementId(e, tri.sec, 2, tri.n); e.innerHTML=keyHandleToLabel(tri.sec); r.push(e); }
-				function priDOM() { 				  var e=document.createElement('div'); e=setKeyElementClass(e, tri.n);
-		 					e=setKeyElementId(e, tri.pri, 1, tri.n); e.innerHTML=keyHandleToLabel(tri.pri); r.push(e); }
-				tri.n==3 ? terDOM() : tri.n==2 ? secDOM() : priDOM(); return r }
-			function cutSVG(arity,labels,select,handle) {}
-			function cutState(handle) { var s; var ss = []; var ident = "key"+handle; switch(ident) {
-				case "keyUndoRedo" 	  	: 	s = { keyUndoRedo_undo: 		null		}; ss.push(s);
-											s = { keyUndoRedo_redo: 		null		}; ss.push(s); break;
-				case "keyStopPlayRec" 	: 	s = { keyStopPlayRec_stop: 		null		}; ss.push(s);
-											s = { keyStopPlayRec_play: 		null		}; ss.push(s);
-											s = { keyStopPlayRec_rec: 		null		}; ss.push(s); break;
-				case "keySaveLoad" 		: 	s = { keySaveLoad_save: 		null		}; ss.push(s);
-											s = { keySaveLoad_load: 		null		}; ss.push(s); break;
-				case "keyStackConst"	: 	s = { keyStackConst_stack: 		null		}; ss.push(s);
-											s = { keyStackConst_collapse: 	null		}; ss.push(s); break;
-				case "keyConstLabel" 	: 	s = { keyConstLabel: 			null		}; ss.push(s); break;
-				case "keyHorVer" 		: 	s = { keyHorVer_monoCol: 		null		}; ss.push(s);
-											s = { keyHorVer_monoRow: 		null		}; ss.push(s);
-											s = { keyHorVer_higherRow: 		null		}; ss.push(s);
-											s = { keyHorVer_symmetry: 		null 		}; ss.push(s);
-											s = { keyHorVer_highRow: 		null 		}; ss.push(s);
-											s = { keyHorVer_highCol: 		null 		}; ss.push(s);
-											s = { keyHorVer_higherCol: 		null 		}; ss.push(s); break;
-				case "keyMetaTool" 		: 	s = { keyMetaTool: 				null 		}; ss.push(s); break} return ss }
-		function makeCut(triple,tool) { var buf=null; var cut={ state:null, DOM:[], SVG:[] };
-			cut.state 	= cutState(tool.handle);
-			cut.DOM 	= cutDOM  (triple);
-			cut.SVG 	= cutSVG  (); return cut }
-	function cutKey(tool){ var cut=null; var cuts={ state:[], DOM:[], SVG:[] };
-		for(var j=0;j<tool.key.length;j++) {
-			cut = makeCut(tool.key[j], tool);
-			cuts.state.push (cut.state); //here was if state
-			cuts.DOM.push 	(cut.DOM);
-			cuts.SVG.push 	(cut.SVG)} return cuts }
-	for(var i=0; i < tools.length; i++){ bf = cutKey(tools[i]); tools[i].key = bf; } return tools }
-function keyUndoRedo_undo(e) 		{console.log(e)}
-function keyUndoRedo_redo(e) 		{console.log(e)}
-function keyStopPlayRec_stop(e) 	{console.log(e)}
-function keyStopPlayRec_play(e) 	{console.log(e)}
-function keyStopPlayRec_rec(e) 		{console.log(e)}
-function keySaveLoad_save(e) 		{console.log(e)}
-function keySaveLoad_load(e) 		{console.log(e)}
-function keyStackConst_stack(e) 	{console.log(e)}
-function keyStackConst_collapse(e)	{console.log(e)}
-function keyConstLabel(e) 			{console.log(e)}
-function keyHorVer_monoCol(e) 		{console.log(e)}
-function keyHorVer_monoRow(e) 		{console.log(e)}
-function keyHorVer_higherRow(e)		{console.log(e)}
-function keyHorVer_symmetry(e) 		{console.log(e)}
-function keyHorVer_highRow(e) 		{console.log(e)}
-function keyHorVer_highCol(e) 		{console.log(e)}
-function keyHorVer_higherCol(e) 	{console.log(e)}
-function keyMetaTool(e) 			{console.log(e)}
-                                                                  /*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-                                                                                XXX      XXX.   XXX.    XXX     XX
-                                                                               X.       X.     X.  X.  X.  X.  X  X
-                                                                                XX.     X.     X.  X.  X.  X      X
-                                                                                  X.     X.     XXX.    XXX.  XXXXXXX
-                                                                                XX.       X.                       X
-                                                                                           X.                      X
-                                                                                           X 
-                                                                                          */
 function makeDOMSidebar() {
 	function makeDOMSidebarButton(text,n) {
 		var rt = document.createElement("div");				var btnId = "barTab_"+n;
@@ -958,8 +941,9 @@ function populateDOMSidebarFeatures() {
 			for(var k=0; k < DOM[j].length; k++) { var b=DOM[j][k].cloneNode(true); d.appendChild(b) } f.appendChild(d) }}
 	function make(DOM) { var e = clone(DOM) }
 	var f = document.createElement('div'); f.setAttribute('id','sidebarFeatures');
-	var tools = AL.tab.features.tools;
-	for(var i=0; i < tools.length; i++) { make(tools[i].key.DOM) } return f }
+	if(typeof AL.tab.features.tools != 'undefined') { var tools = AL.tab.features.tools;
+		if(tools) { for(var i=0; i < tools.length; i++) { make(tools[i].key.DOM) }}}
+	return f }
 function showSVGSidebar(winWid, winHei, tab) {
 	var tabs = AL.tabs.length;
 	var barWid = AL.sidebarWidth;
@@ -1018,7 +1002,8 @@ function drawMosaic(code,depth,m,res, disWid,disHei, disOffX,disOffY, widDif,hei
 		tile.setAttribute('fill',m[y][x].h); 	svg.appendChild(tile); }}
 	document.body.appendChild(svg); }
 function showMosaic(code,depth,dp,winWid,winHei) { 
-	drawMosaic(code, AL.depth, AL.dharma.mosaic.plane, dp.dim.resX, dp.dim.disWid, dp.dim.disHei, dp.dim.dpOffX, dp.dim.dpOffY, dp.dim.widDif, dp.dim.heiDif, dp.dim.tilWid, dp.dim.tilHei, winWid, winHei ) }
+	console.log(AL);
+	drawMosaic(code, depth, AL.tree.ab.mosaic.plane, dp.dim.resX, dp.dim.disWid, dp.dim.disHei, dp.dim.dpOffX, dp.dim.dpOffY, dp.dim.widDif, dp.dim.heiDif, dp.dim.tilWid, dp.dim.tilHei, winWid, winHei ) }
 function showMosaicDisplays(winWid,winHei,tab){
 	if(tab.features.mono) { showMosaic("mono",false,tab.display.mono,winWid,winHei) }
 	else 				  { showMosaic("uL",false,tab.display.uL,winWid,winHei);
@@ -1031,8 +1016,8 @@ function showMosaicHUD(tab) { 	var loc = getCamLocationHUD(tab);
 								hud.setAttribute('fill',tab.display.hud.hudCol);
 								hud.setAttribute('x',tab.display.hud.xOff);
 								hud.setAttribute('y',tab.display.hud.yOff);
-								hud.setAttribute('width',tab.display.hudWid);
-								hud.setAttribute('height',tab.display.hudHei);
+								hud.setAttribute('width',tab.display.hud.hudWid);
+								hud.setAttribute('height',tab.display.hud.hudHei);
 								var txt = document.createElementNS(svgNS,"text");
 								txt.setAttributeNS(null,'x',tab.display.hud.xOff);
 								txt.setAttributeNS(null,'y',(tab.display.hud.yOff * (2*AL.sidebarTabPadT)));
@@ -1078,7 +1063,6 @@ function initMosaicDisplays(winWid,winHei,R,unitDist) {
 	var dL 	= new MosaicDisplay("dL", winWid, winHei, R); 	var dR = new MosaicDisplay("dR", winWid, winHei, R);
 	var d3d = initDisplays3D("uR", winWid, winHei); 		var uR = d3d;
 	var hud = initHUD3D(winWid, winHei, unitDist);
-	console.log(hud);
 	rt.mono=mono; rt.uL=uL; rt.uR=uR; rt.dL=dL; rt.dR=dR; rt.d3d=d3d; rt.hud=hud; return rt }
 function resizeMosaicDisplays(winWid,winHei,R) {
 	resizeMosaicDisplay(AL.mosaicDisplays.mono, winWid, winHei, R) }
@@ -1126,6 +1110,7 @@ function gearUp3D(cfg){var dis={cfg:cfg,rnd:null,per:null,ort:null,sce:null,lit:
 	dis.rnd.domElement.style.position = "fixed";
 	dis.rnd.domElement.style.top  = cfg.dpOffY + "px";
 	dis.rnd.domElement.style.left = cfg.dpOffX + "px";
+	dis.rnd.domElement.setAttribute('id','d3d');
 	dis.cam = dis.per;
 	return dis }
 /*function positionCameras(cfg,per,ort,sce) {
@@ -1145,10 +1130,9 @@ function configureDisplay3D(code, winWid, winHei, unitDist) { var winWid = winWi
 function Display3D(code, winWid, winHei) { 	var d3d = gearUp3D(configureDisplay3D(code, winWid, winHei, AL.unitDistD3d ));
 	this.cfg=d3d.cfg; this.rnd=d3d.rnd; this.per=d3d.per; this.ort=d3d.ort; this.sce=d3d.sce; this.lit=d3d.lit
 	this.cam=d3d.cam; }
-function initDisplays3D(code,winWid,winHei) {
-	var rt = new Display3D( code, winWid, winHei );
-	mosaicToWires( rt, AL.dharma.mosaic.plane );
-	return rt }
+function initDisplays3D(code,winWid,winHei) {	var rt = new Display3D( code, winWid, winHei );
+												mosaicToWires( rt, AL.ab.mosaic.plane );
+												return rt }
 function initHUD3D(winWid, winHei, unitDist) {
 	var xOff = winWid - AL.sidebarWidth;				var yOff = (AL.tabs.length * AL.sidebarTabHei) + AL.sidebarTabPadT;
 	var hudWid = AL.sidebarWidth;						var hudHei = AL.fontSize;
@@ -1237,8 +1221,8 @@ vector.applyQuaternion( quaternion );
 
 	
 	var dir = new THREE.Vector3( obj.rotation._x, obj.rotation._y, obj.rotation._z );
-	console.log(dir);
-	console.log(obj);
+	//console.log(dir);
+	//console.log(obj);
 	if 		(cmd.hor < 0) { 			dir.x -= r }else if(cmd.hor > 0){ dir.x += r }
 	if 		(cmd.ver < 0) { if(!opt){ 	dir.z += r }else 				{ dir.y -= r }}
 	else if (cmd.ver > 0) { if(!opt){ 	dir.z -= r }else 				{ dir.y += r }}
@@ -1269,7 +1253,74 @@ function degreesToRadians(degrees) { var pi = Math.PI; return degrees * (pi/180)
 	d3d.rnd.clear();
 	d3d.rnd.render( d3d.sce, d3d.cam ); }*/
 
-/*
+
+
+// 🎂🎂🎂                                                            🎂🎂🎂
+// 🎂🎂🎂 zzzzzzz:::::::::: S.Y.S.T.E.M;.;G.R.I,D‽ ::::::::::zzzzzzz 🎂🎂🎂
+// 🎂🎂🎂                                                            🎂🎂🎂
+//  |  |     greetings from off the grid /\ kreetings to grew |-      |  |
+//  |  |     all outta skyr ;=                                        |  |
+// 🎂🎂🎂                                                            🎂🎂🎂
+// 🎂🎂🎂 zzzzzzz:::::::::: S.Y.S.T.E.M;.;G.R.I,D‽ ::::::::::zzzzzzz 🎂🎂🎂
+// 🎂🎂🎂                                                            🎂🎂🎂
+// form may be used instead of init for tng objects
+// 3D view may as well be tree but we also need tree in dharma explorer
+// dharma explorer is to have tree generator option in footer
+// send dharma profile to tab feature, so that could import tree from mosaic view to dharma view? nah better have own view
+// the end is above you; you cannot get there
+function populateSystemGrid(sg) {}
+function initSysGrid(handle) { var r; if(handle=='dharma') { r = initDharmaSystemGrid() } return r }
+function initDharmaSystemGrid() { var sg = configureSystemGrid("dharmaMono",AL.winWid,AL.winHei); return sg }
+function initSystemGridSVG(sg) {}
+function initSystemGridDOM(sg) { console.log(sg); // sydän syggyrällä ! <3
+	var dis = document.createElement('div'); 		dis.style.position = 'fixed';
+	var cla = 'systemGrid_' + sg.code;				dis.setAttribute('id',cla);
+	dis.style.width = sg.disWid + 'px'; 			dis.style.height = sg.disHei + 'px';
+	dis.style.left = sg.dpOffX + 'px'; 				dis.style.top = sg.dpOffY + 'px';
+	for(var y=0; y<11; y++) { for(var x=0; x<11; x++) {
+		var top = document.createElement('div'); 			top.setAttribute('class',cla);
+		var txt = 'systemGrid_'+x+'-'+y;					top.setAttribute('id',txt);
+		top.style.width = sg.fldWid + 'px'; 				top.style.height = sg.fldHei + 'px';
+		top.style.position = 'fixed';
+		var num = (x * sg.fldWid) + sg.dpOffX;				top.style.left = num + 'px';
+		num 	= (y * sg.fldHei) + sg.dpOffY;				top.style.top  = num + 'px';
+		for(var z=0; z<4; z++) {
+			var pix = document.createElement('div'); 			pix.style.position = 'fixed';
+			cla = 'systemGridPixel'; 							pix.setAttribute('class',cla);
+			txt = 'systemGridPixel_'+sg.code+'-'+x+'-'+y+'-'+z; pix.setAttribute('id',txt);
+			pix.style.width = sg.fldWid + 'px';
+		}
+		dis.appendChild(top); }}
+	sg.DOM = dis; return sg }
+
+	/* FURROWS FURR
+	var dp = document.createElement('div'); 		dp.setAttribute('class','systemGrid');
+	var id = 'systemGrid_' + sg.code; 				dp.setAttribute('id',id);
+	dp.style.top = sg.dpOffY; 						dp.style.left = sg.dpOffX;
+	//var ULEfld = document.createElement('div'); 	ULEfld.setAttribute('class','systemGridField');
+	//ULEfld.setAttribute('id','systemField_ULE'); 	
+	sg.DOM = dp; return sg*/ 
+function ploughSystemGridFields(sg){ var fields=[[],[],[],[],[],[],[],[],[]]; var field=null; var flOffY=0; var flOffX=0;
+	for(var y=0; y<9; y++) { flOffX=0; flOffY = y * sg.fldWid;
+		for(var x=0; x<9; x++) { flOffX += sg.fldWid; field={ x: flOffX, y: flOffY }; fields[y].push(field); }}
+	sg.fields = fields; return sg }
+function irrigateSystemGridFields(sg){
+	if(sg.SVG){ sg=initSystemGridSVG(sg) } else if(sg.DOM){ sg=initSystemGridDOM(sg) } return sg }
+function configureSystemGrid(code,winWid,winHei) { var rt={ //widdif heidif misnomers
+	code:code, disWid:0, disHei:0, dpOffX:0, dpOffY:0, fldHei:0, fldWid:0, widDif:0, heiDif:0, DOM:false, SVG:false};
+	if(code=="dharmaMono"){ rt.dpOffX=173; rt.dpOffY=25; rt.DOM=true; 
+		rt.disWid=winWid-AL.sidebarWidth-173; 				rt.disHei=winHei-AL.headerHeight-73;
+		rt.fldHei=Math.floor(rt.disHei/11);					rt.fldWid=Math.floor((rt.disWid / 11)) }
+	rt = irrigateSystemGridFields(ploughSystemGridFields(rt)); return rt }
+
+/*function configureSystemGrid(code,winWid,winHei) {
+	var rt = { code:code, disWid:0, disHei:0, dpOffX:0, dpOffY:0, runHei:AL.sysGridRungHeight,fldHei:0, fldWid:0,
+		widDif:0, heiDif:0, fldYUp:0, upRngY:0, fldYup:0, fldYdn:0, dnRngY:0, fldYDn:0, DOM:false,
+												fldXLE:0, fldXLe:0, fldXle:0, fldXri:0, fldXRi:0, fldXRI:0, SVG:false};
+	if(code=="dharmaMono"){ rt.dpOffX=173; rt.dpOffY=98; rt.DOM=true; 
+		rt.disWid=winWid-AL.sidebarWidth-173; 				rt.disHei=winHei-AL.headerHeight-98;
+		rt.fldHei=Math.floor((rt.disHei-(2*rt.runHei))/4);	rt.fldWid=Math.floor((rt.disWid / 6)) }
+	rt = irrigateSystemGridFields(ploughSystemGridFields(rt)); return rt }*//*
 
 DDDDDD ' OOOOO  OO     OO           (                         Ω
 DD  DDD OO° °OO OOO   OOO    +→    (   m mm mm        x.xx.    Ω
@@ -1280,26 +1331,31 @@ DDDDDD   OOOOO  OO  O  OO           (  mm  m  mm      xx. xx. ω
 
 */function devBar(text) { var d = document.getElementById('devBar');
 	if(typeof text == 'undefined') { d.innerHTML = "Press F1 For No Help ↧↥" } else { d.innerHTML = text }}
-function populateDharmaTypeSelector(s) { for(var i = 0; i < AL.dharma.ontology.length; i++) {
-		var option = document.createElement('option');	option.text = AL.dharma.ontology[i].label;	s.add(option); }}
-function populateDharmaSubtypeSelector(s) {	for(var i = 0; i < AL.ontology.content.categories.length; i++) {
-		var option = document.createElement('option');	option.text = AL.ontology.content.categories[i].handle;
-		s.add(option); }}
+function populateDharmaTypeSelector(s) { var j = AL.ab.ontology.length; for(var i = 0; i < j; i++) {
+	var option=document.createElement('option'); option.text=AL.ab.ontology[i].label; s.add(option) }}
+function populateDharmaSubtypeSelector(s) {	var j = AL.ontology.content.categories.length; for(var i = 0; i < j; i++) {
+	var option=document.createElement('option'); option.text=AL.ontology.content.categories[i].handle; s.add(option) }}
 function populateDharmaSidebarSource(s) { var dhArr = AL.ontology.content.items; for(var i = 0; i < dhArr.length; i++) {
-		var option = document.createElement('option');
-		dhArr[i].hypot ? option.class="dharmaSourceSelected" : option.class="dharmaSource";
-		option.id = "dharmaSource_"+i;		option.text = "."+dhArr[i].sign;		s.add(option); } }
-function populateDharmaSidebarTarget(s) { var dhArr = AL.ontology.content.items; for(var i = 0; i < dhArr.length; i++) {
-		var option = document.createElement('option');
-		dhArr[i].lemma ? option.class="dharmaTargetSelected" : option.class="dharmaTarget";
-		option.class = "dharmaTarget";		option.id = "dharmaTarget_"+i;
-		option.text = "."+dhArr[i].sign;
-		s.add(option); } }
+	var option = document.createElement('option');
+	dhArr[i].hypot ? option.class="dharmaSourceSelected" : option.class="dharmaSource";
+	option.id = "dharmaSource_"+i;		option.text = "."+dhArr[i].sign;		s.add(option); } }
 function populateDharmaSidebarRelations(s) {}
-function initDharmaDisplay(){	var content = document.createElement('div');
+function populateDharmaSidebarTarget(s) { var dhArr = AL.ontology.content.items; for(var i = 0; i < dhArr.length; i++) {
+	var option = document.createElement('option');
+	dhArr[i].lemma ? option.class="dharmaTargetSelected" : option.class="dharmaTarget";
+	option.class = "dharmaTarget";		option.id = "dharmaTarget_"+i;
+	option.text = "."+dhArr[i].sign;
+	s.add(option); } }
+function populateDharmaSubrelSelector(s) { /*console.log(AL.epistemology);
+	var j = AL.epistemology.content.categories.length; for(var i = 0; i < j; i++) {
+	var option=document.createElement('option');option.text=AL.epistemology.content.categories[i].handle; s.add(option) }*/}
+function populateDharmaRelSelector(s) {	/*var j = AL.dharma.epistemology.length; for(var i = 0; i < j; i++) {
+		var option=document.createElement('option'); option.text=AL.dharma.epistemology[i].label; s.add(option) }*/}
+function initDharmaDisplay(hnd){var content = document.createElement('div');
 								var header   = initDharmaHeaderControls(); 	content.appendChild(header);
-								var columns  = initDharmaColumns(); 		content.appendChild(columns);
-								var sidebar  = initDharmaSidebar(); 		content.appendChild(sidebar); return content }
+								var sidebar  = initDharmaSidebar(); 		content.appendChild(sidebar);
+								var sysGrid  = initSysGrid(hnd);			content.appendChild(sysGrid.DOM);
+								return content }
 function initDharmaHeaderControls() {
 	var d = document.createElement('div');	 d.setAttribute('id','dharmaHeaderControls');
 	var e = document.createElement('div'); 	 e.setAttribute('id','dharmaHeaderBase');  					  d.appendChild(e);
@@ -1309,14 +1365,6 @@ function initDharmaHeaderControls() {
 		e.setAttribute('size',7);			 d.appendChild(e);
 	var e=document.createElement('button');  e.setAttribute('id','createDharmaProfile'); e.innerHTML="+"; d.appendChild(e);
 	return d }
-function initDharmaColumns() {
-	var d = document.createElement('div'); 	 d.setAttribute('id','dharmaColumns');
-	var e = document.createElement('div'); 	 e.setAttribute('id','leftDharmaColumn'); 
-	e.setAttribute('class','dharmaColumn');  d.appendChild(e);
-	var e = document.createElement('div'); 	 e.setAttribute('id','rightDharmaColumn'); 
-	e.setAttribute('class','dharmaColumn');  d.appendChild(e);
-	return d }
-
 function initDharmaSidebar() {
 	var d = document.createElement('div'); 	 				d.setAttribute('id','dharmaSidebar');
 	var typeSelector = document.createElement('select');	typeSelector.setAttribute('id','dharmaTypeSelector');
@@ -1325,8 +1373,8 @@ function initDharmaSidebar() {
 
 	var tooltips = initDharmaHood('dharmaSidebarHood');
 
-	var relSelector = document.createElement('select'); 	relSelector.setAttribute('id','relationTypeSelector');
-	var subrelSelector = document.createElement('select');  subrelSelector.setAttribute('id','relationSubtypeSelector');
+	var relSelector = document.createElement('select'); 	relSelector.setAttribute('id','dharmaRelSelector');
+	var subrelSelector = document.createElement('select');  subrelSelector.setAttribute('id','dharmaSubrelSelector');
 	subrelSelector.setAttribute('multiple',true);
 
 	var footerCover = document.createElement('div'); 		footerCover.setAttribute('id','dharmaFooterCover');
@@ -1552,35 +1600,39 @@ function initQuantification(dharmas) { var q = quantifyAs(beings.fem.others.adul
 //
 // dont remembert this
 //
+	//.divrow { width:100%; }	.rowblock { float:left; }
 
 
-
-function initTestDisplay(){ var content = document.createElement('div');
-							var v = AL.dharma.beings;
-							populateTestDisplay(v, content);
-							return content }
-function populateTestDisplay(v, content) { var row;
-	row = testBeing( v.mas.selves.adult, "r1" ); content.appendChild(row);
-	row = testBeing( v.mas.selves.child, "r2" ); content.appendChild(row);
-	row = testBeing( v.fem.selves.child, "r3" ); content.appendChild(row);
-	row = testBeing( v.fem.selves.adult, "r4" ); content.appendChild(row);
-	row = testBeing( v.mas.others.adult, "r5" ); content.appendChild(row);
-	row = testBeing( v.mas.others.child, "r6" ); content.appendChild(row);
-	row = testBeing( v.fem.others.child, "r7" ); content.appendChild(row);
-	row = testBeing( v.fem.others.adult, "r8" ); content.appendChild(row);
-	return content }
-function testBeing(dhr, id) {
-	var div = document.createElement('div');
-	div.setAttribute('id',id);
-	testBeing2( dhr.male, dhr.adult, dhr.other, 	-3,		dhr.moods.hostile.vertexPlane, 	 div );
-	testBeing2( dhr.male, dhr.adult, dhr.other, 	-1,		dhr.moods.enemy.vertexPlane, 	 div );
-	testBeing2( dhr.male, dhr.adult, dhr.other, 	-2,		dhr.moods.runaway.vertexPlane,   div );
-	testBeing2( dhr.male, dhr.adult, dhr.other,      3,		dhr.moods.peaceful.vertexPlane,  div );
-	testBeing2( dhr.male, dhr.adult, dhr.other, 	 1,		dhr.moods.playful.vertexPlane,	 div );
-	testBeing2( dhr.male, dhr.adult, dhr.other, 	 2,		dhr.moods.escorting.vertexPlane, div );
-	return div }
-function testBeing2(male,adult,other,mood,p,div,input) {
-	var r = document.createElement('div');
+function showLegendDisplay() { 
+	measureWindow();
+	var wid = AL.winWid - AL.sidebarWidth;
+	var v = AL.dharma;
+	var r = "<div id='container' style='width:"+wid+"px;'>\
+		<div id='monolithicBoilerPlate'><h1>Pesu Cone<br /><br />Press F1 For Help<br />or <br /><a target='_blank' href='http://al.moq.fi/Circuit Script.pdf'>Read Specs<br /><br />Everyone wants to read <a target='_blank' href='http://al.moq.fi/Pesu Cone.pdf'>End User Licence Agreement (EULA)</a></h1></div>";
+	var buf;
+	buf = testBeing( v.mas.selves.adult ); r += buf;
+	buf = testBeing( v.mas.selves.child ); r += buf;
+	buf = testBeing( v.fem.selves.child ); r += buf;
+	buf = testBeing( v.fem.selves.adult ); r += buf;
+	buf = testBeing( v.mas.others.adult ); r += buf;
+	buf = testBeing( v.mas.others.child ); r += buf;
+	buf = testBeing( v.fem.others.child ); r += buf;
+	buf = testBeing( v.fem.others.adult ); r += buf;
+	r += "</div>";
+	return r }
+function testBeing(dhr) {
+	var buf;
+	var r="<div style='width:100%'>";
+	buf=testBeing2( dhr.male, dhr.adult, dhr.other, -3,	dhr.moods.hostile.vertexPlane, 	 ); r += (buf);
+	buf=testBeing2( dhr.male, dhr.adult, dhr.other, -1,	dhr.moods.enemy.vertexPlane, 	 ); r += (buf);
+	buf=testBeing2( dhr.male, dhr.adult, dhr.other, -2,	dhr.moods.runaway.vertexPlane,   ); r += (buf);
+	buf=testBeing2( dhr.male, dhr.adult, dhr.other,  3,	dhr.moods.peaceful.vertexPlane,  ); r += (buf);
+	buf=testBeing2( dhr.male, dhr.adult, dhr.other,  1,	dhr.moods.playful.vertexPlane,	 ); r += (buf);
+	buf=testBeing2( dhr.male, dhr.adult, dhr.other,  2,	dhr.moods.escorting.vertexPlane, ); r += (buf);
+	r += "</div>";
+	return r }
+function testBeing2(male,adult,other,mood,p,input) {
+	var r = "<div style='float:left;'>";
 		function makeLabel() { var z="<span style='background-color:black;color:white;'>";
 		if(mood==6) { z+=input; }
 		else {
@@ -1636,6 +1688,8 @@ function testBeing2(male,adult,other,mood,p,div,input) {
 		f(p.dR.bad.axial.h); 				w(p.dR.bad.diagonal.h,p.dR.bad);	g(p.dR.good.diagonal.h,p.dR);
 		h+="</div>"; }
 	d(p);
-	r.innerHTML = h;
-	div.appendChild(r) }
-</script></head><body onload='viimeinenSana()'></body></html>
+	h+="</div>";
+	r = h;
+	return r }
+var svg   = document.createElementNS("http://www.w3.org/2000/svg", "svg"); var svgNS = svg.namespaceURI;
+</script></head><body onload='ensimmaeinenSana()'><!--dharmapillu ahmii--><!--fail stan!--><!--I can't be replaced as long as you're needed--><!--wade retro, trekker santa!--></body></html>
