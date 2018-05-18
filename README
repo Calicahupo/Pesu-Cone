@@ -1,3 +1,17 @@
-This tool is for researching, developing, designing and implementing an Artificial Intelligence.
-
-I don't like the concepts of bottom-up or top-down AI. It's more trouble than its any good to think one needs to choose only either approach and stick to that choice.
+ESSENTIAL ROADMAP v0000
+I          DUP. Duplicate        : INTp     <=>def     INTp(DUP) ⇔ INTp
+II         MRR. Mirror           : ENTj     <=>def     INTp(MRR) ⇔ ENTj
+III        FLR. Fluorescent      : ENTp     <=>def     INTp(FLR) ⇔ ENTp
+IV         QID. Quasi-Duplicate  : INTj     <=>def     INTp(QID) ⇔ INTp(FLR(MRR))
+V          NRM. Normal           : INFp     <=>def     INTp(NRM) ⇔ INFp
+VI         <SP. Supervisor       : ENFj     <=>def     INTp(<SP) ⇔ INTp(MRR(NRM))
+VII        ILL. Illusionary      : ENFp     <=>def     INTp(ILL) ⇔ INTp(FLR(NRM))
+VIII       SEG. Super-Ego        : ISFp     <=>def     INTp(SEG) ⇔ ISFp
+IX         <BN. Benefactor       : ISTj     <=>def     INTp(<BN) ⇔ INTp(SEG(ILL))
+X          SLE. Semi-Love        : ESTp     <=>def     INTp(SLE) ⇔ INTp(MRR(<BN))
+XI         SP>. Supervisee       : ESTj     <=>def     INTp(SP>) ⇔ INTp(FLR(<BN))
+XII        COM. Comparative      : ISTp     <=>def     INTp(COM) ⇔ INTp(MRR(SP>))
+XIII       DNK. Donkey           : ESFj     <=>def     INTp(DNK) ⇔ INTp(MRR(SEG))
+XIV        DUO. Love             : ESFp     <=>def     INTp(DUO) ⇔ INTp(FLR(SEG))
+XV         BN>. Beneficiary      : INFj     <=>def     INTp(BN>) ⇔ INTp(MRR(ILL))
+XVI        ACT. Activator        : ISFj     <=>def     INTp(ACT) ⇔ INTp(MRR(DUO))
