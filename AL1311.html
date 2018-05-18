@@ -1,19 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"
-	http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>YOZEN 1262</title><style>
-	@font-face { font-family:'profont';
-		src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
+	http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>kakara 1230 ⁂ calicahupo@gmail.PayPal:1311</title>
+<style>@font-face { font-family:'profont'; src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
 			url('diodi/profontwindows-webfont.woff') format('woff');	font-weight:normal; font-style:normal; }
-	@font-face { font-family: 'strike_fighter';
-    	src:url('diodi/strikefighter-webfont.woff2')format('woff2'),
-    		url('diodi/strikefighter-webfont.woff') format('woff'); font-weight: normal; font-style: normal;}
-    @font-face {
-    font-family: 'VGA';
-    src: url('diodi/PerfectDOSVGA437.woff2') format('woff2'),
-        url('diodi/PerfectDOSVGA437.woff') format('woff'); font-weight: normal; font-style: normal;}
-
-
+	@font-face { font-family: 'de_valenciaregular'; src: url('de_valencia_beta-webfont.woff2') format('woff2'),
+         url('de_valencia_beta-webfont.woff') format('woff');    		font-weight: normal;font-style: normal;}
+    @font-face { font-family: 'VGA'; src: url('diodi/PerfectDOSVGA437.woff2') format('woff2'),
+        	url('diodi/PerfectDOSVGA437.woff') format('woff'); 			font-weight: normal; font-style: normal;}
+        	/*, url('diodi/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg')*/
 	html,body{height:100%;padding:0px;margin:0px;font-family:profont;font-size:13px;background-color:black;color:white;}
 	button,select,input{font-family:profont;font-size:13px;}
 	#wrapper{ min-height:100%; background-color:black; }
@@ -117,14 +111,18 @@
 	#monolithicBoilerPlate a:link{ background-color:white; }
 	#monolithicBoilerPlate a:visited{ background-color:white; }
 	h1{ margin: 0px; padding-top: 25px; padding-left:25px; font-size: 16px; }
-</style>
-<script src="diodi/aldiodi.js"></script>
-<script src="diodi/jquery-2.js"></script>
-<script src="diodi/three.min.js"></script>
+</style><script src="diodi/di0014.js"></script><!--aldiod-->
+<script src="diodi/jquery-2.js"></script><script src="diodi/three.min.js"></script>
 <script>
-	/*, url('diodi/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg')*/
-
-var AL = {  tree: null,
+var AL = {  kakara: true, 				tree: null,					sqs:[],
+/*PROTABS */pts: [], 					dps: [],
+/*UI*/		sidebarWidth: 	66,			sequencerWidth: undefined,
+/*GRIDLOCK*/gL:{idea:{lVX:undefined,mVX:173,	tHY:50,		mHY:73,		bHY:73}, 	active:undefined,
+			  result:{lVX:0,		mVX:0,		tHY:0,		mHY:0,		bHY:0, disWid:0, disHei:0 }, SVG:null,DOM:null },
+/*SYSGRID */sG:{idea:{disWid:0,disHei:0,fldWid:0,fldHei:0,furHei:0,disHrz:0,disVrt:0,dFrame:15},active:undefined,
+			  result:{qdrWid:0,qdrHei:0,fldWid:0,fldHei:0,furHei:0,ditchH:0,ditchV:0}, 			SVG:null,DOM:null },
+/*MOSAIC  */mC:{idea:{disWid:0,disHei:0,disHrz:0,disVrt:0,hrzRes:9,vrtRes:9},					active:undefined,
+			  result:{cenHrz:0,cenVrt:0,tilWid:0,tilHei:0}, 									SVG:null },
 /*YOZEN   */posDim: 256,
 /*ENGINE  */initDone: false, 			T:0, 						time:0,				 		defaultTime: 6516,
 /*XY      */resolution:	 8,				mosaic:		"XY",			mosaics: 	["XY","XZ","YZ"],
@@ -132,10 +130,10 @@ var AL = {  tree: null,
 			epistemology: 	["vertexPlane","circuitScript"], 			
 			morality: 		["scalarQuanta","romanticQuanta"], 				
 			ethics: 	null,
-/*UI      */tab:		"dharma",
- 			tabs:		["legend","dharma","mosaic","yozen"], 		prevTab: false, //dubious is this used
+/*UI      */tab:		"mosaic", 		prevTab: false, //dubious is this used
+ 			tabs:		["legend","dharma","mosaic","kakara"], 		//yozen //kraana(TA)
 			fontSize: 	15, 			headerHeight:50, 			sysGridRungHeight: 25,
-			sidebar: 	true,			sidebarSVG:true, 			sidebarWidth: 	66,
+			sidebar: 	true,			sidebarSVG:true, 			
 			sidebarTabHei: 41,			sidebarTabPadL: 11,			sidebarTabPadT: 6,	
 /*CONTROLS*/lArr: false, 				uArr: false, 				rArr: false, 				dArr: false,
 /*3D*/ 		unitDistD3d: 10,/*to-be:16*/defaultVelD3d: 10, 			defaultRotD3d: 0.1,
@@ -154,338 +152,124 @@ function initAngels(dharma) { var a; var b=[];
 	a = new Angel("Cain",  			dharma.mas.others.child); b.push(a);
 	a = new Angel("Fatima",  		dharma.fem.others.child); b.push(a); return dharma }
 function Angel(name,essence) { this.name=name; this.essence=essence; var loc={X:0,Y:0,Z:0}; this.loc=loc }
+/*
+                                                                                                               TÿE
+                                                                                                              OÿÿÿNOB     >
+                                                                                                               ÿÿÿ
+                                                                                                                Tÿÿ
+                                                                                                                 Hÿÿ
+                                                                                                                  Eÿÿ
+                                                                                                                   ÿÿÿ
+                                                                                              ÿ      ÿÿÿÿÿ¢        Wÿÿ
+                                                                                               ÿÿÿ ÿÿÿÿÿÿÿÿÿÿ$     Hÿÿ
+                                                                                                ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ€ TIÿÿÿ
+                                                                                             ÿÿÿÿÿÿÿcamelÿcaseÿsEÿÿÿÿ
+                                                                                              ÿÿÿÿÿÿlastÿseasonÿÿÿÿ
+                                                                                                 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
+                                                                                                   ÿÿ¥ÿÿÿÿÿÿ
+                                                                                                    ÿ   ÿÿ 
+                                                                                                    ÿÿ_   ÿÿÿ_  
+                                                                               ..:::::''"""""""""""""''"''""¨¨¨¨¨¨¨*/
+function populateSystemGrid(sg) {}
+function initSysGrid(handle) { var r=null;
+		 if(handle=='dharma'){ r = initDharmaSystemGrid() 	} return r }
+function initDharmaSystemGrid() { var sg = configureSystemGrid("dharmaMono",AL.winWid,AL.winHei); return sg }
+function initSystemGridSVG(sg) {}
+function initSystemGridDOM(sg) { console.log(sg); // sydän syggyrällä ! <3
+	var dis = document.createElement('div'); 		dis.style.position = 'fixed';
+	var cla = 'systemGrid_' + sg.code;				dis.setAttribute('id',cla);
+	dis.style.width = sg.disWid + 'px'; 			dis.style.height = sg.disHei + 'px';
+	dis.style.left = sg.dpOffX + 'px'; 				dis.style.top = sg.dpOffY + 'px';
+	for(var y=0; y<11; y++) { for(var x=0; x<11; x++) {
+		var top = document.createElement('div'); 			top.setAttribute('class',cla);
+		var txt = 'systemGrid_'+x+'-'+y;					top.setAttribute('id',txt);
+		top.style.width = sg.fldWid + 'px'; 				top.style.height = sg.fldHei + 'px';
+		top.style.position = 'fixed';
+		var num = (x * sg.fldWid) + sg.dpOffX;				top.style.left = num + 'px';
+		num 	= (y * sg.fldHei) + sg.dpOffY;				top.style.top  = num + 'px';
+		for(var z=0; z<4; z++) {
+			var pix = document.createElement('div'); 			pix.style.position = 'fixed';
+			cla = 'systemGridPixel_'+sg.code+"-"+z; 			pix.setAttribute('class',cla);
+			cla = 'systemGridPixel'; 							pix.setAttribute('class',cla);
+			txt = 'systemGridPixel_'+x+'-'+y+'-'+z; 			pix.setAttribute('id',txt);
+			/*cla = 'systemGridPixel'; 							pix.setAttribute('class',cla);
+			txt = 'systemGridPixel_'+sg.code+'-'+x+'-'+y+'-'+z; pix.setAttribute('id',txt);
+			pix.style.width = sg.fldWid + 'px';*/
+		}
+		/*cla = 'systemGridPixel_'+sg.code+"-"+z; 			pix.setAttribute('class',cla);	1289.				cla = 'systemGridPixel'; 							pix.setAttribute('class',cla);
+1290.				txt = 'systemGridPixel_'+x+'-'+y+'-'+z; 			pix.setAttribute('id',txt);*/
+		dis.appendChild(top); }}
+	sg.DOM = dis; return sg }
 
-// "There are no taxonomies in America!" "And no Cartesian coordinates, either!"
-function initTaxonomy(logies,cat) { var f; var k = logies.length; var l;
-	for(var i=0; i < k; i++) {
-		if(cat == "ont") { l=logies[i].content.items.length; for(var j=0; j < l; j++) {	f = logies[i].content.items[j];
-			f.hypot=false; 			f.hypotIn=[]; 			f.lemma=false; 			f.lemmaIn=[];
-			f.corollary=false;		f.corollaryIn=[]; 		f.hiddenDharma=false; 	f.hiddenDharmaIn=[]; }}
-		else if(cat == "epi"){ l=logies[i].content.length; for(var j=0; j < l; j++) { var k=logies[i].content[j].length;
-			f = logies[i].content[j];
-			f.hypot=false; 			f.hypotIn=[]; 			f.lemma=false; 			f.lemmaIn=[];
-			f.corollary=false;		f.corollaryIn=[]; 		f.hiddenDharma=false; 	f.hiddenDharmaIn=[]; }}}return logies }
-//["tangible","abstract","normal","extreme","weak","strong"]
-function initEthics(dharma) { return dharma }
-function initMoralities(dharma,mor) { var rt = [];
-	function makeCatalogue(hnd) { var rt=[]; var tp; var label;
-		if(hnd=="romanticQuanta"){label = "Romantic Quanta";
-			tp=listQuanta(getOnt(dharma,'beings').content.items); rt.push(tp) }
-		rt = new Catalogue(mor, label, "mor", rt); return rt }
-	var r = makeCatalogue(mor); return r }
-function initMorality(dharma) { dharma.morality = ["romanticQuality"];
-	function generate(arr) { var rt = []; var buf; var j=arr.length;
-		for(var i=0; i<j; i++) { buf = initMoralities(dharma, arr[i]); rt.push(buf) } return rt }
-	dharma.morality = applyMorality(dharma, initTaxonomy(generate(dharma.morality)));
-	AL.morality = dharma.morality; return dharma }
-function applyMorality(dharma,morality) {
-	function castMor(met,obj) {	console.log(obj) }
-	return dharma }
-// 3P|$7€|\/\(}\¨°n-lSz
-// 3P|$7€|\/\(}\¨°n-lS lllllll PPw  pp  zzzz  ääääääää llllll tt   tt  vvvvv  ss      vvvvv   nnnnn  pp lllllll  zzzz    /\ \/\/WUTU-TUMM⁂. ↯↯↯
-// 3P|$7€|\/\(}\¨°n-lS ll      PP w pp zz   z    ää    ll     ttt ttt vv   vv ss     vv   vv nn   nn pp ll      zz  zz  (  ) \/\/WUTU-TUMM⁂:. ↯↯↯
-// 3P|$7€|\/\(}\¨°n-lS ll      PP w pp zz        ää    ll     ttttttt vv   vv ss     vv   vv nn      pp ll      zz     (  ° ) \/\/WUTU-TUMM⁂:, ↯↯↯
-// 3P|$7€|\/\(}\¨°n-lS lllll   PPw  pp  zzzz     ää    lllll  tt t tt vv   vv ss     vv   vv nn      pp lllll    zzzz  ( ˆ } ) \/\/WUTU-TUMM⁂;. ↯↯↯
-// 3P|$7€|\/\(}\¨°n-lS ll      PP   pp     zz    ää    ll     tt   tt vv   vv ss     vv   vv nn  nnn pp ll          zz  ({  } ) \/\/WUTU-TUMM⁂:. ↯↯↯
-// 3P|$7€|\/\(}\¨°n-lS ll      PP   pp     zz    ää    ll     tt   tt vv   vv ss     vv   vv nn   nn pp ll          zz  ({∩} ) \/\/WUTU-TUMM⁂:,.⭃♥‽
-// 3P|$7€|\/\(}\¨°n-lS ll      PP   pp z   zz    ää    ll     tt   tt vv   vv ss     vv   vv nn   nn pp ll      zz  zz ( {∪}) \/\/WUTU-TUMM⁂;.. ↯↯↯
-// 3P|$7€|\/\(}\¨°n-lS lllllll PP   pp  zzzz     ää    llllll tt   tt  vvvvv  ssssss  vvvvv   nnnnn  pp lllllll  zzzz  ( { }) \/\/WUTU-TUMM⁂:. ↯↯↯
-// 3P|$7€|\/\(}\¨°n-lS                                                                                                 (  ö) \/\/WUTU-TUMM⁂:, ↯↯↯
-// 3P|$r e e y t l w v s p p z p z ä h w e p ö e e , r å ä z U ä h h u r v o e t e o e r r p t p l z w h p r h s s l ?  \/ \/\/WUTU-TUMM⁂:. ↯↯↯
-//                                                                ⤥y l r r h å wåurp Thtwlyl !! Llote äåsp ävurpthhu seqeeuze? Epweoeu vv öhzprrh-zhöv
-function applyEpistemology(dharma,epistemology) {
-	function castEpi(ont,epi) { var oi = ont.length;
-		function assignContext(on,ep) {
-			for (var o=0;o<oi;o++) { assignContext(ont[o],epi) }}}
-	var l; var j=dharma.ontology.length; for(var i=0; i < j; i++) {
-		l = castEpi(dharma.ontology[i], epistemology); dharma.ontology[i].epistemology=l } return dharma }
-function initEpistemology(dharma) { 
-	function generate(arr) { var j=arr.length; for(var i=0; i < j; i++) { arr[i] = initEpistemologies(dharma, arr[i]) }}
-	generate(AL.epistemology);
-	initTaxonomy(AL.epistemology,"epi");
-	console.log(AL.epistemology);
-	console.log(dharma);
-	dharma = applyEpistemology(dharma, dharma.epistemology);
-	console.log(dharma);
-	//dharma.epistemology = applyEpistemology(dharma, initTaxonomy(generate(dharma.epistemology)));
-	//AL.epistemology = dharma.epistemology; 
-	//console.log(AL.epistemology);
-	return dharma }
-function initEpistemologies(dharma, epi) { var label;
-	function makeCatalogue(hnd) { var rt=[]; var tp;
-		if 		(hnd=="vertexPlane") { label = "Vertex Planes";
-			tp=listVertexPlanes(getOnt(dharma,'beings').content.items); //here was not content items
-			rt.push(tp)}
-		else if (hnd=="circuitScript"){label = "Circuit Script";
-			tp=listCircuits(getOnt(dharma,'tmprmnt'),
-				["judging","perceiving","resilient","intuitive","thinking","feeling"]); rt.push(tp) }
-		rt = new Catalogue(epi, label, "epi", rt); return rt }
-	var r = makeCatalogue(epi); return r }
-function initDialectics(dharma) { var d =	initEthics(
-												initMorality(
-													initEpistemology(dharma))); return d }
+	/* FURROWS FURR
+	var dp = document.createElement('div'); 		dp.setAttribute('class','systemGrid');
+	var id = 'systemGrid_' + sg.code; 				dp.setAttribute('id',id);
+	dp.style.top = sg.dpOffY; 						dp.style.left = sg.dpOffX;
+	//var ULEfld = document.createElement('div'); 	ULEfld.setAttribute('class','systemGridField');
+	//ULEfld.setAttribute('id','systemField_ULE'); 	
+	sg.DOM = dp; return sg*/ 
+function ploughSystemGridFields(sg){ var fields=[[],[],[],[],[],[],[],[],[]]; var field=null; var flOffY=0; var flOffX=0;
+	for(var y=0; y<9; y++) { flOffX=0; flOffY = y * sg.fldWid;
+		for(var x=0; x<9; x++) { flOffX += sg.fldWid; field={ x: flOffX, y: flOffY }; fields[y].push(field); }}
+	sg.fields = fields; return sg }
+function irrigateSystemGridFields(sg){
+	if(sg.SVG){ sg=initSystemGridSVG(sg) } else if(sg.DOM){ sg=initSystemGridDOM(sg) } return sg }
+function configureSystemGrid(code,winWid,winHei) { var rt={ //widdif heidif misnomers
+	code:code, disWid:0, disHei:0, dpOffX:0, dpOffY:0, fldHei:0, fldWid:0, widDif:0, heiDif:0, DOM:false, SVG:false};
+	if(code=="dharmaMono"){ rt.dpOffX=173; rt.dpOffY=25; rt.DOM=true; 
+		rt.disWid=winWid-AL.sidebarWidth-173; 				rt.disHei=winHei-AL.headerHeight-73;
+		rt.fldHei=Math.floor(rt.disHei/11);					rt.fldWid=Math.floor((rt.disWid / 11)) }
+	rt = irrigateSystemGridFields(ploughSystemGridFields(rt)); return rt }
 
-     /*¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨*
-    / yuu blockheed !!         /|
-   /.                         / |
-  /                          /  |
- /                          /   |
-/                          /    |
-|¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨|     |    "Well, I certainly prefer Morgenthau !!"
-|                       ◉ |     |
-|                         |     |    "BICYCLE KIIICK !!!"
-|                         |     |
-|                         |     |
-|    TEMPERAMENT          |     |
-|                         |     /
-|    5 lbs                |    /
-|                         |   /
-|    TO: EAST BERLN       |  /
-|                         | /
-|_________________________*/
-
-function initNET(t) {
-	t.temperament = null;
-	//console.log(t);
-	return t }
-/*asymmetric TA implies S or C, j/p analogic with g/b*/
-// j/p orientation tikku-ukot asento suora tai poised, symmetrinen ero tyyliin armeica's army m16 ak47 ero
-function initTemperament(dharma) {
-	dharma = initCircuitFunctions(dharma);
-	var ts = getOnt(dharma,"tmprmnt").content.items;
-	var t  = initNET(ts.find(function(e) { return e.label == "NET" }));
-	return dharma }
-function initCircuitFunctions(dharma) {
-	var Fi = new InformationElement(	dharma, 	false,	false,	false,	"Fi"	);
-	var Fe = new InformationElement(	dharma, 	false,	false,	true, 	"Fe"	);
-	var Ni = new InformationElement(	dharma, 	false,	true, 	false,	"Ni"	);
-	var Ne = new InformationElement(	dharma, 	false,	true, 	true, 	"Ne"	);
-	var Ri = new InformationElement(	dharma, 	true,	false,	false,	"Ri"	);
-	var Re = new InformationElement(	dharma, 	true,	false,	true, 	"Re"	);
-	var Ti = new InformationElement(	dharma, 	true,	true,	false,	"Ti"	);
-	var Te = new InformationElement(	dharma, 	true,	true, 	true, 	"Te"	);
-	var tmprmnt = { functions:{ Fi:Fi, Fe:Fe, Ni:Ni, Ne:Ne, Ri:Ri, Re:Re, Ti:Ti, Te:Te }};
-	dharma.neutral = { tmprmnt: tmprmnt };
-	//console.log(dharma);
-	return dharma }
-function InformationElement( d, x, y, z, code ){ var X; var Y; var Z;
-	if 		( !x && !y && !z ) 	{	X = -1; 	Y =  0; 	Z = -1 	}
-	else if ( !x && !y &&  z ) 	{ 	X = -1; 	Y =  0; 	Z =  1 	}
-	else if ( !x &&  y && !z ) 	{ 	X =  0; 	Y =  1; 	Z = -1 	}
-	else if ( !x &&  y &&  z ) 	{ 	X =  0; 	Y =  1; 	Z =  1 	}
-	else if (  x && !y && !z ) 	{ 	X =  0; 	Y = -1; 	Z = -1 	}
-	else if (  x && !y &&  z ) 	{ 	X =  0; 	Y = -1; 	Z =  1 	}
-	else if (  x &&  y && !z ) 	{ 	X = -1; 	Y =  0; 	Z = -1 	}
-	else if (  x &&  y &&  z ) 	{ 	X = -1; 	Y =  0; 	Z =  1 	}
-	var sign = {bin: { x: x, y: y, z: z },car: { X: X, Y: Y, Z: Z }};
-	var axes = getAxes(d, sign);
-	this.axes = axes; this.sign = sign; this.code = code; }
-function getAxes(d, sign) { var rt=[];
-	var axes = getOnt(d, "beings").content.items;
-}
-
-//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
-//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
-//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
-//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
-function initOntology(dharma) {
-	dharma.beings = { mas: dharma.mas, fem: dharma.fem };
-	var ontologies = ["beings", "tmprmnt"]
-	ontologies = initTaxonomy(initOntologies(dharma, ontologies), "ont");
-	AL.ontology = ontologies[0]; dharma.ontology = ontologies; return dharma }
-function initOntologies(dharma, arr) { var rt=[]; var buf=null; var label;
-	function makeCatalogue(hnd) {
-		if 		(hnd=="beings") { label = "Beings";		 buf = listBeings(dharma.beings,
-				["masculine","feminine","self","other","adult","child","primal being","primal mood"]); }
-		else if (hnd=="tmprmnt"){ label = "Temperament"; buf = listTemperaments(dharma.tmprmnt,
-				["judging","perceiving","resilient","intuitive","thinking","feeling"]); }
-		buf = new Catalogue(arr[i], label, "ont", buf); rt.push(buf); }
-	for(var i=0; i<arr.length; i++){ makeCatalogue(arr[i]) } return rt }
-function Catalogue(handle,label,cat,content){this.handle=handle; this.label=label; this.cat=cat; this.content=content; }
-//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
-//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
-//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
-//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
-function getOnt(d,hnd) { for(var i=0; i<d.ontology.length;i++){if(hnd==d.ontology[i].handle){return d.ontology[i]}}}
-function getOntology(hnd){ var j=AL.ab.ontology.length; for(var i=0;i<j;i++){
-	if(hnd==AL.ab.ontology[i].handle){ return AL.ab.ontology[i] }}}
-function getVertexPlanes(beings) { var rt=[]; var j=beings.length; for(var i=0; i < j; i++) {
-	rt.push(beings[i].vertexPlane.uR.good); rt.push(beings[i].vertexPlane.uR.bad)}return rt }
-function listVertexPlanes(b,types) { var rt = { items: null, categories: [] }; var buf;
-	rt.items = getVertexPlanes(b); return rt }
-function listCircuits(t,types) { var rt = { items: null, categories: [] }; var buf;
-	rt.items = [ {sign:"α"},{sign:"β"},{sign:"γ"},{sign:"δ"},{sign:"ε"},{sign:"ζ"},{sign:"η"},{sign:"θ"},{sign:"ι"},{sign:"κ"},{sign:"λ"},{sign:"μ"} ];	return rt }
-function getQuanta(beings) { var rt = []; var bf = null; var j=beings.length; for(var i=0; i < j; i++) {
- 	buf = [{ R:4, 	tang:["monolithic","binary","symbolic","diffuse"],
- 					abst:["sensory","sensual","intentional","deliberate"]}]; rt.push(buf) } return rt }
-function listQuanta(b,types) { var rt = { items: null, categories: [] }; var buf;
-	rt.items = getQuanta(b); return rt }
-//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
-//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
-//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
-//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
-function listBeings(b,types) { var rt = { items: null, categories: [] }; var buf;
-	rt.items = [
-		b.mas.selves.adult,
-		b.mas.selves.adult.moods.hostile, b.mas.selves.adult.moods.enemy, b.mas.selves.adult.moods.runaway,	b.mas.selves.adult.moods.peaceful, b.mas.selves.adult.moods.playful, b.mas.selves.adult.moods.escorting,
-		b.fem.selves.adult,
-		b.fem.selves.adult.moods.hostile, b.fem.selves.adult.moods.enemy, b.fem.selves.adult.moods.runaway,	b.fem.selves.adult.moods.peaceful, b.fem.selves.adult.moods.playful, b.fem.selves.adult.moods.escorting,
-		b.mas.others.adult,
-		b.mas.others.adult.moods.hostile, b.mas.others.adult.moods.enemy, b.mas.others.adult.moods.runaway,	b.mas.others.adult.moods.peaceful, b.mas.others.adult.moods.playful, b.mas.others.adult.moods.escorting,
-		b.fem.others.adult,
-		b.fem.others.adult.moods.hostile, b.fem.others.adult.moods.enemy, b.fem.others.adult.moods.runaway,	b.fem.others.adult.moods.peaceful, b.fem.others.adult.moods.playful, b.fem.others.adult.moods.escorting,
-		b.mas.selves.child,
-		b.mas.selves.child.moods.hostile, b.mas.selves.child.moods.enemy, b.mas.selves.child.moods.runaway, b.mas.selves.child.moods.peaceful, b.mas.selves.child.moods.playful, b.mas.selves.child.moods.escorting,
-		b.fem.selves.child,
-		b.fem.selves.child.moods.hostile, b.fem.selves.child.moods.enemy, b.fem.selves.child.moods.runaway, b.fem.selves.child.moods.peaceful, b.fem.selves.child.moods.playful, b.fem.selves.child.moods.escorting,
-		b.mas.others.child,
-		b.mas.others.child.moods.hostile, b.mas.others.child.moods.enemy, b.mas.others.child.moods.runaway, b.mas.others.child.moods.peaceful, b.mas.others.child.moods.playful, b.mas.others.child.moods.escorting,
-		b.fem.others.child,
-		b.fem.others.child.moods.hostile, b.fem.others.child.moods.enemy, b.fem.others.child.moods.runaway, b.fem.others.child.moods.peaceful, b.fem.others.child.moods.playful, b.fem.others.child.moods.escorting];
-	rt.items = labelBeings(rt.items);
-	for(var i=0; i<types.length; i++) {
-		if(types[i] == "masculine") { buf = { handle: types[i], items: [
-		b.mas.selves.adult,
-		b.mas.selves.adult.moods.hostile, b.mas.selves.adult.moods.enemy, b.mas.selves.adult.moods.runaway,	b.mas.selves.adult.moods.peaceful, b.mas.selves.adult.moods.playful, b.mas.selves.adult.moods.escorting,
-			b.mas.others.adult,
-		b.mas.others.adult.moods.hostile, b.mas.others.adult.moods.enemy, b.mas.others.adult.moods.runaway,	b.mas.others.adult.moods.peaceful, b.mas.others.adult.moods.playful, b.mas.others.adult.moods.escorting,
-		b.mas.selves.child,
-		b.mas.selves.child.moods.hostile, b.mas.selves.child.moods.enemy, b.mas.selves.child.moods.runaway, b.mas.selves.child.moods.peaceful, b.mas.selves.child.moods.playful, b.mas.selves.child.moods.escorting,
-		b.mas.others.child,
-		b.mas.others.child.moods.hostile, b.mas.others.child.moods.enemy, b.mas.others.child.moods.runaway, b.mas.others.child.moods.peaceful, b.mas.others.child.moods.playful, b.mas.others.child.moods.escorting] };
-		rt.categories.push(buf); }
-		else if(types[i] == "feminine") { buf = { handle: types[i], items: [
-		b.fem.selves.adult,
-		b.fem.selves.adult.moods.hostile, b.fem.selves.adult.moods.enemy, b.fem.selves.adult.moods.runaway,	b.fem.selves.adult.moods.peaceful, b.fem.selves.adult.moods.playful, b.fem.selves.adult.moods.escorting,
-		b.fem.others.adult,
-		b.fem.others.adult.moods.hostile, b.fem.others.adult.moods.enemy, b.fem.others.adult.moods.runaway,	b.fem.others.adult.moods.peaceful, b.fem.others.adult.moods.playful, b.fem.others.adult.moods.escorting,
-		b.fem.selves.child,
-		b.fem.selves.child.moods.hostile, b.fem.selves.child.moods.enemy, b.fem.selves.child.moods.runaway, b.fem.selves.child.moods.peaceful, b.fem.selves.child.moods.playful, b.fem.selves.child.moods.escorting,
-		b.fem.others.child,
-		b.fem.others.child.moods.hostile, b.fem.others.child.moods.enemy, b.fem.others.child.moods.runaway, b.fem.others.child.moods.peaceful, b.fem.others.child.moods.playful, b.fem.others.child.moods.escorting] };
-		rt.categories.push(buf); }
-		else if(types[i] == "self") { buf = { handle: types[i], items: [
-		b.mas.selves.adult,
-		b.mas.selves.adult.moods.hostile, b.mas.selves.adult.moods.enemy, b.mas.selves.adult.moods.runaway,	b.mas.selves.adult.moods.peaceful, b.mas.selves.adult.moods.playful, b.mas.selves.adult.moods.escorting,
-		b.fem.selves.adult,
-		b.fem.selves.adult.moods.hostile, b.fem.selves.adult.moods.enemy, b.fem.selves.adult.moods.runaway,	b.fem.selves.adult.moods.peaceful, b.fem.selves.adult.moods.playful, b.fem.selves.adult.moods.escorting,
-		b.mas.selves.child,
-		b.mas.selves.child.moods.hostile, b.mas.selves.child.moods.enemy, b.mas.selves.child.moods.runaway, b.mas.selves.child.moods.peaceful, b.mas.selves.child.moods.playful, b.mas.selves.child.moods.escorting,
-		b.fem.selves.child,
-		b.fem.selves.child.moods.hostile, b.fem.selves.child.moods.enemy, b.fem.selves.child.moods.runaway, b.fem.selves.child.moods.peaceful, b.fem.selves.child.moods.playful, b.fem.selves.child.moods.escorting] };
-		rt.categories.push(buf); }
-		else if(types[i] == "other") { buf = { handle: types[i], items: [
-		b.mas.others.adult,
-		b.mas.others.adult.moods.hostile, b.mas.others.adult.moods.enemy, b.mas.others.adult.moods.runaway,	b.mas.others.adult.moods.peaceful, b.mas.others.adult.moods.playful, b.mas.others.adult.moods.escorting,
-		b.fem.others.adult,
-		b.fem.others.adult.moods.hostile, b.fem.others.adult.moods.enemy, b.fem.others.adult.moods.runaway,	b.fem.others.adult.moods.peaceful, b.fem.others.adult.moods.playful, b.fem.others.adult.moods.escorting,
-		b.mas.others.child,
-		b.mas.others.child.moods.hostile, b.mas.others.child.moods.enemy, b.mas.others.child.moods.runaway, b.mas.others.child.moods.peaceful, b.mas.others.child.moods.playful, b.mas.others.child.moods.escorting,
-		b.fem.others.child,
-		b.fem.others.child.moods.hostile, b.fem.others.child.moods.enemy, b.fem.others.child.moods.runaway, b.fem.others.child.moods.peaceful, b.fem.others.child.moods.playful, b.fem.others.child.moods.escorting] };
-		rt.categories.push(buf); }
-		else if(types[i] == "adult") { buf = { handle: types[i], items: [
-		b.mas.selves.adult,
-		b.mas.selves.adult.moods.hostile, b.mas.selves.adult.moods.enemy, b.mas.selves.adult.moods.runaway,	b.mas.selves.adult.moods.peaceful, b.mas.selves.adult.moods.playful, b.mas.selves.adult.moods.escorting,
-		b.fem.selves.adult,
-		b.fem.selves.adult.moods.hostile, b.fem.selves.adult.moods.enemy, b.fem.selves.adult.moods.runaway,	b.fem.selves.adult.moods.peaceful, b.fem.selves.adult.moods.playful, b.fem.selves.adult.moods.escorting,
-		b.mas.others.adult,
-		b.mas.others.adult.moods.hostile, b.mas.others.adult.moods.enemy, b.mas.others.adult.moods.runaway,	b.mas.others.adult.moods.peaceful, b.mas.others.adult.moods.playful, b.mas.others.adult.moods.escorting,
-		b.fem.others.adult,
-		b.fem.others.adult.moods.hostile, b.fem.others.adult.moods.enemy, b.fem.others.adult.moods.runaway,	b.fem.others.adult.moods.peaceful, b.fem.others.adult.moods.playful, b.fem.others.adult.moods.escorting] };
-		rt.categories.push(buf); }
-		else if(types[i] == "child") { buf = { handle: types[i], items: [
-		b.mas.selves.child,
-		b.mas.selves.child.moods.hostile, b.mas.selves.child.moods.enemy, b.mas.selves.child.moods.runaway, b.mas.selves.child.moods.peaceful, b.mas.selves.child.moods.playful, b.mas.selves.child.moods.escorting,
-		b.fem.selves.child,
-		b.fem.selves.child.moods.hostile, b.fem.selves.child.moods.enemy, b.fem.selves.child.moods.runaway, b.fem.selves.child.moods.peaceful, b.fem.selves.child.moods.playful, b.fem.selves.child.moods.escorting,
-		b.mas.others.child,
-		b.mas.others.child.moods.hostile, b.mas.others.child.moods.enemy, b.mas.others.child.moods.runaway, b.mas.others.child.moods.peaceful, b.mas.others.child.moods.playful, b.mas.others.child.moods.escorting,
-		b.fem.others.child,
-		b.fem.others.child.moods.hostile, b.fem.others.child.moods.enemy, b.fem.others.child.moods.runaway, b.fem.others.child.moods.peaceful, b.fem.others.child.moods.playful, b.fem.others.child.moods.escorting] };
-		rt.categories.push(buf); }
-		else if(types[i] == "primal being") { buf = { handle: types[i], items: [
-		b.mas.selves.adult,	b.fem.selves.adult,	b.mas.others.adult,	b.fem.others.adult,		
-		b.mas.selves.child,	b.fem.selves.child,	b.mas.others.child,	b.fem.others.child] };
-		rt.categories.push(buf); }
-		else if(types[i] == "primal mood") { buf = { handle: types[i], items: [
-		b.mas.selves.adult.moods.hostile, b.mas.selves.adult.moods.enemy, b.mas.selves.adult.moods.runaway,	b.mas.selves.adult.moods.peaceful, b.mas.selves.adult.moods.playful, b.mas.selves.adult.moods.escorting,
-		b.fem.selves.adult.moods.hostile, b.fem.selves.adult.moods.enemy, b.fem.selves.adult.moods.runaway,	b.fem.selves.adult.moods.peaceful, b.fem.selves.adult.moods.playful, b.fem.selves.adult.moods.escorting,
-		b.mas.others.adult.moods.hostile, b.mas.others.adult.moods.enemy, b.mas.others.adult.moods.runaway,	b.mas.others.adult.moods.peaceful, b.mas.others.adult.moods.playful, b.mas.others.adult.moods.escorting,
-		b.fem.others.adult.moods.hostile, b.fem.others.adult.moods.enemy, b.fem.others.adult.moods.runaway,	b.fem.others.adult.moods.peaceful, b.fem.others.adult.moods.playful, b.fem.others.adult.moods.escorting,
-		b.mas.selves.child.moods.hostile, b.mas.selves.child.moods.enemy, b.mas.selves.child.moods.runaway, b.mas.selves.child.moods.peaceful, b.mas.selves.child.moods.playful, b.mas.selves.child.moods.escorting,
-		b.fem.selves.child.moods.hostile, b.fem.selves.child.moods.enemy, b.fem.selves.child.moods.runaway, b.fem.selves.child.moods.peaceful, b.fem.selves.child.moods.playful, b.fem.selves.child.moods.escorting,
-		b.mas.others.child.moods.hostile, b.mas.others.child.moods.enemy, b.mas.others.child.moods.runaway, b.mas.others.child.moods.peaceful, b.mas.others.child.moods.playful, b.mas.others.child.moods.escorting,
-		b.fem.others.child.moods.hostile, b.fem.others.child.moods.enemy, b.fem.others.child.moods.runaway, b.fem.others.child.moods.peaceful, b.fem.others.child.moods.playful, b.fem.others.child.moods.escorting] };
-		rt.categories.push(buf); }}
-	return rt}
-//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
-//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
-//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
-//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
-function listTemperaments(t,types) { var rt = { handle: "", items: null, categories: [] }; var buf;
-	rt.items = [ { label: "FIN"},{ label: "FIR"},{ label: "FEN"},{ label: "FER"},{ label: "NIF"},{ label: "NIT"},{ label: "NEF"},{ label: "NET"},{ label: "RIF"},{ label: "RIT"},{ label: "REF"},{ label: "RET"},{ label: "TIN"},{ label: "TIR"},{ label: "TEN"},{ label: "TER"} ];	return rt }
-//███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █ █ █ █ █ █ █ █ ███ ███ ███ ███ █  ███ █ █ █ █
-//█ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █ METAPHYSISIAN █ █ █ █  █  █ █ █  █ █ ██  █ █
-//█ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █  LINE DO NOT ┼ █ █ █ █  █  █ █ █  █ █ ██   █ 
-//███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █   █ █ █ █ █ █ █ ███ █ █  █  ███ ██ ███ █ █ █  
+/*function configureSystemGrid(code,winWid,winHei) {
+	var rt = { code:code, disWid:0, disHei:0, dpOffX:0, dpOffY:0, runHei:AL.sysGridRungHeight,fldHei:0, fldWid:0,
+		widDif:0, heiDif:0, fldYUp:0, upRngY:0, fldYup:0, fldYdn:0, dnRngY:0, fldYDn:0, DOM:false,
+												fldXLE:0, fldXLe:0, fldXle:0, fldXri:0, fldXRi:0, fldXRI:0, SVG:false};
+	if(code=="dharmaMono"){ rt.dpOffX=173; rt.dpOffY=98; rt.DOM=true; 
+		rt.disWid=winWid-AL.sidebarWidth-173; 				rt.disHei=winHei-AL.headerHeight-98;
+		rt.fldHei=Math.floor((rt.disHei-(2*rt.runHei))/4);	rt.fldWid=Math.floor((rt.disWid / 6)) }
+	rt = irrigateSystemGridFields(ploughSystemGridFields(rt)); return rt }*/
 
 
-// "Vasen käsi ei tiedä että oikeaa onkaan", sanoi valkoinen mies.
-// "Perse edellä puuhun?" "Mutta niinhän puu itse kasvaa!"
-function remFromArr(arr,obj) { var index = arr.indexOf(obj); if (index > -1) { array.splice(index, 1) }}
-function dharmaHypothesis(str)  { var tab = AL.dharmaProfile; var dI = parseInt(str.split("_").pop());
-	var dharma = AL.ontology.content.items[dI];
-	dharma.hypot ? remFromArr(dharma.hypotIn,tab) : dharma.hypotIn.push(tab);	dharma.hypot = !dharma.hypot }
-function dharmaLemma(str) 		{ var tab = AL.dharmaProfile; var dI = parseInt(str.split("_").pop());
-	var dharma = AL.ontology.content.items[dI];
-	dharma.lemma ? remFromArr(dharma.lemmaIn,tab) : dharma.lemmaIn.push(tab);	dharma.lemma = !dharma.lemma }
-function hideDharma(str) 		{ var tab = AL.dharmaProfile; var dI = parseInt(str.split("_").pop());
-	var dharma = AL.ontology.content.items[dI];
-	if(!dharma.hiddenDharma){ dharma.hiddenDharma = true; dharma.hiddenDharmaIn.push(tab) }}
-function showDharma(str) 		{ var tab = AL.dharmaProfile; var dI = parseInt(str.split("_").pop());
-	var dharma = AL.ontology.content.items[dI];
-	if(dharma.hiddenDharma) { dharma.hiddenDharma = false; remFromArr(dharma.hiddenDharmaIn,tab) }}
-function proveDharma(str) 		{ var tab = AL.dharmaProfile; var dI = parseInt(str.split("_").pop());
-	var dharma = AL.ontology.content.items[dI];
-	if(!dharma.hiddenDharma){ dharma.conjecture = true; dharma.conjectureIn.push(tab) }}
-function disproveDharma(str) 	{ var tab = AL.dharmaProfile; var dI = parseInt(str.split("_").pop());
-	var dharma = AL.ontology.content.items[dI];
-	if(dharma.hiddenDharma) { dharma.conjecture = false; remFromArr(dharma.conjectureIn,tab) }}
-function setDharmaLogy(str) { AL.dharmaLogy = str }
-function DharmaProfile(label,sel) { var index=AL.dharmaProfileIndex;  this.index=index; this.selection=sel;
-	if(typeof label=="undefined") { var label=""; label+=index; } this.label=label;
-	this.hidden = false; AL.dharmaProfiles.push(this); AL.dharmaProfileIndex++; }
-function selectDharmas(hnd,sub,sel) { var rt={ont: null, sub:null, sel:null}; rt.ont = getOntology(hnd);
-	if(typeof sub != "undefined") { rt.sub = sub } if(typeof sel != "undefined") { rt.sel = sel } return rt }
-function initDharmaProfiles(tabHandle) { var r = []; switch(tabHandle) {
-		case "dharma" 	:	var bng = selectDharmas("beings",[7]); 			var v = new DharmaProfile("Beings",bng);
-							var tpr = selectDharmas("tmprmnt",[]);
-	
-	AL.dharmaProfile = v;
-	var v = new DharmaProfile("Temperaments",tpr); }}
-function populateDharmaProfiles() {
-	var d = document.getElementById('dharmaHeaderTabs');
-	for(var i=0; i < AL.dharmaProfiles.length; i++) { createDharmaHeaderTab(d,i,AL.dharmaProfiles[i]) } return d }
-function createDharmaHeaderTab(div,n,profile) {
-	var profile = getDharmaProfile(n);	var e=document.createElement('div');
-	if(profile==AL.dharmaProfile) 	{ e.setAttribute('class','dharmaProfileCurrent'); }
-	else 							{ e.setAttribute('class','dharmaProfile')}
-	var id = 'dharmaProfile_'+n;		e.setAttribute('id',id);
-	e.innerHTML = profile.label;		div.appendChild(e) }
-function getDharmaProfile(str) { var n = parseInt(str); return AL.dharmaProfiles[n] }
 
-function createDharmaProfile() { /*var profile = selectDharmas(AL.ontology.handle);	profile = new DharmaProfile(AL.dharmaProfileIndex, profile); var header = document.getElementById('dharmaHeaderTabs'); createDharmaHeaderTab(header,AL.dharmaProfileIndex,profile);	document.getElementById("nameDharmaProfile").focus(); */}
-function removeDharmaProfile(n) { AL.currentDharmaProfile.hidden = true; } //kesken
-function labelBeings(arr) {	function labelBeing(b) { var l=""; if(b.other) { l += "Other " } if (b.adult &&  b.male) { l += "Man " }	else if (b.adult && !b.male) { l += "Woman "} else if (!b.adult && b.male) { l += "Boy " } else if(!b.adult && !b.male) { l += "Girl "}	l+=b.sign; return l; } for(var i=0; i < arr.length; i++) { labelBeing(arr[i]) } return arr }
-
-/*     XX YY     YY
- XX   XX   YY   YY
-  XX XX     YY YY
-   XXX       YYY
-  XX XX       YY
- XX   XX      YY
-XX     XX    */
+                                                                            //
+                                                             //            {}       .
+                                               //   )       (i)      (      }      (    j
+                                             //)     )})    ({I})    ()    (.)      )
+                                           //)}I})  )}I})  ){}})   ({u})  ({|})  }})   j
+                        // 🎂🎂🎂       ip ur i I AI type fight vitality right))}))j j  j    🎂🎂🎂 \\
+                        // 🎂🎂🎂 zzzzzzZ:::::::::: S.Y.S.T.E.M;.;G.R.I,D‽ ::::::::::zzzzzzz 🎂🎂🎂 \\
+                        // 🎂🎂🎂                                                            🎂🎂🎂 \\
+                        //  (  (     greetings from off the grid /\ kreetings to grew |-      )  )   \\
+                        //   >  >  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  - <  <  \\
+                        //  (  (   * H * A * P * P * Y *    B * I * R * T * H * D * A * Y *   )  )   \\
+                        //   >  >  =.  =.  =.  =.  =.  =.  =.  =.  =.  =.  =.  =.  =.  =.  =. <  <  \\
+                        //  (  (                     all outta skyr ;=                         )  )  \\
+                        //   >  > -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  <  <  \\
+                        // 🎂🎂🎂                                                            🎂🎂🎂 \\
+                        // 🎂🎂🎂 zzzzzzz:::::::::: S.Y.S.T.E.M;.;G.R.I,D‽ ::::::::::zzzzzzz 🎂🎂🎂  \\
+                        // 🎂🎂🎂                                                            🎂🎂🎂 \\\
+                   //==============================================================================-----,,,..
+                     //§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+                          //§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+                                                    //ÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅ
+                                                       //ÅÅÅÅÅÅÅÅÅÅÅÅÅÅ
+                                                        //ÄÄÄÄÄÄÄÄÄÄÄÄ
+                                                         //öööööööööö
+                                                       //ÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+                                                        //åååååååååååå
+                                                       //ÖÖÖÖÖÖÖÖÖÖÖÖÖÖ
+                                                         //wwwwwwwwww
+                                                        //TTTTTTTTTTTT
+                                                       //UUUUUUUUUUUUUU
+                                                    //////////////////////
+                                     //////////////////////////////////////////////////
+                                ////////////////////////////////////////////////////////////
+// form may be used instead of init for tng objects
+// 3D view may as well be tree but we also need tree in dharma explorer
+// dharma explorer is to have tree generator option in footer
+// send dharma profile to tab feature, so that could import tree from mosaic view to dharma view? nah better have own view
+// the end is above you; you cannot get there
 function dharmaToMosaic(b,R){ var vp=b.vertexPlane;
 	function display(v,r) {if(typeof r=="undefined"){ sketchMosaic(v,"uL",R,(R*2)+1) }
 						else if(r==1) {sketchMosaic(v,"uL",1,(R*2)+1)}
@@ -537,7 +321,7 @@ function colorTriplane(t,R) { var ax=stroke(t.axial); var prox=stroke(t.proximal
 function makeNullArray(R) { var r=[]; for(var i=0; i<=R; i++) { r.push(null); } return r; }
 function makeNullMatrix(X,Y){var r=[];var b;for(var y=0;y<Y;y++){b=[];for(var x=0;x<X;x++){b.push(null)}r.push(b)}return r}
 function colorQuadrant(q,R,b,code) { var offsetDown=false; // dont need b here???
-	function situateHor(tp,s,res) {
+	function situateHrz(tp,s,res) {
 							if(code=="uL"||code=="dL") { offsetRight(tp,res) }
 							if(code=="dL"||code=="dR") { offsetDown=true }}
 	function orient(tp,s,g,res) { 
@@ -555,7 +339,7 @@ function colorQuadrant(q,R,b,code) { var offsetDown=false; // dont need b here??
 	var badColors = colorTriplane(q.bad, R-1); 				 var goodColors = colorTriplane(q.good, R);
 	var badTriplane=apply(q.bad, badMatrix, badColors, R-1); var goodTriplane=apply(q.good, goodMatrix, goodColors, R);
 	orient(badTriplane, q.sign.vis, false, R-1);			 orient(goodTriplane, q.sign.vis, true, R);
-	situateHor(badTriplane,q.sign.vis, R); var r = paintQuadrant(R, offsetDown, goodTriplane, badTriplane);	 return r }
+	situateHrz(badTriplane,q.sign.vis, R); var r = paintQuadrant(R, offsetDown, goodTriplane, badTriplane);	 return r }
 function colorAxis(a,R) { var ret=[]; if(typeof R=="undefined") { R=AL.resolution }
 	if(a.sign.syn=="u"||a.sign.syn=="d") { R++ }
 	var colors=blendColors(R,a.crucial,a.peripheral); //colors = colors.slice(1,R);
@@ -718,6 +502,7 @@ function signQuadrantSemantics(X,Y,G,O){ var r=""; if((typeof G=="undefined")||
 	else if(!G &&  O)  { if(X && Y){r="L"}else if(X && !Y){r="C"}else if(!X && Y){r="O"}else if(!X && !Y){r="S"}}
 	else if (G &&  O)  { if(X && Y){r="S"}else if(X && !Y){r="C"}else if(!X && Y){r="O"}else if(!X && !Y){r="L"}}return r }
 
+function ensimmaeinenSana() { AL.tree = initExistence(); console.log(AL.tree); initUI(); virginTab()}
 /*5{[1}\+!&8pS49h5&J                   X XXX
 EE5^~*^!!!_XX46L35ur   XYX XI  XXX ☆?☽ X H
 EBEVrr^\/\-JS4h&vovr    X   XI  X   !  XDQNX
@@ -726,262 +511,148 @@ QQHKj;^+;|x&5oTujjj}    X   X  NX   V  XXX|X
 J5u53r^^\+/\cjj>>"\;    X   X   E   X   |⊞|
 j52xLJl}|\"}}{".` !^   XXX XXX XXE XWX  XXX
 JT5555nr[r?1>[?{+;*/
-function initReality() {
-	var absolute = 	initDialectics(
-						initTemperament(
-							initOntology(
-								initMosaic(
-									initOthers(
-										initPrimalMoods(
-											initSelves(
-												initVectorColors()))))))); AL.ab = absolute; return absolute; }
-function initExistence(absolute) {
-	var conditioned = initEntities(absolute);
-	var dualism = { ab: absolute, co: conditioned };
-	return dualism }
+function initDharma(){ var rt =	initOntology(
+									initMosaic(
+										initOthers(
+											initPrimalMoods(
+												initSelves(
+													initVectorColors()))))); return rt }
+function initEssence(dharma) { dharma = initDialectics(initTemperament(dharma)); return dharma }
+function initReality( ) { var reality = initEssence(initDharma()); return reality }
+function initExistence( ) {	var dualism = { absolute:null, conditioned:null };
+	dualism.absolute 	= initReality();
+	dualism.conditioned = initEntities(dualism.absolute); return dualism }//¨^~¨~ ~ ~~ ~ ~~ ~ ~
+//~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~ ~~~^~ ~^~~^~^¨^¨^~^~ ~ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~¨~¨~¨~~~¨~¨~¨~~~¨~~¨~~¨~~~~~~~~
+//::      ::::::      ::::::      ::::::      ::::::      ::::::      ::::::      ::::::      ::::::      ::::::      :::::
+//.. ... .. ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ... ...
+                     /*¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨¨\:.:. :.:. : :: :. .. :.:. :.:. : :: :. .. :.:. :.:. : :: :. .. :.:. :.:. :
+                    / yuu blockheed !!         /| :: :. .. :.:. :.:. : :: :. .. :.:. :.:. : :: :. .. :.:. :.:. : :: :. .. :
+                   /.                         /:|.:. :.:. : :: :' ° °.: . .: . .::' " . o o.:.: .:.: : :: :. .. .:.: .:.: :
+                  /                          /::| :: :. .. :.:. :.:. : :: :°
+                 /                          /:::|
+                /                          /::::|
+                |-------------------------|:;::;|    "Well, I certainly prefer Morgenthau !!"
+                |.::''..................◉.|:;::;|
+                |.'.......................|;;::;|    "BICYCLE KIIICK !!!"
+                |.........................|;:::;|
+                |.........................|::::;|
+                |....©®∀™Ω................|:::;;|
+                |.........................|::;;;/
+                |....5.lbs................|::;;/
+                |.........................|:;;/
+                |....TO:.EAST.BERLN.....,,|.;/
+                |....................,::::|;/
+                |_________________________*/
+function initNET(t) {
+	t.temperament = null;
+	//console.log(t);
+	return t }
+/*asymmetric TA implies S or C, j/p analogic with g/b*/
+// j/p orientation tikku-ukot asento suora tai poised, symmetrinen ero tyyliin armeica's army m16 ak47 ero
+function initTemperament(dharma) {
+	dharma = initCircuitFunctions(dharma);
+	var ts = getOnt(dharma,"tmprmnt").content.items;
+	var t  = initNET(ts.find(function(e) { return e.label == "NET" }));
+	return dharma }
+function initCircuitFunctions(dharma) {
+	var Fi = new InformationElement(	dharma, 	false,	false,	false,	"Fi"	);
+	var Fe = new InformationElement(	dharma, 	false,	false,	true, 	"Fe"	);
+	var Ni = new InformationElement(	dharma, 	false,	true, 	false,	"Ni"	);
+	var Ne = new InformationElement(	dharma, 	false,	true, 	true, 	"Ne"	);
+	var Ri = new InformationElement(	dharma, 	true,	false,	false,	"Ri"	);
+	var Re = new InformationElement(	dharma, 	true,	false,	true, 	"Re"	);
+	var Ti = new InformationElement(	dharma, 	true,	true,	false,	"Ti"	);
+	var Te = new InformationElement(	dharma, 	true,	true, 	true, 	"Te"	);
+	var tmprmnt = { functions:{ Fi:Fi, Fe:Fe, Ni:Ni, Ne:Ne, Ri:Ri, Re:Re, Ti:Ti, Te:Te }};
+	dharma.neutral = { tmprmnt: tmprmnt };
+	//console.log(dharma);
+	return dharma }
+function InformationElement( d, x, y, z, code ){ var X; var Y; var Z;
+	if 		( !x && !y && !z ) 	{	X = -1; 	Y =  0; 	Z = -1 	}
+	else if ( !x && !y &&  z ) 	{ 	X = -1; 	Y =  0; 	Z =  1 	}
+	else if ( !x &&  y && !z ) 	{ 	X =  0; 	Y =  1; 	Z = -1 	}
+	else if ( !x &&  y &&  z ) 	{ 	X =  0; 	Y =  1; 	Z =  1 	}
+	else if (  x && !y && !z ) 	{ 	X =  0; 	Y = -1; 	Z = -1 	}
+	else if (  x && !y &&  z ) 	{ 	X =  0; 	Y = -1; 	Z =  1 	}
+	else if (  x &&  y && !z ) 	{ 	X = -1; 	Y =  0; 	Z = -1 	}
+	else if (  x &&  y &&  z ) 	{ 	X = -1; 	Y =  0; 	Z =  1 	}
+	var sign = {bin: { x: x, y: y, z: z },car: { X: X, Y: Y, Z: Z }};
+	var axes = getAxes(d, sign);
+	this.axes = axes; this.sign = sign; this.code = code; }
+function getAxes(d, sign) { var rt=[];
+	var axes = getOnt(d, "beings").content.items;
+}
+
+			/* lopussa on unaarinen munakello, naurava nunja, */
+		// GRIDLOCK G R I D L O C K GRIDLOCK G R I D L O C K GRIDLOCK G R I D L O C K GRIDLOCK
+	//G R I D L O C K GRIDLOCK G R I D L O C K GRIDLOCK G R I D L O C K GRIDLOCK G R I D L O C K
+//GRIDLOCK G R I D L O C K GRIDLOCK G R I D L O C K GRIDLOCK G R I D L OCC K GRIDLOCK G R I D L O C K
+function calcGridlock(gL){ measureWindow(); measureSequencer();
+	gL.idea.lVX 	= AL.sequencerWidth;
+	gL.result.mVX 	= AL.gL.idea.lVX 	+ AL.gL.idea.mVX;
+	gL.result.tHY 	= AL.gL.idea.tHY;
+	gL.result.bHY 	= AL.winHei 		- AL.gL.idea.bHY;
+	gL.result.mHY 	= AL.gL.result.bHY  - AL.gL.idea.mHY;
+	gL.result.disWid= AL.winWid - AL.sidebarWidth;
+	gL.result.disHei= AL.winHei; return gL }
+function makeGridLock(gL,SVG,DOM) { if(SVG){ gL.SVG=makeGridLockSVG(gL) } if(DOM){ gL.DOM=makeGridLockDOM(gL) }}
+function makeGridLockSVG(gL) {
+	gL.SVG = document.createElementNS( svgNS, 'rect' );
+var t = 'gridlock'; 	gL.SVG.setAttribute( 'id', t );		
+	gL.SVG.setAttribute( 'fill', '#222222' ); 	
+var n = AL.winWid - AL.sidebarWidth;	gL.SVG.setAttribute( 'width', n ); 	gL.SVG.setAttribute( 'height', AL.winHei );
+gL.SVG.setAttribute( 'x', 0 ); 			gL.SVG.setAttribute( 'y', 0 );
+var seq = makeSeqSVG(gL); gL.SVG.appendChild(seq); var lsb = makeLsbSVG(gL); gL.SVG.appendChild(lsb);
+var btm = makeBtmSVG(gL); gL.SVG.appendChild(btm); var top = makeTopSVG(gL); gL.SVG.appendChild(top)}
+/*GRIDLOCK  gL:{idea:{lVX:undefined,mVX:173,	tHY:50,		mHY:73,		bHY:73}, 	active:undefined,
+			  result:{lVX:0,		mVX:0,		tHY:0,		mHY:0,		bHY:0, disWid:0, disHei:0 }, SVG:null,DOM:null },*/
+function makeGridLockDOM(gL) {
+	gL.DOM = document.createElement( 'div' );
+var t = 'gridlock'; 	gL.DOM.setAttribute( 'id', t );		
+	gL.DOM.setAttribute( 'background-color', '#222222' ); 	
+var n = AL.winWid - AL.sidebarWidth;	gL.DOM.setAttribute( 'width', n ); 	gL.DOM.setAttribute( 'height', AL.winHei );
+gL.DOM.setAttribute( 'x', 0 ); 			gL.DOM.setAttribute( 'y', 0 );
+var seq = makeSeqDOM(gL); gL.DOM.appendChild(seq); var lsb = makeLsbDOM(gL); gL.DOM.appendChild(lsb);
+var btm = makeBtmDOM(gL); gL.DOM.appendChild(btm); var top = makeTopDOM(gL); gL.DOM.appendChild(top)}
 
 
 
-/*                              TÿE
-                               OÿÿÿNOB
-                                ÿÿÿ
-                                 Tÿÿ
-                                  Hÿÿ
-                                   Eÿÿ
-                                    ÿÿÿ
-               ÿ      ÿÿÿÿÿ¢        Wÿÿ
-                ÿÿÿ ÿÿÿÿÿÿÿÿÿÿ$     Hÿÿ
-                 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ€ TIÿÿÿ
-              ÿÿÿÿÿÿÿcamelÿcaseÿsEÿÿÿÿ
-               ÿÿÿÿÿÿlastÿseasonÿÿÿÿ
-                  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
-                    ÿÿ¥ÿÿÿÿÿÿ
-                     ÿ   ÿÿ 
-                     ÿÿ_   ÿÿÿ_  
+function calcSysGrid(gL,sG) { measureWindow(); measureSequencer();
+sG.idea.disHrz 	= gL.result.mVX;						sG.idea.disVrt 	= gL.result.tHY;
+sG.idea.disWid 	= gL.result.disWid - gL.result.mVX;		sG.idea.disHei  = gL.result.disHei - gL.result.tHY;
+	sG.idea.fldWid 	= Math.floor(( disWid - (2 * AL.sG.idea.dFrame)) / 9 );
+	sG.idea.fldHei 	= Math.floor(( disHei - (2 * AL.sG.idea.dFrame)) / 9 );
+	sG.idea.furHei 	= Math.floor ( sG.idea.fldHei / 4 );
+sG.result.fldWid= sG.idea.fldWid * 4;	sG.result.fldHei= sG.idea.fldHei * 4;
+	sG.result.qdrWid= sG.idea.fldWid - Math.floor((sG.idea.disWid / 2) - (sG.idea.fldWid / 2));
+	sG.result.qdrHei= sG.idea.fldHei - Math.floor((sG.idea.disHei / 2) - (sG.idea.fldHei / 2));
+	sG.result.ditchH= sG.result.qdrWid + sG.result.fldWid;
+	sG.result.ditchV= sG.result.qdrHei + sG.result.fldHei; return sG }
+/*SYSGRID   sG:{idea:{disWid:0,disHei:0,fldWid:0,fldHei:0,furHei:0,disHrz:0,disVrt:0,dFrame:15},active:undefined,
+			  result:{qdrWid:0,qdrHei:0,fldWid:0,fldHei:0,furHei:0,ditchH:0,ditchV:0}, 			SVG:null,DOM:null },*/
 
-*/
-/*function showSVGSidebar(winWid, winHei, tab) {
-	var tabs = AL.tabs.length;
-	var barWid = AL.sidebarWidth;
-	var offset = winWid - barWid;
-	var tabHei = AL.sidebarTabHei;
-	var tabOff = offset + AL.sidebarTabPadL;
-	var barTabClass = "barTab";
-	var fontSize = AL.fontSize;
-	svg.setAttribute('height',winHei); 	svg.setAttribute('width',winWid);
-	var bar=document.createElementNS(svgNS,'rect');
-	bar.setAttribute('x',offset); 		bar.setAttribute('y',0);
-	bar.setAttribute('width',barWid); 	bar.setAttribute('height',winHei);
-	bar.setAttribute('fill','#95B3D7');	svg.appendChild(bar);
-	for(var i=0; i<tabs; i++) { 
-    	var barTabId=barTabClass+"_"+i;	
-    	var barTab=document.createElementNS(svgNS,'rect');  
-    	barTab.setAttribute('class', barTabClass);	barTab.setAttribute('id', barTabId);
-    	barTab.setAttribute('x',offset); 			barTab.setAttribute('y',i*tabHei);
-    	barTab.setAttribute('width',barWid);		barTab.setAttribute('height',tabHei);
-    	AL.tab.handle==AL.tabs[i].handle?barTab.setAttribute('fill','#DDB300'):barTab.setAttribute('fill','#95B300');
-    	var label = document.createElementNS(svgNS,"text");
-    	label.setAttributeNS(null,'class',barTabClass); label.setAttributeNS(null,'id',barTabId);
-		label.setAttributeNS(null,"x",tabOff);			label.setAttributeNS(null,"y",(i*tabHei)+fontSize+9); 
-		label.setAttributeNS(null,"font-size",fontSize);label.setAttributeNS(null,"fill","white");
-		var textNode = document.createTextNode(AL.tabs[i].label);
-		label.appendChild(textNode);
-		svg.appendChild(barTab); svg.appendChild(label);  }}*/
-function Message(from,to,content,context) { this.from=from; this.to=to; this.content=content; this.context=context }
-function initYozen() {
-	function makeTestMessage() { var r = new Message(null,null,"Yozen",null); return r }
-	function pageMessage(msg) {
-		var e=document.createElementNS(svgNS,'rect'); e.setAttribute('width',AL.posDim);e.setAttribute('height',AL.posDim);
-		var t=document.createElementNS(svgNS,'text'); var T=document.createTextNode(msg.content);
-		t.appendChild(T); e.appendChild(t); return e }
-	var cnt = pageMessage(makeTestMessage());
-	var page = { content:cnt, index:[] };
-	return page }
-function showYozen() { }
+function calc
 
-                                       /*XXXXXXXXXXXXXXXXXVXXX
-                                      X                       X
-									 X	ZZZZZ  ZZ  ZZ     XXX  X
-									 X	Z Z Z Z  Z  Z    Z     X
-									 X	  Z   ZZZZ  ZZZ   XX   X
-									 X	  Z   X  X  Z  Z    X  X
-						  XXXXXXXXXXXX   ZZZ  X  X XXXX  XXX   XXXXXXXXXX*/  
+/*MOSAIC    mC:{idea:{disWid:0,disHei:0,disHrz:0,disVrt:0,hrzRes:9,vrtRes:9},					active:undefined,
+			  result:{cenHrz:0,cenVrt:0,tilWid:0,tilHei:0}, 									SVG:null },*/
+function calcMosaic(mC,disWid,disHei,disHrz,disVrt) { measureWindow(); measureSequencer();
+mC.idea.disWid 	= disWid; 	mC.idea.disHei 	= disHei; 	mC.idea.disHrz 	= disHrz; 	mC.idea.disVrt 	= disVrt;
+	mC.result.tilWid= Math.floor(( disWid / 2 ) / mC.idea.hrzRes );
+	mC.result.tilHei= Math.floor(( disHei / 2 ) / mC.idea.vrtRes );
+	mC.result.cenHrz= Math.floor ( disWid / 4 );
+	mC.result.cenVrt= Math.floor ( disHei / 4 ); return mC }
 
-function help(text) { if(AL.help && !AL.tab.SVG){ if(typeof text == 'undefined') { devBar() } else { devBar(text) }}}
-function barTab(event,id) 	{ var Id = id.split("_").pop(); switch(event) {
-	case "click" 		: 	displayTabById(Id); 				break;
-	case "mousemove" 	: 	help(getTabByStrInt(Id).devBar); 	}}
-function measureWindow(){ var winWid=window.innerWidth;AL.winWid=winWid; var winHei=window.innerHeight;AL.winHei=winHei }
-function initTab(handle) {	var tab = null;	 if (handle=='mosaic'||handle=='yozen') {
-												tab = initSVGTab(handle) }
-										else if (handle=="legend"||handle=="dharma"){
-												tab = initDOMTab(handle) } return tab }
-function Tab(handle,SVG,label,display,features,funcs,devBar) { this.handle=handle; this.label=label; this.devBar=devBar;
-	this.SVG=SVG; this.display=display; this.features=features; this.funcs=funcs }
-function initSVGTab(handle) { var SVG=true;	var label; var display=null; var features; var funcs=null; var devBar;
-	if 		( handle == 'mosaic' ){ label = "Mosaic";
-		devBar = "multipolar wrapped cartesian space with integer coordinates and dynamic resolution";
-		features = { tools:initTools(handle), mono:false, d3d:true, devKey:true };
-		display = initMosaicDisplays(AL.winWid,AL.winHei,AL.resolution,AL.unitDistD3d);
-		funcs={ show 	: function() { showSVGTab() },
-				hide 	: function() { hideSVGTab() },
-				resize 	: function() { resizeSVGTab() },
-				refresh : function() { refreshSVGTab() },
-				clear 	: function() { clearSVGTab() }}}
-	else if ( handle == 'yozen' ){ label = "Yozen";
-		devBar = "recovery from doomela's wirta";
-		features = { tools:initTools(handle) };
-		display = initYozen();
-		funcs={ show 	: function() { showSVGTab() },
-				hide 	: function() { hideSVGTab() },
-				resize 	: function() { resizeSVGTab() },
-				refresh : function() { refreshSVGTab() },
-				clear 	: function() { clearSVGTab() }}}
-	var rt = new Tab( handle, SVG, label, display, features, funcs, devBar ); return rt }
-function initDOMTab(handle) { var SVG=false; var label; var display; var features={tools:null}; var funcs; var devBar;
-	if 		( handle == 'legend' ){ label = "Legend";
-		devBar = "●'ve seen the 1 hu got a way";
-		funcs={ show 	: function() { showDOMTab() },
-				hide 	: function() { hideDOMTab() },
-				resize 	: function() { },
-				refresh : function() { }}}
-	else if ( handle == 'dharma' ){ label = "Dharma";
-		devBar = "dharma explorer and sequencer";
-		features = { 	profiles: initDharmaProfiles(handle), tools: initTools(handle), sysGrid: null, devKey:false };
-		display = initDharmaDisplay(handle);		
-		funcs={ show 	: function() { showDOMTab() },
-				hide 	: function() { hideDOMTab() },
-				resize 	: function() { resizeDOMTab() },
-				refresh : function() { refreshDOMTab() }}}
-	var rt = new Tab( handle, SVG, label, display, features, funcs, devBar ); return rt }
-function getTabByHandle (h) { console.log(AL.tabs); var j=AL.tabs.length;for(var i=0; i<j; i++){if(h==AL.tabs[i].handle){ return AL.tabs[i] }}}
-function getTabByStrInt(id) { var i=parseInt(id); return AL.tabs[i] }
-function virginTab (handle) { var tab = getTabByHandle(AL.tab);					switchTabs( null, 	tab )}
-function displayTab(handle) { var tab = getTabByHandle(handle); 				switchTabs( AL.tab, tab )}
-function displayTabById(id) { var i=parseInt(id); if( AL.tab != AL.tabs[i] )  { switchTabs( AL.tab, AL.tabs[i] )}}
-function switchTabs(ex, to) { if(ex != null) { ex.funcs.hide() } AL.tab = to;	to.funcs.show() }
-function hideDOMTab() { var w = document.getElementById("wrapper");	if(w != null) { w.remove() }}
-function hideSVGTab() { svg.setAttribute('display','none');
-						var d3d = document.getElementById('d3d');
-						if(typeof d3d != 'undefined' && d3d) { d3d.remove() }}
-function showSVGTab() {	svg.setAttribute('display','block'); 
-						showSVGSidebar( AL.winWid, AL.winHei, AL.tab ); 
-						document.body.appendChild(svg);
-						switch(AL.tab.handle){
-							case "mosaic" : showMosaicDisplays( AL.winWid, AL.winHei, AL.tab ); 	break;
-							case "yozen"  : showYozen( AL.winWid, AL.winHei, AL.tab );				break;
-						if(AL.tab.features.d3d){ show3D( AL.tab.display.d3d )}}
-						$( document ).ready(function() { initControls(true) } ) }
-function showDOMTab() {
-	if(AL.tab.handle=="legend") { showDOMStory() }
-	else 						{ showDOMApp()  }}
-function showDOMApp() {
-	var wrapper = document.createElement('div');		wrapper.setAttribute('id','wrapper');
-	var content = AL.tab.display.cloneNode(true);
-	wrapper.appendChild(content);
-	document.body.appendChild(wrapper);
-	AL.tab.funcs.refresh();
-	var sidebar = makeDOMSidebar(); 					wrapper.appendChild(sidebar);
-	help();
-	$( document ).ready(function() { initControls(false) } ) }
-function showDOMStory() {
-	var wrapper = document.createElement('div');		wrapper.setAttribute('id','wrapper');
-	var content = document.createElement('div');		content.setAttribute('id','content');
-	var devBar = document.createElement('div'); 		devBar.setAttribute('id','devBar');
-	var sidebar = makeDOMSidebar();
-
-	content.innerHTML = showLegendDisplay();
-	content.appendChild(devBar);
-	wrapper.appendChild(sidebar);
-
-	wrapper.appendChild(content);
-	document.body.appendChild(wrapper);	
-	help();
-	$( document ).ready(function() { initControls(false) } ) }
-function resizeDOMTab() {}
-function resizeSVGTab() {}
-function refreshDOMTab(){ switch(AL.tab.handle) {
-	case "dharma" : populateDharmaProfiles(); 									
-					var e = document.getElementById('dharmaTypeSelector'); 		populateDharmaTypeSelector(e);
-					var e = document.getElementById('dharmaSubtypeSelector');	populateDharmaSubtypeSelector(e);
-					var e = document.getElementById('dharmaSource');			populateDharmaSidebarSource(e);
-					var e = document.getElementById('dharmaRelation');			populateDharmaSidebarRelations(e);
-					var e = document.getElementById('dharmaTarget');			populateDharmaSidebarTarget(e);
-					var e = document.getElementById('dharmaSubrelSelector');	populateDharmaSubrelSelector(e);
-					var e = document.getElementById('dharmaRelSelector'); 		populateDharmaRelSelector(e);
-					populateSystemGrid(AL.tab.features.sysGrid);
-					break; }}
-function refreshSVGTab(){}
-
-						  /*XXXXXXXXXX  ZZZZZ  ZZ  ZZ     XXX  XXXXXXXXXXXX
-									 X	Z Z Z Z  Z  Z    Z     X
-									 X	  Z   ZZZZ  ZZZ   XX   X
-									 X	  Z   X  X  Z  Z    X  X
-									 X	 ZZZ  X  X XXXX  XXX   X
-									 X                        X
-									 XXXXXXXXXXXXXXXXXXXXXXX*/
-
-function makeDOMSidebar() {
-	function makeDOMSidebarButton(text,n) {
-		var rt = document.createElement("div");				var btnId = "barTab_"+n;
-		rt.setAttribute('class','sidebar-option');			rt.setAttribute('id',btnId);
-		if(text == AL.tab.label) { rt.setAttribute('class','sidebar-option-selected') }
-		var btnText = document.createTextNode(text); 		rt.appendChild(btnText); return rt; }
-	var sidebar = document.createElement('div'); 		sidebar.setAttribute('id','sidebar');
-	var features= populateDOMSidebarFeatures();
-	var btn = null;
-	for(var i=0; i<AL.tabs.length; i++) {
-		btn = makeDOMSidebarButton(AL.tabs[i].label,i);
-		sidebar.appendChild(btn); }
-	sidebar.appendChild(features); return sidebar }
-function populateDOMSidebarFeatures() {
-	function clone(DOM) {
-		for(var j=0; j < DOM.length; j++){ var d=document.createElement('div'); d.setAttribute('class','clearBoth');
-			if( DOM[j].length == 4 ) { DOM[j].shift() }
-			for(var k=0; k < DOM[j].length; k++) { var b=DOM[j][k].cloneNode(true); d.appendChild(b) } f.appendChild(d) }}
-	function make(DOM) { var e = clone(DOM) }
-	var f = document.createElement('div'); f.setAttribute('id','sidebarFeatures');
-	if(typeof AL.tab.features.tools != 'undefined') { var tools = AL.tab.features.tools;
-		if(tools) { for(var i=0; i < tools.length; i++) { make(tools[i].key.DOM) }}}
-	return f }
-function showSVGSidebar(winWid, winHei, tab) {
-	var tabs = AL.tabs.length;
-	var barWid = AL.sidebarWidth;
-	var offset = winWid - barWid;
-	var tabHei = AL.sidebarTabHei;
-	var tabOff = offset + AL.sidebarTabPadL;
-	var barTabClass = "barTab";
-	var fontSize = AL.fontSize;
-	svg.setAttribute('height',winHei); 	svg.setAttribute('width',winWid);
-	var bar=document.createElementNS(svgNS,'rect');
-	bar.setAttribute('x',offset); 		bar.setAttribute('y',0);
-	bar.setAttribute('width',barWid); 	bar.setAttribute('height',winHei);
-	bar.setAttribute('fill','#95B3D7');	svg.appendChild(bar);
-    for(var i=0; i<tabs; i++) { 
-    	var barTabId=barTabClass+"_"+i;	
-    	var barTab=document.createElementNS(svgNS,'rect');  
-    	barTab.setAttribute('class', barTabClass);	barTab.setAttribute('id', barTabId);
-    	barTab.setAttribute('x',offset); 			barTab.setAttribute('y',i*tabHei);
-    	barTab.setAttribute('width',barWid);		barTab.setAttribute('height',tabHei);
-    	AL.tab.handle==AL.tabs[i].handle?barTab.setAttribute('fill','#DDB300'):barTab.setAttribute('fill','#95B300');
-    	var label = document.createElementNS(svgNS,"text");
-    	label.setAttributeNS(null,'class',barTabClass); label.setAttributeNS(null,'id',barTabId);
-		label.setAttributeNS(null,"x",tabOff);			label.setAttributeNS(null,"y",(i*tabHei)+fontSize+9); 
-		label.setAttributeNS(null,"font-size",fontSize);label.setAttributeNS(null,"fill","white");
-		var textNode = document.createTextNode(AL.tabs[i].label);
-		label.appendChild(textNode);
-		svg.appendChild(barTab); svg.appendChild(label);  }}
-
-                             /*å
-     .                         Åå      ✰
-                           .   Åå       \
-                            \♫Åå
-                        
-MM   MM MMMMMM MMMMMM  MMMM  MM MMMMMM
-MMM MMM MM  MM MM     MM  MM MM MM 
-MM M MM MM  MM MMMMMM MMMMMM MM MM 
-MM   MM MM  MM     MM MM  MM MM MM 
-MM   MM MMMMMM MMMMMM MM  MM MM MMMMM*/
+                                                                                                          /*å
+                                                                                  .                         Åå      ✰
+                                                                                                        .   Åå       \
+                                                                                                         \♫Åå
+                                                                                                     
+                                                                             MM   MM MMMMMM MMMMMM  MMMM  MM MMMMMM
+                                                       ~    ~     ~    ~    ~MMM MMM MM  MM MM     MM  MM MM MM 
+                      ~   ~    ~~    ~~    ~~    ~~  ~~  ~~  ~~  ~~  ~~  ~~  MM M MM MM  MM MMMMMM MMMMMM MM MM 
+                    ~  ~  ~      ~ ~ ~   ~~~   ~~~   ~~~   ~~~   ~~~  ~~~  ~ MM   MM MM  MM     MM MM  MM MM MM 
+   ~ ~  ~ ~  ~ ~     ~~  ~~  ~~     ~~  ~~  ~~    ~~ ~~ ~~   ~~ ~~ ~~   ~~   MM   MM MMMMMM MMMMMM MM  MM MM MMMMM*/
 function drawMosaic(code,depth,m,res, disWid,disHei, disOffX,disOffY, widDif,heiDif, tilWid,tilHei, winWid,winHei) { 
 	var mosaicClass = 'mosaic';				var mosaicId 	= mosaicClass+"-"+code;
 	var scr=document.createElementNS(svgNS,'rect'); 
@@ -1082,6 +753,49 @@ function sketchMosaic(q,dest,Y,X) {
 				r+="<span style='background-color:"+q[y][x].h+";'>"+tmp+"</span>";}}}
 	r+="</div>"; doc.innerHTML +=r; }
 
+//
+// YOZEN STUFF
+//
+/*function showSVGSidebar(winWid, winHei, tab) {
+	var tabs = AL.tabs.length;
+	var barWid = AL.sidebarWidth;
+	var offset = winWid - barWid;
+	var tabHei = AL.sidebarTabHei;
+	var tabOff = offset + AL.sidebarTabPadL;
+	var barTabClass = "barTab";
+	var fontSize = AL.fontSize;
+	svg.setAttribute('height',winHei); 	svg.setAttribute('width',winWid);
+	var bar=document.createElementNS(svgNS,'rect');
+	bar.setAttribute('x',offset); 		bar.setAttribute('y',0);
+	bar.setAttribute('width',barWid); 	bar.setAttribute('height',winHei);
+	bar.setAttribute('fill','#95B3D7');	svg.appendChild(bar);
+	for(var i=0; i<tabs; i++) { 
+    	var barTabId=barTabClass+"_"+i;	
+    	var barTab=document.createElementNS(svgNS,'rect');  
+    	barTab.setAttribute('class', barTabClass);	barTab.setAttribute('id', barTabId);
+    	barTab.setAttribute('x',offset); 			barTab.setAttribute('y',i*tabHei);
+    	barTab.setAttribute('width',barWid);		barTab.setAttribute('height',tabHei);
+    	AL.tab.handle==AL.tabs[i].handle?barTab.setAttribute('fill','#DDB300'):barTab.setAttribute('fill','#95B300');
+    	var label = document.createElementNS(svgNS,"text");
+    	label.setAttributeNS(null,'class',barTabClass); label.setAttributeNS(null,'id',barTabId);
+		label.setAttributeNS(null,"x",tabOff);			label.setAttributeNS(null,"y",(i*tabHei)+fontSize+9); 
+		label.setAttributeNS(null,"font-size",fontSize);label.setAttributeNS(null,"fill","white");
+		var textNode = document.createTextNode(AL.tabs[i].label);
+		label.appendChild(textNode);
+		svg.appendChild(barTab); svg.appendChild(label);  }}*/
+		
+function Message(from,to,content,context) { this.from=from; this.to=to; this.content=content; this.context=context }
+function initYozen() {
+	function makeTestMessage() { var r = new Message(null,null,"Yozen",null); return r }
+	function pageMessage(msg) {
+		var e=document.createElementNS(svgNS,'rect'); e.setAttribute('width',AL.posDim);e.setAttribute('height',AL.posDim);
+		var t=document.createElementNS(svgNS,'text'); var T=document.createTextNode(msg.content);
+		t.appendChild(T); e.appendChild(t); return e }
+	var cnt = pageMessage(makeTestMessage());
+	var page = { content:cnt, index:[] };
+	return page }
+function showYozen() { }
+
 /*GG GGGG G    G   G GGGG GGG  GGGG GGGG
 G    G  G G    GG GG G    G  G G    G
 G GG G  G G    G G G GGG  G  G GGG  GGG
@@ -1166,20 +880,20 @@ function getControlDir() {
 function navigate3D(shift, alt, ctrl, dp) { var cmd = getControlDir();
 	alt ? rotateCam3D(shift,ctrl,dp,dp.cam,cmd,AL.defaultRotD3d) : moveCam3D(shift,ctrl,dp,dp.cam,cmd,AL.defaultVelD3d) }
 function rotateCam3D(opt, ctrl, d3d, cam, cmd, r) { if(ctrl) { r = degreesToRadians(90) }
-	function rotateCamHor3D(hor) { var axis = new THREE.Vector3( 0, 1, 0);
+	function rotateCamHrz3D(hor) { var axis = new THREE.Vector3( 0, 1, 0);
 		if(hor < 0) { cam.rotateOnAxis(axis, r) } else { cam.rotateOnAxis(axis, -r)}}
-	function rotateCamVer3D(ver) {
+	function rotateCamVrt3D(ver) {
 		if(!opt) { 	var axis = new THREE.Vector3( 1, 0, 0 );
 			if(ver < 0) { cam.rotateOnAxis( axis,-r )} else { cam.rotateOnAxis( axis,r )}}}
 	var camDir = new THREE.Vector3( 0, 0,-1 );
 	camDir.applyQuaternion( cam.quaternion );
-	if(cmd.hor != 0) { rotateCamHor3D(cmd.hor) } 
-	if(cmd.ver != 0) { rotateCamVer3D(cmd.ver) }
+	if(cmd.hor != 0) { rotateCamHrz3D(cmd.hor) } 
+	if(cmd.ver != 0) { rotateCamVrt3D(cmd.ver) }
 	render3D(d3d) }
 function moveCam3D(opt, ctrl, d3d, cam, cmd, vel) { var r = degreesToRadians(90); //if control vel*=res
-	function moveCamHor3D(hor){ var axis = new THREE.Vector3( 0, 1, 0 );
+	function moveCamHrz3D(hor){ var axis = new THREE.Vector3( 0, 1, 0 );
 		if(hor < 0) { camDir.applyAxisAngle( axis,r )} else { camDir.applyAxisAngle( axis, -r) }}
-	function moveCamVer3D(ver){
+	function moveCamVrt3D(ver){
 		if(!opt){ if(ver < 0) { vel = -vel }}
 		else 	{ /*if(ver > 0) { vel = -vel }
 			var axis = new THREE.Vector3( 1, 0, -1 );
@@ -1187,8 +901,8 @@ function moveCam3D(opt, ctrl, d3d, cam, cmd, vel) { var r = degreesToRadians(90)
 			camDir.cross(axis); }*/}}
 	var camDir = new THREE.Vector3( 0, 0,-1 );
 	camDir.applyQuaternion( cam.quaternion );
-	if(cmd.hor != 0) { moveCamHor3D(cmd.hor) } 
-	if(cmd.ver != 0) { moveCamVer3D(cmd.ver) }
+	if(cmd.hor != 0) { moveCamHrz3D(cmd.hor) } 
+	if(cmd.ver != 0) { moveCamVrt3D(cmd.ver) }
 	camDir.multiplyScalar(vel);
 	cam.position.add(camDir);
 	render3D(d3d) }
@@ -1205,8 +919,8 @@ function getCamLocationHUD(tab) {
 
 
 function moveCam3D3(opt,d3d,obj,cmd,vel){
-	function moveCamHor3D() { }
-	function moveCamVer3D() {}
+	function moveCamHrz3D() { }
+	function moveCamVrt3D() {}
 	
 
 	var quaternion = new THREE.Quaternion();
@@ -1253,75 +967,7 @@ function degreesToRadians(degrees) { var pi = Math.PI; return degrees * (pi/180)
 	d3d.rnd.clear();
 	d3d.rnd.render( d3d.sce, d3d.cam ); }*/
 
-
-
-// 🎂🎂🎂                                                            🎂🎂🎂
-// 🎂🎂🎂 zzzzzzz:::::::::: S.Y.S.T.E.M;.;G.R.I,D‽ ::::::::::zzzzzzz 🎂🎂🎂
-// 🎂🎂🎂                                                            🎂🎂🎂
-//  |  |     greetings from off the grid /\ kreetings to grew |-      |  |
-//  |  |     all outta skyr ;=                                        |  |
-// 🎂🎂🎂                                                            🎂🎂🎂
-// 🎂🎂🎂 zzzzzzz:::::::::: S.Y.S.T.E.M;.;G.R.I,D‽ ::::::::::zzzzzzz 🎂🎂🎂
-// 🎂🎂🎂                                                            🎂🎂🎂
-// form may be used instead of init for tng objects
-// 3D view may as well be tree but we also need tree in dharma explorer
-// dharma explorer is to have tree generator option in footer
-// send dharma profile to tab feature, so that could import tree from mosaic view to dharma view? nah better have own view
-// the end is above you; you cannot get there
-function populateSystemGrid(sg) {}
-function initSysGrid(handle) { var r; if(handle=='dharma') { r = initDharmaSystemGrid() } return r }
-function initDharmaSystemGrid() { var sg = configureSystemGrid("dharmaMono",AL.winWid,AL.winHei); return sg }
-function initSystemGridSVG(sg) {}
-function initSystemGridDOM(sg) { console.log(sg); // sydän syggyrällä ! <3
-	var dis = document.createElement('div'); 		dis.style.position = 'fixed';
-	var cla = 'systemGrid_' + sg.code;				dis.setAttribute('id',cla);
-	dis.style.width = sg.disWid + 'px'; 			dis.style.height = sg.disHei + 'px';
-	dis.style.left = sg.dpOffX + 'px'; 				dis.style.top = sg.dpOffY + 'px';
-	for(var y=0; y<11; y++) { for(var x=0; x<11; x++) {
-		var top = document.createElement('div'); 			top.setAttribute('class',cla);
-		var txt = 'systemGrid_'+x+'-'+y;					top.setAttribute('id',txt);
-		top.style.width = sg.fldWid + 'px'; 				top.style.height = sg.fldHei + 'px';
-		top.style.position = 'fixed';
-		var num = (x * sg.fldWid) + sg.dpOffX;				top.style.left = num + 'px';
-		num 	= (y * sg.fldHei) + sg.dpOffY;				top.style.top  = num + 'px';
-		for(var z=0; z<4; z++) {
-			var pix = document.createElement('div'); 			pix.style.position = 'fixed';
-			cla = 'systemGridPixel'; 							pix.setAttribute('class',cla);
-			txt = 'systemGridPixel_'+sg.code+'-'+x+'-'+y+'-'+z; pix.setAttribute('id',txt);
-			pix.style.width = sg.fldWid + 'px';
-		}
-		dis.appendChild(top); }}
-	sg.DOM = dis; return sg }
-
-	/* FURROWS FURR
-	var dp = document.createElement('div'); 		dp.setAttribute('class','systemGrid');
-	var id = 'systemGrid_' + sg.code; 				dp.setAttribute('id',id);
-	dp.style.top = sg.dpOffY; 						dp.style.left = sg.dpOffX;
-	//var ULEfld = document.createElement('div'); 	ULEfld.setAttribute('class','systemGridField');
-	//ULEfld.setAttribute('id','systemField_ULE'); 	
-	sg.DOM = dp; return sg*/ 
-function ploughSystemGridFields(sg){ var fields=[[],[],[],[],[],[],[],[],[]]; var field=null; var flOffY=0; var flOffX=0;
-	for(var y=0; y<9; y++) { flOffX=0; flOffY = y * sg.fldWid;
-		for(var x=0; x<9; x++) { flOffX += sg.fldWid; field={ x: flOffX, y: flOffY }; fields[y].push(field); }}
-	sg.fields = fields; return sg }
-function irrigateSystemGridFields(sg){
-	if(sg.SVG){ sg=initSystemGridSVG(sg) } else if(sg.DOM){ sg=initSystemGridDOM(sg) } return sg }
-function configureSystemGrid(code,winWid,winHei) { var rt={ //widdif heidif misnomers
-	code:code, disWid:0, disHei:0, dpOffX:0, dpOffY:0, fldHei:0, fldWid:0, widDif:0, heiDif:0, DOM:false, SVG:false};
-	if(code=="dharmaMono"){ rt.dpOffX=173; rt.dpOffY=25; rt.DOM=true; 
-		rt.disWid=winWid-AL.sidebarWidth-173; 				rt.disHei=winHei-AL.headerHeight-73;
-		rt.fldHei=Math.floor(rt.disHei/11);					rt.fldWid=Math.floor((rt.disWid / 11)) }
-	rt = irrigateSystemGridFields(ploughSystemGridFields(rt)); return rt }
-
-/*function configureSystemGrid(code,winWid,winHei) {
-	var rt = { code:code, disWid:0, disHei:0, dpOffX:0, dpOffY:0, runHei:AL.sysGridRungHeight,fldHei:0, fldWid:0,
-		widDif:0, heiDif:0, fldYUp:0, upRngY:0, fldYup:0, fldYdn:0, dnRngY:0, fldYDn:0, DOM:false,
-												fldXLE:0, fldXLe:0, fldXle:0, fldXri:0, fldXRi:0, fldXRI:0, SVG:false};
-	if(code=="dharmaMono"){ rt.dpOffX=173; rt.dpOffY=98; rt.DOM=true; 
-		rt.disWid=winWid-AL.sidebarWidth-173; 				rt.disHei=winHei-AL.headerHeight-98;
-		rt.fldHei=Math.floor((rt.disHei-(2*rt.runHei))/4);	rt.fldWid=Math.floor((rt.disWid / 6)) }
-	rt = irrigateSystemGridFields(ploughSystemGridFields(rt)); return rt }*//*
-
+       /*
 DDDDDD ' OOOOO  OO     OO           (                         Ω
 DD  DDD OO° °OO OOO   OOO    +→    (   m mm mm        x.xx.    Ω
 DD   DD OO   OO OOOO OOOO  +++++→  (    m  m  m   M×   x. x.   Ω
@@ -1351,22 +997,23 @@ function populateDharmaSubrelSelector(s) { /*console.log(AL.epistemology);
 	var option=document.createElement('option');option.text=AL.epistemology.content.categories[i].handle; s.add(option) }*/}
 function populateDharmaRelSelector(s) {	/*var j = AL.dharma.epistemology.length; for(var i = 0; i < j; i++) {
 		var option=document.createElement('option'); option.text=AL.dharma.epistemology[i].label; s.add(option) }*/}
-function initDharmaDisplay(hnd){var content = document.createElement('div');
-								var header   = initDharmaHeaderControls(); 	content.appendChild(header);
-								var sidebar  = initDharmaSidebar(); 		content.appendChild(sidebar);
-								var sysGrid  = initSysGrid(hnd);			content.appendChild(sysGrid.DOM);
-								return content }
-function initDharmaHeaderControls() {
+function initDharmaDisplay(hnd){ 	 var content = document.createElement('div');
+		var header   = initDharmaHeaderControls(hnd); 	content.appendChild(header);
+		var sidebar  = initDharmaSidebar(hnd); 			content.appendChild(sidebar);
+		var sysGrid  = initSysGrid(hnd);				content.appendChild(sysGrid.DOM); return content }
+function initDharmaHeaderControls(hnd) { if((hnd=='dharma')||(hnd=='kakara')) {
 	var d = document.createElement('div');	 d.setAttribute('id','dharmaHeaderControls');
 	var e = document.createElement('div'); 	 e.setAttribute('id','dharmaHeaderBase');  					  d.appendChild(e);
 	var e = document.createElement('div'); 	 e.setAttribute('id','dharmaHeaderTabs');  					  d.appendChild(e);
-	var e=document.createElement('button');	 e.setAttribute('id','removeDharmaProfile'); e.innerHTML="-"; d.appendChild(e);
+	var e=document.createElement('button');	 e.setAttribute('id','removeDharmaProfile');
+	e.innerHTML="-"; d.appendChild(e);
 	var e = document.createElement('input'); e.setAttribute('id','nameDharmaProfile');
 		e.setAttribute('size',7);			 d.appendChild(e);
-	var e=document.createElement('button');  e.setAttribute('id','createDharmaProfile'); e.innerHTML="+"; d.appendChild(e);
-	return d }
-function initDharmaSidebar() {
-	var d = document.createElement('div'); 	 				d.setAttribute('id','dharmaSidebar');
+	var e=document.createElement('button');  e.setAttribute('id','createDharmaProfile');
+	e.innerHTML="+"; d.appendChild(e); }	 return d }
+function initDharmaSidebar(hnd) {
+var d = document.createElement('div'); 	 				d.setAttribute('id','dharmaSidebar');
+if(hnd=='dharma') {
 	var typeSelector = document.createElement('select');	typeSelector.setAttribute('id','dharmaTypeSelector');
 	var subtypeSelector = document.createElement('select');	subtypeSelector.setAttribute('id','dharmaSubtypeSelector');
 	subtypeSelector.setAttribute('multiple',true);			
@@ -1411,32 +1058,32 @@ function initDharmaSidebar() {
 	var btn6 = document.createElement('button'); 			btn6.setAttribute('id','allRelsToDown');
 	btn6.innerHTML="<span class='dharmaControlButtonLabel'>⤓</span>"; //↧↥ 
 	controls.appendChild(btn1); controls.appendChild(btn2); controls.appendChild(btn3);
-	controls.appendChild(btn4); controls.appendChild(btn5); controls.appendChild(btn6);
+	controls.appendChild(btn4); controls.appendChild(btn5); controls.appendChild(btn6); }
 
-	var parser = document.createElement('div'); 			parser.setAttribute('id','dharmaParser');
+var parser = document.createElement('div'); 			parser.setAttribute('id','dharmaParser');
 
-	var devBar = document.createElement('div'); 			devBar.setAttribute('id','devBar');
+var devBar = document.createElement('div'); 			devBar.setAttribute('id','devBar');
 
-	var displayLock = document.createElement('div'); 		displayLock.setAttribute('id','dharmaDisplayLock');
-	var lockUpper = document.createElement('div'); 			lockUpper.setAttribute('id','dharmaUpperLock');
-	var verTime = document.createElement('div'); 			verTime.setAttribute('id','dharmaVerticalTime');
-	lockUpper.appendChild(verTime);
-	var lockLower = document.createElement('div'); 			lockLower.setAttribute('id','dharmaLowerLock');
-	var horTime = document.createElement('div'); 			horTime.setAttribute('id','dharmaHorizontalTime');
-	lockLower.appendChild(horTime); // append these to columns, not here like this
-	displayLock.appendChild(lockUpper); 					displayLock.appendChild(lockLower);
+var displayLock = document.createElement('div'); 		displayLock.setAttribute('id','dharmaDisplayLock');
+var lockUpper = document.createElement('div'); 			lockUpper.setAttribute('id','dharmaUpperLock');
+var verTime = document.createElement('div'); 			verTime.setAttribute('id','dharmaVerticalTime');
+lockUpper.appendChild(verTime);
+var lockLower = document.createElement('div'); 			lockLower.setAttribute('id','dharmaLowerLock');
+var horTime = document.createElement('div'); 			horTime.setAttribute('id','dharmaHorizontalTime');
+lockLower.appendChild(horTime); // append these to columns, not here like this
+displayLock.appendChild(lockUpper); 					displayLock.appendChild(lockLower);
 
-	d.appendChild(devBar);
-	d.appendChild(typeSelector);d.appendChild(subtypeSelector);
-	d.appendChild(tooltips);
-	d.appendChild(footerCover);
-	d.appendChild(source);  	d.appendChild(relation);	d.appendChild(target);
-	d.appendChild(frm); 		d.appendChild(via); 		d.appendChild(to);
-	d.appendChild(controls);
-	d.appendChild(relSelector);d.appendChild(subrelSelector);
-	d.appendChild(parser);
-	d.appendChild(displayLock);
-	return d }
+d.appendChild(devBar);
+d.appendChild(typeSelector);d.appendChild(subtypeSelector);
+d.appendChild(tooltips);
+d.appendChild(footerCover);
+d.appendChild(source);  	d.appendChild(relation);	d.appendChild(target);
+d.appendChild(frm); 		d.appendChild(via); 		d.appendChild(to);
+d.appendChild(controls);
+d.appendChild(relSelector);d.appendChild(subrelSelector);
+d.appendChild(parser);
+d.appendChild(displayLock);
+return d }
 function initDharmaHood(id) {
 	var d = document.createElement('div'); 				d.setAttribute('id',id);
 	var hoodPaint = document.createElement('div'); 			hoodPaint.setAttribute('id','dharmaSidebarHoodPaint');
@@ -1692,4 +1339,4 @@ function testBeing2(male,adult,other,mood,p,input) {
 	r = h;
 	return r }
 var svg   = document.createElementNS("http://www.w3.org/2000/svg", "svg"); var svgNS = svg.namespaceURI;
-</script></head><body onload='ensimmaeinenSana()'><!--dharmapillu ahmii--><!--fail stan!--><!--I can't be replaced as long as you're needed--><!--wade retro, trekker santa!--></body></html>
+</script></head><body onload='ensimmaeinenSana()'><!--fail stan!--><!--wade retro, trekker santa!--></body></html>
