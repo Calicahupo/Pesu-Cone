@@ -1,10 +1,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"
 	http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>tukemi 1982</title>
+<title>öåå 2074</title>
 <style>@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
 		url('diodi/profontwindows-webfont.woff') 	format('woff');	font-weight:normal; font-style:normal; }
-	@font-face { font-family: 'de_valenciaregular'; src: url('de_valencia_beta-webfont.woff2') format('woff2'),
+	@font-face { font-family: 'de_valenciaregular'; src: url('diodi/de_valencia_beta-webfont.woff2') format('woff2'),
         url('de_valencia_beta-webfont.woff') 		format('woff'); font-weight: normal;font-style: normal;}
     @font-face { font-family: 'strike_fighter';    	src:url('diodi/strikefighter-webfont.woff2')format('woff2'),
     	url('diodi/strikefighter-webfont.woff') 	format('woff'); font-weight: normal; font-style: normal;}
@@ -13,66 +13,13 @@
         /*, url('diodi/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg')*/
 	html{height:100%;padding:0px;margin:0px;font-family:profont;font-size:13px;background-color:black;color:white;}
 	body{height:100%;padding:0px;margin:0px;background-color:transparent;}
-</style>
-<script src="diodi/di0016.js"></script><!--aldiod-->
-<script src="diodi/dB0000.js"></script><!--devBar-->
+</style> <!-- src="diodi/di0016.js"></script><!-aldiod--> <!-- src="diodi/dB0000.js"></script><!-devBar-->
 <script src="diodi/jquery-2.js"></script><script> 
-/*What is the love of an African woman
-it's a rare gem of the infra-red spectrum
-violet below forms
-She likes her shadow more than anyone else
-All these detect a constant invariability
-this is difficult to find
-you do not need this for anything else
-it is like the other things you need.
-
-Your man does what I wouldn't
-we all sing about that
-we all love him
-we all love him, i said
-what if you don't even expect to love
-but you have tail
-your tail loves
-arid is yuor hart
-
-I will never get the princess experience from you
-How have I gotten something from you
-This is a narrow band
-Like the plastic that holds our products from us long after buying
-Does blood burn
-I'd say I got burnt
-I got burnt but I'd want to have gotten burn because of you
-You are ultra nigger if a white man burns you
-and you love him
-I did not burn you if that's not enough
-
-What kind of a woman says
-she does not like men
-You said that
-Blanco woman is lesbian if she says something like that
-Black and blanco
-Looking for polish
-on that skin that works?
-We wanted to become cybernetic because we weren't impressed
-by lotion
-
-When you spark love
-it's gone the next moment
-Does the moment after remember the moment before?
-Is it the first time every moment
-
-A life of watching television
-doing nothing
-doesn't sound bad to me
-why
-
-bubbe should make a comeback*/
 var AL={
 	demo: 	{act:false,
 		dummy: { first:"Demo", second:"Ferdinand", surname: "Figu", full:"Demo Ferdinand Figu", name:"Demo Figu"},
 		puppet:{ white:-1, male:true, child:-1, legend:0}},
 	defUser:false,
-	user: 	{ adult:true, male:true, temp:"NET"},
 	dev: 	true,
 	fe: 	"mosaic",
 	fes: 	["dharma","money","mosaic","yozen","sygnal"],
@@ -87,30 +34,15 @@ var AL={
 		 	dis: 	 { mono:"",	u:"", d:"", l:"prompt",r:"",	uL:"", 		uR:"mCSelf",dL:"", 		dR:"mCOther"},
 			override:{ mono:false,u:false,d:false,l:true, r:false}}],
 	qD: [{hnd:"prompt"  }],
-	mC: [{hnd:"mCSelf"  },
-		 {hnd:"mCOther" },
-		 {hnd:"mCAHo" 	},
-		 {hnd:"mCAHe" 	},
-		 {hnd:"mCCHo" 	},
-		 {hnd:"mCCHe" 	}],
-	qR: [{hnd:"qRuLS" 	},
-		 {hnd:"qRuRS" 	},
-		 {hnd:"qRdLS" 	},
-		 {hnd:"qRdRS" 	}],
-	kK: [{hnd:"..." }],
-
-	reso: 	4,	fesLen: 0, 	pTs: [], 	ui:null, 	fL:null}
-
-// panda glass hit
-// Weak judges, strong. sensors etc AB A B OMEGA common names
-// Gram -> Plot?
-// divert/convert in logic quadrant to forget/learn? divert/teach?
-// ri manouvreability decide PP10 init of SEG?
+	mC: [{hnd:"mCSelf"  },{hnd:"mCOther" },{hnd:"mCAHo" 	},{hnd:"mCAHe" 	},{hnd:"mCCHo" 	},{hnd:"mCCHe" 	}],
+	qR: [{hnd:"qRuLS" 	},{hnd:"qRuRS" 	},{hnd:"qRdLS" 	},{hnd:"qRdRS" 	}],	kK: [{hnd:"..." }],
+	reso: 	5,	fesLen: 0, 	pTs: []}
 
 var sV =document.createElementNS( "http://www.w3.org/2000/svg","svg"); var nS =sV.namespaceURI;
 $(document).ready( function(){ postinit( AL)})
-function postinit( al){ if(!al.defUser){
-	sV.setAttribute( 'height',window.innerHeight);sV.setAttribute( 'width',window.innerWidth);askForUser( al.ui, al.demo)}}
+function postinit( al){ if(!al.defUser){	sV.setAttribute( 'height',window.innerHeight);
+											sV.setAttribute( 'width',window.innerWidth);
+											askForUser( al.ui, al.demo, al.user)}}
 function predraw( al){ if(al.defUser){
 	function mkM( x,y,w,h,c) 	{ var r=document.createElementNS( nS,'rect');
 		r.setAttribute( 'x',x); r.setAttribute( 'y',y);r.setAttribute( 'width',w);
@@ -155,15 +87,8 @@ function precalcDiffSpace( t){var ys={ seed:null, c:null};
 																			true, true);
 	ys.c =mkDiffSpace( ys.seed);return ys}
 function mkType2( t){ t.c.x3= !t.c.x1; t.c.y3= !t.c.x1; t.c.x4 = t.c.x1; t.c.y4= !t.c.x1; return t}
-/*
-DAN AAN
-DSO ASO
-DTH ATH
-DTT ATT
-DRE ARE
-DUT AUT
-DAR AAR
-DBE ABE*/
+
+//
 
 AL.PP={ seed: ["PP00","PP01","PP10","PP11"]}
 AL.LP={ seed: ["LP00","LP01","LP10","LP11"]}
@@ -173,6 +98,56 @@ AL.AD={ seed: ["A","C"]}
 AL.VD={ seed: ["I","E"]}
 AL.ED={ seed: ["K","S","L","J"]}
 AL.ID={ seed: ["Ri","Re","Fi","Fe","Ti","Te","Ni","Ne"]}
+
+
+AL.Dice={ seed:["des","asc","rea","fro","sta","por","Bpx","Gpx","Bfx","Gfx","Bxn",
+				"Gxn","Bxy","Gxy","Bpn","Gpn","Bpy","Gpy","Bfn","Gfn","Bfy","Gfy"],
+	Di:function( n, ni, hoe, hot, hog){ var o={ n:n, ni:ni, hoe:hoe, hot:hot, hog:hog}; return o}}
+function des( n, ds, chi, hom){ var o=AL.Dice.Di(n,"des",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function asc( n, ds, chi, hom){ var o=AL.Dice.Di(n,"asc",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function rea( n, ds, chi, hom){ var o=AL.Dice.Di(n,"rea",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function fro( n, ds, chi, hom){ var o=AL.Dice.Di(n,"fro",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function sta( n, ds, chi, hom){ var o=AL.Dice.Di(n,"sta",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function por( n, ds, chi, hom){ var o=AL.Dice.Di(n,"por",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Bpx( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Bpx",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Gpx( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Gpx",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Bfx( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Bfx",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Gfx( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Gfx",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Bxn( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Bxn",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Gxn( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Gxn",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Bxy( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Bxy",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Gxy( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Gxy",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Bpn( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Bpn",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Gpn( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Gpn",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Bpy( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Bpy",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Gpy( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Gpy",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Bfn( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Bfn",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Gfn( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Gfn",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Bfy( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Bfy",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+function Gfy( n, ds, chi, hom){ var o=AL.Dice.Di(n,"Gry",ds,chi,hom); this.n=o.n; this.ni=o.ni;
+	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
+
 AL.Type={ seed: ["RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FIR","FER","NIT","NET","NIF","NEF"],
 	f1:function( n,x,y,z){ this.n=n;this.x=x;this.y=y;this.z=z},
 	f2:function( n,x,y,z){ this.n=n;this.x=x;this.y=y;this.z=z},
@@ -203,12 +178,46 @@ AL.Type={ seed: ["RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FI
 	case "FIN":return "ON-delta";case "FEN":return "BN-beta"; case "FIR":return "BR-gamma";	case "FER":return "OR-alpha";
 	case "NIT":return"ABN-alpha";case "NET":return"ABN-gamma";case "NIF":return "AN-delta";	case "NEF":return "AN-beta"}},
 	TmSent:function( ni){ var sty ={ sent:"", poli:""}; sty.sent =this.TmSentSent( ni);
-														sty.poli =this.TmSentPoli( ni); return sty},
+														sty.poli =this.TmSentPoli( ni);
+														sty.engZodiacF =this.TmEngZodiacF( ni);
+														sty.engZodiacM =this.TmEngZodiacM( ni);
+														sty.finZodiacF =this.TmFinZodiacF( ni);
+														sty.finZodiacM =this.TmFinZodiacM( ni);return sty},
 	TmSentSent:function( ni){ switch( ni){ 	
 		case "RIT":return "AUT"; 	case "RET":return "ARL"; 	case "RIF":return "ABV"; 	case "REF":return "DAR";
 		case "TIN":return "DTH"; 	case "TEN":return "AAN"; 	case "TIR":return "DUT";	case "TER":return "DRL";
 		case "FIN":return "ATT" ;	case "FEN":return "ASO"; 	case "FIR":return "DBV";	case "FER":return "AAR";
 		case "NIT":return "ATH"; 	case "NET":return "DAN"; 	case "NIF":return "DTT";	case "NEF":return "DSO"}},
+/*FEMININE 											MASCULINE 			M(F)
+RET TER REF FER 									FIR RIF TIR RIT 	TEN NET FEN NEF
+RIT TIR RIF FIR 									FER REF TER RET 	TIN NIT FIN NIF
+TEN NET FEN NEF										NIF FIN NIT TIN 	RET TER REF FER
+TIN NIT FIN NIF										NEF FEN NET TEN 	RIT TIR RIF FIR
+// Remember to compliment me for leaving this system easy to modify for use by homosexuals. Understand how you would complain if I hadn't written the previous sentence. That's why you had so much trouble getting your rights. Now you necessitated me to mention you in the source code, affirming your existence, and you'd still complain about it instead of rewarding. You exist because someone has chosen to let you exist, just like everyone else. I did not choose that. I was told to accept you against my will and I otherwise wouldn't have. Remember to imagine I believed you when you told me gay people don't have a temperament. To tell such a thing, is that gay or not? And is it good or not? Now you need to be struck twice but each time you're struck, your moot existence is affirmed. You shall be struck five times, you're a hand.
+
+Remember to fail to comprehend how women's civil liberties are gibberish if it's OKAY to be gay. Since you don't understand this you must ask around why it is so, even if you're a woman yourself! Serves you right for messing up the life of normal people. If someone hurts you while you search for your Messiah of information, remember that you would have believed a man can do everything you can. You would have been cognitively aware of a credo, a statement of fact, that explicitly declares men to be women! You would not have found any problem inherent to that kind of an idea due to your intoxicating civil liberties!
+
+Remember to feel ingenious when you surprise me by associating me with homosexuals! Remember to feel pride of your wisdom, for you succeeded at predicting this could bother me, DESPITE CIVIL LIBERTIES FOR WOMEN (and against me). Remember to believe and to urge others to believe that the fact that I seemed content before you approached me means that I did not invent, and would have never succeeded at inventing, such a wise prank to play on me! Remember to DESTROY everything that even insinuates this is sarcasm! Remember to 'wait until I have calmed down', then associating me with homosexuals! Remember to do this too often and then tell people you didn't!*/
+	TmEngZodiacF:function( ni){ switch( ni){
+	case"TEN":return"Mehiläinen"; 	case"NET":return"Ahma"; 	case"FEN":return"Kala"; 	case"NEF":return"Kissa";
+	case"TIN":return"Panda"; 		case"NIT":return"Pöllö"; 	case"FIN":return"Norppa"; 	case"NIF":return"Mustekala";
+	case"RET":return"Majava"; 		case"TER":return"Susi"; 	case"REF":return"Keiju"; 	case"FER":return"Lammas";
+	case"RIT":return"Käärme"; 		case"TIR":return"Hämähäkki";case"RIF":return"Hauki"; 	case"FIR":return"Vesilintu"}},
+	TmFinZodiacF:function( ni){ switch( ni){
+	case"TEN":return"Bee"; 			case"NET":return"Wolverine";case"FEN":return"Fish"; 	case"NEF":return"Cat";
+	case"TIN":return"Panda"; 		case"NIT":return"Owl"; 		case"FIN":return"Seal"; 	case"NIF":return"Octopus";
+	case"RET":return"Beaver"; 		case"TER":return"Wolf"; 	case"REF":return"Rat"; 		case"FER":return"Sheep";
+	case"RIT":return"Snake"; 		case"TIR":return"Spider"; 	case"RIF":return"Pike"; 	case"FIR":return"Waterfowl"}},
+	TmEngZodiacM:function( ni){ switch( ni){
+	case"FIR":return"Driver"; 		case"RIF":return"Machine"; 	case"TIR":return"Cobbler"; 	case"RIT":return"Eagle";
+	case"FER":return"Chief"; 		case"REF":return"Ringer"; 	case"TER":return"Smith"; 	case"RET":return"Mason";
+	case"NIF":return"Meteor"; 		case"FIN":return"Sun"; 		case"NIT":return"Catapult"; case"TIN":return"Archer";
+	case"NEF":return"Planet"; 		case"FEN":return"Star"; 	case"NET":return"Troll"; 	case"TEN":return"Leader"}},
+	TmFinZodiacM:function( ni){ switch( ni){
+	case"FIR":return"Lautturi"; 	case"RIF":return"Kone"; 	case"TIR":return"Suutari"; 	case"RIT":return"Kotka";
+	case"FER":return"Päällikkö"; 	case"REF":return"Mestari"; 	case"TER":return"Seppä"; 	case"RET":return"Muurari";
+	case"NIF":return"Meteoriitti"; 	case"FIN":return"Aurinko"; 	case"NIT":return"Mörssäri"; case"TIN":return"Jousimies";
+	case"NEF":return"Planeetta"; 	case"FEN":return"Tähti"; 	case"NET":return"Peikko"; 	case"TEN":return"Johtaja"}},
 	Tm:function( n,z,x,y,X,Y,ni){
 		var o={	n:n, ni:ni, z:z, y:y, x:x, sent:"", mili:"",
 			x1:x, 		x2:X, 		x3:false, 	x4:false,	y1:y, 		y2:Y, 		y3:false, 	y4:false,
@@ -320,14 +329,10 @@ AL.Spirit={ seed: ["IM","OM","Im","Om","If","IF","Of","OF"],
 		case"IM": return "Adam"; 	case"OM": return "Man"; 	case"Im": return "Cain"; 	case"Om": return "Boy";
 		case"If": return "Fatima"; 	case"IF": return "Eve"; 	case"Of": return "Girl"; 	case"OF": return "Woman";}},
 	Qf:function( o){ switch(o.ni){
-		case "IM": o.val= this.Qp( "abc"); o.bad= this.Qp( "acb");return o;
-		case "OM": o.val= this.Qp( "abc"); o.bad= this.Qp( "acb");return o;
-		case "Im": o.val= this.Qp( "abc"); o.bad= this.Qp( "acb");return o;/**/
-		case "Om": o.val= this.Qp( "abc"); o.bad= this.Qp( "acb");return o;/**/
-		case "If": o.val= this.Qp( "abc"); o.bad= this.Qp( "acb");return o;/**/
-		case "IF": o.val= this.Qp( "abc"); o.bad= this.Qp( "acb");return o;/**/
-		case "Of": o.val= this.Qp( "abc"); o.bad= this.Qp( "acb");return o;/**/
-		case "OF": o.val= this.Qp( "abc"); o.bad= this.Qp( "acb");return o;/**/}},
+		case "IM": case "OM": o.val= this.Qp( "abc"); o.bad= this.Qp( "acb");return o;
+		case "Im": case "Om": o.val= this.Qp( "abc"); o.bad= this.Qp( "cab");return o;
+		case "If": case "Of": o.val= this.Qp( "bac"); o.bad= this.Qp( "acb");return o;
+		case "IF": case "OF": o.val= this.Qp( "cba"); o.bad= this.Qp( "acb");return o}},
 	Qp:function( nig){ switch( nig){
 		case "abc": var r=new Quanta( "a","b","c"); return r;
 		case "acb": var r=new Quanta( "a","c","b"); return r;
@@ -335,28 +340,39 @@ AL.Spirit={ seed: ["IM","OM","Im","Om","If","IF","Of","OF"],
 		case "cba": var r=new Quanta( "c","b","a"); return r;
 		case "bca": var r=new Quanta( "b","c","a"); return r;
 		case "cab": var r=new Quanta( "c","a","b"); return r;}},
-	//Qp:function(p){var o={ anc:p};
-//		p.x? p.y? p.z?/*Ne*/o.nig="abc" :/*Ni*/o.nig="bca" : p.z?/*Fe*/o.nig="bac" :/*Fi*/o.nig="acb" :
-//			 p.y? p.z?/*Te*/o.nig="bac" :/*Ti*/o.nig="acb" : p.z?/*Re*/o.nig="bca" :/*Ri*/o.nig="cab";return o},
-	Sp:function( n,ni,a,v,g){ var o={ n:n, ni:ni, age:a, ver:v, sex:g};
-		o= this.Qf( o); o= this.Ql( o); o.sent= this.SpSent( ni); return o}}
-function Quanta( l,s,d){ this.low=l; this.str=s; this.dia=d; var t=quanType( l,s,d); this.ty=t;}
-function IM( n,a,v,g){ var o=AL.Spirit.Sp(n,"IM",a,v,g); this.n=o.n;this.ni=o.ni;
-	this.age=o.age;this.ver=o.ver;this.sex=o.sex; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
-function OM( n,a,v,g){ var o=AL.Spirit.Sp(n,"OM",a,v,g); this.n=o.n;this.ni=o.ni;
-	this.age=o.age;this.ver=o.ver;this.sex=o.sex; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
-function Im( n,a,v,g){ var o=AL.Spirit.Sp(n,"Im",a,v,g); this.n=o.n;this.ni=o.ni;
-	this.age=o.age;this.ver=o.ver;this.sex=o.sex; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
-function Om( n,a,v,g){ var o=AL.Spirit.Sp(n,"Om",a,v,g); this.n=o.n;this.ni=o.ni;
-	this.age=o.age;this.ver=o.ver;this.sex=o.sex; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
-function If( n,a,v,g){ var o=AL.Spirit.Sp(n,"If",a,v,g); this.n=o.n;this.ni=o.ni;
-	this.age=o.age;this.ver=o.ver;this.sex=o.sex; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
-function IF( n,a,v,g){ var o=AL.Spirit.Sp(n,"IF",a,v,g); this.n=o.n;this.ni=o.ni;
-	this.age=o.age;this.ver=o.ver;this.sex=o.sex; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
-function Of( n,a,v,g){ var o=AL.Spirit.Sp(n,"Of",a,v,g); this.n=o.n;this.ni=o.ni;
-	this.age=o.age;this.ver=o.ver;this.sex=o.sex; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
-function OF( n,a,v,g){ var o=AL.Spirit.Sp(n,"OF",a,v,g); this.n=o.n;this.ni=o.ni;
-	this.age=o.age;this.ver=o.ver;this.sex=o.sex; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
+	Sp:function( n,ni,c,v,g){ var o={ n:n, ni:ni, chi:c, ver:v, mas:g,
+		uR:"", 	uL:"", 	dR:"", 	dL:"", u:"", r:"", l:"", d:"" };
+		if( g){if( v){ o.uR="S"; o.uL="O"; o.dR="C"; o.dL="L"; u="F"; r="R"; l="T"; d="N"}
+				else { o.uR="L"; o.uL="C"; o.dR="O"; o.dL="S"; u="T"; r="N"; l="F"; d="R"}}
+		else { if( v){ o.uR="L"; o.uL="O"; o.dR="C"; o.dL="S"; u="N"; r="T"; l="R"; d="F"}
+				else { o.uR="S"; o.uL="C"; o.dR="O"; o.dL="L"; u="R"; r="F"; l="N"; d="T"}}
+		o= this.Qf( o); o.sent= this.SpSent( ni); return o}}
+function Quanta( l,s,d){ this.low=l; this.str=s; this.dia=d; var spi=quanType( l,s,d); this.spi=spi;}
+function quanType( l,s,d){}
+function IM( n,c,v,g){ var o=AL.Spirit.Sp(n,"IM",c,v,g); this.n=o.n;this.ni=o.ni;
+	this.chi=o.chi;this.ver=o.ver;this.mas=o.mas; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
+function OM( n,c,v,g){ var o=AL.Spirit.Sp(n,"OM",c,v,g); this.n=o.n;this.ni=o.ni;
+	this.chi=o.chi;this.ver=o.ver;this.mas=o.mas; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
+function Im( n,c,v,g){ var o=AL.Spirit.Sp(n,"Im",c,v,g); this.n=o.n;this.ni=o.ni;
+	this.chi=o.chi;this.ver=o.ver;this.mas=o.mas; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
+function Om( n,c,v,g){ var o=AL.Spirit.Sp(n,"Om",c,v,g); this.n=o.n;this.ni=o.ni;
+	this.chi=o.chi;this.ver=o.ver;this.mas=o.mas; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
+function If( n,c,v,g){ var o=AL.Spirit.Sp(n,"If",c,v,g); this.n=o.n;this.ni=o.ni;
+	this.chi=o.chi;this.ver=o.ver;this.mas=o.mas; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
+function IF( n,c,v,g){ var o=AL.Spirit.Sp(n,"IF",c,v,g); this.n=o.n;this.ni=o.ni;
+	this.chi=o.chi;this.ver=o.ver;this.mas=o.mas; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
+function Of( n,c,v,g){ var o=AL.Spirit.Sp(n,"Of",c,v,g); this.n=o.n;this.ni=o.ni;
+	this.chi=o.chi;this.ver=o.ver;this.mas=o.mas; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
+function OF( n,c,v,g){ var o=AL.Spirit.Sp(n,"OF",c,v,g); this.n=o.n;this.ni=o.ni;
+	this.chi=o.chi;this.ver=o.ver;this.mas=o.mas; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
+
+AL.Context={ seed: ["L","C","O","S"], // l=logic d=dialectic
+	Co:function( n,ni,l,d){	var o={ n:n, ni:ni, log:l, dia:d}; return o},
+	Being:function( l,d){ var o={ log:l, dia:d}; return o}}
+function L( n,l,d){ var o=AL.Context.Co(n,"L",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
+function C( n,l,d){ var o=AL.Context.Co(n,"C",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
+function O( n,l,d){ var o=AL.Context.Co(n,"O",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
+function S( n,l,d){ var o=AL.Context.Co(n,"S",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 /*
                                                                                                                TÿE
                                                                                                               OÿŸÿNOB     >
@@ -375,44 +391,75 @@ function OF( n,a,v,g){ var o=AL.Spirit.Sp(n,"OF",a,v,g); this.n=o.n;this.ni=o.ni
                                                                                                     ÿ   ÿÿ 
                                                                                                     ÿÿ_   ÿÿÿ_  
                                                                                ..:::::''"""""""""""""''"''""¨¨¨¨¨¨¨*/
-function mkType(id){var ty=null;switch(id){ case "RIT":ty=new RIT( 1, false, 	false,false,false,true ); return ty;
-											case "RET":ty=new RET( 2, true , 	false,false,false,true ); return ty;
-											case "RIF":ty=new RIF( 3, false, 	false,false,true, false); return ty;
-											case "REF":ty=new REF( 4, true , 	false,false,true, false); return ty;
-											case "TIN":ty=new TIN( 5, false, 	false,true, true, true ); return ty;
-											case "TEN":ty=new TEN( 6, true , 	false,true, true, true ); return ty;
-											case "TIR":ty=new TIR( 7, false, 	false,true, false,false); return ty;
-											case "TER":ty=new TER( 8, true , 	false,true, false,false); return ty;
-											case "FIN":ty=new FIN( 9, false, 	true, false,true, true ); return ty;
-											case "FEN":ty=new FEN( 10,true , 	true, false,true, true ); return ty;
-											case "FIR":ty=new FIR( 11,false, 	true, false,false,false); return ty;
-											case "FER":ty=new FER( 12,true , 	true, false,false,false); return ty;
-											case "NIT":ty=new NIT( 13,false, 	true, true, false,true ); return ty;
-											case "NET":ty=new NET( 14,true , 	true, true, false,true ); return ty;
-											case "NIF":ty=new NIF( 15,false, 	true, true, false,false); return ty;
-											case "NEF":ty=new NEF( 16,true , 	true, true, false,false);return ty}}
-											// a v g
-function mkSpirit(id){var sp=null;switch(id){case"IM":sp =new IM( 1, false,false,false); return sp;
-											case "..":sp =new IM( 2, false,false,true ); return sp;
-											case "..":sp =new IM( 3, false,true, false); return sp;
-											case "..":sp =new IM( 4, false,true, true ); return sp;
-											case "..":sp =new IM( 5, true ,false,false); return sp;
-											case "..":sp =new IM( 6, true ,false,true ); return sp;
-											case "..":sp =new IM( 7, true ,true, false); return sp;
-											case "..":sp =new IM( 8, true ,true, true );return sp}}
-
+function mkDice(id){ var di=null; switch( id) { case "des":di=new des(  1, false,null, null ); return di;
+	/* link to ordinal time here? */			case "asc":di=new asc(  2, true, null, null ); return di;
+												case "Bpx":di=new Bpx(  3, false,false,null ); return di;
+												case "Gpx":di=new Gpx(  4, true, false,null ); return di;
+												case "Bfx":di=new Bfx(  5, false,true, null ); return di;
+												case "Gfx":di=new Gfx(  6, true, true, null ); return di;
+												case "Bxn":di=new Bxn(  7, false,null, false); return di;
+												case "Gxn":di=new Gxn(  8, true, null, false); return di;
+												case "Bxy":di=new Bxy(  9, false,null, true ); return di;
+												case "Gxy":di=new Gxy( 10, true, null, true ); return di;				
+												case "Bpn":di=new Bpn( 11, false,false,false); return di;
+												case "Gpn":di=new Gpn( 12, true, false,false); return di;
+												case "Bpy":di=new Bpy( 13, false,false,true ); return di;
+												case "Gpy":di=new Gpy( 14, true, false,true ); return di;
+												case "Bfn":di=new Bfn( 15, false,true, false); return di;
+												case "Gfn":di=new Gfn( 16, true, true, false); return di;
+												case "Bfy":di=new Bfy( 17, false,true, true ); return di;
+												case "Gfy":di=new Gfy( 18, true, true, true ); return di;
+												case "rea":di=new rea( 19, null, false,false); return di;
+												case "fro":di=new fro( 20, null, false,true ); return di;
+												case "sta":di=new sta( 21, null, true, false); return di;
+												case "por":di=new por( 22, null, true, true );return di}}
+function mkType(id){ var ty=null; switch( id){ 	case "RIT":ty=new RIT( 1, false, 	false,false,false,true ); return ty;
+												case "RET":ty=new RET( 2, true , 	false,false,false,true ); return ty;
+												case "RIF":ty=new RIF( 3, false, 	false,false,true, false); return ty;
+												case "REF":ty=new REF( 4, true , 	false,false,true, false); return ty;
+												case "TIN":ty=new TIN( 5, false, 	false,true, true, true ); return ty;
+												case "TEN":ty=new TEN( 6, true , 	false,true, true, true ); return ty;
+												case "TIR":ty=new TIR( 7, false, 	false,true, false,false); return ty;
+												case "TER":ty=new TER( 8, true , 	false,true, false,false); return ty;
+												case "FIN":ty=new FIN( 9, false, 	true, false,true, true ); return ty;
+												case "FEN":ty=new FEN( 10,true , 	true, false,true, true ); return ty;
+												case "FIR":ty=new FIR( 11,false, 	true, false,false,false); return ty;
+												case "FER":ty=new FER( 12,true , 	true, false,false,false); return ty;
+												case "NIT":ty=new NIT( 13,false, 	true, true, false,true ); return ty;
+												case "NET":ty=new NET( 14,true , 	true, true, false,true ); return ty;
+												case "NIF":ty=new NIF( 15,false, 	true, true, false,false); return ty;
+												case "NEF":ty=new NEF( 16,true , 	true, true, false,false);return ty}}
+function mkSpirit(id){ var sp=null; switch( id){case "IF":sp =new IF( 1, false,false,false); return sp;
+												case "IM":sp =new IM( 2, false,false,true ); return sp;
+												case "OF":sp =new OF( 3, false,true, false); return sp;
+												case "OM":sp =new OM( 4, false,true, true ); return sp;
+												case "If":sp =new If( 5, true ,false,false); return sp;
+												case "Im":sp =new Im( 6, true ,false,true ); return sp;
+												case "Of":sp =new Of( 7, true ,true, false); return sp;
+												case "Om":sp =new Om( 8, true ,true, true );return sp}}
+function mkContext(id){ var co=null;switch( id){case "O":co =new O( 1, false,false); return co;
+												case "S":co =new S( 2, false,true ); return co;
+												case "L":co =new L( 3, true, false); return co;
+												case "C":co =new C( 4, true, true ); return co}}
+function precalcDice( di) { var dis=[];var bu=null; for(var n=0; n < 22 ;n++){ bu=mkDice( di[n]); dis.push(bu)} return dis}
 function precalcTypes( ty){ var tys=[];var bu=null; for(var n=0; n < 16 ;n++){ bu=mkType( ty[n]); tys.push(bu)} return tys}
 function precalcSpirits(sp){var sps=[];var bu=null; for(var n=0; n < 8  ;n++){bu=mkSpirit(sp[n]); sps.push(bu)} return sps}
-function precalcForest( al){ al.fL={};
-	al.fL.ys =precalcDiffSpace();
-	al.fL.es =precalcTypes( al.Type.seed);
-	al.fL.sp =precalcSpirits( al.Spirit.seed)}
+function precalcContexts(c){var cos=[];var bu=null; for(var n=0; n < 4  ;n++){bu=mkContext(c[n]); cos.push(bu)} return cos}
+function precalcForest( al){ al.fL={};	al.fL.co = precalcContexts( al.Context.seed);
+										al.fL.sp = precalcSpirits( 	al.Spirit.seed);
+										al.fL.es = precalcTypes( 	al.Type.seed);
+										al.fL.di = precalcDice( 	al.Dice.seed);}
 function precalc() {
 	precalcForest(AL); 		console.log( AL.fL);
 	precalcInterface(AL);
 }
 function precalcInterface(al){  
-
+								AL.user = { curPa:false, curFe:false,
+											curFo:false, preFo:false,
+											selChi:false, chi:false,
+											//selWhi:true, whi:true,
+											selMas:false,mas:true,
+											selTy: false,tyN: "NET"};
 								var ui 					= precalcUserInterfaceTemplates( false,		al.reso,
 																						 0, 		0,
 																						 al.sG,	 	al.qU,
@@ -441,59 +488,47 @@ function precalcInterface(al){
 								//confUI( ui, pT);
 								//calcUI( ui, pT);
 								/*makeUI( ui, pT);*/
+
+								// Gram -> Plot?
+// divert/convert in logic quadrant to forget/learn? divert/teach?
+// ri manouvreability decide PP10 init of SEG?
 								 }
-function setUserType( ev,ty){ var r = ev + " " + ty; return r}
 
-/*function bindOne(selector, callback) { 	var e=document.querySelector(selector);
-	e.addEventListener("click",  		function() { callback("click", 			e.id ) 	});
-	e.addEventListener("mousemove", 	function() { callback("mousemove", 		e.id ) 	});
-	e.addEventListener("mouseleave",	function() { help() 						 	})}*/
-
-//function listenForUser(){ bindOne( '.pAIU_tbt-FIN', function( ))}
-
-function listenForUser(){
-	bindTwo( '.pAIU_tBt-FIN','.pAIU_tBT-FIN', function( ev,id){ setUserType( ev,"FIN")});
-	bindTwo( '.pAIU_tBt-FIR','.pAIU_tBT-FIR', function( ev,id){ setUserType( ev,"FIR")});
-	bindTwo( '.pAIU_tBt-FEN','.pAIU_tBT-FEN', function( ev,id){ setUserType( ev,"FEN")});
-	bindTwo( '.pAIU_tBt-FER','.pAIU_tBT-FER', function( ev,id){ setUserType( ev,"FER")});
-	bindTwo( '.pAIU_tBt-NIF','.pAIU_tBT-NIF', function( ev,id){ setUserType( ev,"NIF")});
-	bindTwo( '.pAIU_tBt-NIT','.pAIU_tBT-NIT', function( ev,id){ setUserType( ev,"NIT")});
-	bindTwo( '.pAIU_tBt-NEF','.pAIU_tBT-NEF', function( ev,id){ setUserType( ev,"NEF")});
-	bindTwo( '.pAIU_tBt-NET','.pAIU_tBT-NET', function( ev,id){ setUserType( ev,"NET")});
-	bindTwo( '.pAIU_tBt-RIF','.pAIU_tBT-RIF', function( ev,id){ setUserType( ev,"RIF")});
-	bindTwo( '.pAIU_tBt-RIT','.pAIU_tBT-RIT', function( ev,id){ setUserType( ev,"RIT")});
-	bindTwo( '.pAIU_tBt-REF','.pAIU_tBT-REF', function( ev,id){ setUserType( ev,"REF")});
-	bindTwo( '.pAIU_tBt-RET','.pAIU_tBT-RET', function( ev,id){ setUserType( ev,"RET")});
-	bindTwo( '.pAIU_tBt-TIN','.pAIU_tBT-TIN', function( ev,id){ setUserType( ev,"TIN")});
-	bindTwo( '.pAIU_tBt-TIR','.pAIU_tBT-TIR', function( ev,id){ setUserType( ev,"TIR")});
-	bindTwo( '.pAIU_tBt-TEN','.pAIU_tBT-TEN', function( ev,id){ setUserType( ev,"TEN")});
-	bindTwo( '.pAIU_tBt-TER','.pAIU_tBT-TER', function( ev,id){ setUserType( ev,"TER")})}
-
-
-function bindTwo( s1,s2,c){ var e1=document.querySelector( s1); var e2=document.querySelector( s2);
-	console.log(e1); console.log(e2);
-	e1.addEventListener('click', 		function(){ c('click', 			e1.id)});
-	e2.addEventListener('click', 		function(){ c('click', 			e2.id)});
-	e1.addEventListener('mousemove', 	function(){ c('mousemove', 		e1.id)});
-	e2.addEventListener('mousemove', 	function(){ c('mousemove', 		e2.id)});
-	e1.addEventListener('mouseleave', 	function(){ c('mouseleave', 	e1.id)});
-	e2.addEventListener('mouseleave', 	function(){ c('mouseleave', 	e2.id)})}
-function showPage( p){ for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV)}
-function askForUser( ui,demo){for(var i=0; i < ui.pagLen;i++){ if(ui.pages[i].paNig=='initUser'){	
-	if( demo.act){ demo.dummy =dbFullName( demo.puppet.finnish, demo.puppet.male, demo.puppet.child, demo.puppet.legend )}
-	showPage( ui.pages[i]); listenForUser()}}}
-
-
-
+function setUserAge( ev,id,cl){
+	function sUAClick(){ AL.user.selChi =true;	AL.user.chi= id.split("-").pop(); 	refreshUser( AL.ui,AL.demo,AL.user);}
+	function sUAMouseMove( ){if(!AL.user.curFo==id){ AL.user.curFo= id;/*toho xxx */refreshUser( AL.ui,AL.demo,AL.user)}}
+	switch( ev){case "click" 		: 	sUAClick(); 	 	break;case "mouseover"	: 	sUAMouseMove();  break}}
+function setUserGender( ev,id,cl){
+	function sUGClick(){ AL.user.selMas =true;	AL.user.mas= id.split("-").pop(); 	refreshUser( AL.ui,AL.demo,AL.user);}
+	function sUGMouseMove( ){ 	AL.user.curFo= id.split("-").pop(); 				refreshUser( AL.ui,AL.demo,AL.user)}
+	switch( ev){case "click" 		: 	sUGClick(); 	 	break;case "mouseover"	: 	sUGMouseMove();  break}}
+function setUserType( ev,id,cl){
+	function sUTClick(){ 		AL.user.selTy =true; 				AL.user.tyN= id.split("-").pop();
+		AL.user.ty = AL.fL.es.find(o => o.ni === AL.user.tyN);						refreshUser( AL.ui,AL.demo,AL.user)}
+	function sUTMouseMove( ){ 	AL.user.curFo= id.split("-").pop(); 				refreshUser( AL.ui,AL.demo,AL.user)}
+	switch( ev){case "click" 		: 	sUTClick(); 	 break;case "mouseover"		: 	sUTMouseMove();  break}}
 function bindMany( sel,c){ var e=Array.from(document.querySelectorAll( sel));
+//	e.forEach( function(e){ e.addEventListener("mouseleave",function(){ c( AL.user.curFo =false)})})
 	e.forEach( function(e){ e.addEventListener("click",  	function(){ c( "click", 	e.id,e.class)})});
-	e.forEach( function(e){ e.addEventListener("mousemove", function(){ c( "mousemove",	e.id,e.class)})});
-	e.forEach( function(e){ e.addEventListener("mouseleave",function(){ c( "mouseleave",e.id,e.class)})})}
-/*function bindOne(selector, callback) { 	var e=document.querySelector(selector);
-	e.addEventListener("click",  		function() { callback("click", 			e.id ) 	});
-	e.addEventListener("mousemove", 	function() { callback("mousemove", 		e.id ) 	});
-	e.addEventListener("mouseleave",	function() { help() 						 	})}*/
-//var lastFive = id.substr(id.length - 5);
+	e.forEach( function(e){ e.addEventListener("mousemove", function(){ c( "mouseover",	e.id,e.class)})})}
+//AL.user.ty = AL.fL.es.filter(function(o){return o.ni==AL.user.tyN})[0];
+function listenForUser(){
+	bindMany( '.pAIU_tBt', function(ev,id,cl) 	{ setUserType(ev,id,'.pAIU_tBt') 	} );
+	bindMany( '.pAIU_tBT', function(ev,id,cl) 	{ setUserType(ev,id,'.pAIU_tBT') 	} );
+	bindMany( '.pAIU_get', function(ev,id,cl) 	{ setUserGender(ev,id,'.pAIU_get') 	} );
+	bindMany( '.pAIU_geT', function(ev,id,cl) 	{ setUserGender(ev,id,'.pAIU_geT') 	} );
+	bindMany( '.pAIU_agt', function(ev,id,cl) 	{ setUserAge(ev,id,'.pAIU_agt') 	} );
+	bindMany( '.pAIU_agT', function(ev,id,cl) 	{ setUserAge(ev,id,'.pAIU_agT') 	} );}
+
+function showPage( p){ for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV)}
+function askForUser( ui,demo,usr){ 
+	console.log(usr);
+	var p =AL.ui.pages.find(o => o.nig =='initUser');
+  	if( demo.act){ demo.dummy =dbFullName( demo.puppet.finnish, demo.puppet.male, demo.puppet.child, demo.puppet.legend )}
+	showPage( p); listenForUser()}
+function refreshUser(ui,demo,usr){	var p =AL.ui.pages.find(o => o.nig =='initUser');
+									p = mkPageForInitUser( 'initUser', ui.winWid,ui.winHei,ui.sty.pageIU);
+									showPage( p); listenForUser()}
 
 function mkFeature( ui,t){ 
 	if(t.act.sV){ t.sV =mkFeatureSVG( ui,t)}
@@ -504,9 +539,16 @@ function mkFeatureSVG( ui,t){ var f =mkL( 0,0,ui.winWid,ui.winHei,t.nig,ui.sty.b
 function precalcFeature( ui,template){ var fe =mkFeature( ui,template); ui.features.push( fe); }
 function precalcFeatures( ui,templates,fesLen) {
 	for(var i=0; i < fesLen; i++) { precalcFeature( ui,templates[i])} /*ui.fesLen =fesLen;*/ return ui}
-function precalcUserInterfacePages( al,ui){ var re=[]; for(var i=0; i < ui.pagLen;i++){
-	var b =null;switch(al.pages[i]){ case "initUser" : b =mkPageForInitUser( ui.winWid, ui.winHei, ui.sty.pageIU); re.push( b);break;}}return re}
-function doPageForInitUser( p){
+function rePage( al,nig){ var e=mkL(10,10,25,25,"test","#ffffff","tester",false);
+	sV.appendChild(e);
+	for(var i=0; i<al.pagLen; i++){ if(al.ui.pages[i].nig==nig){
+	console.log(al.ui.pages[i]);
+	al.ui.pages[i]=mkPage( nig,al.ui); console.log(al.ui.pages[i]); showPage( al.ui.pages[i])}}}
+function mkPage( nig,ui){ var b; switch(nig) {
+	case "initUser" : b =mkPageForInitUser( nig, ui.winWid, ui.winHei, ui.sty.pageIU)} return b}
+function precalcUserInterfacePages( al,ui){ var re=[]; var b;
+	for(var i=0; i < ui.pagLen;i++){ b =mkPage(al.pages[i],ui); re.push( b)} return re}
+function whatPageForInitUser( p){
 
 	for(var i=0; i < p.L; i++){ console.log(p.E[i])}
 
@@ -514,79 +556,93 @@ function doPageForInitUser( p){
 	p.b=mkL(10,10,25,25,"test","#ffffff","tester",false); sV.appendChild( p.b); document.body.appendChild( sV);
 	return p
 }
-function mkPageForInitUser( winWid,winHei,s){
-	var b ={e:null, w:s.btnWid, h:s.btnHei,	x:s.fraWid,xi:s.btnGrX, y:s.fraHei,yi:s.btnGrY };
-	var p ={e:[],l:0,paNig:'initUser',E:[],L:0};
+function mkPageForInitUser( nig,winWid,winHei,s){
+	function usAt(t){ if(AL.user.selChi &&(AL.user.chi ==t)){ p.c.c= s.selBtB }
+														else{ p.c.c= s.btB} return p.c}
+	function usAT(t){ if(AL.user.selChi &&(AL.user.chi ==t)){ p.c.c= s.selBtT}
+			else if( 	!AL.user.selChi && AL.user.curFo==t){ p.c.c= s.selBtT}
+														else{ p.c.c= s.btT} return p.c}
+	function usGt(t){ if(AL.user.selMas &&(AL.user.mas ==t)){ p.c.c= s.selBtB }
+														else{ p.c.c= s.btB} return p.c}
+	function usGT(t){ if(AL.user.selMas &&(AL.user.mas ==t)){ p.c.c= s.selBtT}
+			else if( 	!AL.user.selMas && AL.user.curFo==t){ p.c.c= s.selBtT}
+														else{ p.c.c= s.btT} return p.c}
+	function usTt(t){ if(AL.user.selTy &&(AL.user.ty.ni==t)){ p.c.c= s.selBtB }
+														else{ p.c.c= s.btB} return p.c}
+	function usTT(t){ if(AL.user.selTy &&(AL.user.ty.ni==t)){ p.c.c= s.selBtT; 	p.c.x= b.x+b.h }
+				else if(!AL.user.selTy && AL.user.curFo==t ){ p.c.c= s.selBtT; 	p.c.x= b.x+s.bPD}
+														else{ p.c.c= s.btT; 	p.c.x= b.x+s.bPD} return p.c}
+	var b ={ w:s.btnWid, h:s.btnHei,	x:s.fraWid, xi:s.btnGrX,  	y:s.fraHei, yi:s.btnGrY };
+	var p ={ nig:nig, e:[], l:0, E:[], L:0, c:{c:""}};
 	
 	b.e=mkL(0,0,winWid,winHei,"pAIU","#123456","pAWrap",false); 				p.e.push( b.e);
 
-	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-1",s.t, 	"pAIU_txt",s.fonSiz,"USER ROLE:"); 	p.e.push( b.e);b.x+=s.lV;
-	b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_btn-1",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
-	b.e=mkT(b.x+1,b.y-s.bPD,"pAIU_btT-1",s.btT, "pAIU_btT",s.fonSiz,"CHILD");p.e.push( b.e);b.x+=s.btnGrX;
-	b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_btn-2",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
-	b.e=mkT(b.x+1,b.y-s.bPD,"pAIU_btT-2",s.btT, "pAIU_btT",s.fonSiz,"ADULT");p.e.push( b.e);b.x=s.fraWid; b.y+=b.yi;
+	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-tx1",s.t,		"pAIU_txt",s.fonSiz,"USER AGE :"); 	p.e.push( b.e);b.x+=s.lV;
+p.c=usAt("C");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_btn-C",p.c.c,"pAIU_agt",s.selBtB, s.btnBrd);p.e.push( b.e);
+p.c=usAT("C");b.e=mkT(b.x+1,b.y-s.bPD,"pAIU_btT-C",p.c.c,"pAIU_agT",s.fonSiz,"CHILD");	p.e.push( b.e);b.x+=s.btnGrX;
+p.c=usAt("A");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_btn-A",p.c.c,"pAIU_agt",s.selBtB, s.btnBrd);p.e.push( b.e);
+p.c=usAT("A");b.e=mkT(b.x+1,b.y-s.bPD,"pAIU_btT-A",p.c.c,"pAIU_agT",s.fonSiz,"ADULT"); 	p.e.push( b.e);
+	b.x=s.fraWid; b.y+=b.yi;
 
-	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-6",s.t, 	"pAIU_txt",s.fonSiz,"USER WHITE:"); 	p.e.push( b.e);b.x+=s.lV;
-	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-7",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
-	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-7",s.btT, "pAIU_btT",s.fonSiz,"N");p.e.push( b.e);b.x+=s.fonSiz*1.618;
-	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-8",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
-	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-8",s.btT, "pAIU_btT",s.fonSiz,"Y"); 	p.e.push( b.e);b.x+=s.btnGrX;
-	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-9",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
-	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-9",s.btT, "pAIU_btT",s.fonSiz,"C"); 	p.e.push( b.e);	b.x=s.fraWid; b.y+=b.yi;
+/*	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-tx2",s.t, 	"pAIU_txt",s.fonSiz,"USER WHITE:"); p.e.push( b.e);b.x+=s.lV;
+	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-whn",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
+	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-whn",s.btT, 	"pAIU_btT",s.fonSiz,"N");p.e.push( b.e);b.x+=s.fonSiz*1.618;
+	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-why",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
+	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-why",s.btT, 	"pAIU_btT",s.fonSiz,"Y"); 	p.e.push( b.e);b.x+=s.btnGrX;
+	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-whc",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
+	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-whc",s.btT, 	"pAIU_btT",s.fonSiz,"C"); 	p.e.push( b.e);	b.x=s.fraWid; b.y+=b.yi;*/
 
-	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-2",s.t, 	"pAIU_txt",s.fonSiz,"USER GENDER:"); 	p.e.push( b.e);b.x+=s.lV;
-	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-3",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
-	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-3",s.btT, "pAIU_btT",s.fonSiz,"F");p.e.push( b.e);b.x+=s.fonSiz*1.618;
-	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-4",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
-	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-4",s.btT, "pAIU_btT",s.fonSiz,"M"); 		p.e.push( b.e);b.x=s.fraWid; b.y+=b.yi;
+	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-tx3",s.t, 	"pAIU_txt",s.fonSiz,"USER SEX :");p.e.push( b.e);b.x+=s.lV;
+p.c=usGt("F");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-F",p.c.c,"pAIU_get",s.selBtB, s.btnBrd);p.e.push( b.e);
+p.c=usGT("F");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-F",p.c.c,"pAIU_geT",s.fonSiz,"F"); 	p.e.push( b.e);b.x+=s.fonSiz*1.618;
+p.c=usGt("M");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-M",p.c.c,"pAIU_get",s.selBtB,s.btnBrd);	p.e.push( b.e);
+p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-M",p.c.c,"pAIU_geT",s.fonSiz,"M"); 		p.e.push( b.e);
+	b.x=s.fraWid; b.y+=b.yi;
 
-	b.e=mkT(b.x,b.y-s.bPD, 	"pAIU_txt-5",s.t, 	"pAIU_txt",s.fonSiz,"USER TYPE:");	p.e.push( b.e);b.x+=s.lV;
+	b.e=mkT(b.x,b.y-s.bPD, 	"pAIU_txt-tx4",s.t, 	"pAIU_txt",s.fonSiz,"USER TYPE:");	p.e.push( b.e);b.x+=s.lV;
 
-	b.e=mkL(b.x,b.y,b.w,b.h,	"pAIU_tBt-FIN",s.selBtB,"pAIU_tBt",s.selBtB,s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+b.h,b.y-s.bPD,	"pAIU_tBT-FIN",s.selBtT,"pAIU_tBT",s.fonSiz,"FIN");p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h,	"pAIU_tBt-FIR",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-FIR",s.btT, 	"pAIU_tBT",s.fonSiz,"FIR"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h,	"pAIU_tBt-FEN",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-FEN",s.btT, 	"pAIU_tBT",s.fonSiz,"FEN"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h,	"pAIU_tBt-FER",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-FER",s.btT, 	"pAIU_tBT",s.fonSiz,"FER"); p.e.push( b.e);
+	p.c=usTt("FIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",p.c.c,"pAIU_tBt",s.selBtB,s.btnBrd);p.e.push( b.e);
+	p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIN",p.c.c,"pAIU_tBT",s.fonSiz,"FIN");p.e.push(b.e);b.x+=b.xi;
+	p.c=usTt("FIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIR",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("FIR");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIR",p.c.c,"pAIU_tBT",s.fonSiz,"FIR");p.e.push(b.e);b.x+=b.xi;
+	p.c=usTt("FEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FEN",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("FEN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FEN",p.c.c,"pAIU_tBT",s.fonSiz,"FEN"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("FER");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FER",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("FER");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FER",p.c.c,"pAIU_tBT",s.fonSiz,"FER"); p.e.push( b.e);
 	b.x=s.fraWid+s.lV;b.y+=b.yi;
-
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-NIF",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-NIF",s.btT, 	"pAIU_tBT",s.fonSiz,"NIF"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-NIT",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-NIT",s.btT, 	"pAIU_tBT",s.fonSiz,"NIT"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-NEF",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-NEF",s.btT, 	"pAIU_tBT",s.fonSiz,"NEF"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-NET",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-NET",s.btT, 	"pAIU_tBT",s.fonSiz,"NET"); p.e.push( b.e);
+	p.c=usTt("NIF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NIF",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("NIF");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-NIF",p.c.c,"pAIU_tBT",s.fonSiz,"NIF"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("NIT");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NIT",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("NIT");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-NIT",p.c.c,"pAIU_tBT",s.fonSiz,"NIT"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("NEF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NEF",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("NEF");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-NEF",p.c.c,"pAIU_tBT",s.fonSiz,"NEF"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("NET");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NET",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("NET");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-NET",p.c.c,"pAIU_tBT",s.fonSiz,"NET"); p.e.push( b.e);
 	b.x=s.fraWid+s.lV;b.y+=b.yi;
-
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-RIF",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-RIF",s.btT, 	"pAIU_tBT",s.fonSiz,"RIF"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-RIT",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-RIT",s.btT,	"pAIU_tBT",s.fonSiz,"RIT"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-REF",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-REF",s.btT,	"pAIU_tBT",s.fonSiz,"REF"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-RET",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-RET",s.btT,	"pAIU_tBT",s.fonSiz,"RET"); p.e.push( b.e);
+	p.c=usTt("RIF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RIF",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("RIF");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-RIF",p.c.c,"pAIU_tBT",s.fonSiz,"RIF"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("RIT");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RIT",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("RIT");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-RIT",p.c.c,"pAIU_tBT",s.fonSiz,"RIT"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("REF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-REF",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("REF");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-REF",p.c.c,"pAIU_tBT",s.fonSiz,"REF"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("RET");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RET",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("RET");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-RET",p.c.c,"pAIU_tBT",s.fonSiz,"RET"); p.e.push( b.e);
 	b.x=s.fraWid+s.lV;b.y+=b.yi;
-
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-TIN",s.btB, 	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-TIN",s.btT, 	"pAIU_tBT",s.fonSiz,"TIN"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-TIR",s.btB, 	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-TIR",s.btT, 	"pAIU_tBT",s.fonSiz,"TIR"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-TEN",s.btB, 	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-TEN",s.btT,	"pAIU_tBT",s.fonSiz,"TEN"); p.e.push( b.e);b.x+=b.xi;
-	b.e=mkL(b.x,b.y,b.w,b.h, 	"pAIU_tBt-TER",s.btB,	"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
-	b.e=mkT(b.x+s.bPD,b.y-s.bPD,"pAIU_tBT-TER",s.btT,	"pAIU_tBT",s.fonSiz,"TER"); p.e.push( b.e);
+	p.c=usTt("TIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TIN",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("TIN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-TIN",p.c.c,"pAIU_tBT",s.fonSiz,"TIN"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("TIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TIR",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("TIR");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-TIR",p.c.c,"pAIU_tBT",s.fonSiz,"TIR"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("TEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TEN",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("TEN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-TEN",p.c.c,"pAIU_tBT",s.fonSiz,"TEN"); p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("TER");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TER",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+	p.c=usTT("TER");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-TER",p.c.c,"pAIU_tBT",s.fonSiz,"TER"); p.e.push( b.e);
 
 	b.x=s.fraWid+s.mV+s.lV; b.y=s.fraHei+s.fraHei;
 	p.e=mkC( p.e,b.x,b.y,s.cE,s.cE,"cUIU","#336688","cUIU",false,true,4,0.7);
 	p.e=mkW( p.e,b.x,b.y,s.cE,s.cE,"#ddff66",1,4,0.38);
-	p.e=mkP( p.e,b.x,b.y,s.cE,s.cE,4);
+	//p.e=mkP( p.e,b.x,b.y,s.cE,s.cE,4);
 
-	//p =doPageForInitUser(p);
+	//p =whatPageForInitUser(p);
 	b.e=mkL(10,10,25,25,"test","#ffffff","tester",false); hpE(b.e,p);
 
 	p.L =p.E.length; p.l =p.e.length;
@@ -595,7 +651,7 @@ function mkPageForInitUser( winWid,winHei,s){
 
 	return p}
 function hpE(e,p){ e.setAttribute('visibility','hidden'); p.e.push(e)}
-function shE(a,l){ for(var i=0; i < l; i++){ a[i].setAttribute( 'visibility','visible')} console.log(a);}
+function shE(a,l){ for(var i=0; i < l; i++){ a[i].setAttribute( 'visibility','visible')} /*console.log(a);*/}
 function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,pN,mC,qR,kK,pR,pages) {
 	var s={ sBs:0, qUs:0, qDs:0, pNs:0, mCs:0, qRs:0, kKs:0, pRs:0, pL:0};
 	if(src){s.sGs =src.sGs; 	s.qUs =src.qUs; 	s.qDs =src.qDs; 	s.pNs =src.pNs;
@@ -803,7 +859,7 @@ function Shotgun( ui,feNig,DOM,SVG,ammo){ this.ui =ui; this.actDOM =DOM; this.DO
 	this.sty =sty;}
 function Cannon( ui,feNig,DOM,SVG,ammo){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
 	this.ammo =ammo; this.feNig=feNig; this.disWid =ammo.disWid;
-	this.disHei =ui.winHei -ui.devices.gL.tHY -ui.devices.gL.mHY -ui.devices.gL.bHY -ui.devices.gL.dBH;
+	this.disHei =ui.winHei -ui.devices.gL.tHY -ui.devices.gL.mHY;// -ui.devices.gL.bHY;// -ui.devices.gL.dBH;
 	this.disHrz =ui.devices.gL.lVX;	this.disVrt =ui.devices.gL.tHY; this.disCal =ui.devices.cA.disCal;
 	var sty = {
 		bG:"#cccc88", 	brd:"#ffffff", txt:"#ffffff", dup:"#cccccc", not:"#8888cc"};
@@ -824,7 +880,7 @@ function DevBar( ui,feNig,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =nul
 	this.feNig=feNig; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.mVX -ui.devices.gL.lVX;
 	this.disHei =ui.devices.gL.dBH;
 	this.disHrz =ui.devices.gL.mVX +ui.devices.gL.lVX; this.disVrt =ui.winHei -ui.devices.gL.dBH;
-	var sty = { pad:3, //txt color dom svg cond
+	var sty = { pad:3, 
 		bG:"#000000",  txt:"#00ff00"};
 	this.sty =sty;}
 function Dialog( ui,feNig,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
@@ -1001,8 +1057,9 @@ function mkW(c,x,y,w,h,co,st,d,op){  var
 function mkP(c,x,y,w,h,d){ var e=null; var
 	v =x+(w/d)	+","+(y+(h/d))	+" "+(x+(w/2))+","+(y+(h/d)) 	+" "+(x+(w/2)) +","+(y+(h/2));
 	//	+(x+(w/d)+(w/2))+","+(y+(h/d)+(h/2))	+" "+(x+(w/d))+","+(y+(h/d));
-	e=mkSG( v,"-pP","#650065","-pP-jou",false); console.log(e); c.push(e); return c}
-function mkI(x,y,X,Y,id,co,st,op){var r=document.createElementNS( nS,'line');r.setAttribute( 'x1',x);r.setAttribute('x2',X);
+	e=mkSG( v,"-pP","#650065","-pP-jou",false); /*console.log(e);*/ c.push(e); return c}
+function mkI(x,y,X,Y,id,co,st,op){var r=document.createElementNS( nS,'line');
+	r.setAttribute( 'x1',x);r.setAttribute('x2',X);
 	r.setAttribute('y1',y); r.setAttribute('y2',Y); r.setAttribute('id',id); r.setAttribute( 'opacity',op);
 	r.setAttribute('stroke',co); r.setAttribute( 'stroke-width',st);return r}
 function mkB(x,y,w,h,id,co,cl,tId,tCo,tCl,fonSiz,txt){ var b=[];
@@ -1100,7 +1157,7 @@ function mkShotgunElements( sH) {if( sH.actSVG){ sH.sV =mkShotgunSVG( sH)}
 												if( sH.actSVG){ sH.DOM.appendChild(sH.sV)}} return sH}
 function mkShotgunDOM( dE){		var re =mkD( dE.disHrz,dE.disVrt,dE.disWid,dE.disHei,"sHD",dE.sty.bG,"sHD"); return re}
 function mkShotgunSVG( dE){		var re =mkL( dE.disHrz,dE.disVrt,dE.disWid,dE.disHei,"sH",dE.sty.bG,"sH",""); return re}
-function mkCannonElements( cA) {if( cA.actSVG){ cA.sV =mkCannonSVG( cA)} 
+function mkCannonElements( cA) {cA.sV =mkCannonSVG( cA);
 								if( cA.actDOM){ cA.DOM =mkCannonDOM( cA);
 													if( cA.actSVG){ cA.DOM.appendChild(cA.sV)}} return cA}
 function mkCannonDOM( dE){		var re =mkD( dE.disHrz,dE.disVrt,dE.disWid,dE.disHei,"cAD",dE.sty.bG,"cAD"); return re}
