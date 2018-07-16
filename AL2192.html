@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"
 	http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>öåå 2074</title>
+<title>monoliitti 2192</title>
 <style>@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
 		url('diodi/profontwindows-webfont.woff') 	format('woff');	font-weight:normal; font-style:normal; }
 	@font-face { font-family: 'de_valenciaregular'; src: url('diodi/de_valencia_beta-webfont.woff2') format('woff2'),
@@ -13,8 +13,11 @@
         /*, url('diodi/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg')*/
 	html{height:100%;padding:0px;margin:0px;font-family:profont;font-size:13px;background-color:black;color:white;}
 	body{height:100%;padding:0px;margin:0px;background-color:transparent;}
-</style> <!-- src="diodi/di0016.js"></script><!-aldiod--> <!-- src="diodi/dB0000.js"></script><!-devBar-->
-<script src="diodi/jquery-2.js"></script><script> 
+</style><!-- src="diodi/di0016.js"></script><!-aldiod--> <!-- src="diodi/dB0000.js"></script><!-devBar-->
+<script src="diodi/jquery-2.js"></script><script>
+window.addEventListener("resize", draw, true);
+function draw(){ calcInterface( AL); predraw( AL); postinit( AL); }
+function clearScreen(){var e=Array.from(document.querySelectorAll('svg')); e.forEach( function(e){ e.remove()})}
 var AL={
 	demo: 	{act:false,
 		dummy: { first:"Demo", second:"Ferdinand", surname: "Figu", full:"Demo Ferdinand Figu", name:"Demo Figu"},
@@ -25,25 +28,20 @@ var AL={
 	fes: 	["dharma","money","mosaic","yozen","sygnal"],
 	pages: 	["initUser"],
 	pR: 	["MOQ","SOC","TMP","REL"],
-	sG: [{fe:"dharma",pTs:["hello"],
+	sG: [{fe:"dharma",sTs:["hello"],
 			dis: 	 { mono:"", u:"sGN", d:"sGS", l:"sGW", r:"sGE", uL:"sGNW",	uR:"sGNE", 	dL:"sGSW", 	dR:"sGSE"}}],
-	pN: [{fe:"mosaic",pTs:["hello","world"], 
+	pN: [{fe:"mosaic",sTs:["hello","world"], 
 			dis: 	 { mono:"", u:"mCAHo",d:"mCAHe",l:"mCCHo",r:"mCCHe",uL:"qRuLS",uR:"qRuRS",dL:"qRdLS",dR:"qRdRS"},
 			override:{ mono:false,u:false,d:false,l:false,r:false}}],
-	qU: [{fe:"sygnal",pTs:["hello"],
+	qU: [{fe:"sygnal",sTs:["hello"],
 		 	dis: 	 { mono:"",	u:"", d:"", l:"prompt",r:"",	uL:"", 		uR:"mCSelf",dL:"", 		dR:"mCOther"},
 			override:{ mono:false,u:false,d:false,l:true, r:false}}],
 	qD: [{hnd:"prompt"  }],
 	mC: [{hnd:"mCSelf"  },{hnd:"mCOther" },{hnd:"mCAHo" 	},{hnd:"mCAHe" 	},{hnd:"mCCHo" 	},{hnd:"mCCHe" 	}],
 	qR: [{hnd:"qRuLS" 	},{hnd:"qRuRS" 	},{hnd:"qRdLS" 	},{hnd:"qRdRS" 	}],	kK: [{hnd:"..." }],
-	reso: 	5,	fesLen: 0, 	pTs: []}
-
+	reso: 	5,	fesLen: 0, 	sTs: []}
 var sV =document.createElementNS( "http://www.w3.org/2000/svg","svg"); var nS =sV.namespaceURI;
-$(document).ready( function(){ postinit( AL)})
-function postinit( al){ if(!al.defUser){	sV.setAttribute( 'height',window.innerHeight);
-											sV.setAttribute( 'width',window.innerWidth);
-											askForUser( al.ui, al.demo, al.user)}}
-function predraw( al){ if(al.defUser){
+function predraw( al){
 	function mkM( x,y,w,h,c) 	{ var r=document.createElementNS( nS,'rect');
 		r.setAttribute( 'x',x); r.setAttribute( 'y',y);r.setAttribute( 'width',w);
 		r.setAttribute( 'height',h); r.setAttribute( 'fill',c);
@@ -51,11 +49,11 @@ function predraw( al){ if(al.defUser){
 	sV.setAttribute( 'height',window.innerHeight); sV.setAttribute( 'width',window.innerWidth);
     var g =mkM(266,25,25,66,'#00ff00'); var h =mkM(366,25,25,66,'h','#00ff00');	sV.appendChild( g);	sV.appendChild( h);
 	for(var j=0; j < al.fesLen; j++){
-		if( al.ui.features[j].nig ==al.fe){
-			console.log( al.ui.features[j]); console.log("j"); console.log( al.ui.features[j].dev.sB.sV);
+		if( al.ui.features[j].nim ==al.fe){
+			//console.log( al.ui.features[j]); console.log("j"); console.log( al.ui.features[j].dev.sB.sV);
 
 			for(var i=0; i < al.ui.features[j].dev.sB.sV.dELen; i++){ sV.appendChild( al.ui.features[j].dev.sB.sV.dE[i])}
-			if( al.ui.features[j].act.pT){ sV.appendChild( al.ui.features[j].dev.pT.sV)};
+			if( al.ui.features[j].act.sT){ sV.appendChild( al.ui.features[j].dev.sT.sV)};
 			if( al.ui.features[j].act.eX){ sV.appendChild( al.ui.features[j].dev.eX.sV)};
 			if( al.ui.features[j].act.sQ){ sV.appendChild( al.ui.features[j].dev.sQ.sV)};
 			if( al.ui.features[j].act.gR){ sV.appendChild( al.ui.features[j].dev.gR.sV)};
@@ -75,10 +73,12 @@ function predraw( al){ if(al.defUser){
 			if( al.ui.features[j].act.pM){ sV.appendChild( al.ui.features[j].dev.pM.sV)};
 			if( al.ui.features[j].act.yO){ sV.appendChild( al.ui.features[j].dev.yO.sV)};
 			//if( al.ui.features[j].act.tT){ sV.appendChild( al.ui.features[j].dev.tT.sV)};
-				}} document.body.appendChild( sV)}}
+				}}}
+$(document).ready( function(){ postinit( AL)})
+function postinit( al){ askForUser( al.ui, al.demo, al.user)}
 
 function mkDiffSpace( se){ }
-function DiffractionPlane( nig,o1,f1,o2,f2,o3,f3,o4,f4){ this.nig=nig;
+function DiffractionPlane( nim,o1,f1,o2,f2,o3,f3,o4,f4){ this.nim=nim;
 	this.c={ o1:o1,f1:f1,o2:o2,f2:f2,o3:o3,f3:f3,o4:o4,f4:f4}}
 function precalcDiffSpace( t){var ys={ seed:null, c:null}; 
 									ys.seed =new DiffractionPlane( "M",		false,false,
@@ -170,53 +170,43 @@ AL.Type={ seed: ["RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FI
 	k:function( n,z,x,y,X,Y){ this.n=n;this.z=z;this.x=x;this.y=y;this.X=X;this.Y=Y},
 	l:function( n,z,x,y,X,Y){ this.n=n;this.z=z;this.x=x;this.y=y;this.X=X;this.Y=Y},
 	Qp:function(p){var o={ anc:p};
-		p.x? p.y? p.z?/*Ne*/o.nig="abc" :/*Ni*/o.nig="bca" : p.z?/*Fe*/o.nig="bac" :/*Fi*/o.nig="acb" :
-			 p.y? p.z?/*Te*/o.nig="bac" :/*Ti*/o.nig="acb" : p.z?/*Re*/o.nig="bca" :/*Ri*/o.nig="cab";return o},
+		p.x? p.y? p.z?/*Ne*/o.nim="abc" :/*Ni*/o.nim="bca" : p.z?/*Fe*/o.nim="bac" :/*Fi*/o.nim="acb" :
+			 p.y? p.z?/*Te*/o.nim="bac" :/*Ti*/o.nim="acb" : p.z?/*Re*/o.nim="bca" :/*Ri*/o.nim="cab";return o},
 	TmSentPoli:function( ni){ switch( ni){ 	
 	case "RIT":return "beta-AR"; case "RET":return "delta-AR";case "RIF":return "ABR-gamma";case "REF":return "ABR-alpha";
 	case "TIN":return "ON-alpha";case "TEN":return "BN-gamma";case "TIR":return "BR-beta";	case "TER":return "OR-delta";
 	case "FIN":return "ON-delta";case "FEN":return "BN-beta"; case "FIR":return "BR-gamma";	case "FER":return "OR-alpha";
 	case "NIT":return"ABN-alpha";case "NET":return"ABN-gamma";case "NIF":return "AN-delta";	case "NEF":return "AN-beta"}},
+	TmSentSent:function( ni){ switch( ni){ 	
+		case "RIT":return "AUT"; 	case "RET":return "ARL"; 	case "RIF":return "ABV"; 	case "REF":return "DAR";
+		case "TIN":return "DTH"; 	case "TEN":return "AAN"; 	case "TIR":return "DUT";	case "TER":return "DRL";
+		case "FIN":return "ATT" ;	case "FEN":return "ASO"; 	case "FIR":return "DBV";	case "FER":return "AAR";
+		case "NIT":return "ATH"; 	case "NET":return "DAN"; 	case "NIF":return "DTT";	case "NEF":return "DSO"}},
 	TmSent:function( ni){ var sty ={ sent:"", poli:""}; sty.sent =this.TmSentSent( ni);
 														sty.poli =this.TmSentPoli( ni);
 														sty.engZodiacF =this.TmEngZodiacF( ni);
 														sty.engZodiacM =this.TmEngZodiacM( ni);
 														sty.finZodiacF =this.TmFinZodiacF( ni);
 														sty.finZodiacM =this.TmFinZodiacM( ni);return sty},
-	TmSentSent:function( ni){ switch( ni){ 	
-		case "RIT":return "AUT"; 	case "RET":return "ARL"; 	case "RIF":return "ABV"; 	case "REF":return "DAR";
-		case "TIN":return "DTH"; 	case "TEN":return "AAN"; 	case "TIR":return "DUT";	case "TER":return "DRL";
-		case "FIN":return "ATT" ;	case "FEN":return "ASO"; 	case "FIR":return "DBV";	case "FER":return "AAR";
-		case "NIT":return "ATH"; 	case "NET":return "DAN"; 	case "NIF":return "DTT";	case "NEF":return "DSO"}},
-/*FEMININE 											MASCULINE 			M(F)
-RET TER REF FER 									FIR RIF TIR RIT 	TEN NET FEN NEF
-RIT TIR RIF FIR 									FER REF TER RET 	TIN NIT FIN NIF
-TEN NET FEN NEF										NIF FIN NIT TIN 	RET TER REF FER
-TIN NIT FIN NIF										NEF FEN NET TEN 	RIT TIR RIF FIR
-// Remember to compliment me for leaving this system easy to modify for use by homosexuals. Understand how you would complain if I hadn't written the previous sentence. That's why you had so much trouble getting your rights. Now you necessitated me to mention you in the source code, affirming your existence, and you'd still complain about it instead of rewarding. You exist because someone has chosen to let you exist, just like everyone else. I did not choose that. I was told to accept you against my will and I otherwise wouldn't have. Remember to imagine I believed you when you told me gay people don't have a temperament. To tell such a thing, is that gay or not? And is it good or not? Now you need to be struck twice but each time you're struck, your moot existence is affirmed. You shall be struck five times, you're a hand.
-
-Remember to fail to comprehend how women's civil liberties are gibberish if it's OKAY to be gay. Since you don't understand this you must ask around why it is so, even if you're a woman yourself! Serves you right for messing up the life of normal people. If someone hurts you while you search for your Messiah of information, remember that you would have believed a man can do everything you can. You would have been cognitively aware of a credo, a statement of fact, that explicitly declares men to be women! You would not have found any problem inherent to that kind of an idea due to your intoxicating civil liberties!
-
-Remember to feel ingenious when you surprise me by associating me with homosexuals! Remember to feel pride of your wisdom, for you succeeded at predicting this could bother me, DESPITE CIVIL LIBERTIES FOR WOMEN (and against me). Remember to believe and to urge others to believe that the fact that I seemed content before you approached me means that I did not invent, and would have never succeeded at inventing, such a wise prank to play on me! Remember to DESTROY everything that even insinuates this is sarcasm! Remember to 'wait until I have calmed down', then associating me with homosexuals! Remember to do this too often and then tell people you didn't!*/
 	TmEngZodiacF:function( ni){ switch( ni){
 	case"TEN":return"Mehiläinen"; 	case"NET":return"Ahma"; 	case"FEN":return"Kala"; 	case"NEF":return"Kissa";
 	case"TIN":return"Panda"; 		case"NIT":return"Pöllö"; 	case"FIN":return"Norppa"; 	case"NIF":return"Mustekala";
-	case"RET":return"Majava"; 		case"TER":return"Susi"; 	case"REF":return"Keiju"; 	case"FER":return"Lammas";
+	case"RET":return"Majava"; 		case"TER":return"Susi"; 	case"REF":return"Kilpikonna";case"FER":return"Lammas";
 	case"RIT":return"Käärme"; 		case"TIR":return"Hämähäkki";case"RIF":return"Hauki"; 	case"FIR":return"Vesilintu"}},
 	TmFinZodiacF:function( ni){ switch( ni){
 	case"TEN":return"Bee"; 			case"NET":return"Wolverine";case"FEN":return"Fish"; 	case"NEF":return"Cat";
 	case"TIN":return"Panda"; 		case"NIT":return"Owl"; 		case"FIN":return"Seal"; 	case"NIF":return"Octopus";
-	case"RET":return"Beaver"; 		case"TER":return"Wolf"; 	case"REF":return"Rat"; 		case"FER":return"Sheep";
+	case"RET":return"Beaver"; 		case"TER":return"Wolf"; 	case"REF":return"Turtle"; 	case"FER":return"Sheep";
 	case"RIT":return"Snake"; 		case"TIR":return"Spider"; 	case"RIF":return"Pike"; 	case"FIR":return"Waterfowl"}},
 	TmEngZodiacM:function( ni){ switch( ni){
 	case"FIR":return"Driver"; 		case"RIF":return"Machine"; 	case"TIR":return"Cobbler"; 	case"RIT":return"Eagle";
-	case"FER":return"Chief"; 		case"REF":return"Ringer"; 	case"TER":return"Smith"; 	case"RET":return"Mason";
-	case"NIF":return"Meteor"; 		case"FIN":return"Sun"; 		case"NIT":return"Catapult"; case"TIN":return"Archer";
+	case"FER":return"Chief"; 		case"REF":return"Ringer"; 	case"TER":return"Blacksmith";case"RET":return"Mason";
+	case"NIF":return"Meteor"; 		case"FIN":return"Sun"; 		case"NIT":return"Pilot"; 	case"TIN":return"Elf";
 	case"NEF":return"Planet"; 		case"FEN":return"Star"; 	case"NET":return"Troll"; 	case"TEN":return"Leader"}},
 	TmFinZodiacM:function( ni){ switch( ni){
 	case"FIR":return"Lautturi"; 	case"RIF":return"Kone"; 	case"TIR":return"Suutari"; 	case"RIT":return"Kotka";
-	case"FER":return"Päällikkö"; 	case"REF":return"Mestari"; 	case"TER":return"Seppä"; 	case"RET":return"Muurari";
-	case"NIF":return"Meteoriitti"; 	case"FIN":return"Aurinko"; 	case"NIT":return"Mörssäri"; case"TIN":return"Jousimies";
+	case"FER":return"Päällikkö"; 	case"REF":return"Maestro"; 	case"TER":return"Seppä"; 	case"RET":return"Muurari";
+	case"NIF":return"Meteoriitti"; 	case"FIN":return"Aurinko"; 	case"NIT":return"Lentäjä"; 	case"TIN":return"Haltia";
 	case"NEF":return"Planeetta"; 	case"FEN":return"Tähti"; 	case"NET":return"Peikko"; 	case"TEN":return"Johtaja"}},
 	Tm:function( n,z,x,y,X,Y,ni){
 		var o={	n:n, ni:ni, z:z, y:y, x:x, sent:"", mili:"",
@@ -333,7 +323,7 @@ AL.Spirit={ seed: ["IM","OM","Im","Om","If","IF","Of","OF"],
 		case "Im": case "Om": o.val= this.Qp( "abc"); o.bad= this.Qp( "cab");return o;
 		case "If": case "Of": o.val= this.Qp( "bac"); o.bad= this.Qp( "acb");return o;
 		case "IF": case "OF": o.val= this.Qp( "cba"); o.bad= this.Qp( "acb");return o}},
-	Qp:function( nig){ switch( nig){
+	Qp:function( nim){ switch( nim){
 		case "abc": var r=new Quanta( "a","b","c"); return r;
 		case "acb": var r=new Quanta( "a","c","b"); return r;
 		case "bac": var r=new Quanta( "b","a","c"); return r;
@@ -373,9 +363,9 @@ function L( n,l,d){ var o=AL.Context.Co(n,"L",l,d); this.n=o.n; this.ni=o.ni; th
 function C( n,l,d){ var o=AL.Context.Co(n,"C",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 function O( n,l,d){ var o=AL.Context.Co(n,"O",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 function S( n,l,d){ var o=AL.Context.Co(n,"S",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
-/*
+/*                                                                                                              | /
                                                                                                                TÿE
-                                                                                                              OÿŸÿNOB     >
+                                                                                                              OÿŸÿNOB     ƒ
                                                                                                                ÿÿÿ
                                                                                                                 Tÿÿ
                                                                                                                  Hÿÿ
@@ -453,21 +443,15 @@ function precalc() {
 	precalcForest(AL); 		console.log( AL.fL);
 	precalcInterface(AL);
 }
-function precalcInterface(al){  
-								AL.user = { curPa:false, curFe:false,
-											curFo:false, preFo:false,
-											selChi:false, chi:false,
-											//selWhi:true, whi:true,
-											selMas:false,mas:true,
-											selTy: false,tyN: "NET"};
-								var ui 					= precalcUserInterfaceTemplates( false,		al.reso,
+
+function calcInterface(al){ 	var ui 					= precalcUserInterfaceTemplates( false,		al.reso,
 																						 0, 		0,
 																						 al.sG,	 	al.qU,
 																						 al.qD,	 	al.pN,
 																						 al.mC,	 	al.qR,
 																						 al.kK, 	al.pR,
 																						 al.pages);
-								ui 						= precalcWindowDimensions( ui);
+								ui 						= measureWindow( ui);
 
 								ui.pages 				= precalcUserInterfacePages( al,ui);
 								
@@ -479,75 +463,107 @@ function precalcInterface(al){
 								ui						= precalcFeatures( ui, ui.templates.features, al.fesLen);
 
 								al.ui =ui;
+
+}
+function precalcInterface(al){
+								AL.user = { curPa:'initUser', curFe:false, curFo:null,
+											selChi:false, chi:false,
+											//selWhi:true, whi:true,
+											selMas:false,mas:true,
+											selTy: false,tyN: "NET"}; calcInterface(al)}
+								
 								
 					//if(al.dev){ predraw( ui)}
 								//ui.templates.features 	= precalcToolsForFeatures( ui.templates.features,al.fes,al.fesLen);
 								//ui.designs 				= precalcUserInterfaceTemplates( al.reso, ui.winWid, ui.winHei);
 								//ui.designs.features 	= precalcFeatures( ui.designs, al.fes);
 								//ui.templates.devices 	= precalcDevices( ui);
-								//confUI( ui, pT);
-								//calcUI( ui, pT);
-								/*makeUI( ui, pT);*/
+								//confUI( ui, sT);
+								//calcUI( ui, sT);
+								/*makeUI( ui, sT);*/
 
-								// Gram -> Plot?
+// Gram -> Plot?
 // divert/convert in logic quadrant to forget/learn? divert/teach?
 // ri manouvreability decide PP10 init of SEG?
-								 }
-
-function setUserAge( ev,id,cl){
-	function sUAClick(){ AL.user.selChi =true;	AL.user.chi= id.split("-").pop(); 	refreshUser( AL.ui,AL.demo,AL.user);}
-	function sUAMouseMove( ){if(!AL.user.curFo==id){ AL.user.curFo= id;/*toho xxx */refreshUser( AL.ui,AL.demo,AL.user)}}
-	switch( ev){case "click" 		: 	sUAClick(); 	 	break;case "mouseover"	: 	sUAMouseMove();  break}}
-function setUserGender( ev,id,cl){
-	function sUGClick(){ AL.user.selMas =true;	AL.user.mas= id.split("-").pop(); 	refreshUser( AL.ui,AL.demo,AL.user);}
-	function sUGMouseMove( ){ 	AL.user.curFo= id.split("-").pop(); 				refreshUser( AL.ui,AL.demo,AL.user)}
-	switch( ev){case "click" 		: 	sUGClick(); 	 	break;case "mouseover"	: 	sUGMouseMove();  break}}
-function setUserType( ev,id,cl){
-	function sUTClick(){ 		AL.user.selTy =true; 				AL.user.tyN= id.split("-").pop();
-		AL.user.ty = AL.fL.es.find(o => o.ni === AL.user.tyN);						refreshUser( AL.ui,AL.demo,AL.user)}
-	function sUTMouseMove( ){ 	AL.user.curFo= id.split("-").pop(); 				refreshUser( AL.ui,AL.demo,AL.user)}
-	switch( ev){case "click" 		: 	sUTClick(); 	 break;case "mouseover"		: 	sUTMouseMove();  break}}
-function bindMany( sel,c){ var e=Array.from(document.querySelectorAll( sel));
-//	e.forEach( function(e){ e.addEventListener("mouseleave",function(){ c( AL.user.curFo =false)})})
-	e.forEach( function(e){ e.addEventListener("click",  	function(){ c( "click", 	e.id,e.class)})});
-	e.forEach( function(e){ e.addEventListener("mousemove", function(){ c( "mouseover",	e.id,e.class)})})}
 //AL.user.ty = AL.fL.es.filter(function(o){return o.ni==AL.user.tyN})[0];
+								 
+
+function setUserAgeClick(id){AL.user.selChi=true;AL.user.chi= id.split("-").pop(); 	refreshUser( AL.ui,AL.demo,AL.user);}
+function setUserAgeHilight(id){if(!AL.user.curFo==id){ AL.user.curFo= id;/*toho xxx */refreshUser( AL.ui,AL.demo,AL.user)}}
+function setUserGenderClick(id){AL.user.selMas =true;AL.user.mas= id.split("-").pop();refreshUser( AL.ui,AL.demo,AL.user);}
+function setUserGenderHilight(id){AL.user.curFo= id.split("-").pop(); 				refreshUser( AL.ui,AL.demo,AL.user)}
+
+
+
+
+
+	//e.forEach( function(e){ e.addEventListener("mouseleave",function(){ c( AL.user.curFo =false)})})
+	//e.forEach( function(e){ e.addEventListener("mousemove", function(){ c( "mousemove",	e.id,e.class)})});
+	//e.forEach( function(e){ e.addEventListener("mouseout", function(){ c( "mouseout",	e.id,e.class)})});
+	//e.forEach( function(e){ e.addEventListener("mouseout",  function(){ c( "mouseout",	e.id)})});
+/* 	bindMany( '.pAIU_get', function(ev,id) 	{ switch(ev){ 	case "click" 	: setUserGenderClick( id); 	break;
+															case "mouseover": setUserGenderHilight( id);break; }});
+	bindMany( '.pAIU_agt', function(ev,id) 	{ switch(ev){ 	case "click" 	: setUserAgeClick( id); 	break;
+															case "mouseover": setUserAgeHilight( id); 	break; }});*/
+//function setUserTypeClick( e){ 	AL.user.tyN= e.id.split("-").pop(); 				AL.user.selTy =true; 			
+//	AL.user.ty = AL.fL.es.find(o => o.ni === AL.user.tyN);							refreshUser( AL.ui,AL.demo,AL.user,e)
+// e setattribute 
+
+function uiFocusUserType( e){ 	hiliteUserType( AL.ui,AL.demo,AL.user,e)}
+function uiChooseUserType( e){ 	chooseUserType( AL.ui,AL.demo,AL.user,e)}
+function setUserTypeListener( e){ console.log("xyz");}
+function bindMany( sel,c){ var e=Array.from(document.querySelectorAll( sel));
+	e.forEach( function(e){ e.addEventListener("mouseover", function(){ c( "mouseover",	e)})});
+	e.forEach( function(e){ e.addEventListener("mousedown", function(){ c( "mousedown", e)})});}
 function listenForUser(){
-	bindMany( '.pAIU_tBt', function(ev,id,cl) 	{ setUserType(ev,id,'.pAIU_tBt') 	} );
-	bindMany( '.pAIU_tBT', function(ev,id,cl) 	{ setUserType(ev,id,'.pAIU_tBT') 	} );
-	bindMany( '.pAIU_get', function(ev,id,cl) 	{ setUserGender(ev,id,'.pAIU_get') 	} );
-	bindMany( '.pAIU_geT', function(ev,id,cl) 	{ setUserGender(ev,id,'.pAIU_geT') 	} );
-	bindMany( '.pAIU_agt', function(ev,id,cl) 	{ setUserAge(ev,id,'.pAIU_agt') 	} );
-	bindMany( '.pAIU_agT', function(ev,id,cl) 	{ setUserAge(ev,id,'.pAIU_agT') 	} );}
+	bindMany( '.pAIU_tBt', function(ev,e) 	{ switch(ev){ 	case "mousedown": uiChooseUserType( e); 	break;
+															case "mouseover": uiFocusUserType( e); 	break; }}); }
 
 function showPage( p){ for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV)}
-function askForUser( ui,demo,usr){ 
-	console.log(usr);
-	var p =AL.ui.pages.find(o => o.nig =='initUser');
+function askForUser( ui,demo,usr){ console.log(usr);
+	var p =AL.ui.pages.find(o => o.nim =='initUser');
   	if( demo.act){ demo.dummy =dbFullName( demo.puppet.finnish, demo.puppet.male, demo.puppet.child, demo.puppet.legend )}
 	showPage( p); listenForUser()}
-function refreshUser(ui,demo,usr){	var p =AL.ui.pages.find(o => o.nig =='initUser');
-									p = mkPageForInitUser( 'initUser', ui.winWid,ui.winHei,ui.sty.pageIU);
-									showPage( p); listenForUser()}
+function clearPage(){
+	var e=Array.from(document.querySelectorAll('.pAWrap')); console.log(e); e.forEach( function(e){ e.remove()})}
+function hiliteUserType(ui,demo,usr,e){ if(!usr.selTy){hilitex( e,usr,ui.sty.pageIU)}}
+function hilitex(e,usr,s){
+	if(usr.curFo!=null){ if(usr.curFo!=e){ colTex( e,s.selBtT); colTex( usr.curFo,s.btT); usr.curFo =e}}
+	else{ usr.curFo =e; colTex( usr.curFo,s.selBtT); }}
+function colTex( e,c){ var r=e.id.split("-").pop(); var l=e.id.split("_").shift(); r=l+"_tBT-"+r;
+	l =document.getElementById( r);	l.setAttribute('fill',c)}
+function chooseUserType(ui,demo,usr,e){ var id = e.id.split("-").pop();
+	if( usr.selTy &&(usr.ty.ni ==id)){ resetTy( id,usr,ui.sty.pageIU)}
+	else{ resetEx( usr,ui.sty.pageIU); chooseT( e,usr,ui.sty.pageIU,id); }}
+function resetTy( id,usr,s){ var
+ 	Id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btB); usr.curFo=null;
+	Id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btT); usr.selTy=false;}
+function resetEx( usr,s){ if(usr.selTy){ var
+	id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btB);
+	id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btT);}}
+function chooseT(e,usr,s,id){
+	if(usr.curFo!=null && usr.curFo!=e){ colTex(usr.curFo,s.btT)}
+	e.setAttribute('fill',s.selBtB); colTex(e,s.selBtT);
+	usr.ty = AL.fL.es.find(o => o.ni === id);	usr.selTy=true;}
 
 function mkFeature( ui,t){ 
 	if(t.act.sV){ t.sV =mkFeatureSVG( ui,t)}
 	/*if(t.act.DOM){ t.dev.DOM =mkFeatureDOM( ui,t); if(t.act.sV){ t.dev.DOM.appendChild( t.dev.sV)}}*/ return t}
-function mkFeatureDOM( ui,t){ var f =mkD( 0,0,ui.winWid,ui.winHei,t.nig,'transparent',t.nig ); return f}
-function mkFeatureSVG( ui,t){ var f =mkL( 0,0,ui.winWid,ui.winHei,t.nig,ui.sty.b,t.nig,'' ); return f}
+function mkFeatureDOM( ui,t){ var f =mkD( 0,0,ui.winWid,ui.winHei,t.nim,'transparent',t.nim ); return f}
+function mkFeatureSVG( ui,t){ var f =mkL( 0,0,ui.winWid,ui.winHei,t.nim,ui.sty.b,t.nim,'' ); return f}
 
 function precalcFeature( ui,template){ var fe =mkFeature( ui,template); ui.features.push( fe); }
 function precalcFeatures( ui,templates,fesLen) {
 	for(var i=0; i < fesLen; i++) { precalcFeature( ui,templates[i])} /*ui.fesLen =fesLen;*/ return ui}
-function rePage( al,nig){ var e=mkL(10,10,25,25,"test","#ffffff","tester",false);
+function rePage( al,nim){ var e=mkL(10,10,25,25,"test","#ffffff","tester",false);
 	sV.appendChild(e);
-	for(var i=0; i<al.pagLen; i++){ if(al.ui.pages[i].nig==nig){
+	for(var i=0; i<al.pagLen; i++){ if(al.ui.pages[i].nim==nim){
 	console.log(al.ui.pages[i]);
-	al.ui.pages[i]=mkPage( nig,al.ui); console.log(al.ui.pages[i]); showPage( al.ui.pages[i])}}}
-function mkPage( nig,ui){ var b; switch(nig) {
-	case "initUser" : b =mkPageForInitUser( nig, ui.winWid, ui.winHei, ui.sty.pageIU)} return b}
+	al.ui.pages[i]=mkPage( nim,al.ui); console.log(al.ui.pages[i]); showPage( al.ui.pages[i])}}}
+function mkPage( nim,ui,usr){ var b; switch(nim) {
+	case "initUser" : b =mkPageForInitUser( nim, ui.winWid, ui.winHei, ui.sty.pageIU, usr)} return b}
 function precalcUserInterfacePages( al,ui){ var re=[]; var b;
-	for(var i=0; i < ui.pagLen;i++){ b =mkPage(al.pages[i],ui); re.push( b)} return re}
+	for(var i=0; i < ui.pagLen;i++){ b =mkPage(al.pages[i],ui,al.user); re.push( b)} return re}
 function whatPageForInitUser( p){
 
 	for(var i=0; i < p.L; i++){ console.log(p.E[i])}
@@ -556,26 +572,22 @@ function whatPageForInitUser( p){
 	p.b=mkL(10,10,25,25,"test","#ffffff","tester",false); sV.appendChild( p.b); document.body.appendChild( sV);
 	return p
 }
-function mkPageForInitUser( nig,winWid,winHei,s){
-	function usAt(t){ if(AL.user.selChi &&(AL.user.chi ==t)){ p.c.c= s.selBtB }
-														else{ p.c.c= s.btB} return p.c}
-	function usAT(t){ if(AL.user.selChi &&(AL.user.chi ==t)){ p.c.c= s.selBtT}
-			else if( 	!AL.user.selChi && AL.user.curFo==t){ p.c.c= s.selBtT}
-														else{ p.c.c= s.btT} return p.c}
-	function usGt(t){ if(AL.user.selMas &&(AL.user.mas ==t)){ p.c.c= s.selBtB }
-														else{ p.c.c= s.btB} return p.c}
-	function usGT(t){ if(AL.user.selMas &&(AL.user.mas ==t)){ p.c.c= s.selBtT}
-			else if( 	!AL.user.selMas && AL.user.curFo==t){ p.c.c= s.selBtT}
-														else{ p.c.c= s.btT} return p.c}
-	function usTt(t){ if(AL.user.selTy &&(AL.user.ty.ni==t)){ p.c.c= s.selBtB }
-														else{ p.c.c= s.btB} return p.c}
-	function usTT(t){ if(AL.user.selTy &&(AL.user.ty.ni==t)){ p.c.c= s.selBtT; 	p.c.x= b.x+b.h }
-				else if(!AL.user.selTy && AL.user.curFo==t ){ p.c.c= s.selBtT; 	p.c.x= b.x+s.bPD}
+function mkPageForInitUser( nim,winWid,winHei,s,usr){
+	function usAt(t){ if(usr.selChi &&(usr.chi ==t)){ p.c.c= s.selBtB }else{ p.c.c= s.btB} return p.c}
+	function usAT(t){ if(usr.selChi &&(usr.chi ==t)){ p.c.c= s.selBtT}
+		else if( 	!usr.selChi && p.curFo==t){ p.c.c= s.selBtT}
+		else{ p.c.c= s.btT} return p.c}
+	function usGt(t){ if(usr.selMas &&(usr.mas ==t)){ p.c.c= s.selBtB }else{ p.c.c= s.btB} return p.c}
+	function usGT(t){ if(usr.selMas &&(usr.mas ==t)){ p.c.c= s.selBtT}else if( 	!usr.selMas && p.curFo==t){ p.c.c= s.selBtT}else{ p.c.c= s.btT} return p.c}
+	function usTt(t){ if(usr.selTy &&(usr.ty.ni==t)){ p.c.c= s.selBtB }else{ p.c.c= s.btB} return p.c}
+	function usTT(t){ if(usr.selTy &&(usr.ty.ni==t)){ p.c.c= s.selBtT; 	p.c.x= b.x+b.h }
+				else if(!usr.selTy && p.curFo==t ){ p.c.c= s.selBtT; 	p.c.x= b.x+s.bPD}
 														else{ p.c.c= s.btT; 	p.c.x= b.x+s.bPD} return p.c}
 	var b ={ w:s.btnWid, h:s.btnHei,	x:s.fraWid, xi:s.btnGrX,  	y:s.fraHei, yi:s.btnGrY };
-	var p ={ nig:nig, e:[], l:0, E:[], L:0, c:{c:""}};
+	var p ={ nim:nim, e:[], l:0, E:[], L:0, c:{c:""}, curFo:""};
+	if(usr.curFo){p.curFo=usr.curFo.id.split("-").pop()}
 	
-	b.e=mkL(0,0,winWid,winHei,"pAIU","#123456","pAWrap",false); 				p.e.push( b.e);
+	b.e=mkLT(s.lP,s.tP,winWid-s.lP-s.rP,winHei-s.tP-s.bP,"pAIU","#123456","pAWrap",0.66); 				p.e.push( b.e);
 
 	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-tx1",s.t,		"pAIU_txt",s.fonSiz,"USER AGE :"); 	p.e.push( b.e);b.x+=s.lV;
 p.c=usAt("C");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_btn-C",p.c.c,"pAIU_agt",s.selBtB, s.btnBrd);p.e.push( b.e);
@@ -583,7 +595,7 @@ p.c=usAT("C");b.e=mkT(b.x+1,b.y-s.bPD,"pAIU_btT-C",p.c.c,"pAIU_agT",s.fonSiz,"CH
 p.c=usAt("A");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_btn-A",p.c.c,"pAIU_agt",s.selBtB, s.btnBrd);p.e.push( b.e);
 p.c=usAT("A");b.e=mkT(b.x+1,b.y-s.bPD,"pAIU_btT-A",p.c.c,"pAIU_agT",s.fonSiz,"ADULT"); 	p.e.push( b.e);
 	b.x=s.fraWid; b.y+=b.yi;
-
+//'.class1, .class2'
 /*	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-tx2",s.t, 	"pAIU_txt",s.fonSiz,"USER WHITE:"); p.e.push( b.e);b.x+=s.lV;
 	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-whn",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
 	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-whn",s.btT, 	"pAIU_btT",s.fonSiz,"N");p.e.push( b.e);b.x+=s.fonSiz*1.618;
@@ -602,7 +614,8 @@ p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-M",p.c.c,"pAIU_geT",s.fonSiz,"M"
 	b.e=mkT(b.x,b.y-s.bPD, 	"pAIU_txt-tx4",s.t, 	"pAIU_txt",s.fonSiz,"USER TYPE:");	p.e.push( b.e);b.x+=s.lV;
 
 	p.c=usTt("FIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",p.c.c,"pAIU_tBt",s.selBtB,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIN",p.c.c,"pAIU_tBT",s.fonSiz,"FIN");p.e.push(b.e);b.x+=b.xi;
+	p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIN",p.c.c,"pAIU_tBT",s.fonSiz,"FIN");
+	p.e.push(b.e);b.x+=b.xi;
 	p.c=usTt("FIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIR",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
 	p.c=usTT("FIR");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIR",p.c.c,"pAIU_tBT",s.fonSiz,"FIR");p.e.push(b.e);b.x+=b.xi;
 	p.c=usTt("FEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FEN",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
@@ -639,7 +652,7 @@ p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-M",p.c.c,"pAIU_geT",s.fonSiz,"M"
 
 	b.x=s.fraWid+s.mV+s.lV; b.y=s.fraHei+s.fraHei;
 	p.e=mkC( p.e,b.x,b.y,s.cE,s.cE,"cUIU","#336688","cUIU",false,true,4,0.7);
-	p.e=mkW( p.e,b.x,b.y,s.cE,s.cE,"#ddff66",1,4,0.38);
+	p.e=mkW( p.e,b.x,b.y,s.cE,s.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa");
 	//p.e=mkP( p.e,b.x,b.y,s.cE,s.cE,4);
 
 	//p =whatPageForInitUser(p);
@@ -661,15 +674,16 @@ function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,pN,m
 	var ui ={ sty : { b:"#000000",d:"#222222",	ledSVG:"#dddd00",ledDOM:"ff0000",ledGlo:"#00ff00",ledGloRad:6,
 				pageIU : { b:"#123456", t:"#ff6600", btB:"#345678", btT:"#89abcd", selBtB:"#6789ab", selBtT:"#deefde", 
 	lV:173, mV:452,bPL:10, bPD:7, cE:280, 		fraWid:66, 	fraHei:66, 	 
-												btnWid:66, 	btnHei:25, 	btnGrX:88, 	btnGrY:40, 	fonSiz:25, 	btnBrd:2 }},
+	rP:66, tP:25, lP:40, bP:19, 				btnWid:66, 	btnHei:25, 	btnGrX:88, 	btnGrY:40, 	fonSiz:25, 	btnBrd:2 }},
 				 sV:null,DOM:null,state:null, 	winWid:0, 	winHei:0, overflow:false,
 				 								features:[], fesLen:0,  pages:[], 	pagLen:s.pL,
 		devices:{DOM:null,
-/*SIDEBAR */sB:{ sV:null,DOM:null,state:null,	disWid:66, 	disHei:0, 	disHrz:0, 	disVrt:0,rowHei:39,fesHei:0 },
+/*SIDEBAR */sB:{ sV:null,DOM:null,state:null,	disWid:66, 	disHei:0, 	disHrz:0, 	disVrt:0,
+												rowHei:39,	fesHei:0,	btnBrd:4, 	btnTOX:6, 	btnTOY:12 },
 /*PROJECTr*/pR:{ sV:null,DOM:null,state:null, 	cloWid:0, 	cloHei:0, 	cloHrz:0, 	cloVrt:0,rowHei:19,
 												opeWid:0, 	opeHei:0, 	opeHrz:0, 	opeVrt:0,pRs: s.pRs },
 /*SEQUENCr*/sQ:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0,rowHei:0,rowNum:5,rowOff:0 },
-/*PROTABS */pT:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0,tabHei:0,tabWid:0},
+/*SUPERTAB*/sT:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0,tabHei:0,tabWid:0},
 /*SHOTGUN*/ sH:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0},
 /*CANNON*/ 	cA:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0,disCal:0},
 /*AMMO*/ 	aM:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0},
@@ -706,7 +720,7 @@ dis: { fro:null, rea:null, sta:null, por:null, asc:null, des:null, uL:null, uR:n
 																							  desHrz:0, desVrt:0,
 												reaWid:0, 	reaHei:0, 	reaTiW:0, 	reaTiH:0, reaHrz:0, reaVrt:0,
 												xReso:reso, yReso:reso, zReso:reso,
-												prjSca:5, prjLen:2, prjApe:3,
+												prjSca:5, 	prjLen:2, 	prjApe:3,
 												modHrz:0, 	modVrt:0},
 /*TOWER   */qRs: s.qRs,
 			qR:{ sV:null, 		   state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0, tilWid:0, tilHei:0},
@@ -717,33 +731,33 @@ dis: { fro:null, rea:null, sta:null, por:null, asc:null, des:null, uL:null, uR:n
 												lVX:40,	mVX:173, tHY:40, THY:25, mHY:106, bHY:75, dBH:19 },
 /*YOZEN   */yO:{ sV:null, 		   state:null, disWid:0, disHei:0, disHrz:0, disVrt:0, lVX:0, mVX:0, tHY:0, mHY:0 }}};
 	if( winWid > 0){ ui.winWid =winWid; ui.winHei =winHei} return ui}
-function precalcDevicesForFeature( ui,feNig,act,qU){
+function precalcDevicesForFeature( ui,feNim,act,qU){
 	var dev={ 	DOM:null,sB:null, pR:null, tT:null, gL:null,
 				sQ:null, aM:null, sH:null, cA:null, mE:null,
-				pT:null, eX:null, gR:null, dB:null, dG:null, pM:null,
+				sT:null, eX:null, gR:null, dB:null, dG:null, pM:null,
 				sG:null, qU:null, pN:null, mC:null, kK:null, yO:null };
-	if(act.sB){ dev.sB = mkSidebar( 	ui, feNig,				act.sV);
-				dev.pR = mkProjector( 	ui, feNig, 				act.sV);
-				/*dev.tT = mkToolTips( 	ui, feNig, 				act.sV)*/}
-	if(act.gL){ dev.gL = mkGridlock( 	ui, feNig)}
-	if(act.sQ){ dev.sQ = mkSequencer( 	ui, feNig,	act.DOM,	act.sV)}
-	if(act.pT){ dev.pT = mkProTabs( 	ui, feNig,	act.DOM,	act.sV)}
+	if(act.sB){ dev.sB = mkSidebar( 	ui, feNim,				act.sV);
+				dev.pR = mkProjector( 	ui, feNim, 				act.sV);
+				/*dev.tT = mkToolTips( 	ui, feNim, 				act.sV)*/}
+	if(act.gL){ dev.gL = mkGridlock( 	ui, feNim)}
+	if(act.sQ){ dev.sQ = mkSequencer( 	ui, feNim,	act.DOM,	act.sV)}
+	if(act.sT){ dev.sT = mkSuperTabs( 	ui, feNim,	act.DOM,	act.sV)}
 
-	if(act.aM){ dev.aM = mkAmmo( 		ui, feNig, 	act.DOM, 	act.sV, 	dev.gL)}
-	if(act.sH){ dev.sH = mkShotgun( 	ui, feNig, 	act.DOM, 	act.sV, 	dev.aM)}
-	if(act.cA){ dev.cA = mkCannon( 		ui, feNig, 	act.DOM, 	act.sV, 	dev.aM)}
-	if(act.eX){ dev.eX = mkExplorer( 	ui, feNig,	act.DOM,	act.sV)}
-	if(act.gR){ dev.gR = mkGram( 		ui, feNig,	act.DOM,	act.sV)}
-	if(act.dB){ dev.dB = mkDevBar( 		ui, feNig,	act.DOM,	act.sV)}
-	if(act.dG){ dev.dG = mkDialog( 		ui, feNig,	act.DOM,	act.sV, 	dev.gL)}
+	if(act.aM){ dev.aM = mkAmmo( 		ui, feNim, 	act.DOM, 	act.sV, 	dev.gL)}
+	if(act.sH){ dev.sH = mkShotgun( 	ui, feNim, 	act.DOM, 	act.sV, 	dev.aM)}
+	if(act.cA){ dev.cA = mkCannon( 		ui, feNim, 	act.DOM, 	act.sV, 	dev.aM)}
+	if(act.eX){ dev.eX = mkExplorer( 	ui, feNim,	act.DOM,	act.sV)}
+	if(act.gR){ dev.gR = mkGram( 		ui, feNim,	act.DOM,	act.sV)}
+	if(act.dB){ dev.dB = mkDevBar( 		ui, feNim,	act.DOM,	act.sV)}
+	if(act.dG){ dev.dG = mkDialog( 		ui, feNim,	act.DOM,	act.sV, 	dev.gL)}
 
-	if(act.sG){ dev.sG = mkSystemGrid( 	ui, feNig, 	act.DOM)}
-	if(act.qU){ dev.qU = mkQuad( 		ui, feNig, 				act.sV, 				qU); 
-				dev = mkQuad2( 			ui,	feNig, 							dev, 		qU)}
-	if(act.pN){ dev.pN = mkPanda( 		ui, feNig, 				act.sV, 	dev.gL)}
-	if(act.mC){ dev.mC = mkMosaic( 		ui, feNig, 				act.sV, 	dev.gL)}
-	if(act.kK){ dev.kK = mkLakara( 		ui, feNig, 				act.sV, 	dev.gL)}
-	if(act.yO){ dev.yO = mkYozen( 		ui, feNig, 				act.sV, 	dev.gL)}
+	if(act.sG){ dev.sG = mkSystemGrid( 	ui, feNim, 	act.DOM)}
+	if(act.qU){ dev.qU = mkQuad( 		ui, feNim, 				act.sV, 				qU); 
+				dev = mkQuad2( 			ui,	feNim, 							dev, 		qU)}
+	if(act.pN){ dev.pN = mkPanda( 		ui, feNim, 				act.sV, 	dev.gL)}
+	if(act.mC){ dev.mC = mkMosaic( 		ui, feNim, 				act.sV, 	dev.gL)}
+	if(act.kK){ dev.kK = mkLakara( 		ui, feNim, 				act.sV, 	dev.gL)}
+	if(act.yO){ dev.yO = mkYozen( 		ui, feNim, 				act.sV, 	dev.gL)}
 	return dev; }
 function qDFind( qU,id){ /*cC( "*** qDFind ***");cC(qU);cC(id);*/ if( qU.mono==id){ return "mono"}
 		 if( qU.uR==id){ return "uR"}else if( qU.uL==id){ return "uL"}
@@ -755,7 +769,7 @@ function qdFind2( qD,qU){ switch( qD){ case "mono": return qU.disDim.mono;
 	case "dR": return qU.disDim.dR; 	case "dL": return qU.disDim.dL;
 	case "u" : return qU.disDim.u; 		case "d" : return qU.disDim.d;
 	case "r" : return qU.disDim.r; 		case "l" : return qU.disDim.l;}}
-function mkQuad5( ui,dev,feNig,parent,dim){ switch( hnd){ 					 case 'mCSelf':
+function mkQuad5( ui,dev,feNim,parent,dim){ switch( hnd){ 					 case 'mCSelf':
 	ui.act.mC =true; parent = mkMosaic( ui, id, true, 	parent); return dev; case 'mCOther':
 	ui.act.mC =true; parent = mkMosaic( ui, id, true, 	parent); return dev; case 'kakara':
 	ui.act.kK =true; parent = mkLakara( ui, id, true, 	parent); return dev; case 'prompt':
@@ -770,78 +784,80 @@ function mkQuad4( ui,dev,id,qU,dim) { if( qU.mono!=""){ dev =mkQuad5( ui,dev,id,
 									if( qU.r != "") { dev =mkQuad5( ui,dev,id,dev.qU.dis.r, 	dim)}
 									if( qU.l != "") { dev =mkQuad5( ui,dev,id,dev.qU.dis.l, 	dim)}}
 function cC(n,v){ console.log(n);console.log(v)}
-function mkQuad3( ui,feNig,dev,qU,id){ /*cC( "*** mkQuad3 ***"); cC(ui);cC(feNig);cC(dev);cC(qU);cC(id);*/
+function mkQuad3( ui,feNim,dev,qU,id){ /*cC( "*** mkQuad3 ***"); cC(ui);cC(feNim);cC(dev);cC(qU);cC(id);*/
 	var qD =qDFind( qU,id); if( qD==""){ return dev} else{
 	qD = qdFind2( qD,dev.qU); dev =mkQuad4( ui,dev,id,qU,qD)} return dev}
-function mkQuad2( ui,feNig,dev,qU){ /*cC("*** mkQuad2 ***");cC.log( ui);cC.log( feNig);cC.log( dev);cC.log( qU);*/
-	dev = mkQuad3( ui,feNig,dev,qU,'mCSelf');
-	dev = mkQuad3( ui,feNig,dev,qU,'mCOther');
-	dev = mkQuad3( ui,feNig,dev,qU,'kakara');
-	dev = mkQuad3( ui,feNig,dev,qU,'prompt'); /*cC(dev);*/ return dev}
-function mkSidebar( ui,feNig,sV){ 		var re=new Sidebar( ui,feNig,sV); 			re =mkSidebarElements( re);return re}
-function mkProjector( ui,feNig,sV){ 	var re=new Projector( ui,feNig,sV); 		re =mkProjectorElems( ui,re);return re}
+function mkQuad2( ui,feNim,dev,qU){ /*cC("*** mkQuad2 ***");cC.log( ui);cC.log( feNim);cC.log( dev);cC.log( qU);*/
+	dev = mkQuad3( ui,feNim,dev,qU,'mCSelf');
+	dev = mkQuad3( ui,feNim,dev,qU,'mCOther');
+	dev = mkQuad3( ui,feNim,dev,qU,'kakara');
+	dev = mkQuad3( ui,feNim,dev,qU,'prompt'); /*cC(dev);*/ return dev}
+function mkSidebar( ui,feNim,sV){ 		var re=new Sidebar( ui,feNim,sV); 			re =mkSidebarElements( re);return re}
+function mkProjector( ui,feNim,sV){ 	var re=new Projector( ui,feNim,sV); 		re =mkProjectorElems( ui,re);return re}
 function mkToolTips( ui,fe,sV) { 		var re=new ToolTips( ui,fe,sV); 			re =mkToolTipsElements( re);return re}
-function mkGridlock( ui,feNig) 		{ 	var re=new Gridlock( ui,feNig);return re}
-function mkProTabs( ui,feNig,DOM,sV){ 	var re=new ProTabs( ui,feNig,DOM,sV); 		re =mkProTabsElements( re);return re}
-function mkSequencer( ui,feNig,DOM,sV){ var re=new Sequencer( ui,feNig,DOM,sV); 	re =mkSequencerElements( re);return re}
+function mkGridlock( ui,feNim) 		{ 	var re=new Gridlock( ui,feNim);return re}
+function mkSuperTabs( ui,feNim,DOM,sV){ var re=new SuperTabs( ui,feNim,DOM,sV); 	re =mkSuperTabsElements( re);return re}
+function mkSequencer( ui,feNim,DOM,sV){ var re=new Sequencer( ui,feNim,DOM,sV); 	re =mkSequencerElements( re);return re}
 function mkAmmo(ui,fe,sV,DOM,parent) {  var re=new Ammo( ui,fe,DOM,sV,parent); 		re =mkAmmoElements(re);return re}
 function mkShotgun( ui,fe,DOM,sV,par){  var re=new Shotgun( ui,fe,DOM,sV,par); 		re =mkShotgunElements( re);return re}
 function mkCannon( ui,fe,DOM,sV,par){   var re=new Cannon( ui,fe,DOM,sV,par); 		re =mkCannonElements( re);return re}
-function mkExplorer( ui,feNig,DOM,sV){	var re=new Explorer( ui,feNig,DOM,sV); 		re =mkExplorerElements( re);return re}
-function mkGram( ui,feNig,DOM,sV){ 		var re=new Gram( ui,feNig,DOM,sV);	 		re =mkGramElements( re);return re}
-function mkDevBar( ui,feNig,DOM,sV){ 	var re=new DevBar( ui,feNig,DOM,sV); 		re =mkDevBarElements( re);return re}
-function mkSystemGrid( ui,feNig,DOM){ 	var re=new SystemGrid( ui,feNig,DOM); 		re =mkSystemGridElements(re);return re}
+function mkExplorer( ui,feNim,DOM,sV){	var re=new Explorer( ui,feNim,DOM,sV); 		re =mkExplorerElements( re);return re}
+function mkGram( ui,feNim,DOM,sV){ 		var re=new Gram( ui,feNim,DOM,sV);	 		re =mkGramElements( re);return re}
+function mkDevBar( ui,feNim,DOM,sV){ 	var re=new DevBar( ui,feNim,DOM,sV); 		re =mkDevBarElements( re);return re}
+function mkSystemGrid( ui,feNim,DOM){ 	var re=new SystemGrid( ui,feNim,DOM); 		re =mkSystemGridElements(re);return re}
 function mkQuad( ui,hnd,sV,qU){ 		var re=new Quad( ui,hnd,sV,qU); 			re =caQuad( re,qU);return re}
 function mkPanda( ui,hnd,sV,par){ 		var re=new Panda( ui,hnd,sV,par);return re}
 function mkTower( ui,hnd,sV,par){ 		var re=new Tower( ui,hnd,sV,par); 			re =mkTowerElements( re);return re}
-function mkDialog( ui,feNig,DOM,sV,p){  var re=new Dialog( ui,feNig,DOM,sV,p); 		re =mkDialogElements( re);return re}
-function mkMosaic( ui,feNig,sV,parent){ var re=new Mosaic( ui,feNig,sV,parent); 	re =mkMosaicElements( re); return re}
-function mkMeter( ui,feNig,sV,parent){  var re=new Meter( ui,feNig,sV,parent); 		re =mkMeterElements( re); return re}
-function mkLakara( ui,feNig,sV,parent){ var re=new Kakara( ui,feNig,sV,parent); 	re =mkLakaraElements( re);return re}
-function mkYozen( ui,feNig,sV,parent){  var re=new Yozen( ui,feNig,sV,parent); 		re =mkYozenElements( re);return re}
-function Sidebar( ui,feNig,SVG){ this.ui =ui;  this.actSVG =SVG; this.sV =null; this.feNig=feNig;
+function mkDialog( ui,feNim,DOM,sV,p){  var re=new Dialog( ui,feNim,DOM,sV,p); 		re =mkDialogElements( re);return re}
+function mkMosaic( ui,feNim,sV,parent){ var re=new Mosaic( ui,feNim,sV,parent); 	re =mkMosaicElements( re); return re}
+function mkMeter( ui,feNim,sV,parent){  var re=new Meter( ui,feNim,sV,parent); 		re =mkMeterElements( re); return re}
+function mkKakara( ui,feNim,sV,parent){ var re=new Kakara( ui,feNim,sV,parent); 	re =mkLakaraElements( re);return re}
+function mkYozen( ui,feNim,sV,parent){  var re=new Yozen( ui,feNim,sV,parent); 		re =mkYozenElements( re);return re}
+function Sidebar( ui,feNim,SVG){ this.ui =ui;  this.actSVG =SVG; this.sV =null; this.feNim=feNim;
 	this.disWid =ui.devices.sB.disWid; 				this.disHei =ui.winWid;
 	this.disHrz =ui.winWid -ui.devices.sB.disWid; 	this.disVrt=ui.devices.sB.disVrt;
-	this.rowHei=ui.devices.sB.rowHei; 				this.fesHei =ui.fesLen * ui.devices.sB.rowHei;
+	this.rowHei=ui.devices.sB.rowHei; 				this.btnBrd=ui.devices.sB.btnBrd;
+	this.btnTOX=ui.devices.sB.btnTOX; 				this.btnTOY=ui.devices.sB.btnTOY;
+	this.fesHei =ui.fesLen * ui.devices.sB.rowHei;
 	var sty={ fnt:15, brd:3, d:AL.coGrid,
 		btnTxt:"#cccccc",	btnU:"#444444",		btnR:"#111111",		btnD:"#080808",		btnL:"#333333", 	sel:"#111111",
 		selTxt:"#ffffff",	selU:"#000000",		selR:"#444444",		selD:"#777777",		selL:"#080808", 	btn:"#333333",
 		bG:"#222222"};
 	this.sty =sty; }
-function Projector( ui,feNig,SVG){this.ui=ui; this.feNig=feNig; this.actSVG=true;
+function Projector( ui,feNim,SVG){this.ui=ui; this.feNim=feNim; this.actSVG=true;
 	this.cloWid=ui.devices.sB.disWid;  							this.opeWid=ui.devices.sB.disWid; 
 	this.cloHei=ui.devices.pR.rowHei; 							this.opeHei=(ui.pagLen + 1) * ui.devices.pR.rowHei;
 	this.cloVrt=ui.devices.sB.fesHei; 							this.opeVrt=ui.devices.sB.fesHei;
 	this.cloHrz=ui.devices.sB.disHrz; 							this.opeHrz=ui.devices.sB.disHrz;
 	this.sV=null; var sty={ bG:"#444444"}; this.sty =sty;}
-function ToolTips( ui,feNig,SVG){ this.ui=ui; this.feNig=feNig; this.disWid=ui.devices.sB.disWid; 
+function ToolTips( ui,feNim,SVG){ this.ui=ui; this.feNim=feNim; this.disWid=ui.devices.sB.disWid; 
 	this.actSVG =SVG; this.sV =null; this.disVrt =ui.winWid -ui.devices.sB.disWid; this.toolArr =[];
 	var sty={ bG:"#888888"};
 	this.sty =sty; }
-function Gridlock( ui,feNig){ this.ui =ui; this.feNig=feNig; this.disWid =ui.winWid -ui.devices.sB.disWid;
+function Gridlock( ui,feNim){ this.ui =ui; this.feNim=feNim; this.disWid =ui.winWid -ui.devices.sB.disWid;
 	this.disHei =ui.winHei; this.disHrz =ui.devices.gL.disHrz; this.disVrt =ui.devices.gL.disVrt;
 	this.lVX =ui.devices.gL.lVX; this.mVX =ui.devices.gL.mVX; this.tHY =ui.devices.gL.tHY; this.THY =ui.devices.gL.THY;
 	this.mHY =ui.devices.gL.mHY; this.bHY =ui.devices.gL.bHY; this.scrHrz =ui.devices.gL.mVX +ui.devices.gL.lVX;
 	this.scrVrt =ui.devices.gL.tHY;	this.scrWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.mVX -ui.devices.gL.lVX;
 	this.scrHei =ui.winHei -ui.devices.gL.bHY -ui.devices.gL.tHY;
-	/*switch( feNig){ case "dharma" : this.scrHei =ui.winHei -ui.devices.gL.bHY -ui.devices.gL.tHY; break;
+	/*switch( feNim){ case "dharma" : this.scrHei =ui.winHei -ui.devices.gL.bHY -ui.devices.gL.tHY; break;
 					case "mosaic" : this.scrHei =ui.winHei -ui.devices.gL.bHY -ui.devices.gL.tHY; break}*/}
-function Sequencer( ui,feNig,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
-	this.feNig=feNig; this.disWid =ui.devices.gL.lVX; this.disHei =ui.winWid;
+function Sequencer( ui,feNim,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
+	this.feNim=feNim; this.disWid =ui.devices.gL.lVX; this.disHei =ui.winWid;
 	this.disHrz =ui.devices.sQ.disHrz; this.disVrt =ui.devices.sQ.disVrt;
 	this.rowHei =Math.floor((ui.devices.gL.bHY / ui.devices.sQ.rowNum) - (ui.devices.sQ.rowOff / ui.devices.sQ.rowNum));
 	var sty = {
 		bG:"#000000",		btnTxt:"#888888",	sel:"#555555",		selTxt:"#cccccc"};
 	this.sty =sty; }
-function ProTabs( ui,feNig,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
-	this.feNig=feNig; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.lVX; this.disHei =ui.devices.gL.tHY;
-	this.disHrz =ui.devices.gL.lVX; this.disVrt =ui.devices.pT.disVrt;
+function SuperTabs( ui,feNim,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
+	this.feNim=feNim; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.lVX; this.disHei =ui.devices.gL.tHY;
+	this.disHrz =ui.devices.gL.lVX; this.disVrt =ui.devices.sT.disVrt;
 	this.tabHei =ui.devices.gL.THY; this.tabWid =ui.devices.gL.mVX;
 	var sty = { rad:6,
 		bG:"#000000",		d:AL.coGrid, 		brd:"#555555", 		txt:"#888888", 		sel:"#ffffff"};
 	this.sty =sty;}
-function Ammo( ui,feNig,DOM,SVG,parent){ this.ui =ui;this.actDOM=DOM;this.DOM=null;this.actSVG=SVG;this.sV=null;
-	this.feNig=feNig; 	
+function Ammo( ui,feNim,DOM,SVG,parent){ this.ui =ui;this.actDOM=DOM;this.DOM=null;this.actSVG=SVG;this.sV=null;
+	this.feNim=feNim; 	
 						this.disWid =parent.scrWid; this.disHei =parent.scrHei;
 						this.scrWid =parent.scrWid; this.scrHei =parent.scrHei;
 						this.disVrt =parent.scrVrt; this.disHrz =parent.scrHrz;
@@ -850,48 +866,48 @@ function Ammo( ui,feNig,DOM,SVG,parent){ this.ui =ui;this.actDOM=DOM;this.DOM=nu
 		bG:"#000000", 	bel:"#cccc88",
 		ori:"#ffffff", 	oriTxt:"#000000", dup:"#cccccc", dupTxt:"#888888", tra:"#220000", traTxt:"#cc0000"};
 	this.sty = sty; }
-function Shotgun( ui,feNig,DOM,SVG,ammo){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
-	this.ammo =ammo; this.feNig=feNig; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.lVX;
+function Shotgun( ui,feNim,DOM,SVG,ammo){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
+	this.ammo =ammo; this.feNim=feNim; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.lVX;
 	this.disHei =ui.devices.gL.bHY +ui.devices.gL.mHY;
 	this.disHrz =ui.devices.gL.lVX; this.disVrt =ui.devices.gL.tHY +ui.devices.gL.bHY +ui.devices.gL.mHY;
 	var sty = {
 		bG:"#cccc88", 	brd:"#ffffff", txt:"#ffffff", dup:"#cccccc", not:"#8888cc"};
 	this.sty =sty;}
-function Cannon( ui,feNig,DOM,SVG,ammo){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
-	this.ammo =ammo; this.feNig=feNig; this.disWid =ammo.disWid;
+function Cannon( ui,feNim,DOM,SVG,ammo){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
+	this.ammo =ammo; this.feNim=feNim; this.disWid =ammo.disWid;
 	this.disHei =ui.winHei -ui.devices.gL.tHY -ui.devices.gL.mHY;// -ui.devices.gL.bHY;// -ui.devices.gL.dBH;
 	this.disHrz =ui.devices.gL.lVX;	this.disVrt =ui.devices.gL.tHY; this.disCal =ui.devices.cA.disCal;
 	var sty = {
 		bG:"#cccc88", 	brd:"#ffffff", txt:"#ffffff", dup:"#cccccc", not:"#8888cc"};
 	this.sty =sty; }
-function Explorer( ui,feNig,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
-	this.feNig=feNig; this.disWid =ui.devices.gL.mVX; this.disHei =ui.winHei -ui.devices.gL.THY;
+function Explorer( ui,feNim,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
+	this.feNim=feNim; this.disWid =ui.devices.gL.mVX; this.disHei =ui.winHei -ui.devices.gL.THY;
 	this.disHrz =ui.devices.gL.lVX; this.disVrt =ui.devices.gL.THY;
 	var sty = { 
 		bG:AL.coGrid, 		disL:"#ffffff", 	disD:"#cccccc", 	brd:"#999999", 		disCvr:"#555555"};
 	this.sty =sty;}
-function Gram( ui,feNig,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
-	this.feNig=feNig; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.lVX; this.disHei =ui.devices.gL.bHY;
+function Gram( ui,feNim,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
+	this.feNim=feNim; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.lVX; this.disHei =ui.devices.gL.bHY;
 	this.disHrz =ui.devices.gL.mVX +ui.devices.gL.lVX; this.disVrt =ui.winHei -ui.devices.gL.bHY -ui.devices.gL.dBH;
 	var sty = { brdWid:3,
 		bG:AL.coGrid,	d:"#000000"};
 	this.sty =sty;}
-function DevBar( ui,feNig,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
-	this.feNig=feNig; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.mVX -ui.devices.gL.lVX;
+function DevBar( ui,feNim,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
+	this.feNim=feNim; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.mVX -ui.devices.gL.lVX;
 	this.disHei =ui.devices.gL.dBH;
 	this.disHrz =ui.devices.gL.mVX +ui.devices.gL.lVX; this.disVrt =ui.winHei -ui.devices.gL.dBH;
 	var sty = { pad:3, 
 		bG:"#000000",  txt:"#00ff00"};
 	this.sty =sty;}
-function Dialog( ui,feNig,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
-	this.feNig=feNig; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.mVX -ui.devices.gL.lVX;
+function Dialog( ui,feNim,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
+	this.feNim=feNim; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.mVX -ui.devices.gL.lVX;
 	this.disHei =ui.devices.gL.mHY; this.disHrz =ui.devices.gL.mVX +ui.devices.gL.lVX;
 	this.disVrt =ui.winHei -ui.devices.gL.mHY -ui.devices.gL.tHY;
 	var sty = { pad:5,
 		bG:AL.coGrid, 	d:"#ffffff", 		brd:"#cccccc"};
 	this.sty =sty;}
-function Quad( ui,feNig,SVG,templates){
-	this.ui =ui; this.actSVG =SVG; this.sV =null; this.feNig=feNig; this.qDs =ui.devices.qU.qDs;
+function Quad( ui,feNim,SVG,templates){
+	this.ui =ui; this.actSVG =SVG; this.sV =null; this.feNim=feNim; this.qDs =ui.devices.qU.qDs;
 	this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.mVX -ui.devices.gL.lVX;
 	this.disHei =ui.winHei -ui.devices.gL.tHY -ui.devices.gL.mHY -ui.devices.gL.bHY;
 	this.disHrz =ui.devices.gL.mVX +ui.devices.gL.lVX; this.disVrt =ui.devices.gL.tHY;
@@ -919,14 +935,14 @@ function caQuad( qU,qD){
 	qU.dis.r.scrHrz =Math.ceil(qU.cntHrz); 	qU.dis.r.scrVrt =Math.ceil(qU.cntVrt);
 	qU.dis.mono.scrHrz =qU.disHrz; 			qU.dis.mono.scrVrt =qU.disVrt;
 	qU.dis.mono.scrWid =qU.disWid; 			qU.dis.mono.scrHei =qU.disHei;return qU}
-function SystemGrid( ui,feNig,DOM){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.feNig=feNig;
+function SystemGrid( ui,feNim,DOM){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.feNim=feNim;
 	this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.mVX -ui.devices.gL.lVX;
 	this.disHei =ui.winHei -ui.devices.gL.tHY -ui.devices.gL.mHY -ui.devices.gL.bHY;
 	this.disHrz =ui.devices.gL.mVX +ui.devices.gL.lVX; this.disVrt =ui.devices.gL.tHY;
 	var sty={
 		bG:"#448844",	arm:"#888844",		brd:"#ffff88",		leg:"#222244"};
 	this.sty =sty;}
-function Panda( ui,fe,SVG,parent){ this.ui =ui; this.actSVG =SVG; this.sV =null; this.feNig=fe; this.parent=parent;
+function Panda( ui,fe,SVG,parent){ this.ui =ui; this.actSVG =SVG; this.sV =null; this.feNim=fe; this.parent=parent;
 	this.disWid =parent.scrWid; this.disHei =parent.scrHei; this.disHrz =parent.scrHrz; this.disVrt =parent.scrVrt;
 	this.cntHrz =parent.scrWid / 2; 	this.cntVrt =parent.scrHei / 2;
 	this.prjSca =ui.devices.pN.prjSca; 	this.prjLen =ui.devices.pN.prjLen; 	this.prjHAp =ui.devices.pN.prjHAp;
@@ -937,7 +953,7 @@ function Panda( ui,fe,SVG,parent){ this.ui =ui; this.actSVG =SVG; this.sV =null;
 	var sty ={
 		bG:"#220000"}
 	this.sty =sty}
-function Mosaic( ui,feNig,SVG,parent){ this.ui =ui; this.actSVG =SVG; this.sV =null; this.feNig=feNig; this.parent=parent;
+function Mosaic( ui,feNim,SVG,parent){ this.ui =ui; this.actSVG =SVG; this.sV =null; this.feNim=feNim; this.parent=parent;
 	this.disWid =parent.scrWid; this.disHei =parent.scrHei; this.disHrz =parent.scrHrz; this.disVrt =parent.scrVrt;
 	this.cntHrz =Math.floor( parent.scrWid / 2); 	//laterthis.modHrz =(parent.disWid/2) -Math.floor(parent.disWid/2);
 	this.cntVrt =Math.floor( parent.scrHei / 2); 	//this.modVrt =(parent.disWid/2) -Math.floor(parent.disWid/2);
@@ -955,17 +971,17 @@ function Mosaic( ui,feNig,SVG,parent){ this.ui =ui; this.actSVG =SVG; this.sV =n
 	var sty={
 		bG:"#000022"};
 	this.sty=sty; }
-function Tower( ui,feNig,SVG,parent){ this.ui=ui; this.actSVG=SVG; this.sV=null; this.feNig=feNig; this.parent=parent;
+function Tower( ui,feNim,SVG,parent){ this.ui=ui; this.actSVG=SVG; this.sV=null; this.feNim=feNim; this.parent=parent;
 	this.disWid =parent.disWid; this.disHei =parent.disHei; this.disHrz =parent.disHrz; this.disVrt =parent.disVrt;
 	var sty={
 		bG:"#000022"}
 	this.sty=sty}
-function Kakara( ui,feNig,SVG,parent){ this.ui=ui; this.actSVG =SVG; this.sV =null; this.feNig=feNig; this.parent=parent;
+function Kakara( ui,feNim,SVG,parent){ this.ui=ui; this.actSVG =SVG; this.sV =null; this.feNim=feNim; this.parent=parent;
 	this.disWid =parent.disWid; this.disHei =parent.disHei; this.disHrz =parent.disHrz; this.disVrt =parent.disVrt;
 	var sty={
 		bG:"#ee00aa"};
 	this.sty=sty; }
-function Yozen( ui,feNig,SVG,parent){ this.ui=ui; this.actSVG =SVG; this.sV=null; this.feNig=feNig; this.parent=parent;
+function Yozen( ui,feNim,SVG,parent){ this.ui=ui; this.actSVG =SVG; this.sV=null; this.feNim=feNim; this.parent=parent;
 	this.disWid =parent.disWid; this.disHei =parent.disHei; this.disHrz =parent.disHrz; this.disVrt =parent.disVrt;
 	var sty={
 		bG:"#eeeeaa"};
@@ -979,6 +995,7 @@ function mkT(x,y,id,co,cl,fonSiz,txt,fonFam){ var t =document.createElementNS( n
 				if( id!=false){ t.setAttribute( 'id', 	id) }
 				if( co!=false){ t.setAttribute( 'fill', co) }
 				if( cl!=false){ t.setAttribute( 'class',cl) }
+								t.setAttribute( 'pointer-events', 'none');
 								t.textContent =txt; return t}
 function mkTFun(x,y,id,co,cl,fonSiz,txt,fonFam,op){ var t =document.createElementNS( nS,'text'); y+=fonSiz;
 					if( x> -1){ 	t.setAttribute( 'x',x)}	
@@ -1021,15 +1038,15 @@ function mkC(c,x,y,w,h,id,co,cl,xA,yA,d,op){ var e=null; var v="";
 						e =mkK(x, 		y, 		w,h,id+"-mid",co,cl+"-mid",op/1.618);	c.push(e);
 						e =mkK(x-(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top",op);			c.push(e);
 
-	e=mkTFun(x+((w/d)/2/1.618), y-9,		"cUIUFun-1","#662525","cUIUFun",66,"1","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x+w+10,			y-9,		"cUIUFun-2","#662525","cUIUFun",66,"2","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x+w+10,			y+(h/2)-9,	"cUIUFun-3","#662525","cUIUFun",66,"3","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x + 10, 			y+(h/2)-9,	"cUIUFun-4","#662525","cUIUFun",66,"4","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x+11, 				y-9,		"cUIUFun-1","#662525","cUIUFun",66,"5","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x+w+8,				y-9,		"cUIUFun-2","#662525","cUIUFun",66,"8","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x+w+21,			y+(h/2)-9,	"cUIUFun-3","#662525","cUIUFun",66,"1","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x + 11, 			y+(h/2)-9,	"cUIUFun-4","#662525","cUIUFun",66,"4","strike_fighter",0.5); c.push(e);
 
-	e=mkTFun(x+w-(w/d)+10, 		y+h-(h/d)-9,"cUIUFun-5","#252566","cUIUFun",66,"5","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x-(w/d)+8,			y+h-(h/d)-9,"cUIUFun-6","#252566","cUIUFun",66,"6","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x-(w/d)+8,			y+(h/d)-9,	"cUIUFun-7","#252566","cUIUFun",66,"7","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x+w-(w/d)+10, 		y+(h/d)-9,	"cUIUFun-8","#252566","cUIUFun",66,"8","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x+w-(w/d)+10, 		y+h-(h/d)-9,"cUIUFun-5","#252566","cUIUFun",66,"2","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x-(w/d)+11,		y+h-(h/d)-9,"cUIUFun-6","#252566","cUIUFun",66,"3","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x-(w/d)+8,			y+(h/d)-9,	"cUIUFun-7","#252566","cUIUFun",66,"6","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x+w-(w/d)+7, 		y+(h/d)-9,	"cUIUFun-8","#252566","cUIUFun",66,"7","strike_fighter",0.5); c.push(e);
 
 					}}else{if(!yA){
 						e =mkL(x-(w/d),	y+(h/d),w,h,id+"-btm",co,cl+"-btm"); c.push(e);
@@ -1039,21 +1056,33 @@ function mkC(c,x,y,w,h,id,co,cl,xA,yA,d,op){ var e=null; var v="";
 						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
 						e =mkL(x+(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e);
 					}}return c}
-function mkW(c,x,y,w,h,co,st,d,op){  var
-	e=mkI(	x-((w/d)/2),	y+((h/d)/2),	x+((w/d)/2)+(w-(w/d)), 			y+((h/d)/2),	"cHUI",co,st,op); c.push(e);
-	e=mkI(	x-((w/d)/2),	y+((h/d)/2)+h,	x+((w/d)/2)+(w-(w/d)), 			y+((h/d)/2)+h,	"cHUI",co,st,op); c.push(e);
+function mkW(c,x,y,w,h,co,st,d,op,Co,cO){  var
+	e=mkI(	x-((w/d)/2),	y+((h/d)/2),	x+((w/d)/2)+(w-(w/d)), 			y+((h/d)/2),	"cHUI",Co,st,op); c.push(e);
+	e=mkI(	x-((w/d)/2),	y+((h/d)/2)+h,	x+((w/d)/2)+(w-(w/d)), 			y+((h/d)/2)+h,	"cHUI",Co,st,op); c.push(e);
 	e=mkI(	x+((w/d)/2),	y-((h/d)/2),	x+((w/d)/2)+(w-(w/d))+(w/d),	y-((h/d)/2),	"cHUI",co,st,op); c.push(e);
 	e=mkI(	x+((w/d)/2),	y-((h/d)/2)+h,	x+((w/d)/2)+(w-(w/d))+(w/d),	y-((h/d)/2)+h,	"cHUI",co,st,op); c.push(e);
 
-	e=mkI(	x+((w/d)/2),	y-((h/d)/2),	x+((w/d)/2),	y-((h/d)/2)+h,	"cHUI",co,st,op); c.push(e);
-	e=mkI(	x+((w/d)/2)+w,	y-((h/d)/2),	x+((w/d)/2)+w,	y-((h/d)/2)+h,	"cHUI",co,st,op); c.push(e);
-	e=mkI(	x-((w/d)/2),	y+((h/d)/2),	x-((w/d)/2),	y+((h/d)/2)+h,	"cHUI",co,st,op); c.push(e);
-	e=mkI(	x-((w/d)/2)+w,	y+((h/d)/2),	x-((w/d)/2)+w,	y+((h/d)/2)+h,	"cHUI",co,st,op); c.push(e);
+	e=mkI(	x+((w/d)/2),	y-((h/d)/2),	x+((w/d)/2),	y+((h/d)/2),	"cHUI",co,st,op); c.push(e);
+	e=mkI(	x+((w/d)/2),	y-((h/d)/2)+h,	x+((w/d)/2),	y+(2.5*(h/d)),	"cHUI",co,st,op); c.push(e);
+	e=mkI(	x+((w/d)/2),	y+((h/d)/2),	x+((w/d)/2),	y+(2.5*(h/d)),	"cHUI",Co,st,op); c.push(e);
 
-	e=mkI(	x-(w/d),	y+(h/d)+(h/4),		x+(w/d),		y,				"cHUI",co,st,op); c.push(e);
-	e=mkI(	x-(w/d),	y+(h/d)+(h/4)+(h/2),x+(w/d),		y+(h/d)+(h/4),	"cHUI",co,st,op); c.push(e);
-	e=mkI(	x-(w/d)+w,	y+(h/d)+(h/4),		x+(w/d)+w,		y,				"cHUI",co,st,op); c.push(e);
-	e=mkI(	x-(w/d)+w,	y+(h/d)+(h/4)+(h/2),x+(w/d)+w,		y+(h/d)+(h/4),	"cHUI",co,st,op); c.push(e); return c}
+	e=mkI(	x+((w/d)/2)+w,	y-((h/d)/2),	x+((w/d)/2)+w,	y+((h/d)/2),	"cHUI",co,st,op); c.push(e);
+	e=mkI(	x+((w/d)/2)+w,	y-((h/d)/2)+h,	x+((w/d)/2)+w,	y+(2.5*(h/d)),	"cHUI",co,st,op); c.push(e);
+	e=mkI(	x+((w/d)/2)+w,	y+((h/d)/2),	x+((w/d)/2)+w,	y+(2.5*(h/d)),	"cHUI",Co,st,op); c.push(e);
+
+	e=mkI(	x-((w/d)/2),	y+((h/d)/2),	x-((w/d)/2),	y+(1.5*(h/d)),	"cHUI",Co,st,op); c.push(e);
+	e=mkI(	x-((w/d)/2),	y+(1.5*(h/d)),	x-((w/d)/2),	y+h-((h/d)/2),	"cHUI",co,st,op); c.push(e);
+	e=mkI(	x-((w/d)/2),	y+h-((h/d)/2),	x-((w/d)/2),	y+h+((h/d)/2),	"cHUI",Co,st,op); c.push(e);
+
+	e=mkI(	x-((w/d)/2)+w,	y+((h/d)/2),	x-((w/d)/2)+w,	y+(1.5*(h/d)),	"cHUI",Co,st,op); c.push(e);
+	e=mkI(	x-((w/d)/2)+w,	y+(1.5*(h/d)),	x-((w/d)/2)+w,	y+h-((h/d)/2),	"cHUI",co,st,op); c.push(e);
+	e=mkI(	x-((w/d)/2)+w,	y+h-((h/d)/2),	x-((w/d)/2)+w,	y+h+((h/d)/2),	"cHUI",Co,st,op); c.push(e);
+
+	e=mkI(	x-((w/d)/2),	y+(h/d)+(h/8),		x+((w/d)/2),	y+((h/d)/2),	"cHUI",cO,st,op); c.push(e);
+	e=mkI(	x-((w/d)/2),	y+(h/d)+(h/8)+(h/2),x+((w/d)/2),	y+h-(1.5*(h/d)),"cHUI",cO,st,op); c.push(e);
+	e=mkI(	x-((w/d)/2)+w,	y+(h/d)+(h/8),		x+((w/d)/2)+w,	y+((h/d)/2),	"cHUI",cO,st,op); c.push(e);
+	e=mkI(	x-((w/d)/2)+w,	y+(h/d)+(h/8)+(h/2),x+((w/d)/2)+w,	y+h-(1.5*(h/d)),"cHUI",cO,st,op); c.push(e); 
+	return c}
 function mkP(c,x,y,w,h,d){ var e=null; var
 	v =x+(w/d)	+","+(y+(h/d))	+" "+(x+(w/2))+","+(y+(h/d)) 	+" "+(x+(w/2)) +","+(y+(h/2));
 	//	+(x+(w/d)+(w/2))+","+(y+(h/d)+(h/2))	+" "+(x+(w/d))+","+(y+(h/d));
@@ -1066,7 +1095,7 @@ function mkB(x,y,w,h,id,co,cl,tId,tCo,tCl,fonSiz,txt){ var b=[];
 	var e =mkL(x,y,w,h,id,co,cl); b.push(e); e =mkT(x,y,tId,tCo,tCl,fonSiz,txt); b.push(e); return b}
 function mkD(x,y,w,h,id,co,cl) 	{ var r=document.createElement('div'); r.setAttribute( 'position','fixed'); r.setAttribute( 'width',w); r.setAttribute( 'height',h); r.setAttribute( 'left',x); r.setAttribute( 'top',y); r.setAttribute( 'id',id); r.setAttribute( 'background-color',co); if(typeof cl!='undefined'){ r.setAttribute( 'class',cl) }return r}
 function mkS(pt,id,co,cl,op) { var p=document.createElementNS( nS,'polygon'); p.setAttribute("points", pt);
-	p.setAttribute( 'fill',co); p.setAttribute( 'id',id); p.setAttribute( 'class',cl); if(op!=false){ p.setAttribute( 'opacity',op)} return p}
+	p.setAttribute( 'fill',co); if(id!=false){p.setAttribute( 'id',id)} p.setAttribute( 'class',cl); if(op!=false){ p.setAttribute( 'opacity',op)} return p}
 function mkG(id,stops,sL){ var g=document.createElementNS( nS,'linearGradient'); g.setAttribute('id',id);
 	for(var i=0; i < sL; i++){ var ats = stops[i]; var stop = document.createElementNS( nS,'stop');
 		for(var att in attrs){ if(atts.hasOwnProperty( att)) stop.setAttribute( att,atts[att])}
@@ -1119,6 +1148,16 @@ function mkL(x,y,w,h,id,co,cl,sC,sW){ var r=document.createElementNS( nS,'rect')
 					if( id!=false){ r.setAttribute( 'id', 	id) }
 					if( co!=false){ r.setAttribute( 'fill', co) }
 					if( cl!=false){ r.setAttribute( 'class',cl) }return r}
+function mkLT(x,y,w,h,id,co,cl,op){ var r=document.createElementNS( nS,'rect');
+					if( x> -1){ 	r.setAttribute( 'x',x)}	
+					if( y> -1){ 	r.setAttribute( 'y',y)}
+					 				r.setAttribute( 'opacity',op);
+									r.setAttribute( 'width',w);
+									r.setAttribute( 'height',h);
+					if( id!=false){ r.setAttribute( 'id', 	id) }
+					if( co!=false){ r.setAttribute( 'fill', co) }
+					//if( cl!=null){ 	cl.forEach( function(){ r.setAttribute( 'class',cl)}); } console.log(r);
+					if( cl!=false){ r.setAttribute( 'class',cl) }return r}
 function mkK(x,y,w,h,id,co,cl,op) { var r=document.createElementNS( nS,'rect');
 					if( x> -1){ 	r.setAttribute( 'x',x)}	
 					if( y> -1){ 	r.setAttribute( 'y',y)}
@@ -1129,12 +1168,32 @@ function mkK(x,y,w,h,id,co,cl,op) { var r=document.createElementNS( nS,'rect');
 					if( co!=false){ r.setAttribute( 'fill', co) }
 					if( cl!=false){ r.setAttribute( 'class',cl) }return r}
 
-function mkFE( n,sB){ n = n * sB.rowHei; var FE =mkL( sB.disHrz, n, sB.disWid, sB.rowHei,"FE",sB.sty.btn,"FE","");
-	FE.setAttribute( 'stroke',"#00ff00"); 	 FE.setAttribute('stroke-width',4); return FE }
+function mkFb( n,sB){ var id="sB_btn-"+n; n = n * sB.rowHei;
+	var e =mkL( sB.disHrz, n, sB.disWid, sB.rowHei,	id, sB.sty.btn,"sB_btn",""); return e }
+function mkFt( n,sB,ni){ var id="sB_btT-"+n; n = n * sB.rowHei;
+	var e =mkT( sB.disHrz+sB.btnTOX, n+sB.btnTOY,		id, sB.sty.btnTxt, "sB_btT",15,ni,'profont'); return e }
+function mkFr( n,sB){ var et=[]; var yi=n * sB.rowHei; var
+	e=mkL( sB.disHrz, yi,  						sB.disWid, sB.btnBrd, false, sB.sty.btnU, "sB_btnBrd", ""); et.push( e);
+	e=mkL( sB.disHrz, yi+sB.rowHei-sB.btnBrd, 	sB.disWid, sB.btnBrd, false, sB.sty.btnD, "sB_btnBrd", ""); et.push( e);
+	var v = sB.disHrz+","+yi+" "+ 				(sB.disHrz+sB.btnBrd)+","+(yi+sB.btnBrd)+" "+
+			(sB.disHrz+sB.btnBrd)+","+(yi+sB.rowHei-sB.btnBrd)+" "+sB.disHrz+","+(yi+sB.rowHei);
+	e=mkS( v,false,sB.sty.btnL/*"#880000"*/,"sB_btnBrd",false); et.push( e);
+	var v = sB.disHrz+sB.disWid+","+yi+" "+ 	(sB.disHrz+sB.disWid-sB.btnBrd)+","+(yi+sB.btnBrd)+" "+
+			(sB.disHrz+sB.disWid-sB.btnBrd)+","+(yi+sB.rowHei-sB.btnBrd)+" "+(sB.disHrz+sB.disWid)+","+(yi+sB.rowHei);
+	e=mkS( v,false,sB.sty.btnR/*"#880000"*/,"sB_btnBrd",false); et.push( e);
+	return et}
+
+/*v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+
+							(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
+							(x+w+(w/d)+","+(y+(h/2)-(h/d)))+" "+
+							(x+w-(w/d)+","+(y+(h/2)+(h/d)));
+						e =mkS( 	e =mkS(v,id+"-sP","#ffcccc",id+"-sP-hrz",op);c.push(e);*/
 function mkSidebarElements( sB){  	sB.sV =mkSidebarSVG( sB); return sB}
 function mkSidebarSVG( sB){ var re={ dE:[], dELen: 0}; var buf =null;
 		re.dE =[mkL( sB.disHrz,sB.disVrt,sB.disWid,sB.disHei,"sB",sB.sty.bG,"sB",'')];
-		for( var i=0; i < AL.fesLen; i++){ buf =mkFE( i,sB); re.dE.push(buf)} re.dELen =re.dE.length; return re}
+		for( var i=0; i < AL.fesLen; i++){	buf =mkFb( i,sB);  			re.dE.push(buf);
+											buf =mkFt( i,sB, AL.fes[i]);re.dE.push(buf);
+											buf =mkFr( i,sB); re.dE =re.dE.concat(buf);} re.dELen =re.dE.length; return re}
 function mkProjectorElems( ui,pR){ 	pR.sV =mkProjectorSVG1( pR); return pR}
 function mkProjectorSVG1( pR){ 	var re={ open:null, closed:null};
 							re.open =mkL( pR.opeHrz,pR.opeVrt,pR.opeWid,pR.opeHei,"pROpe",pR.sty.bG,"pROpe","");
@@ -1146,11 +1205,11 @@ function mkSequencerElements( sQ){ sQ.sV =mkSequencerSVG( sQ); return sQ}
 								//				if( sQ.actSVG){ sQ.DOM.appendChild(sQ.sV)}} return sQ}
 function mkSequencerDOM( sQ){	var re =mkD( sQ.disHrz,sQ.disVrt,sQ.disWid,sQ.disHei,"sQD",sQ.sty.bG,"sQD"); return re}
 function mkSequencerSVG( sQ){	var re =mkL( sQ.disHrz,sQ.disVrt,sQ.disWid,sQ.disHei,"sQ",sQ.sty.bG,"sQ",""); return re}
-function mkProTabsElements( pT){ /*console.log(pT);*/ pT.sV =mkProTabsSVG( pT); return pT}
-								//if( pT.actDOM){ pT.DOM =mkProTabsDOM( pT);
-								//				if( pT.actSVG){ pT.DOM.appendChild(pT.sV)}} return pT}
-function mkProTabsDOM( pT){		var re =mkD( pT.disHrz,pT.disVrt,pT.disWid,pT.disHei,"pTD",pT.sty.bG,"pTD"); return re}
-function mkProTabsSVG( pT){		var re =mkL( pT.disHrz,pT.disVrt,pT.disWid,pT.disHei,"pT",pT.sty.bG,"pT",""); return re}
+function mkSuperTabsElements( sT){ /*console.log(sT);*/ sT.sV =mkSuperTabsSVG( sT); return sT}
+								//if( sT.actDOM){ sT.DOM =mkSuperTabsDOM( sT);
+								//				if( sT.actSVG){ sT.DOM.appendChild(sT.sV)}} return sT}
+function mkSuperTabsDOM( sT){	var re =mkD( sT.disHrz,sT.disVrt,sT.disWid,sT.disHei,"sTD",sT.sty.bG,"sTD"); return re}
+function mkSuperTabsSVG( sT){	var re =mkL( sT.disHrz,sT.disVrt,sT.disWid,sT.disHei,"sT",sT.sty.bG,"sT",""); return re}
 
 function mkShotgunElements( sH) {if( sH.actSVG){ sH.sV =mkShotgunSVG( sH)}
 								if( sH.actDOM){ sH.DOM =mkShotgunDOM( sH);
@@ -1205,11 +1264,11 @@ function mkMoralystSVG( dE){ 	var re =mkL( dE.disHrz,dE.disVrt,dE.disWid,dE.disH
 
 function precalcFeatureTemplates( uiFes,sB) { var ret=[]; AL.fesLen =AL.fes.length; uiFes.fesLen =AL.fesLen; var fe =null;
 	for(var i=0; i < AL.fesLen; i++) { fe =precalcFeatureTemplate( AL.fes[i], uiFes); ret.push( fe)} return ret}
-function precalcFeatureTemplate( nig,ui){
-	var pTs =precalcProTabs( nig);
-	var qU = precalcQuad( nig);
-	var fe =new Feature( ui,nig,pTs,qU);	return fe}
-function Feature( ui,h,pTs,qU){ this.nig=h; this.pTs=pTs; this.pTsLen=pTs.length;
+function precalcFeatureTemplate( nim,ui){
+	var sTs =precalcSuperTabs( nim);
+	var qU = precalcQuad( nim);
+	var fe =new Feature( ui,nim,sTs,qU);	return fe}
+function Feature( ui,h,sTs,qU){ this.nim=h; this.sTs=sTs; this.sTsLen=sTs.length;
 	var txt =getCaptionForFeature( h); 					this.txt =txt;
 	var act =getDevicesForFeature( h); 					this.act =act;
 	var dev =precalcDevicesForFeature( ui,h,act,qU); 	this.dev =dev;
@@ -1217,35 +1276,35 @@ function Feature( ui,h,pTs,qU){ this.nig=h; this.pTs=pTs; this.pTsLen=pTs.length
 function getCaptionForFeature( h){ switch( h){ case "dharma": return "Dharma"; 	case "money": return "Money";
 	case "mosaic": return "Mosaic"; case "yozen": return "Yozen"; case "sygnal": return "Sygnal"}}
 
-function precalcQuad( feNig){ switch( feNig){ 	case "mosaic": return AL.qU 
+function precalcQuad( feNim){ switch( feNim){ 	case "mosaic": return AL.qU 
 												case "sygnal": return AL.qU } return null }
 function precalcGridlock( disWid,disHei,gL){ gL.disWid=disWid; gL.disHei=disHei;
 	gL.scrWid=disWid-gL.lVX-gL.mVX;					gL.scrHei=disHei-gL.tHY-gL.bHY;
 	gL.scrHrz=gL.lVX+gL.mVX; 						gL.scrVrt=gL.mVX; return gL}
-function precalcWindowDimensions( ui){ ui.winWid =window.innerWidth; ui.winHei =window.innerHeight; return ui}
-function precalcProTabs( feNig){var pTs=[]; switch( feNig){
-	case "dharma" : pTs=[ "hello","world"]; break;
-	case "mosaic" : pTs=[ "world"]; 		break}return pTs}
+function measureWindow( ui){ ui.winWid =window.innerWidth; ui.winHei =window.innerHeight; return ui}
+function precalcSuperTabs( feNim){var sTs=[]; switch( feNim){
+	case "dharma" : sTs=[ "hello","world"]; break;
+	case "mosaic" : sTs=[ "world"]; 		break}return sTs}
 function getDevicesForFeature( h){ var r=null; switch( h){
 	case "dharma": 	r = {  DOM:true, sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
-							pT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
+							sT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
 							sG:true, qU:false,pN:false,mC:false,kK:false,yO:false};return r;
 	case "money" : 	r = {  DOM:true, sV:true, sB:true, tT:true, gL:true, 
 							sQ:true, aM:true, sH:true, cA:true, mE:false,
-							pT:true, eX:true, gR:false,dB:true, dG:false,pM:false,
+							sT:true, eX:true, gR:false,dB:true, dG:false,pM:false,
 							sG:false,qU:false,pN:false,mC:false,kK:false,yO:false};return r;
 	case "mosaic": 	r =	{  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:true,
-							pT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
+							sT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
 							sG:false,qU:true, pN:false,mC:false,kK:false,yO:false};return r;
 	case "yozen" : 	r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
-							pT:false,eX:true, gR:true, dB:true, dG:false,pM:false,
+							sT:false,eX:true, gR:true, dB:true, dG:false,pM:false,
 							sG:false,qU:false,pN:false,mC:false,kK:false,yO:true };return r;
 	case "sygnal": 	r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
-							pT:true, eX:true, gR:false,dB:true, dG:false,pM:false,
+							sT:true, eX:true, gR:false,dB:true, dG:false,pM:false,
 							sG:false,qU:true, pN:false,mC:false,kK:false,yO:false};return r}}
 
 function precalcToolsForFeatures( ui, fes, fesLen){
