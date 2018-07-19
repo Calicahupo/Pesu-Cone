@@ -1,16 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"
 	http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>monoliitti 2192</title>
+<title>monoliitti 2215</title>
 <style>@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
 		url('diodi/profontwindows-webfont.woff') 	format('woff');	font-weight:normal; font-style:normal; }
-	@font-face { font-family: 'de_valenciaregular'; src: url('diodi/de_valencia_beta-webfont.woff2') format('woff2'),
-        url('de_valencia_beta-webfont.woff') 		format('woff'); font-weight: normal;font-style: normal;}
+	/*@font-face { font-family: 'de_valenciaregular'; src: url('diodi/de_valencia_beta-webfont.woff2') format('woff2'),
+        url('de_valencia_beta-webfont.woff') 		format('woff'); font-weight: normal;font-style: normal;}*/
     @font-face { font-family: 'strike_fighter';    	src:url('diodi/strikefighter-webfont.woff2')format('woff2'),
     	url('diodi/strikefighter-webfont.woff') 	format('woff'); font-weight: normal; font-style: normal;}
-    @font-face { font-family: 'VGA'; 				src: url('diodi/PerfectDOSVGA437.woff2') format('woff2'),
+    /*@font-face { font-family: 'VGA'; 				src: url('diodi/PerfectDOSVGA437.woff2') format('woff2'),
         url('diodi/PerfectDOSVGA437.woff') 			format('woff'); font-weight: normal; font-style: normal;}
-        /*, url('diodi/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg')*/
+        , url('diodi/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg')*/
 	html{height:100%;padding:0px;margin:0px;font-family:profont;font-size:13px;background-color:black;color:white;}
 	body{height:100%;padding:0px;margin:0px;background-color:transparent;}
 </style><!-- src="diodi/di0016.js"></script><!-aldiod--> <!-- src="diodi/dB0000.js"></script><!-devBar-->
@@ -20,8 +20,8 @@ function draw(){ calcInterface( AL); predraw( AL); postinit( AL); }
 function clearScreen(){var e=Array.from(document.querySelectorAll('svg')); e.forEach( function(e){ e.remove()})}
 var AL={
 	demo: 	{act:false,
-		dummy: { first:"Demo", second:"Ferdinand", surname: "Figu", full:"Demo Ferdinand Figu", name:"Demo Figu"},
-		puppet:{ white:-1, male:true, child:-1, legend:0}},
+		dummy: { first:"N", second:"N", surname: "N", full:"N N N", name:"N N"},
+		puppet:{ big:-1, male:true, child:-1, legend:0}},
 	defUser:false,
 	dev: 	true,
 	fe: 	"mosaic",
@@ -30,7 +30,7 @@ var AL={
 	pR: 	["MOQ","SOC","TMP","REL"],
 	sG: [{fe:"dharma",sTs:["hello"],
 			dis: 	 { mono:"", u:"sGN", d:"sGS", l:"sGW", r:"sGE", uL:"sGNW",	uR:"sGNE", 	dL:"sGSW", 	dR:"sGSE"}}],
-	pN: [{fe:"mosaic",sTs:["hello","world"], 
+	dC: [{fe:"mosaic",sTs:["hello","world"], 
 			dis: 	 { mono:"", u:"mCAHo",d:"mCAHe",l:"mCCHo",r:"mCCHe",uL:"qRuLS",uR:"qRuRS",dL:"qRdLS",dR:"qRdRS"},
 			override:{ mono:false,u:false,d:false,l:false,r:false}}],
 	qU: [{fe:"sygnal",sTs:["hello"],
@@ -47,7 +47,7 @@ function predraw( al){
 		r.setAttribute( 'height',h); r.setAttribute( 'fill',c);
 		if(typeof cl!='undefined'){ r.setAttribute( 'class',cl) }return r}
 	sV.setAttribute( 'height',window.innerHeight); sV.setAttribute( 'width',window.innerWidth);
-    var g =mkM(266,25,25,66,'#00ff00'); var h =mkM(366,25,25,66,'h','#00ff00');	sV.appendChild( g);	sV.appendChild( h);
+    //var g =mkM(266,25,25,66,'#00ff00'); var h =mkM(366,25,25,66,'h','#00ff00');	sV.appendChild( g);	sV.appendChild( h);
 	for(var j=0; j < al.fesLen; j++){
 		if( al.ui.features[j].nim ==al.fe){
 			//console.log( al.ui.features[j]); console.log("j"); console.log( al.ui.features[j].dev.sB.sV);
@@ -65,7 +65,7 @@ function predraw( al){
 			//if( al.ui.features[j].act.mE){ sV.appendChild( al.ui.features[j].dev.mE.sV)};
 
 			if( al.ui.features[j].act.sG){ sV.appendChild( al.ui.features[j].dev.sG.sV)};	
-			if( al.ui.features[j].act.pN){ sV.appendChild( al.ui.features[j].dev.pN.sV)};
+			if( al.ui.features[j].act.dC){ sV.appendChild( al.ui.features[j].dev.dC.sV)};
 			//if( al.ui.features[j].act.qU){ sV.appendChild( al.ui.features[j].dev.qU.sV)};
 			if( al.ui.features[j].act.mC){ sV.appendChild( al.ui.features[j].dev.mC.sV)};
 			if( al.ui.features[j].act.kK){ sV.appendChild( al.ui.features[j].dev.kK.sV)};
@@ -199,19 +199,21 @@ AL.Type={ seed: ["RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FI
 	case"RET":return"Beaver"; 		case"TER":return"Wolf"; 	case"REF":return"Turtle"; 	case"FER":return"Sheep";
 	case"RIT":return"Snake"; 		case"TIR":return"Spider"; 	case"RIF":return"Pike"; 	case"FIR":return"Waterfowl"}},
 	TmEngZodiacM:function( ni){ switch( ni){
-	case"FIR":return"Driver"; 		case"RIF":return"Machine"; 	case"TIR":return"Cobbler"; 	case"RIT":return"Eagle";
+	case"FIR":return"Driver"; 		case"RIF":return"Dog"; 		case"TIR":return"Cobbler"; 	case"RIT":return"Eagle";
 	case"FER":return"Chief"; 		case"REF":return"Ringer"; 	case"TER":return"Blacksmith";case"RET":return"Mason";
-	case"NIF":return"Meteor"; 		case"FIN":return"Sun"; 		case"NIT":return"Pilot"; 	case"TIN":return"Elf";
-	case"NEF":return"Planet"; 		case"FEN":return"Star"; 	case"NET":return"Troll"; 	case"TEN":return"Leader"}},
+	case"NIF":return"Meteor"; 		case"FIN":return"Sun"; 		case"NIT":return"Crow"; 	case"TIN":return"Elf";
+	case"NEF":return"Planet"; 		case"FEN":return"Star"; 	case"NET":return"Horse"; 	case"TEN":return"Troll"}},
 	TmFinZodiacM:function( ni){ switch( ni){
-	case"FIR":return"Lautturi"; 	case"RIF":return"Kone"; 	case"TIR":return"Suutari"; 	case"RIT":return"Kotka";
+	case"FIR":return"Lautturi"; 	case"RIF":return"Koira"; 	case"TIR":return"Suutari"; 	case"RIT":return"Kotka";
 	case"FER":return"Päällikkö"; 	case"REF":return"Maestro"; 	case"TER":return"Seppä"; 	case"RET":return"Muurari";
-	case"NIF":return"Meteoriitti"; 	case"FIN":return"Aurinko"; 	case"NIT":return"Lentäjä"; 	case"TIN":return"Haltia";
-	case"NEF":return"Planeetta"; 	case"FEN":return"Tähti"; 	case"NET":return"Peikko"; 	case"TEN":return"Johtaja"}},
+	case"NIF":return"Meteoriitti"; 	case"FIN":return"Aurinko"; 	case"NIT":return"Korppi"; 	case"TIN":return"Haltia";
+	case"NEF":return"Planeetta"; 	case"FEN":return"Tähti"; 	case"NET":return"Hevonen"; 	case"TEN":return"Peikko"}},
 	Tm:function( n,z,x,y,X,Y,ni){
 		var o={	n:n, ni:ni, z:z, y:y, x:x, sent:"", mili:"",
-			x1:x, 		x2:X, 		x3:false, 	x4:false,	y1:y, 		y2:Y, 		y3:false, 	y4:false,
-			x5:false, 	x6:false, 	x7:false, 	x8:false,	y5:false, 	y6:false, 	y7:false, 	y8:false};
+		/*	x1:x, 		x2:X, 		x3:false, 	x4:false,	y1:y, 		y2:Y, 		y3:false, 	y4:false,
+			x5:false, 	x6:false, 	x7:false, 	x8:false,	y5:false, 	y6:false, 	y7:false, 	y8:false};*/
+			x5:x, 		x8:X, 		x1:false, 	x4:false,	y5:y, 		y8:Y, 		y1:false, 	y4:false,
+			x2:false, 	x3:false, 	x6:false, 	x7:false,	y2:false, 	y3:false, 	y6:false, 	y7:false};
 		o.x3= !o.x; 	o.x5= !o.x; 		o.y3= !o.x2; 	o.y5= !o.y2; 
 		o.x4= !o.x2; 	o.x6= !o.x2; 		o.y4= !o.y; 	o.y6= !o.y;
 		o.x7=  o.x;  						o.y7=  o.x;
@@ -363,25 +365,20 @@ function L( n,l,d){ var o=AL.Context.Co(n,"L",l,d); this.n=o.n; this.ni=o.ni; th
 function C( n,l,d){ var o=AL.Context.Co(n,"C",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 function O( n,l,d){ var o=AL.Context.Co(n,"O",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 function S( n,l,d){ var o=AL.Context.Co(n,"S",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
-/*                                                                                                              | /
+/*                                                                                                              ! ?
                                                                                                                TÿE
                                                                                                               OÿŸÿNOB     ƒ
-                                                                                                               ÿÿÿ
-                                                                                                                Tÿÿ
-                                                                                                                 Hÿÿ
-                                                                                                                  Eÿÿ
-                                                                                                                   ÿÿÿ
-                                                                                              ÿ      ÿÿÿÿÿ¢        Wÿÿ
-                                                                                               ÿÿÿ ÿÿÿÿÿÿÿÿÿÿ$     Hÿÿ
-                                                                                                ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ€ TIÿÿÿ
-                                                                                             ÿÿÿÿÿÿÿcamelÿcaseÿsEÿÿÿÿ
-                                                                                              ÿÿÿÿÿÿlastÿseasonÿÿÿÿ
-                                                                                                 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ
-                                                                                                   ÿÿ¥ÿÿÿÿÿÿ
-                                                                                                    ÿ   ÿÿ 
-                                                                                                    ÿÿ_   ÿÿÿ_  
-                                                                               ..:::::''"""""""""""""''"''""¨¨¨¨¨¨¨*/
-function mkDice(id){ var di=null; switch( id) { case "des":di=new des(  1, false,null, null ); return di;
+                                                                                                               oÿÿ
+                                                                                                                sÿÿ
+                                                                                                                 aÿÿ
+                                                                                                                  eÿÿ
+                                                                                                     Ö< Ö< Ö<      sÿÿ
+                                                                                              ÿ      ÿÿÿÿÿ¢         ÿÿ
+                                                                                               ÿÿÿ ÿÿÿÿÿÿÿÿÿÿ$     tÿÿ
+                                                                                                ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ€ asÿÿÿ
+                                                                                             ÿÿÿÿÿÿÿold spice so lÿÿÿÿ
+                                                                               ..:::::~~ˆ~ˆ~~~~~~~~~~~^ˆ~ˆ¨~¨~¨*~ˆ*/
+function mkPanda(id){ var di=null; switch( id) { case "des":di=new des(  1, false,null, null ); return di;
 	/* link to ordinal time here? */			case "asc":di=new asc(  2, true, null, null ); return di;
 												case "Bpx":di=new Bpx(  3, false,false,null ); return di;
 												case "Gpx":di=new Gpx(  4, true, false,null ); return di;
@@ -431,7 +428,7 @@ function mkContext(id){ var co=null;switch( id){case "O":co =new O( 1, false,fal
 												case "S":co =new S( 2, false,true ); return co;
 												case "L":co =new L( 3, true, false); return co;
 												case "C":co =new C( 4, true, true ); return co}}
-function precalcDice( di) { var dis=[];var bu=null; for(var n=0; n < 22 ;n++){ bu=mkDice( di[n]); dis.push(bu)} return dis}
+function precalcDice( di) { var dis=[];var bu=null; for(var n=0; n < 22 ;n++){ bu=mkPanda( di[n]);dis.push(bu)} return dis}
 function precalcTypes( ty){ var tys=[];var bu=null; for(var n=0; n < 16 ;n++){ bu=mkType( ty[n]); tys.push(bu)} return tys}
 function precalcSpirits(sp){var sps=[];var bu=null; for(var n=0; n < 8  ;n++){bu=mkSpirit(sp[n]); sps.push(bu)} return sps}
 function precalcContexts(c){var cos=[];var bu=null; for(var n=0; n < 4  ;n++){bu=mkContext(c[n]); cos.push(bu)} return cos}
@@ -444,10 +441,17 @@ function precalc() {
 	precalcInterface(AL);
 }
 
+function precalcInterface(al){
+								AL.user = { curPa:'initUser', curFe:false, curFo:null, sty:null,
+											selChi:false, chi:false,
+											//selBig:true, big:true,
+											selMas:false,mas:true,
+											selTy: false,tyN: "NET"}; calcInterface(al)}
+
 function calcInterface(al){ 	var ui 					= precalcUserInterfaceTemplates( false,		al.reso,
 																						 0, 		0,
 																						 al.sG,	 	al.qU,
-																						 al.qD,	 	al.pN,
+																						 al.qD,	 	al.dC,
 																						 al.mC,	 	al.qR,
 																						 al.kK, 	al.pR,
 																						 al.pages);
@@ -465,12 +469,6 @@ function calcInterface(al){ 	var ui 					= precalcUserInterfaceTemplates( false,
 								al.ui =ui;
 
 }
-function precalcInterface(al){
-								AL.user = { curPa:'initUser', curFe:false, curFo:null,
-											selChi:false, chi:false,
-											//selWhi:true, whi:true,
-											selMas:false,mas:true,
-											selTy: false,tyN: "NET"}; calcInterface(al)}
 								
 								
 					//if(al.dev){ predraw( ui)}
@@ -511,6 +509,10 @@ function setUserGenderHilight(id){AL.user.curFo= id.split("-").pop(); 				refres
 
 function uiFocusUserType( e){ 	hiliteUserType( AL.ui,AL.demo,AL.user,e)}
 function uiChooseUserType( e){ 	chooseUserType( AL.ui,AL.demo,AL.user,e)}
+function uiFocusUserRace( e){ 	hiliteUserRace( AL.ui,AL.demo,AL.user,e)}
+function uiChooseUserRace( e){ 	chooseUserRace( AL.ui,AL.demo,AL.user,e); redrawUserByRace( AL.ui,AL.demo,AL.user,e)}
+function uiFocusUserGender( e){ hiliteUserGender( AL.ui,AL.demo,AL.user,e)}
+function uiChooseUserGender( e){chooseUserGender( AL.ui,AL.demo,AL.user,e);redrawUserByGender( AL.ui,AL.demo,AL.user,e)}
 function setUserTypeListener( e){ console.log("xyz");}
 function bindMany( sel,c){ var e=Array.from(document.querySelectorAll( sel));
 	e.forEach( function(e){ e.addEventListener("mouseover", function(){ c( "mouseover",	e)})});
@@ -560,8 +562,11 @@ function rePage( al,nim){ var e=mkL(10,10,25,25,"test","#ffffff","tester",false)
 	for(var i=0; i<al.pagLen; i++){ if(al.ui.pages[i].nim==nim){
 	console.log(al.ui.pages[i]);
 	al.ui.pages[i]=mkPage( nim,al.ui); console.log(al.ui.pages[i]); showPage( al.ui.pages[i])}}}
-function mkPage( nim,ui,usr){ var b; switch(nim) {
-	case "initUser" : b =mkPageForInitUser( nim, ui.winWid, ui.winHei, ui.sty.pageIU, usr)} return b}
+function mkPage( nim,ui,usr){ var b;
+	console.log(ui.sty);
+	switch(nim) {
+	case "initUser" : b =mkPageForInitUser( nim, ui.winWid, ui.winHei, ui.sty.pageIU, usr, ui.sty.pageTe)} return b}
+	//case "initUser" : b =mkPageForInitUser( nim, ui.winWid, ui.winHei, ui.sty.pageIU, usr)} return b}
 function precalcUserInterfacePages( al,ui){ var re=[]; var b;
 	for(var i=0; i < ui.pagLen;i++){ b =mkPage(al.pages[i],ui,al.user); re.push( b)} return re}
 function whatPageForInitUser( p){
@@ -572,29 +577,42 @@ function whatPageForInitUser( p){
 	p.b=mkL(10,10,25,25,"test","#ffffff","tester",false); sV.appendChild( p.b); document.body.appendChild( sV);
 	return p
 }
-function mkPageForInitUser( nim,winWid,winHei,s,usr){
-	function usAt(t){ if(usr.selChi &&(usr.chi ==t)){ p.c.c= s.selBtB }else{ p.c.c= s.btB} return p.c}
-	function usAT(t){ if(usr.selChi &&(usr.chi ==t)){ p.c.c= s.selBtT}
-		else if( 	!usr.selChi && p.curFo==t){ p.c.c= s.selBtT}
-		else{ p.c.c= s.btT} return p.c}
-	function usGt(t){ if(usr.selMas &&(usr.mas ==t)){ p.c.c= s.selBtB }else{ p.c.c= s.btB} return p.c}
-	function usGT(t){ if(usr.selMas &&(usr.mas ==t)){ p.c.c= s.selBtT}else if( 	!usr.selMas && p.curFo==t){ p.c.c= s.selBtT}else{ p.c.c= s.btT} return p.c}
+
+function setUserStyle( sty,usrTyN){ var r; console.log(sty);
+	switch(usrTyN){ case "RIF": case "NET": r =sty.orange; break;
+					case "FIR": case "TEN": r =sty.blue; break;
+					case "RIT": case "NEF": r =sty.olive; break;
+					case "TIR": case "FEN": r =sty.green; break;
+					case "RET": case "NIF": r =sty.gray; break;
+					case "TER": case "FIN": r =sty.copper; break;
+					case "NIT": case "REF": r =sty.brass; break;
+					case "TIN": case "FER": r =sty.cyan; break;} return r}
+function mkPageForInitUser( nim,winWid,winHei,s,usr,c){
+	function usAt(t){ if(usr.selChi &&(usr.chi ==t)){ p.c.c= c.selArea }else{ p.c.c= c.area} return p.c}
+	function usAT(t){ if(usr.selChi &&(usr.chi ==t)){ p.c.c= c.selAreaT}
+		else if( 	!usr.selChi && p.curFo==t){ p.c.c= c.selAreaT}
+		else{ p.c.c= c.areaT} return p.c}
+	function usGt(t){ if(usr.selMas &&(usr.mas ==t)){ p.c.c= c.selArea }else{ p.c.c= c.area} return p.c}
+	function usGT(t){ if(usr.selMas &&(usr.mas ==t)){ p.c.c= c.selAreaT}else if(!usr.selMas && p.curFo==t){ p.c.c= s.selBtT}else{ p.c.c= s.btT} return p.c}
 	function usTt(t){ if(usr.selTy &&(usr.ty.ni==t)){ p.c.c= s.selBtB }else{ p.c.c= s.btB} return p.c}
 	function usTT(t){ if(usr.selTy &&(usr.ty.ni==t)){ p.c.c= s.selBtT; 	p.c.x= b.x+b.h }
 				else if(!usr.selTy && p.curFo==t ){ p.c.c= s.selBtT; 	p.c.x= b.x+s.bPD}
 														else{ p.c.c= s.btT; 	p.c.x= b.x+s.bPD} return p.c}
+	c = setUserStyle( c,usr.tyN); console.log(c);
 	var b ={ w:s.btnWid, h:s.btnHei,	x:s.fraWid, xi:s.btnGrX,  	y:s.fraHei, yi:s.btnGrY };
 	var p ={ nim:nim, e:[], l:0, E:[], L:0, c:{c:""}, curFo:""};
 	if(usr.curFo){p.curFo=usr.curFo.id.split("-").pop()}
-	
-	b.e=mkLT(s.lP,s.tP,winWid-s.lP-s.rP,winHei-s.tP-s.bP,"pAIU","#123456","pAWrap",0.66); 				p.e.push( b.e);
 
-	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-tx1",s.t,		"pAIU_txt",s.fonSiz,"USER AGE :"); 	p.e.push( b.e);b.x+=s.lV;
+//	var tE={ bG:'#123456', }
+	
+	b.e=mkLT(s.lP,s.tP,winWid-s.lP-s.rP,winHei-s.tP-s.bP,"pAIU",c.base,"pAWrap",0.66); 				p.e.push( b.e);
+
+/*	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-tx1",c.hilite,		"pAIU_txt",s.fonSiz,"USER AGE :"); 	p.e.push( b.e);b.x+=s.lV;
 p.c=usAt("C");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_btn-C",p.c.c,"pAIU_agt",s.selBtB, s.btnBrd);p.e.push( b.e);
 p.c=usAT("C");b.e=mkT(b.x+1,b.y-s.bPD,"pAIU_btT-C",p.c.c,"pAIU_agT",s.fonSiz,"CHILD");	p.e.push( b.e);b.x+=s.btnGrX;
 p.c=usAt("A");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_btn-A",p.c.c,"pAIU_agt",s.selBtB, s.btnBrd);p.e.push( b.e);
 p.c=usAT("A");b.e=mkT(b.x+1,b.y-s.bPD,"pAIU_btT-A",p.c.c,"pAIU_agT",s.fonSiz,"ADULT"); 	p.e.push( b.e);
-	b.x=s.fraWid; b.y+=b.yi;
+	b.x=s.fraWid; b.y+=b.yi;*/
 //'.class1, .class2'
 /*	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-tx2",s.t, 	"pAIU_txt",s.fonSiz,"USER WHITE:"); p.e.push( b.e);b.x+=s.lV;
 	b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-whn",s.btB,	"pAIU_btn",s.selBtB, s.btnBrd);		p.e.push( b.e);
@@ -651,7 +669,7 @@ p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-M",p.c.c,"pAIU_geT",s.fonSiz,"M"
 	p.c=usTT("TER");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-TER",p.c.c,"pAIU_tBT",s.fonSiz,"TER"); p.e.push( b.e);
 
 	b.x=s.fraWid+s.mV+s.lV; b.y=s.fraHei+s.fraHei;
-	p.e=mkC( p.e,b.x,b.y,s.cE,s.cE,"cUIU","#336688","cUIU",false,true,4,0.7);
+	p.e=mkC( p.e,b.x,b.y,s.cE,s.cE,"cUIU","#336688","cUIU",false,true,4,0.7,usr.tyN);
 	p.e=mkW( p.e,b.x,b.y,s.cE,s.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa");
 	//p.e=mkP( p.e,b.x,b.y,s.cE,s.cE,4);
 
@@ -665,13 +683,18 @@ p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-M",p.c.c,"pAIU_geT",s.fonSiz,"M"
 	return p}
 function hpE(e,p){ e.setAttribute('visibility','hidden'); p.e.push(e)}
 function shE(a,l){ for(var i=0; i < l; i++){ a[i].setAttribute( 'visibility','visible')} /*console.log(a);*/}
-function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,pN,mC,qR,kK,pR,pages) {
-	var s={ sBs:0, qUs:0, qDs:0, pNs:0, mCs:0, qRs:0, kKs:0, pRs:0, pL:0};
-	if(src){s.sGs =src.sGs; 	s.qUs =src.qUs; 	s.qDs =src.qDs; 	s.pNs =src.pNs;
+function Theme( base,hilite,area,areaT,selArea,selAreaT,cubeShade,){}
+function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,mC,qR,kK,pR,pages) {
+	var s={ sBs:0, qUs:0, qDs:0, dCs:0, mCs:0, qRs:0, kKs:0, pRs:0, pL:0};
+	if(src){s.sGs =src.sGs; 	s.qUs =src.qUs; 	s.qDs =src.qDs; 	s.dCs =src.dCs;
 			s.mCs =src.mCs; 	s.qRs =src.qRs; 	s.kKs =src.kKs; 	s.pRs =src.pRs;		s.pL =src.pagLen; }
-	else{ 	s.sGs =sG.length; 	s.qUs =qU.length; 	s.qDs =qD.length; 	s.pNs =pN.length;//length checks in caller already?
+	else{ 	s.sGs =sG.length; 	s.qUs =qU.length; 	s.qDs =qD.length; 	s.dCs =dC.length;//length checks in caller already?
 			s.mCs =src.mCs; 	s.qRs =qR.length; 	s.kKs =kK.length; 	s.pRs =pR.length; 	s.pL =pages.length; }
 	var ui ={ sty : { b:"#000000",d:"#222222",	ledSVG:"#dddd00",ledDOM:"ff0000",ledGlo:"#00ff00",ledGloRad:6,
+				pageTe : { orange:{}, olive:{}, green:{}, gray:{}, cyan:{}, copper:{}, brass:{},
+					blue:{ base:"#123456", hilite:"#ff6600", area:"#345678", areaT:"#89abcd", selArea:"#6789ab",
+						selAreaT:"#deefde", cShade:"#ffcccc", valNum:"#662525", shaNum:"#252566", plane:"#336688"},
+					alpha:{ cube:0.7, wire:0.38}},
 				pageIU : { b:"#123456", t:"#ff6600", btB:"#345678", btT:"#89abcd", selBtB:"#6789ab", selBtT:"#deefde", 
 	lV:173, mV:452,bPL:10, bPD:7, cE:280, 		fraWid:66, 	fraHei:66, 	 
 	rP:66, tP:25, lP:40, bP:19, 				btnWid:66, 	btnHei:25, 	btnGrX:88, 	btnGrY:40, 	fonSiz:25, 	btnBrd:2 }},
@@ -706,8 +729,8 @@ dis:{
 	u : { scr:null, scrWid:0, scrHei:0, scrHrz:0, scrVrt:0},	l :{ scr:null, scrWid:0, scrHei:0, scrHrz:0, scrVrt:0},
 	d : { scr:null, scrWid:0, scrHei:0, scrHrz:0, scrVrt:0},	r :{ scr:null, scrWid:0, scrHei:0, scrHrz:0, scrVrt:0}},
 override:{mono:false, u:false, d:false, l:false, r:false}},
-/*PANDA   */pNs: s.pNs,
-			pN:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0, cntHrz:0, cntVrt:0,
+/*PANDA   */dCs: s.dCs,
+			dC:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0, cntHrz:0, cntVrt:0,
 												prjSca:5, 	prjLen:3, 	prjHAp:2, 			  edgHrz:0, edgVrt:0,
 												laReso:reso,loReso:reso,elReso:reso,
 dis: { fro:null, rea:null, sta:null, por:null, asc:null, des:null, uL:null, uR:null, dL:null, dR:null}},
@@ -730,12 +753,58 @@ dis: { fro:null, rea:null, sta:null, por:null, asc:null, des:null, uL:null, uR:n
 												scrWid:0, 	scrHei:0, 	scrHrz:0, 	scrVrt:0,
 												lVX:40,	mVX:173, tHY:40, THY:25, mHY:106, bHY:75, dBH:19 },
 /*YOZEN   */yO:{ sV:null, 		   state:null, disWid:0, disHei:0, disHrz:0, disVrt:0, lVX:0, mVX:0, tHY:0, mHY:0 }}};
+	ui.sty.pageTe = mkThemes( ui.sty.pageTe.blue, ui.sty.pageTe);
 	if( winWid > 0){ ui.winWid =winWid; ui.winHei =winHei} return ui}
+function mkThemes( s,d){ 	d.orange=blueToOrange(s); 	d.olive=blueToOlive(s); 	d.green=blueToGreen(s);
+	d.brass=blueToBrass(s);	d.cyan=blueToCyan(s); 		d.gray =blueToGray( s); 	d.copper=blueToCopper(s); return d}
+function copyTheme(t){ var T={ base:t.base, hilite:t.hilite, area:t.area, areaT:t.areaT, selArea:t.selArea,
+	selAreaT:t.selAreaT, cShade:t.cShade, valNum:t.valNum, shaNum:t.shaNum, plane:t.plane}; return T }
+function mTHue(t,n){
+	t.base=mCHue(t.base,n); t.hilite=mCHue(t.hilite,n); t.area=mCHue(t.area,n); t.areaT=mCHue(t.areaT,n);
+	t.selArea=mCHue(t.selArea,n);	t.selAreaT=mCHue(t.selAreaT,n); t.cShade=mCHue(t.cShade,n); t.valNum=mCHue(t.valNum,n);
+	t.shaNum=mCHue(t.shaNum,n); t.plane=mCHue(t.plane,n); return t}
+// Changes the RGB/HEX temporarily to a HSL-Value, modifies that value 
+// and changes it back to RGB/HEX.
+function mCHue(rgb, degree) {    var hsl = rgbToHSL(rgb);    hsl.h += degree;
+	if(hsl.h > 360){ hsl.h -= 360}else if(hsl.h < 0){ hsl.h += 360}    return hslToRGB(hsl)}
+// exepcts a string and returns an object
+function rgbToHSL(rgb){ rgb = rgb.replace(/^\s*#|\s*$/g, '');
+    if(rgb.length == 3){ rgb = rgb.replace(/(.)/g, '$1$1'); }
+    var r =parseInt(rgb.substr(0,2),16)/255, g =parseInt(rgb.substr(2,2),16)/255, b =parseInt(rgb.substr(4,2),16)/255,
+        cMax = Math.max(r, g, b), cMin = Math.min(r, g, b), delta = cMax - cMin,  l = (cMax + cMin) / 2, h = 0, s = 0;
+    if (delta == 0) { h = 0}
+    else if (cMax == r) { h = 60 * (((g - b) / delta) % 6)}
+    else if (cMax == g) { h = 60 * (((b - r) / delta) + 2)}
+    else { h = 60 * (((r - g) / delta) + 4)}
+    if (delta == 0) { s = 0}
+    else { s = (delta/(1-Math.abs(2*l - 1)))}
+    return { h: h, s: s, l: l }}
+// expects an object and returns a string
+function hslToRGB(hsl) {
+    var h = hsl.h, s = hsl.s, l = hsl.l,
+    	c = (1 - Math.abs(2*l - 1)) * s, x = c * ( 1 - Math.abs((h / 60 ) % 2 - 1 )), m = l - c/ 2, r, g, b;
+    if (h < 60) 	{ 	r = c; g = x; b = 0}
+    else if (h < 120) { r = x; g = c; b = 0}
+    else if (h < 180) { r = 0; g = c; b = x}
+    else if (h < 240) { r = 0; g = x; b = c}
+    else if (h < 300) { r = x; g = 0; b = c}
+    else 			{ 	r = c; g = 0; b = x}
+    r = normalize_rgb_value(r, m); g = normalize_rgb_value(g, m); b = normalize_rgb_value(b, m); return rgbToHex(r,g,b)}
+function normalize_rgb_value(color, m) { color = Math.floor((color + m) * 255);
+    if (color < 0) { color = 0} return color}
+function rgbToHex(r, g, b) { return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); }
+function blueToOrange(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToOlive(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToGreen(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToBrass(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToCyan(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToGray(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToCopper(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
 function precalcDevicesForFeature( ui,feNim,act,qU){
 	var dev={ 	DOM:null,sB:null, pR:null, tT:null, gL:null,
 				sQ:null, aM:null, sH:null, cA:null, mE:null,
 				sT:null, eX:null, gR:null, dB:null, dG:null, pM:null,
-				sG:null, qU:null, pN:null, mC:null, kK:null, yO:null };
+				sG:null, qU:null, dC:null, mC:null, kK:null, yO:null };
 	if(act.sB){ dev.sB = mkSidebar( 	ui, feNim,				act.sV);
 				dev.pR = mkProjector( 	ui, feNim, 				act.sV);
 				/*dev.tT = mkToolTips( 	ui, feNim, 				act.sV)*/}
@@ -754,7 +823,7 @@ function precalcDevicesForFeature( ui,feNim,act,qU){
 	if(act.sG){ dev.sG = mkSystemGrid( 	ui, feNim, 	act.DOM)}
 	if(act.qU){ dev.qU = mkQuad( 		ui, feNim, 				act.sV, 				qU); 
 				dev = mkQuad2( 			ui,	feNim, 							dev, 		qU)}
-	if(act.pN){ dev.pN = mkPanda( 		ui, feNim, 				act.sV, 	dev.gL)}
+	if(act.dC){ dev.dC = mkDice( 		ui, feNim, 				act.sV, 	dev.gL)}
 	if(act.mC){ dev.mC = mkMosaic( 		ui, feNim, 				act.sV, 	dev.gL)}
 	if(act.kK){ dev.kK = mkLakara( 		ui, feNim, 				act.sV, 	dev.gL)}
 	if(act.yO){ dev.yO = mkYozen( 		ui, feNim, 				act.sV, 	dev.gL)}
@@ -806,7 +875,7 @@ function mkGram( ui,feNim,DOM,sV){ 		var re=new Gram( ui,feNim,DOM,sV);	 		re =m
 function mkDevBar( ui,feNim,DOM,sV){ 	var re=new DevBar( ui,feNim,DOM,sV); 		re =mkDevBarElements( re);return re}
 function mkSystemGrid( ui,feNim,DOM){ 	var re=new SystemGrid( ui,feNim,DOM); 		re =mkSystemGridElements(re);return re}
 function mkQuad( ui,hnd,sV,qU){ 		var re=new Quad( ui,hnd,sV,qU); 			re =caQuad( re,qU);return re}
-function mkPanda( ui,hnd,sV,par){ 		var re=new Panda( ui,hnd,sV,par);return re}
+function mkDice( ui,hnd,sV,par){ 		var re=new Dice( ui,hnd,sV,par);return re}
 function mkTower( ui,hnd,sV,par){ 		var re=new Tower( ui,hnd,sV,par); 			re =mkTowerElements( re);return re}
 function mkDialog( ui,feNim,DOM,sV,p){  var re=new Dialog( ui,feNim,DOM,sV,p); 		re =mkDialogElements( re);return re}
 function mkMosaic( ui,feNim,sV,parent){ var re=new Mosaic( ui,feNim,sV,parent); 	re =mkMosaicElements( re); return re}
@@ -942,14 +1011,14 @@ function SystemGrid( ui,feNim,DOM){ this.ui =ui; this.actDOM =DOM; this.DOM =nul
 	var sty={
 		bG:"#448844",	arm:"#888844",		brd:"#ffff88",		leg:"#222244"};
 	this.sty =sty;}
-function Panda( ui,fe,SVG,parent){ this.ui =ui; this.actSVG =SVG; this.sV =null; this.feNim=fe; this.parent=parent;
+function Dice( ui,fe,SVG,parent){ this.ui =ui; this.actSVG =SVG; this.sV =null; this.feNim=fe; this.parent=parent;
 	this.disWid =parent.scrWid; this.disHei =parent.scrHei; this.disHrz =parent.scrHrz; this.disVrt =parent.scrVrt;
 	this.cntHrz =parent.scrWid / 2; 	this.cntVrt =parent.scrHei / 2;
-	this.prjSca =ui.devices.pN.prjSca; 	this.prjLen =ui.devices.pN.prjLen; 	this.prjHAp =ui.devices.pN.prjHAp;
-	this.edgHrz =(parent.scrWid / 2) * (ui.devices.pN.prjLen / ui.devices.pN.prjSca);
-	this.edgVrt =(parent.scrHei / 2) * (ui.devices.pN.prjLen / ui.devices.pN.prjSca);
-	this.laReso =ui.devices.pN.laReso; 	this.loReso =ui.devices.pN.loReso; 	this.elReso =ui.devices.pN.elReso;
-	this.dis = ui.devices.pN.dis;
+	this.prjSca =ui.devices.dC.prjSca; 	this.prjLen =ui.devices.dC.prjLen; 	this.prjHAp =ui.devices.dC.prjHAp;
+	this.edgHrz =(parent.scrWid / 2) * (ui.devices.dC.prjLen / ui.devices.dC.prjSca);
+	this.edgVrt =(parent.scrHei / 2) * (ui.devices.dC.prjLen / ui.devices.dC.prjSca);
+	this.laReso =ui.devices.dC.laReso; 	this.loReso =ui.devices.dC.loReso; 	this.elReso =ui.devices.dC.elReso;
+	this.dis = ui.devices.dC.dis;
 	var sty ={
 		bG:"#220000"}
 	this.sty =sty}
@@ -1008,7 +1077,8 @@ function mkTFun(x,y,id,co,cl,fonSiz,txt,fonFam,op){ var t =document.createElemen
 				if( cl!=false){ t.setAttribute( 'class',cl) }
 								t.textContent =txt; return t}
 //b.e=mkTFun(b.x,b.y,"cUIUFun-1","#662525","cUIUFun",66,"1","strike_fighter",0.5);
-function mkC(c,x,y,w,h,id,co,cl,xA,yA,d,op){ var e=null; var v="";
+function mkY(){ /*värierottelu mkC*/}
+function mkC(c,x,y,w,h,id,co,cl,xA,yA,d,op,usrTyN){ var e=null; var v=""; //todo:tyn (if user male?, muuten nappien alle)
 	if(!xA){ if(!yA){ 	e =mkK(x+(w/d),y+(h/d),w,h,id+"-btm",co,cl+"-btm",op); c.push(e);
 						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
 						e =mkL(x-(w/d),	y-(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e)}
@@ -1289,23 +1359,23 @@ function getDevicesForFeature( h){ var r=null; switch( h){
 	case "dharma": 	r = {  DOM:true, sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
 							sT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
-							sG:true, qU:false,pN:false,mC:false,kK:false,yO:false};return r;
+							sG:true, qU:false,dC:false,mC:false,kK:false,yO:false};return r;
 	case "money" : 	r = {  DOM:true, sV:true, sB:true, tT:true, gL:true, 
 							sQ:true, aM:true, sH:true, cA:true, mE:false,
 							sT:true, eX:true, gR:false,dB:true, dG:false,pM:false,
-							sG:false,qU:false,pN:false,mC:false,kK:false,yO:false};return r;
+							sG:false,qU:false,dC:false,mC:false,kK:false,yO:false};return r;
 	case "mosaic": 	r =	{  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:true,
 							sT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
-							sG:false,qU:true, pN:false,mC:false,kK:false,yO:false};return r;
+							sG:false,qU:true, dC:false,mC:false,kK:false,yO:false};return r;
 	case "yozen" : 	r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
 							sT:false,eX:true, gR:true, dB:true, dG:false,pM:false,
-							sG:false,qU:false,pN:false,mC:false,kK:false,yO:true };return r;
+							sG:false,qU:false,dC:false,mC:false,kK:false,yO:true };return r;
 	case "sygnal": 	r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
 							sT:true, eX:true, gR:false,dB:true, dG:false,pM:false,
-							sG:false,qU:true, pN:false,mC:false,kK:false,yO:false};return r}}
+							sG:false,qU:true, dC:false,mC:false,kK:false,yO:false};return r}}
 
 function precalcToolsForFeatures( ui, fes, fesLen){
 	for(var i=0; i < fesLen; i++) { var tools 	=precalcToolsForFeature( fes[i]);
