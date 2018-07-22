@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta name="viewport" content="width=device-width, initial-scale=1.0"
 	http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>monoliitti 2215</title>
+<title>monoliitti2271</title>
 <style>@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
 		url('diodi/profontwindows-webfont.woff') 	format('woff');	font-weight:normal; font-style:normal; }
 	/*@font-face { font-family: 'de_valenciaregular'; src: url('diodi/de_valencia_beta-webfont.woff2') format('woff2'),
@@ -19,21 +19,18 @@ window.addEventListener("resize", draw, true);
 function draw(){ calcInterface( AL); predraw( AL); postinit( AL); }
 function clearScreen(){var e=Array.from(document.querySelectorAll('svg')); e.forEach( function(e){ e.remove()})}
 var AL={
-	demo: 	{act:false,
-		dummy: { first:"N", second:"N", surname: "N", full:"N N N", name:"N N"},
-		puppet:{ big:-1, male:true, child:-1, legend:0}},
 	defUser:false,
 	dev: 	true,
 	fe: 	"mosaic",
-	fes: 	["dharma","money","mosaic","yozen","sygnal"],
+	fes: 	["money","mosaic","yozen","zygn"],
 	pages: 	["initUser"],
-	pR: 	["MOQ","SOC","TMP","REL"],
-	sG: [{fe:"dharma",sTs:["hello"],
+	pJ: 	["TYPE","META","COL.","TOC."],
+	sG: [{fe:"money",sTs:["hello"],
 			dis: 	 { mono:"", u:"sGN", d:"sGS", l:"sGW", r:"sGE", uL:"sGNW",	uR:"sGNE", 	dL:"sGSW", 	dR:"sGSE"}}],
 	dC: [{fe:"mosaic",sTs:["hello","world"], 
 			dis: 	 { mono:"", u:"mCAHo",d:"mCAHe",l:"mCCHo",r:"mCCHe",uL:"qRuLS",uR:"qRuRS",dL:"qRdLS",dR:"qRdRS"},
 			override:{ mono:false,u:false,d:false,l:false,r:false}}],
-	qU: [{fe:"sygnal",sTs:["hello"],
+	qU: [{fe:"zygn",sTs:["hello"],
 		 	dis: 	 { mono:"",	u:"", d:"", l:"prompt",r:"",	uL:"", 		uR:"mCSelf",dL:"", 		dR:"mCOther"},
 			override:{ mono:false,u:false,d:false,l:true, r:false}}],
 	qD: [{hnd:"prompt"  }],
@@ -41,16 +38,9 @@ var AL={
 	qR: [{hnd:"qRuLS" 	},{hnd:"qRuRS" 	},{hnd:"qRdLS" 	},{hnd:"qRdRS" 	}],	kK: [{hnd:"..." }],
 	reso: 	5,	fesLen: 0, 	sTs: []}
 var sV =document.createElementNS( "http://www.w3.org/2000/svg","svg"); var nS =sV.namespaceURI;
-function predraw( al){
-	function mkM( x,y,w,h,c) 	{ var r=document.createElementNS( nS,'rect');
-		r.setAttribute( 'x',x); r.setAttribute( 'y',y);r.setAttribute( 'width',w);
-		r.setAttribute( 'height',h); r.setAttribute( 'fill',c);
-		if(typeof cl!='undefined'){ r.setAttribute( 'class',cl) }return r}
-	sV.setAttribute( 'height',window.innerHeight); sV.setAttribute( 'width',window.innerWidth);
-    //var g =mkM(266,25,25,66,'#00ff00'); var h =mkM(366,25,25,66,'h','#00ff00');	sV.appendChild( g);	sV.appendChild( h);
-	for(var j=0; j < al.fesLen; j++){
-		if( al.ui.features[j].nim ==al.fe){
-			//console.log( al.ui.features[j]); console.log("j"); console.log( al.ui.features[j].dev.sB.sV);
+function predraw( al){ sV.setAttribute( 'height',window.innerHeight); sV.setAttribute( 'width',window.innerWidth);
+	for(var j=0; j < al.fesLen; j++){ if( al.ui.features[j].nim ==al.fe){
+			console.log( al.ui);//.features[j]); console.log("j"); console.log( al.ui.features[j].dev.sB.sV);
 
 			for(var i=0; i < al.ui.features[j].dev.sB.sV.dELen; i++){ sV.appendChild( al.ui.features[j].dev.sB.sV.dE[i])}
 			if( al.ui.features[j].act.sT){ sV.appendChild( al.ui.features[j].dev.sT.sV)};
@@ -73,9 +63,10 @@ function predraw( al){
 			if( al.ui.features[j].act.pM){ sV.appendChild( al.ui.features[j].dev.pM.sV)};
 			if( al.ui.features[j].act.yO){ sV.appendChild( al.ui.features[j].dev.yO.sV)};
 			//if( al.ui.features[j].act.tT){ sV.appendChild( al.ui.features[j].dev.tT.sV)};
+
 				}}}
 $(document).ready( function(){ postinit( AL)})
-function postinit( al){ askForUser( al.ui, al.demo, al.user)}
+function postinit( al){ askForUser( al.ui, al.user); }
 
 function mkDiffSpace( se){ }
 function DiffractionPlane( nim,o1,f1,o2,f2,o3,f3,o4,f4){ this.nim=nim;
@@ -177,13 +168,17 @@ AL.Type={ seed: ["RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FI
 	case "TIN":return "ON-alpha";case "TEN":return "BN-gamma";case "TIR":return "BR-beta";	case "TER":return "OR-delta";
 	case "FIN":return "ON-delta";case "FEN":return "BN-beta"; case "FIR":return "BR-gamma";	case "FER":return "OR-alpha";
 	case "NIT":return"ABN-alpha";case "NET":return"ABN-gamma";case "NIF":return "AN-delta";	case "NEF":return "AN-beta"}},
-	TmSentSent:function( ni){ switch( ni){ 	
+	TmSentM:function( ni){ switch( ni){ 	
 		case "RIT":return "AUT"; 	case "RET":return "ARL"; 	case "RIF":return "ABV"; 	case "REF":return "DAR";
 		case "TIN":return "DTH"; 	case "TEN":return "AAN"; 	case "TIR":return "DUT";	case "TER":return "DRL";
 		case "FIN":return "ATT" ;	case "FEN":return "ASO"; 	case "FIR":return "DBV";	case "FER":return "AAR";
 		case "NIT":return "ATH"; 	case "NET":return "DAN"; 	case "NIF":return "DTT";	case "NEF":return "DSO"}},
-	TmSent:function( ni){ var sty ={ sent:"", poli:""}; sty.sent =this.TmSentSent( ni);
-														sty.poli =this.TmSentPoli( ni);
+	TmSentF:function( ni){ switch( ni){ 	
+		case "RIT":return "AUT"; 	case "RET":return "ARL"; 	case "RIF":return "ABV"; 	case "REF":return "DAR";
+		case "TIN":return "DTH"; 	case "TEN":return "AAN"; 	case "TIR":return "DUT";	case "TER":return "DRL";
+		case "FIN":return "ATT" ;	case "FEN":return "ASO"; 	case "FIR":return "DBV";	case "FER":return "AAR";
+		case "NIT":return "ATH"; 	case "NET":return "DAN"; 	case "NIF":return "DTT";	case "NEF":return "DSO"}},
+	TmSent:function( ni){ var sty ={ sentM:"", poli:""};sty.ni=ni;
 														sty.engZodiacF =this.TmEngZodiacF( ni);
 														sty.engZodiacM =this.TmEngZodiacM( ni);
 														sty.finZodiacF =this.TmFinZodiacF( ni);
@@ -209,9 +204,7 @@ AL.Type={ seed: ["RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FI
 	case"NIF":return"Meteoriitti"; 	case"FIN":return"Aurinko"; 	case"NIT":return"Korppi"; 	case"TIN":return"Haltia";
 	case"NEF":return"Planeetta"; 	case"FEN":return"Tähti"; 	case"NET":return"Hevonen"; 	case"TEN":return"Peikko"}},
 	Tm:function( n,z,x,y,X,Y,ni){
-		var o={	n:n, ni:ni, z:z, y:y, x:x, sent:"", mili:"",
-		/*	x1:x, 		x2:X, 		x3:false, 	x4:false,	y1:y, 		y2:Y, 		y3:false, 	y4:false,
-			x5:false, 	x6:false, 	x7:false, 	x8:false,	y5:false, 	y6:false, 	y7:false, 	y8:false};*/
+		var o={	n:n, ni:ni, z:z, y:y, x:x,
 			x5:x, 		x8:X, 		x1:false, 	x4:false,	y5:y, 		y8:Y, 		y1:false, 	y4:false,
 			x2:false, 	x3:false, 	x6:false, 	x7:false,	y2:false, 	y3:false, 	y6:false, 	y7:false};
 		o.x3= !o.x; 	o.x5= !o.x; 		o.y3= !o.x2; 	o.y5= !o.y2; 
@@ -365,6 +358,13 @@ function L( n,l,d){ var o=AL.Context.Co(n,"L",l,d); this.n=o.n; this.ni=o.ni; th
 function C( n,l,d){ var o=AL.Context.Co(n,"C",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 function O( n,l,d){ var o=AL.Context.Co(n,"O",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 function S( n,l,d){ var o=AL.Context.Co(n,"S",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
+
+AL.Gender={ seed: ["f","F","m","M"],
+	Gn:function( n,ni,g,a){ var o={ n:n, ni:ni, gn:g, ad:a}; return o}}
+function Girl( n,g,a){ var o=AL.Gender.Gn(n,"f",g,a); this.n=o.n;this.ni=o.ni;this.gn=o.gn;this.ad=o.ad}
+function Woman(n,g,a){ var o=AL.Gender.Gn(n,"F",g,a); this.n=o.n;this.ni=o.ni;this.gn=o.gn;this.ad=o.ad}
+function Boy ( n,g,a){ var o=AL.Gender.Gn(n,"m",g,a); this.n=o.n;this.ni=o.ni;this.gn=o.gn;this.ad=o.ad}
+function Man ( n,g,a){ var o=AL.Gender.Gn(n,"M",g,a); this.n=o.n;this.ni=o.ni;this.gn=o.gn;this.ad=o.ad}
 /*                                                                                                              ! ?
                                                                                                                TÿE
                                                                                                               OÿŸÿNOB     ƒ
@@ -378,8 +378,8 @@ function S( n,l,d){ var o=AL.Context.Co(n,"S",l,d); this.n=o.n; this.ni=o.ni; th
                                                                                                 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ€ asÿÿÿ
                                                                                              ÿÿÿÿÿÿÿold spice so lÿÿÿÿ
                                                                                ..:::::~~ˆ~ˆ~~~~~~~~~~~^ˆ~ˆ¨~¨~¨*~ˆ*/
-function mkPanda(id){ var di=null; switch( id) { case "des":di=new des(  1, false,null, null ); return di;
-	/* link to ordinal time here? */			case "asc":di=new asc(  2, true, null, null ); return di;
+function mkPanda(id){ var di=null; switch( id){ case "des":di=new des(  1, false,null, null ); return di;
+												case "asc":di=new asc(  2, true, null, null ); return di;
 												case "Bpx":di=new Bpx(  3, false,false,null ); return di;
 												case "Gpx":di=new Gpx(  4, true, false,null ); return di;
 												case "Bfx":di=new Bfx(  5, false,true, null ); return di;
@@ -428,6 +428,11 @@ function mkContext(id){ var co=null;switch( id){case "O":co =new O( 1, false,fal
 												case "S":co =new S( 2, false,true ); return co;
 												case "L":co =new L( 3, true, false); return co;
 												case "C":co =new C( 4, true, true ); return co}}
+function mkGender(id){ var gn=null;switch( id){ case "f":gn =new Girl ( 1, false,false); return gn;
+												case "F":gn =new Woman( 2, false,true ); return gn;
+												case "m":gn =new Boy  ( 3, true, false); return gn;
+												case "M":gn =new Man  ( 4, true ,true ); return gn;}}
+function precalcGender(gn){ var gns=[];var bu=null; for(var n=0; n < 4  ;n++){bu=mkGender(gn[n]); gns.push(bu)} return gns}
 function precalcDice( di) { var dis=[];var bu=null; for(var n=0; n < 22 ;n++){ bu=mkPanda( di[n]);dis.push(bu)} return dis}
 function precalcTypes( ty){ var tys=[];var bu=null; for(var n=0; n < 16 ;n++){ bu=mkType( ty[n]); tys.push(bu)} return tys}
 function precalcSpirits(sp){var sps=[];var bu=null; for(var n=0; n < 8  ;n++){bu=mkSpirit(sp[n]); sps.push(bu)} return sps}
@@ -435,25 +440,27 @@ function precalcContexts(c){var cos=[];var bu=null; for(var n=0; n < 4  ;n++){bu
 function precalcForest( al){ al.fL={};	al.fL.co = precalcContexts( al.Context.seed);
 										al.fL.sp = precalcSpirits( 	al.Spirit.seed);
 										al.fL.es = precalcTypes( 	al.Type.seed);
-										al.fL.di = precalcDice( 	al.Dice.seed);}
+										al.fL.di = precalcDice( 	al.Dice.seed);
+										al.fL.gn = precalcGender( 	al.Gender.seed)}
 function precalc() {
 	precalcForest(AL); 		console.log( AL.fL);
 	precalcInterface(AL);
 }
 
 function precalcInterface(al){
-								AL.user = { curPa:'initUser', curFe:false, curFo:null, sty:null,
-											selChi:false, chi:false,
-											//selBig:true, big:true,
-											selMas:false,mas:true,
-											selTy: false,tyN: "NET"}; calcInterface(al)}
+								AL.user = { crtPa:'initUser', crtFe:false, 	crtFo:null,
+											crtTyFo:null, 	crtGnFo:null, 	sty:null,
+											selGn: false, 	ty:null, 		gn:null,
+											selTy: false, 	tyN: "NET"}; 
+											AL.user.gn = AL.fL.gn.find(o => o.ni === "M");
+											calcInterface(al)}
 
 function calcInterface(al){ 	var ui 					= precalcUserInterfaceTemplates( false,		al.reso,
 																						 0, 		0,
 																						 al.sG,	 	al.qU,
 																						 al.qD,	 	al.dC,
 																						 al.mC,	 	al.qR,
-																						 al.kK, 	al.pR,
+																						 al.kK, 	al.pJ,
 																						 al.pages);
 								ui 						= measureWindow( ui);
 
@@ -486,16 +493,16 @@ function calcInterface(al){ 	var ui 					= precalcUserInterfaceTemplates( false,
 //AL.user.ty = AL.fL.es.filter(function(o){return o.ni==AL.user.tyN})[0];
 								 
 
-function setUserAgeClick(id){AL.user.selChi=true;AL.user.chi= id.split("-").pop(); 	refreshUser( AL.ui,AL.demo,AL.user);}
-function setUserAgeHilight(id){if(!AL.user.curFo==id){ AL.user.curFo= id;/*toho xxx */refreshUser( AL.ui,AL.demo,AL.user)}}
-function setUserGenderClick(id){AL.user.selMas =true;AL.user.mas= id.split("-").pop();refreshUser( AL.ui,AL.demo,AL.user);}
-function setUserGenderHilight(id){AL.user.curFo= id.split("-").pop(); 				refreshUser( AL.ui,AL.demo,AL.user)}
+/*function setUserAgeClick(id){AL.user.selGn =true;AL.user.gnN= id.split("-").pop(); 	refreshUser( AL.ui,AL.demo,AL.user);}
+function setUserAgeHilight(id){if(!AL.user.crtFo==id){ AL.user.crtFo= id;*//*toho xxx *//*refreshUser( AL.ui,AL.demo,AL.user)}}
+function setUserGenderClick(id){AL.user.selGn =true;AL.user.gnN= id.split("-").pop();refreshUser( AL.ui,AL.demo,AL.user);}
+function setUserGenderHilight(id){AL.user.crtFo= id.split("-").pop(); 				refreshUser( AL.ui,AL.demo,AL.user)}
+*/
 
 
 
 
-
-	//e.forEach( function(e){ e.addEventListener("mouseleave",function(){ c( AL.user.curFo =false)})})
+	//e.forEach( function(e){ e.addEventListener("mouseleave",function(){ c( AL.user.crtFo =false)})})
 	//e.forEach( function(e){ e.addEventListener("mousemove", function(){ c( "mousemove",	e.id,e.class)})});
 	//e.forEach( function(e){ e.addEventListener("mouseout", function(){ c( "mouseout",	e.id,e.class)})});
 	//e.forEach( function(e){ e.addEventListener("mouseout",  function(){ c( "mouseout",	e.id)})});
@@ -507,28 +514,94 @@ function setUserGenderHilight(id){AL.user.curFo= id.split("-").pop(); 				refres
 //	AL.user.ty = AL.fL.es.find(o => o.ni === AL.user.tyN);							refreshUser( AL.ui,AL.demo,AL.user,e)
 // e setattribute 
 
-function uiFocusUserType( e){ 	hiliteUserType( AL.ui,AL.demo,AL.user,e)}
-function uiChooseUserType( e){ 	chooseUserType( AL.ui,AL.demo,AL.user,e)}
-function uiFocusUserRace( e){ 	hiliteUserRace( AL.ui,AL.demo,AL.user,e)}
-function uiChooseUserRace( e){ 	chooseUserRace( AL.ui,AL.demo,AL.user,e); redrawUserByRace( AL.ui,AL.demo,AL.user,e)}
-function uiFocusUserGender( e){ hiliteUserGender( AL.ui,AL.demo,AL.user,e)}
-function uiChooseUserGender( e){chooseUserGender( AL.ui,AL.demo,AL.user,e);redrawUserByGender( AL.ui,AL.demo,AL.user,e)}
-function setUserTypeListener( e){ console.log("xyz");}
+/*function Focus( topic,crt){ this.topic =topic; this.crt =crt;}
+function Topic( ni,cnt){ this.ni =ni; this.cnt =cnt}
+function mkTopic( ni){ switch(ni){ case "pAGn": }}*/
+
+function uiFocusUserType( e){ 	hiliteUserType( AL.ui,AL.user,e)}
+function uiChooseUserType( e){ 	chooseUserType( AL.ui,AL.user,e)}
+//function uiFocusUserRace( e){ 	hiliteUserRace( AL.ui,AL.demo,AL.user,e)}
+//function uiChooseUserRace( e){ 	chooseUserRace( AL.ui,AL.demo,AL.user,e); redrawUserByRace( AL.ui,AL.demo,AL.user,e)}
+function uiFocusUserGender( e){ hiliteUserGender( AL.ui,AL.user,e)}
+function uiChooseUserGender( e){chooseUserGender( AL.ui,AL.user,e);}
+function uiNoFocus( ){ noHilite(AL.ui,AL.user)}
 function bindMany( sel,c){ var e=Array.from(document.querySelectorAll( sel));
 	e.forEach( function(e){ e.addEventListener("mouseover", function(){ c( "mouseover",	e)})});
 	e.forEach( function(e){ e.addEventListener("mousedown", function(){ c( "mousedown", e)})});}
 function listenForUser(){
 	bindMany( '.pAIU_tBt', function(ev,e) 	{ switch(ev){ 	case "mousedown": uiChooseUserType( e); 	break;
-															case "mouseover": uiFocusUserType( e); 	break; }}); }
+															case "mouseover": uiFocusUserType( e); 		break; }});
+	bindMany( '.pAIU_gBt', function(ev,e) 	{ switch(ev){ 	case "mousedown": uiChooseUserGender( e);	break;
+															case "mouseover": uiFocusUserGender( e); 	break; }});
+//	bindMany( '.pAWrap', function( ev, e) 	{ switch(ev){ 	case "mouseover": uiNoFocus( ); 		sB_btn	break;}})
+ 	bindMany( '.sB_btn', function(ev,e) 	{ switch(ev){ 	case "mousedown": uiChooseSb( e);	console.log(",");break;}});
+//															case "mouseover": console.log("."); break;}});
+}
 
-function showPage( p){ for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV)}
-function askForUser( ui,demo,usr){ console.log(usr);
-	var p =AL.ui.pages.find(o => o.nim =='initUser');
-  	if( demo.act){ demo.dummy =dbFullName( demo.puppet.finnish, demo.puppet.male, demo.puppet.child, demo.puppet.legend )}
-	showPage( p); listenForUser()}
+//function listenUI(){console.log("li");
+//	bindMany( '.sB_btn', function(ev,e) 	{ switch(ev){ 	case "mousedown": uiChooseSb( e);	break;
+//															case "mouseover": console.log("."); break;}});}
+function uiChooseSb( e){ console.log(e); chooseUserFeat( AL.ui,AL.user,e)}
+function chooseUserFeat( ui,usr,e){ var id = e.id.split("-").pop();}
+/*if( usr.selGn &&(usr.gn.ni ==id)){ resetGe( id,usr,ui.sty.pageIU)}
+	else{ resetGx( usr,ui.sty.pageIU); chooseG( e,usr,ui.sty.pageIU,id); }}
+	}*/
+
+function showPage( p){ //clearPage();
+	for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV); 
+}
+function askForUser( ui,usr){ var p =AL.ui.pages.find(o => o.nim =='initUser');	showPage( p); listenForUser()}
 function clearPage(){
-	var e=Array.from(document.querySelectorAll('.pAWrap')); console.log(e); e.forEach( function(e){ e.remove()})}
-function hiliteUserType(ui,demo,usr,e){ if(!usr.selTy){hilitex( e,usr,ui.sty.pageIU)}}
+	var e=Array.from(document.querySelectorAll('.pAIU_gBT')); console.log(e); 
+	//var e=Array.from(document.querySelectorAll('.pAWrap .pAIU_txt .pAIU_gBt .pAIU_gBT .pAIU_tBt .pAIU_tBT'));
+	//console.log(e);
+	//e.forEach( function(e){ e.remove()});
+}
+
+function noHilite(ui,usr){  resetGx(usr,ui.sty.pageIU); resetTx(usr,ui.sty.pageIU); }
+
+function hiliteUserGender(ui,usr,e){ if(!usr.selGn){hilitGx( e,usr,ui.sty.pageIU)}}
+function hilitGx(e,usr,s){
+	if(usr.crtGnFo!=null){ if(usr.crtGnFo!=e){ colGex( e,s.selBtT); colGex( usr.crtFo,s.btT);
+		usr.crtGnFo =e; usr.crtFo =e;}}
+	else{ usr.crtGnFo =e; usr.crtFo =e; colGex( usr.crtGnFo,s.selBtT); }}
+function colGex( e,c){ var r=e.id.split("-").pop(); var l=e.id.split("_").shift(); r=l+"_gBT-"+r;
+	l =document.getElementById( r);	l.setAttribute('fill',c)}
+function chooseUserGender(ui,usr,e){ var id = e.id.split("-").pop(); 
+	if( usr.selGn &&(usr.gn.ni ==id)){ resetGe( id,usr,ui.sty.pageIU)}
+	else{ resetGx( usr,ui.sty.pageIU); chooseG( e,usr,ui.sty.pageIU,id); }}
+function resetGe( id,usr,s){ var
+ 	Id="#pAIU_gBt-"+usr.gn.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btB); usr.crtGnFo=null;
+	Id="#pAIU_gBT-"+usr.gn.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btT); usr.selGn=false;}
+function resetGx( usr,s){ if(usr.selGn){ var
+	id="#pAIU_gBt-"+usr.gn.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btB);
+	id="#pAIU_gBT-"+usr.gn.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btT);}}
+function chooseG(e,usr,s,id){
+	if(usr.crtGnFo!=null && usr.crtGnFo!=e){ colGex(usr.crtGnFo,s.btT)}
+	e.setAttribute('fill',s.selBtB); colGex(e,s.selBtT);
+	usr.gn = AL.fL.gn.find(o => o.ni === id);	usr.selGn=true; }//usr.gnN=id;}
+
+function hiliteUserType(ui,usr,e){ if(!usr.selTy){hilitTx( e,usr,ui.sty.pageIU); }}
+function hilitTx(e,usr,s){
+	if(usr.crtTyFo!=null){ if(usr.crtTyFo!=e){ colTex( e,s.selBtT); colTex( usr.crtTyFo,s.btT);
+		usr.crtTyFo =e; usr.crtFo =e;}}
+	else{ usr.crtTyFo =e; colTex( usr.crtTyFo,s.selBtT); }}
+function colTex( e,c){ var r=e.id.split("-").pop(); var l=e.id.split("_").shift(); r=l+"_tBT-"+r;
+	l =document.getElementById( r);	l.setAttribute('fill',c)}
+function chooseUserType(ui,usr,e){ var id = e.id.split("-").pop();
+	if( usr.selTy &&(usr.ty.ni ==id)){ resetTy( id,usr,ui.sty.pageIU)}
+	else{ resetTx( usr,ui.sty.pageIU); chooseT( e,usr,ui.sty.pageIU,id); }}
+function resetTy( id,usr,s){ var
+ 	Id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btB); usr.crtTyFo=null;
+	Id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btT); usr.selTy=false;}
+function resetTx( usr,s){ if(usr.selTy){ var
+	id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btB);
+	id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btT);}}
+function chooseT(e,usr,s,id){
+	if(usr.crtTyFo!=null && usr.crtTyFo!=e){ colTex(usr.crtTyFo,s.btT)}
+	e.setAttribute('fill',s.selBtB); colTex(e,s.selBtT);
+	usr.ty = AL.fL.es.find(o => o.ni === id);	usr.selTy=true;}
+/*function hiliteUserType(ui,demo,usr,e){ if(!usr.selTy){hilitex( e,usr,ui.sty.pageIU)}}
 function hilitex(e,usr,s){
 	if(usr.curFo!=null){ if(usr.curFo!=e){ colTex( e,s.selBtT); colTex( usr.curFo,s.btT); usr.curFo =e}}
 	else{ usr.curFo =e; colTex( usr.curFo,s.selBtT); }}
@@ -546,7 +619,7 @@ function resetEx( usr,s){ if(usr.selTy){ var
 function chooseT(e,usr,s,id){
 	if(usr.curFo!=null && usr.curFo!=e){ colTex(usr.curFo,s.btT)}
 	e.setAttribute('fill',s.selBtB); colTex(e,s.selBtT);
-	usr.ty = AL.fL.es.find(o => o.ni === id);	usr.selTy=true;}
+	usr.ty = AL.fL.es.find(o => o.ni === id);	usr.selTy=true;}*/
 
 function mkFeature( ui,t){ 
 	if(t.act.sV){ t.sV =mkFeatureSVG( ui,t)}
@@ -558,13 +631,11 @@ function precalcFeature( ui,template){ var fe =mkFeature( ui,template); ui.featu
 function precalcFeatures( ui,templates,fesLen) {
 	for(var i=0; i < fesLen; i++) { precalcFeature( ui,templates[i])} /*ui.fesLen =fesLen;*/ return ui}
 function rePage( al,nim){ var e=mkL(10,10,25,25,"test","#ffffff","tester",false);
-	sV.appendChild(e);
+	sV.appendChild(e); //n.u.
 	for(var i=0; i<al.pagLen; i++){ if(al.ui.pages[i].nim==nim){
 	console.log(al.ui.pages[i]);
 	al.ui.pages[i]=mkPage( nim,al.ui); console.log(al.ui.pages[i]); showPage( al.ui.pages[i])}}}
-function mkPage( nim,ui,usr){ var b;
-	console.log(ui.sty);
-	switch(nim) {
+function mkPage( nim,ui,usr){ var b; switch(nim) {
 	case "initUser" : b =mkPageForInitUser( nim, ui.winWid, ui.winHei, ui.sty.pageIU, usr, ui.sty.pageTe)} return b}
 	//case "initUser" : b =mkPageForInitUser( nim, ui.winWid, ui.winHei, ui.sty.pageIU, usr)} return b}
 function precalcUserInterfacePages( al,ui){ var re=[]; var b;
@@ -583,25 +654,27 @@ function setUserStyle( sty,usrTyN){ var r; console.log(sty);
 					case "FIR": case "TEN": r =sty.blue; break;
 					case "RIT": case "NEF": r =sty.olive; break;
 					case "TIR": case "FEN": r =sty.green; break;
-					case "RET": case "NIF": r =sty.gray; break;
+					case "RET": case "NIF": r =sty.violet; break;
 					case "TER": case "FIN": r =sty.copper; break;
 					case "NIT": case "REF": r =sty.brass; break;
 					case "TIN": case "FER": r =sty.cyan; break;} return r}
 function mkPageForInitUser( nim,winWid,winHei,s,usr,c){
-	function usAt(t){ if(usr.selChi &&(usr.chi ==t)){ p.c.c= c.selArea }else{ p.c.c= c.area} return p.c}
-	function usAT(t){ if(usr.selChi &&(usr.chi ==t)){ p.c.c= c.selAreaT}
-		else if( 	!usr.selChi && p.curFo==t){ p.c.c= c.selAreaT}
-		else{ p.c.c= c.areaT} return p.c}
-	function usGt(t){ if(usr.selMas &&(usr.mas ==t)){ p.c.c= c.selArea }else{ p.c.c= c.area} return p.c}
-	function usGT(t){ if(usr.selMas &&(usr.mas ==t)){ p.c.c= c.selAreaT}else if(!usr.selMas && p.curFo==t){ p.c.c= s.selBtT}else{ p.c.c= s.btT} return p.c}
-	function usTt(t){ if(usr.selTy &&(usr.ty.ni==t)){ p.c.c= s.selBtB }else{ p.c.c= s.btB} return p.c}
-	function usTT(t){ if(usr.selTy &&(usr.ty.ni==t)){ p.c.c= s.selBtT; 	p.c.x= b.x+b.h }
-				else if(!usr.selTy && p.curFo==t ){ p.c.c= s.selBtT; 	p.c.x= b.x+s.bPD}
+	function mkInitUserTPM( us){ var TPM; if(us.gn.gn){TPM =
+	[["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]}else {TPM =
+	[["FIR","RIF","TIR","RIT"],["FER","REF","TER","RET"],["NIF","FIN","NIT","TIN"],["NEF","FEN","NET","TEN"]]}return TPM}
+	function usGt(t){ if(usr.selGn &&(usr.gn.ni ==t)){ p.c.c= s.selBtB } else { p.c.c= s.btB} return p.c}
+	function usGT(t){ if(usr.selGn &&(usr.gn.ni ==t)){ p.c.c= s.selBtT; 		p.c.x= b.x+b.h }
+				else if(!usr.selGn && p.crtGnFo ==t ){ p.c.c= s.selBtT; 		p.c.x= b.x+s.bPD}
+														else{ p.c.c= s.btT; 	p.c.x= b.x+s.bPD} return p.c}
+	function usTt(t){ if(usr.selTy &&(usr.ty.ni ==t)){ p.c.c= s.selBtB } else { p.c.c= s.btB} return p.c}
+	function usTT(t){ if(usr.selTy &&(usr.ty.ni ==t)){ p.c.c= s.selBtT; 		p.c.x= b.x+b.h }
+				else if(!usr.selTy && p.crtTyFo ==t ){ p.c.c= s.selBtT; 		p.c.x= b.x+s.bPD}
 														else{ p.c.c= s.btT; 	p.c.x= b.x+s.bPD} return p.c}
 	c = setUserStyle( c,usr.tyN); console.log(c);
+	var tPM=mkInitUserTPM( usr);
 	var b ={ w:s.btnWid, h:s.btnHei,	x:s.fraWid, xi:s.btnGrX,  	y:s.fraHei, yi:s.btnGrY };
-	var p ={ nim:nim, e:[], l:0, E:[], L:0, c:{c:""}, curFo:""};
-	if(usr.curFo){p.curFo=usr.curFo.id.split("-").pop()}
+	var p ={ nim:nim, e:[], l:0, E:[], L:0, c:{c:""}, crtFo:""};
+	if(usr.crtFo){p.crtFo=usr.crtFo.id.split("-").pop()}
 
 //	var tE={ bG:'#123456', }
 	
@@ -623,17 +696,16 @@ p.c=usAT("A");b.e=mkT(b.x+1,b.y-s.bPD,"pAIU_btT-A",p.c.c,"pAIU_agT",s.fonSiz,"AD
 	b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-whc",s.btT, 	"pAIU_btT",s.fonSiz,"C"); 	p.e.push( b.e);	b.x=s.fraWid; b.y+=b.yi;*/
 
 	b.e=mkT(b.x,b.y-s.bPD,	"pAIU_txt-tx3",s.t, 	"pAIU_txt",s.fonSiz,"USER SEX :");p.e.push( b.e);b.x+=s.lV;
-p.c=usGt("F");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-F",p.c.c,"pAIU_get",s.selBtB, s.btnBrd);p.e.push( b.e);
-p.c=usGT("F");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-F",p.c.c,"pAIU_geT",s.fonSiz,"F"); 	p.e.push( b.e);b.x+=s.fonSiz*1.618;
-p.c=usGt("M");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_btn-M",p.c.c,"pAIU_get",s.selBtB,s.btnBrd);	p.e.push( b.e);
-p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-M",p.c.c,"pAIU_geT",s.fonSiz,"M"); 		p.e.push( b.e);
+p.c=usGt("F");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_gBt-F",p.c.c,"pAIU_gBt",s.selBtB, s.btnBrd);p.e.push( b.e);
+p.c=usGT("F");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_gBT-F",p.c.c,"pAIU_gBT",s.fonSiz,"F"); 	p.e.push( b.e);b.x+=s.fonSiz*1.618;
+p.c=usGt("M");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_gBt-M",p.c.c,"pAIU_gBt",s.selBtB,s.btnBrd);	p.e.push( b.e);
+p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_gBT-M",p.c.c,"pAIU_gBT",s.fonSiz,"M"); 		p.e.push( b.e);
 	b.x=s.fraWid; b.y+=b.yi;
 
 	b.e=mkT(b.x,b.y-s.bPD, 	"pAIU_txt-tx4",s.t, 	"pAIU_txt",s.fonSiz,"USER TYPE:");	p.e.push( b.e);b.x+=s.lV;
 
 	p.c=usTt("FIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",p.c.c,"pAIU_tBt",s.selBtB,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIN",p.c.c,"pAIU_tBT",s.fonSiz,"FIN");
-	p.e.push(b.e);b.x+=b.xi;
+	p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIN",p.c.c,"pAIU_tBT",s.fonSiz,"FIN");p.e.push(b.e);b.x+=b.xi;
 	p.c=usTt("FIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIR",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
 	p.c=usTT("FIR");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIR",p.c.c,"pAIU_tBT",s.fonSiz,"FIR");p.e.push(b.e);b.x+=b.xi;
 	p.c=usTt("FEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FEN",p.c.c,"pAIU_tBt",s.selBtB, s.btnBrd);p.e.push( b.e);
@@ -670,7 +742,8 @@ p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-M",p.c.c,"pAIU_geT",s.fonSiz,"M"
 
 	b.x=s.fraWid+s.mV+s.lV; b.y=s.fraHei+s.fraHei;
 	p.e=mkC( p.e,b.x,b.y,s.cE,s.cE,"cUIU","#336688","cUIU",false,true,4,0.7,usr.tyN);
-	p.e=mkW( p.e,b.x,b.y,s.cE,s.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa");
+	p.e=mkW( p.e,b.x,b.y,s.cE,s.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa","#ddffdd");
+
 	//p.e=mkP( p.e,b.x,b.y,s.cE,s.cE,4);
 
 	//p =whatPageForInitUser(p);
@@ -684,14 +757,14 @@ p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_btT-M",p.c.c,"pAIU_geT",s.fonSiz,"M"
 function hpE(e,p){ e.setAttribute('visibility','hidden'); p.e.push(e)}
 function shE(a,l){ for(var i=0; i < l; i++){ a[i].setAttribute( 'visibility','visible')} /*console.log(a);*/}
 function Theme( base,hilite,area,areaT,selArea,selAreaT,cubeShade,){}
-function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,mC,qR,kK,pR,pages) {
-	var s={ sBs:0, qUs:0, qDs:0, dCs:0, mCs:0, qRs:0, kKs:0, pRs:0, pL:0};
+function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,mC,qR,kK,pJ,pages) {
+	var s={ sBs:0, qUs:0, qDs:0, dCs:0, mCs:0, qRs:0, kKs:0, pJs:0, pL:0};
 	if(src){s.sGs =src.sGs; 	s.qUs =src.qUs; 	s.qDs =src.qDs; 	s.dCs =src.dCs;
-			s.mCs =src.mCs; 	s.qRs =src.qRs; 	s.kKs =src.kKs; 	s.pRs =src.pRs;		s.pL =src.pagLen; }
+			s.mCs =src.mCs; 	s.qRs =src.qRs; 	s.kKs =src.kKs; 	s.pJs =src.pJs;		s.pL =src.pagLen; }
 	else{ 	s.sGs =sG.length; 	s.qUs =qU.length; 	s.qDs =qD.length; 	s.dCs =dC.length;//length checks in caller already?
-			s.mCs =src.mCs; 	s.qRs =qR.length; 	s.kKs =kK.length; 	s.pRs =pR.length; 	s.pL =pages.length; }
+			s.mCs =src.mCs; 	s.qRs =qR.length; 	s.kKs =kK.length; 	s.pJs =pJ.length; 	s.pL =pages.length; }
 	var ui ={ sty : { b:"#000000",d:"#222222",	ledSVG:"#dddd00",ledDOM:"ff0000",ledGlo:"#00ff00",ledGloRad:6,
-				pageTe : { orange:{}, olive:{}, green:{}, gray:{}, cyan:{}, copper:{}, brass:{},
+				pageTe : { orange:{}, olive:{}, green:{}, violet:{}, cyan:{}, copper:{}, brass:{},
 					blue:{ base:"#123456", hilite:"#ff6600", area:"#345678", areaT:"#89abcd", selArea:"#6789ab",
 						selAreaT:"#deefde", cShade:"#ffcccc", valNum:"#662525", shaNum:"#252566", plane:"#336688"},
 					alpha:{ cube:0.7, wire:0.38}},
@@ -703,8 +776,8 @@ function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,m
 		devices:{DOM:null,
 /*SIDEBAR */sB:{ sV:null,DOM:null,state:null,	disWid:66, 	disHei:0, 	disHrz:0, 	disVrt:0,
 												rowHei:39,	fesHei:0,	btnBrd:4, 	btnTOX:6, 	btnTOY:12 },
-/*PROJECTr*/pR:{ sV:null,DOM:null,state:null, 	cloWid:0, 	cloHei:0, 	cloHrz:0, 	cloVrt:0,rowHei:19,
-												opeWid:0, 	opeHei:0, 	opeHrz:0, 	opeVrt:0,pRs: s.pRs },
+/*PROJECTr*/pJ:{ sV:null,DOM:null,state:null, 	cloWid:0, 	cloHei:0, 	cloHrz:0, 	cloVrt:0,rowHei:19,
+												opeWid:0, 	opeHei:0, 	opeHrz:0, 	opeVrt:0,pJs: s.pJs },
 /*SEQUENCr*/sQ:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0,rowHei:0,rowNum:5,rowOff:0 },
 /*SUPERTAB*/sT:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0,tabHei:0,tabWid:0},
 /*SHOTGUN*/ sH:{ sV:null,DOM:null,state:null, 	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0},
@@ -756,7 +829,7 @@ dis: { fro:null, rea:null, sta:null, por:null, asc:null, des:null, uL:null, uR:n
 	ui.sty.pageTe = mkThemes( ui.sty.pageTe.blue, ui.sty.pageTe);
 	if( winWid > 0){ ui.winWid =winWid; ui.winHei =winHei} return ui}
 function mkThemes( s,d){ 	d.orange=blueToOrange(s); 	d.olive=blueToOlive(s); 	d.green=blueToGreen(s);
-	d.brass=blueToBrass(s);	d.cyan=blueToCyan(s); 		d.gray =blueToGray( s); 	d.copper=blueToCopper(s); return d}
+	d.brass=blueToBrass(s);	d.cyan=blueToCyan(s); 		d.violet=blueToViolet( s); 	d.copper=blueToCopper(s); return d}
 function copyTheme(t){ var T={ base:t.base, hilite:t.hilite, area:t.area, areaT:t.areaT, selArea:t.selArea,
 	selAreaT:t.selAreaT, cShade:t.cShade, valNum:t.valNum, shaNum:t.shaNum, plane:t.plane}; return T }
 function mTHue(t,n){
@@ -798,15 +871,15 @@ function blueToOlive(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
 function blueToGreen(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
 function blueToBrass(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
 function blueToCyan(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToGray(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToViolet(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
 function blueToCopper(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
 function precalcDevicesForFeature( ui,feNim,act,qU){
-	var dev={ 	DOM:null,sB:null, pR:null, tT:null, gL:null,
+	var dev={ 	DOM:null,sB:null, pJ:null, tT:null, gL:null,
 				sQ:null, aM:null, sH:null, cA:null, mE:null,
 				sT:null, eX:null, gR:null, dB:null, dG:null, pM:null,
 				sG:null, qU:null, dC:null, mC:null, kK:null, yO:null };
 	if(act.sB){ dev.sB = mkSidebar( 	ui, feNim,				act.sV);
-				dev.pR = mkProjector( 	ui, feNim, 				act.sV);
+				dev.pJ = mkProjector( 	ui, feNim, 				act.sV);
 				/*dev.tT = mkToolTips( 	ui, feNim, 				act.sV)*/}
 	if(act.gL){ dev.gL = mkGridlock( 	ui, feNim)}
 	if(act.sQ){ dev.sQ = mkSequencer( 	ui, feNim,	act.DOM,	act.sV)}
@@ -895,7 +968,7 @@ function Sidebar( ui,feNim,SVG){ this.ui =ui;  this.actSVG =SVG; this.sV =null; 
 	this.sty =sty; }
 function Projector( ui,feNim,SVG){this.ui=ui; this.feNim=feNim; this.actSVG=true;
 	this.cloWid=ui.devices.sB.disWid;  							this.opeWid=ui.devices.sB.disWid; 
-	this.cloHei=ui.devices.pR.rowHei; 							this.opeHei=(ui.pagLen + 1) * ui.devices.pR.rowHei;
+	this.cloHei=ui.devices.pJ.rowHei; 							this.opeHei=(ui.pagLen + 1) * ui.devices.pJ.rowHei;
 	this.cloVrt=ui.devices.sB.fesHei; 							this.opeVrt=ui.devices.sB.fesHei;
 	this.cloHrz=ui.devices.sB.disHrz; 							this.opeHrz=ui.devices.sB.disHrz;
 	this.sV=null; var sty={ bG:"#444444"}; this.sty =sty;}
@@ -1126,7 +1199,7 @@ function mkC(c,x,y,w,h,id,co,cl,xA,yA,d,op,usrTyN){ var e=null; var v=""; //todo
 						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
 						e =mkL(x+(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e);
 					}}return c}
-function mkW(c,x,y,w,h,co,st,d,op,Co,cO){  var
+function mkW(c,x,y,w,h,co,st,d,op,Co,cO,CO){  var
 	e=mkI(	x-((w/d)/2),	y+((h/d)/2),	x+((w/d)/2)+(w-(w/d)), 			y+((h/d)/2),	"cHUI",Co,st,op); c.push(e);
 	e=mkI(	x-((w/d)/2),	y+((h/d)/2)+h,	x+((w/d)/2)+(w-(w/d)), 			y+((h/d)/2)+h,	"cHUI",Co,st,op); c.push(e);
 	e=mkI(	x+((w/d)/2),	y-((h/d)/2),	x+((w/d)/2)+(w-(w/d))+(w/d),	y-((h/d)/2),	"cHUI",co,st,op); c.push(e);
@@ -1152,12 +1225,23 @@ function mkW(c,x,y,w,h,co,st,d,op,Co,cO){  var
 	e=mkI(	x-((w/d)/2),	y+(h/d)+(h/8)+(h/2),x+((w/d)/2),	y+h-(1.5*(h/d)),"cHUI",cO,st,op); c.push(e);
 	e=mkI(	x-((w/d)/2)+w,	y+(h/d)+(h/8),		x+((w/d)/2)+w,	y+((h/d)/2),	"cHUI",cO,st,op); c.push(e);
 	e=mkI(	x-((w/d)/2)+w,	y+(h/d)+(h/8)+(h/2),x+((w/d)/2)+w,	y+h-(1.5*(h/d)),"cHUI",cO,st,op); c.push(e); 
+
+	e=mkI(  x+(w/2),		y+(h/2)-(h/d),		x+(w/2),		y+((h/2)+(h/d)),"cHUI",CO,42,op/2); c.push(e);
+	e=mkI(  x+(w/2)-(w/d),	y+(h/2),			x+(w/2)+(w/d),	y+(h/2), 		"cHUI",CO,42,op/2); c.push(e);
+
+	e=mkTFun(  x+(w/2)-66, 		y+(h/2)-10,	"cHty", "#ffffff", 	"pAIU_txt",25,"MOI","profont",0.618);c.push( e);
+	e=mkTFun(  x+(w/2)-25, 		y+(h/2)-4,	"cHty", "#ffffff", 	"pAIU_txt",19,"descriptzn","profont",0.618);c.push( e);
+	//myö pellahamme lauta pellej ja järjestämmep orkkioita !!!
 	return c}
 function mkP(c,x,y,w,h,d){ var e=null; var
 	v =x+(w/d)	+","+(y+(h/d))	+" "+(x+(w/2))+","+(y+(h/d)) 	+" "+(x+(w/2)) +","+(y+(h/2));
 	//	+(x+(w/d)+(w/2))+","+(y+(h/d)+(h/2))	+" "+(x+(w/d))+","+(y+(h/d));
 	e=mkSG( v,"-pP","#650065","-pP-jou",false); /*console.log(e);*/ c.push(e); return c}
 function mkI(x,y,X,Y,id,co,st,op){var r=document.createElementNS( nS,'line');
+	r.setAttribute( 'x1',x);r.setAttribute('x2',X);
+	r.setAttribute('y1',y); r.setAttribute('y2',Y); r.setAttribute('id',id); r.setAttribute( 'opacity',op);
+	r.setAttribute('stroke',co); r.setAttribute( 'stroke-width',st);return r}
+function mkII(x,y,X,Y,id,co,st,op,wi){var r=document.createElementNS( nS,'line');
 	r.setAttribute( 'x1',x);r.setAttribute('x2',X);
 	r.setAttribute('y1',y); r.setAttribute('y2',Y); r.setAttribute('id',id); r.setAttribute( 'opacity',op);
 	r.setAttribute('stroke',co); r.setAttribute( 'stroke-width',st);return r}
@@ -1264,10 +1348,10 @@ function mkSidebarSVG( sB){ var re={ dE:[], dELen: 0}; var buf =null;
 		for( var i=0; i < AL.fesLen; i++){	buf =mkFb( i,sB);  			re.dE.push(buf);
 											buf =mkFt( i,sB, AL.fes[i]);re.dE.push(buf);
 											buf =mkFr( i,sB); re.dE =re.dE.concat(buf);} re.dELen =re.dE.length; return re}
-function mkProjectorElems( ui,pR){ 	pR.sV =mkProjectorSVG1( pR); return pR}
-function mkProjectorSVG1( pR){ 	var re={ open:null, closed:null};
-							re.open =mkL( pR.opeHrz,pR.opeVrt,pR.opeWid,pR.opeHei,"pROpe",pR.sty.bG,"pROpe","");
-							re.closed=mkL(pR.cloHrz,pR.cloVrt,pR.cloWid,pR.cloHei,"pRClo",pR.sty.bG,"pRClo","");return re}
+function mkProjectorElems( ui,pJ){ 	pJ.sV =mkProjectorSVG1( pJ); return pJ}
+function mkProjectorSVG1( pJ){ 	var re={ open:null, closed:null};
+							re.open =mkL( pJ.opeHrz,pJ.opeVrt,pJ.opeWid,pJ.opeHei,"pJOpe",pJ.sty.bG,"pJOpe","");
+							re.closed=mkL(pJ.cloHrz,pJ.cloVrt,pJ.cloWid,pJ.cloHei,"pJClo",pJ.sty.bG,"pJClo","");return re}
 function mkToolTipsElements( tT){ tT.sV =mkToolTipsSVG( tT); return tT}
 function mkToolTipsSVG( tT){ 	var re =mkL( tT.disHrz,tT.disVrt,tT.disWid,tT.disHei,"tT",tT.sty.bG,"tT",""); return re}
 function mkSequencerElements( sQ){ sQ.sV =mkSequencerSVG( sQ); return sQ}
@@ -1343,20 +1427,20 @@ function Feature( ui,h,sTs,qU){ this.nim=h; this.sTs=sTs; this.sTsLen=sTs.length
 	var act =getDevicesForFeature( h); 					this.act =act;
 	var dev =precalcDevicesForFeature( ui,h,act,qU); 	this.dev =dev;
 	this.tools=null; }
-function getCaptionForFeature( h){ switch( h){ case "dharma": return "Dharma"; 	case "money": return "Money";
-	case "mosaic": return "Mosaic"; case "yozen": return "Yozen"; case "sygnal": return "Sygnal"}}
+function getCaptionForFeature( h){ switch( h){  	case "money": return "Money";
+	case "mosaic": return "Mosaic"; case "yozen": return "Yozen"; case "zygn": return "Zygnal"}}
 
 function precalcQuad( feNim){ switch( feNim){ 	case "mosaic": return AL.qU 
-												case "sygnal": return AL.qU } return null }
+												case "zygn": return AL.qU } return null }
 function precalcGridlock( disWid,disHei,gL){ gL.disWid=disWid; gL.disHei=disHei;
 	gL.scrWid=disWid-gL.lVX-gL.mVX;					gL.scrHei=disHei-gL.tHY-gL.bHY;
 	gL.scrHrz=gL.lVX+gL.mVX; 						gL.scrVrt=gL.mVX; return gL}
 function measureWindow( ui){ ui.winWid =window.innerWidth; ui.winHei =window.innerHeight; return ui}
 function precalcSuperTabs( feNim){var sTs=[]; switch( feNim){
-	case "dharma" : sTs=[ "hello","world"]; break;
+	case "money" : sTs=[ "hello","world"]; break;
 	case "mosaic" : sTs=[ "world"]; 		break}return sTs}
 function getDevicesForFeature( h){ var r=null; switch( h){
-	case "dharma": 	r = {  DOM:true, sV:true, sB:true, tT:true, gL:true,
+	case "yozen": 	r = {  DOM:true, sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
 							sT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
 							sG:true, qU:false,dC:false,mC:false,kK:false,yO:false};return r;
@@ -1368,11 +1452,11 @@ function getDevicesForFeature( h){ var r=null; switch( h){
 							sQ:true, aM:false,sH:false,cA:false,mE:true,
 							sT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
 							sG:false,qU:true, dC:false,mC:false,kK:false,yO:false};return r;
-	case "yozen" : 	r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
+	case "dharma" : r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
 							sT:false,eX:true, gR:true, dB:true, dG:false,pM:false,
 							sG:false,qU:false,dC:false,mC:false,kK:false,yO:true };return r;
-	case "sygnal": 	r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
+	case "zygn": 	r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
 							sT:true, eX:true, gR:false,dB:true, dG:false,pM:false,
 							sG:false,qU:true, dC:false,mC:false,kK:false,yO:false};return r}}
@@ -1390,7 +1474,7 @@ function precalcToolsForFeature( fe){ switch( fe){
 		tick:0,undo:1,redo:1,stop:2,play:2,rec:2,save:3,load:3,scroll:false,siF1:4,bind:4, 	min:0,max:4 };return ret;
 	case 'yozen' : var ret={ SVG:null,sB:null,
 		tick:0,undo:1,redo:1,stop:2,play:2,rec:2,save:3,load:3,scroll:false,siF1:4,bind:4, 	min:0,max:4 };return ret;
-	case 'sygnal': var r={ SVG:null,sB:null,
+	case 'zygn': var r={ SVG:null,sB:null,
 		tick:0,undo:1,redo:1,stop:2,play:2,rec:2,save:3,load:3,scroll:4, 	siF1:4,bind:4, 	min:0,max:4 };return r;}}
 function mkTools( ui,i,t){ ui.features[i].tools = mkTools2( ui.devices.sB, t) }
 function mkTools2( sB,t){ var tools ={ SVG:[], len:t.len, sB:null,
