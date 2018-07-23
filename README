@@ -1,19 +1,19 @@
-ESSENTIAL ROADMAP v0000
+ESSENTIAL ROADMAP v0000.1
 I          DUP. Duplicate        : INTp     <=>def     INTp(DUP) ⇔ INTp
 II         MRR. Mirror           : ENTj     <=>def     INTp(MRR) ⇔ ENTj
 III        FLR. Fluorescent      : ENTp     <=>def     INTp(FLR) ⇔ ENTp
 IV         QID. Quasi-Duplicate  : INTj     <=>def     INTp(QID) ⇔ INTp(FLR(MRR))
 V          NRM. Normal           : INFp     <=>def     INTp(NRM) ⇔ INFp
-VI         <SP. Supervisor       : ENFj     <=>def     INTp(<SP) ⇔ INTp(MRR(NRM))
+VI         WT>. Therapist        : ENFj     <=>def     INTp(WT>) ⇔ INTp(MRR(NRM))
 VII        ILL. Illusionary      : ENFp     <=>def     INTp(ILL) ⇔ INTp(FLR(NRM))
 VIII       SEG. Super-Ego        : ISFp     <=>def     INTp(SEG) ⇔ ISFp
-IX         <BN. Benefactor       : ISTj     <=>def     INTp(<BN) ⇔ INTp(SEG(ILL))
+IX         TC>. Teacher          : ISTj     <=>def     INTp(TC>) ⇔ INTp(SEG(ILL))
 X          SLE. Semi-Love        : ESTp     <=>def     INTp(SLE) ⇔ INTp(MRR(<BN))
-XI         SP>. Supervisee       : ESTj     <=>def     INTp(SP>) ⇔ INTp(FLR(<BN))
+XI         WT>. Patient          : ESTj     <=>def     INTp(WT>) ⇔ INTp(FLR(<BN))
 XII        COM. Comparative      : ISTp     <=>def     INTp(COM) ⇔ INTp(MRR(SP>))
 XIII       DNK. Donkey           : ESFj     <=>def     INTp(DNK) ⇔ INTp(MRR(SEG))
 XIV        DUO. Love             : ESFp     <=>def     INTp(DUO) ⇔ INTp(FLR(SEG))
-XV         BN>. Beneficiary      : INFj     <=>def     INTp(BN>) ⇔ INTp(MRR(ILL))
+XV         <TC. Student          : INFj     <=>def     INTp(<TC) ⇔ INTp(MRR(ILL))
 XVI        ACT. Activator        : ISFj     <=>def     INTp(ACT) ⇔ INTp(MRR(DUO))
 
 Games as a Synthesis Of Hip and Square
