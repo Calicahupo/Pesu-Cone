@@ -1,16 +1,16 @@
-ESSENTIAL ROADMAP v0000.1
+ESSENCE 0002
 I          DUP. Duplicate        : INTp     <=>def     INTp(DUP) ⇔ INTp
 II         MRR. Mirror           : ENTj     <=>def     INTp(MRR) ⇔ ENTj
 III        FLR. Fluorescent      : ENTp     <=>def     INTp(FLR) ⇔ ENTp
 IV         QID. Quasi-Duplicate  : INTj     <=>def     INTp(QID) ⇔ INTp(FLR(MRR))
-V          NRM. Normal           : INFp     <=>def     INTp(NRM) ⇔ INFp
-VI         WT>. Therapist        : ENFj     <=>def     INTp(WT>) ⇔ INTp(MRR(NRM))
+V          ANG. Angel            : INFp     <=>def     INTp(ANG) ⇔ INFp
+VI         <WT. Therapist        : ENFj     <=>def     INTp(<WT) ⇔ INTp(MRR(NRM))
 VII        ILL. Illusionary      : ENFp     <=>def     INTp(ILL) ⇔ INTp(FLR(NRM))
 VIII       SEG. Super-Ego        : ISFp     <=>def     INTp(SEG) ⇔ ISFp
 IX         TC>. Teacher          : ISTj     <=>def     INTp(TC>) ⇔ INTp(SEG(ILL))
-X          SLE. Semi-Love        : ESTp     <=>def     INTp(SLE) ⇔ INTp(MRR(<BN))
-XI         WT>. Patient          : ESTj     <=>def     INTp(WT>) ⇔ INTp(FLR(<BN))
-XII        COM. Comparative      : ISTp     <=>def     INTp(COM) ⇔ INTp(MRR(SP>))
+X          SLE. Semi-Love        : ESTp     <=>def     INTp(SLE) ⇔ INTp(MRR(<TC))
+XI         WT>. Patient          : ESTj     <=>def     INTp(WT>) ⇔ INTp(FLR(<TC))
+XII        COM. Comparative      : ISTp     <=>def     INTp(COM) ⇔ INTp(MRR(WT>))
 XIII       DNK. Donkey           : ESFj     <=>def     INTp(DNK) ⇔ INTp(MRR(SEG))
 XIV        DUO. Love             : ESFp     <=>def     INTp(DUO) ⇔ INTp(FLR(SEG))
 XV         <TC. Student          : INFj     <=>def     INTp(<TC) ⇔ INTp(MRR(ILL))
