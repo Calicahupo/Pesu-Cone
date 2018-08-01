@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>monoliitti2356</title>
+<title>mustikkapiirakka2585</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -17,7 +17,7 @@
 </style><!-- src="diodi/di0016.js"></script><!-aldiod--> <!-- src="diodi/dB0000.js"></script><!-devBar-->
 <script src="diodi/jquery-2.js"></script><script>
 //window.addEventListener("resize", draw, true);
-function draw(){ calcInterface( OM); predraw( OM); clearScreen(); postinit( OM); }
+function draw(){ calcInterface( OM); predraw( OM); clearScreen(); postinit( OM); /*clearScreen();*/}
 function clearScreen(){var e=Array.from(document.querySelectorAll('*')); e.forEach( function(e){ e.remove()})}
 var OM={ 
 	defUser:false,
@@ -48,7 +48,7 @@ function predraw( om){ sV.setAttribute( 'height',window.innerHeight); sV.setAttr
 			if( om.ui.features[j].act.eX){ sV.appendChild( om.ui.features[j].dev.eX.sV)};
 			if( om.ui.features[j].act.sQ){ sV.appendChild( om.ui.features[j].dev.sQ.sV)};
 			if( om.ui.features[j].act.gR){ sV.appendChild( om.ui.features[j].dev.gR.sV)};
-			if( om.ui.features[j].act.dB){ sV.appendChild( om.ui.features[j].dev.dB.sV)};
+			if( om.ui.features[j].act.oL){ sV.appendChild( om.ui.features[j].dev.oL.sV)};
 
 			if( om.ui.features[j].act.aM){ sV.appendChild( om.ui.features[j].dev.aM.sV)};
 			if( om.ui.features[j].act.sH){ sV.appendChild( om.ui.features[j].dev.sH.sV)};
@@ -140,7 +140,7 @@ function Bfy( n, ds, chi, hom){ var o=OM.Dice.Di(n,"Bfy",ds,chi,hom); this.n=o.n
 function Gfy( n, ds, chi, hom){ var o=OM.Dice.Di(n,"Gry",ds,chi,hom); this.n=o.n; this.ni=o.ni;
 	this.hot=o.hot; this.hot=o.hot; this.hog=o.hog;}
 
-OM.Type={ seed: ["RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FIR","FER","NIT","NET","NIF","NEF"],
+OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FIR","FER","NIT","NET","NIF","NEF"],
 	f1:function( n,x,y,z){ this.n=n;this.x=x;this.y=y;this.z=z},
 	f2:function( n,x,y,z){ this.n=n;this.x=x;this.y=y;this.z=z},
 	f3:function( n,x,y,z){ this.n=n;this.x=x;this.y=y;this.z=z},
@@ -164,42 +164,42 @@ OM.Type={ seed: ["RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FI
 	Qp:function(p){var o={ anc:p};
 		p.x? p.y? p.z?/*Ne*/o.nim="abc" :/*Ni*/o.nim="bca" : p.z?/*Fe*/o.nim="bac" :/*Fi*/o.nim="acb" :
 			 p.y? p.z?/*Te*/o.nim="bac" :/*Ti*/o.nim="acb" : p.z?/*Re*/o.nim="bca" :/*Ri*/o.nim="cab";return o},
-	TmSuomi:function( ni){ switch( ni){
+	TmSuomi:function( ni){ switch( ni){ case"NaT": return"NaT";
 	case"TEN":return"UAV"; 	case"NET":return"UVA"; 	case"FEN":return"UTV"; 	case"NEF":return"UVT";
 	case"TIN":return"SAV"; 	case"NIT":return"SVA"; 	case"FIN":return"STV"; 	case"NIF":return"SVT";
 	case"RET":return"URT"; 	case"TER":return"UTR"; 	case"REF":return"URT"; 	case"FER":return"UTR";
 	case"RIT":return"SRA"; 	case"TIR":return"SAR";	case"RIF":return"SRT"; 	case"FIR":return"STR"}},
-	TmEngZodiacF:function( ni){ switch( ni){
+	TmEngZodiacF:function( ni){ switch( ni){ case"NaT": return"NaT";
 	case"TEN":return"Mehiläinen"; 	case"NET":return"Ahma"; 	case"FEN":return"Kala"; 	case"NEF":return"Kissa";
 	case"TIN":return"Panda"; 		case"NIT":return"Pöllö"; 	case"FIN":return"Norppa"; 	case"NIF":return"Mustekala";
 	case"RET":return"Majava"; 		case"TER":return"Susi"; 	case"REF":return"Kilpikonna";case"FER":return"Lammas";
 	case"RIT":return"Koiranpentu"; 	case"TIR":return"Hämähäkki";case"RIF":return"Hauki"; 	case"FIR":return"Vesilintu"}},
-	TmFinZodiacF:function( ni){ switch( ni){
+	TmFinZodiacF:function( ni){ switch( ni){ case"NaT": return"NaT";
 	case"TEN":return"Bee"; 			case"NET":return"Wolverine";case"FEN":return"Fish"; 	case"NEF":return"Cat";
 	case"TIN":return"Panda"; 		case"NIT":return"Owl"; 		case"FIN":return"Seal"; 	case"NIF":return"Octopus";
 	case"RET":return"Beaver"; 		case"TER":return"Wolf"; 	case"REF":return"Turtle"; 	case"FER":return"Sheep";
 	case"RIT":return"Puppy"; 		case"TIR":return"Spider"; 	case"RIF":return"Pike"; 	case"FIR":return"Waterfowl"}},
-	TmEngZodiacM:function( ni){ switch( ni){
+	TmEngZodiacM:function( ni){ switch( ni){ case"NaT": return"NaT";
 	case"FIR":return"Driver"; 		case"RIF":return"Pike"; 	case"TIR":return"Cobbler"; 	case"RIT":return"Eagle";
 	case"FER":return"Chief"; 		case"REF":return"Kilpikonna";case"TER":return"Blacksmith";case"RET":return"Mason";
 	case"NIF":return"Meteor"; 		case"FIN":return"Sun"; 		case"NIT":return"Crow"; 	case"TIN":return"Elf";
 	case"NEF":return"Planet"; 		case"FEN":return"Star"; 	case"NET":return"Snake"; 	case"TEN":return"Troll"}},
-	TmFinZodiacM:function( ni){ switch( ni){
+	TmFinZodiacM:function( ni){ switch( ni){ case"NaT": return"NaT";
 	case"FIR":return"Lautturi"; 	case"RIF":return"Hauki"; 	case"TIR":return"Suutari"; 	case"RIT":return"Kotka";
 	case"FER":return"Päällikkö"; 	case"REF":return"Turtle"; 	case"TER":return"Seppä"; 	case"RET":return"Muurari";
 	case"NIF":return"Meteoriitti"; 	case"FIN":return"Aurinko"; 	case"NIT":return"Korppi"; 	case"TIN":return"Haltia";
 	case"NEF":return"Planeetta"; 	case"FEN":return"Tähti"; 	case"NET":return"Käärme"; 	case"TEN":return"Peikko"}},
-	TmRegName:function( ni){ switch( ni){ 	
+	TmRegName:function( ni){ switch( ni){ case"NaT": return"NaT";
 	case "RIT": return "A"; 	case "RET": return "A"; 	case "RIF": return "AB";	case "REF": return "AB";
 	case "TIN": return "O"; 	case "TEN": return "B"; 	case "TIR": return "B";		case "TER": return "O";
 	case "FIN": return "O"; 	case "FEN": return "B"; 	case "FIR": return "B";		case "FER": return "AB";
 	case "NIT": return"AB"; 	case "NET": return"AB"; 	case "NIF": return "A";		case "NEF": return "A"}},
-	TmSentM:function( ni){ switch( ni){ 	
+	TmSentM:function( ni){ switch( ni){ case"NaT": return"NaT";	
 		case "RIT":return "AUT"; 	case "RET":return "ARL"; 	case "RIF":return "ABV"; 	case "REF":return "DAR";
 		case "TIN":return "DTH"; 	case "TEN":return "AAN"; 	case "TIR":return "DUT";	case "TER":return "DRL";
 		case "FIN":return "ATT" ;	case "FEN":return "ASO"; 	case "FIR":return "DBV";	case "FER":return "AAR";
 		case "NIT":return "ATH"; 	case "NET":return "DAN"; 	case "NIF":return "DTT";	case "NEF":return "DSO"}},
-	TmSentF:function( ni){ switch( ni){ 	
+	TmSentF:function( ni){ switch( ni){ case"NaT": return"NaT";	
 		case "RIT":return "AUT"; 	case "RET":return "ARL"; 	case "RIF":return "ABV"; 	case "REF":return "DAR";
 		case "TIN":return "DTH"; 	case "TEN":return "AAN"; 	case "TIR":return "DUT";	case "TER":return "DRL";
 		case "FIN":return "ATT" ;	case "FEN":return "ASO"; 	case "FIR":return "DBV";	case "FER":return "AAR";
@@ -236,6 +236,11 @@ OM.Type={ seed: ["RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FEN","FI
 		o.k=new this.k( 11,!o.z,  o.x8, o.y8, o.x5, o.y5);
 		o.l=new this.l( 12, o.z,  o.x3, o.y3, o.x2, o.y2);
 		o.sent =this.TmSent( ni);  	o.qp =this.Qp( o);	return o}}
+function NaT( n,z,x,y,X,Y){var o=OM.Type.Tm( n,z,x,y,X,Y,"NaT");this.a=o.a;this.d=o.d;this.g=o.g;this.j=o.j;this.b=o.b;
+this.e=o.e;this.h=o.h;this.k=o.k;this.c=o.c;this.f=o.f;this.i=o.i;this.l=o.l;this.f1=o.f1;this.f3=o.f3;this.f5=o.f5;this.f7
+=o.f7;this.f2=o.f2;this.f4=o.f4;this.f6=o.f6;this.f8=o.f8;this.n=o.n;this.ni=o.ni;this.ve=o.ve;this.sent=o.sent;this.x=o.x;
+this.y=o.y;this.z=o.z;this.x1=o.x1;this.x2=o.x2;this.x3=o.x3;this.x4=o.x4;this.x5=o.x5;this.x1=o.x5;this.x1=o.x5;
+this.x1=o.x5;this.y1=o.y1;this.y2=o.y2;this.y3=o.y3;this.y4=o.y4;this.y5=o.y5;this.y1=o.y5;this.y1=o.y5;this.y1=o.y5;}
 function RIT( n,z,x,y,X,Y){var o=OM.Type.Tm( n,z,x,y,X,Y,"RIT");this.a=o.a;this.d=o.d;this.g=o.g;this.j=o.j;this.b=o.b;
 this.e=o.e;this.h=o.h;this.k=o.k;this.c=o.c;this.f=o.f;this.i=o.i;this.l=o.l;this.f1=o.f1;this.f3=o.f3;this.f5=o.f5;this.f7
 =o.f7;this.f2=o.f2;this.f4=o.f4;this.f6=o.f6;this.f8=o.f8;this.n=o.n;this.ni=o.ni;this.ve=o.ve;this.sent=o.sent;this.x=o.x;
@@ -359,7 +364,7 @@ function Of( n,c,v,g){ var o=OM.Spirit.Sp(n,"Of",c,v,g); this.n=o.n;this.ni=o.ni
 function OF( n,c,v,g){ var o=OM.Spirit.Sp(n,"OF",c,v,g); this.n=o.n;this.ni=o.ni;
 	this.chi=o.chi;this.ver=o.ver;this.mas=o.mas; this.val=o.val; this.bad=o.bad; this.sent=o.sent;}
 
-OM.Context={ seed: ["L","C","O","S"], // l=logic d=dialectic
+OM.Context={ seed: ["NaC","L","C","O","S"], // l=logic d=dialectic
 	Co:function( n,ni,l,d){	var o={ n:n, ni:ni, log:l, dia:d}; return o},
 	Being:function( l,d){ var o={ log:l, dia:d}; return o}}
 function L( n,l,d){ var o=OM.Context.Co(n,"L",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
@@ -367,12 +372,13 @@ function C( n,l,d){ var o=OM.Context.Co(n,"C",l,d); this.n=o.n; this.ni=o.ni; th
 function O( n,l,d){ var o=OM.Context.Co(n,"O",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 function S( n,l,d){ var o=OM.Context.Co(n,"S",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 
-OM.Gender={ seed: ["f","F","m","M"],
-	Gn:function( n,ni,g,a){ var o={ n:n, ni:ni, gn:g, ad:a}; return o}}
-function Girl( n,g,a){ var o=OM.Gender.Gn(n,"f",g,a); this.n=o.n;this.ni=o.ni;this.gn=o.gn;this.ad=o.ad}
-function Woman(n,g,a){ var o=OM.Gender.Gn(n,"F",g,a); this.n=o.n;this.ni=o.ni;this.gn=o.gn;this.ad=o.ad}
-function Boy ( n,g,a){ var o=OM.Gender.Gn(n,"m",g,a); this.n=o.n;this.ni=o.ni;this.gn=o.gn;this.ad=o.ad}
-function Man ( n,g,a){ var o=OM.Gender.Gn(n,"M",g,a); this.n=o.n;this.ni=o.ni;this.gn=o.gn;this.ad=o.ad}
+OM.Gender={ seed: ["NaG","f","F","m","M"],
+	Gn:function( n,ni,m,a){ var o={ n:n, ni:ni, ma:m, ad:a}; return o}}
+function NaG( n, g,a){ var o=OM.Gender.Gn(n,"NaG",g,a); this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Girl( n,g,a){ var o=OM.Gender.Gn(n,"f",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Woman(n,g,a){ var o=OM.Gender.Gn(n,"F",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Boy ( n,g,a){ var o=OM.Gender.Gn(n,"m",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Man ( n,g,a){ var o=OM.Gender.Gn(n,"M",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
 /*                                                                                                              ! ?
                                                                                                                TÿE
                                                                                                         °     OÿŸÿNOB     ƒ
@@ -408,7 +414,8 @@ function mkPanda(id){ var di=null; switch( id){ case "des":di=new des(  1, false
 												case "fro":di=new fro( 20, null, false,true ); return di;
 												case "str":di=new str( 21, null, true, false); return di;
 												case "prt":di=new prt( 22, null, true, true );return di}}
-function mkType(id){ var ty=null; switch( id){ 	case "RIT":ty=new RIT( 1, false, 	false,false,false,true ); return ty;
+function mkType(id){ var ty=null; switch( id){ 	case "NaT":ty=new NaT( 0, false, 	false,false,false,false); return ty;
+												case "RIT":ty=new RIT( 1, false, 	false,false,false,true ); return ty;
 												case "RET":ty=new RET( 2, true , 	false,false,false,true ); return ty;
 												case "RIF":ty=new RIF( 3, false, 	false,false,true, false); return ty;
 												case "REF":ty=new REF( 4, true , 	false,false,true, false); return ty;
@@ -436,13 +443,14 @@ function mkContext(id){ var co=null;switch( id){case "O":co =new O( 1, false,fal
 												case "S":co =new S( 2, false,true ); return co;
 												case "L":co =new L( 3, true, false); return co;
 												case "C":co =new C( 4, true, true ); return co}}
-function mkGender(id){ var gn=null;switch( id){ case "f":gn =new Girl ( 1, false,false); return gn;
+function mkGender(id){ var gn=null;switch( id){ case "NaG":gn=new NaG ( 0, false,false); return gn;
+												case "f":gn =new Girl ( 1, false,false); return gn;
 												case "F":gn =new Woman( 2, false,true ); return gn;
 												case "m":gn =new Boy  ( 3, true, false); return gn;
 												case "M":gn =new Man  ( 4, true ,true ); return gn;}}
-function precalcGender(gn){ var gns=[];var bu=null; for(var n=0; n < 4  ;n++){bu=mkGender(gn[n]); gns.push(bu)} return gns}
+function precalcGender(gn){ var gns=[];var bu=null; for(var n=0; n <=4  ;n++){bu=mkGender(gn[n]); gns.push(bu)} return gns}
 function precalcDice( di) { var dis=[];var bu=null; for(var n=0; n < 22 ;n++){ bu=mkPanda( di[n]);dis.push(bu)} return dis}
-function precalcTypes( ty){ var tys=[];var bu=null; for(var n=0; n < 16 ;n++){ bu=mkType( ty[n]); tys.push(bu)} return tys}
+function precalcTypes( ty){ var tys=[];var bu=null; for(var n=0; n <=16 ;n++){ bu=mkType( ty[n]); tys.push(bu)} return tys}
 function precalcSpirits(sp){var sps=[];var bu=null; for(var n=0; n < 8  ;n++){bu=mkSpirit(sp[n]); sps.push(bu)} return sps}
 function precalcContexts(c){var cos=[];var bu=null; for(var n=0; n < 4  ;n++){bu=mkContext(c[n]); cos.push(bu)} return cos}
 function precalcForest( om){ om.fL={};	om.fL.co = precalcContexts( om.Context.seed);
@@ -456,8 +464,10 @@ function precalcInterface(om){
 								OM.user = {crtPa:'initUser',crtFo:null, 	crtFe:null, paComp:0,
 											sTs: [], 		sT:null,	
 											crtTyFo:null, 	crtGnFo:null, 	sty:null,
-											selGn: false, 	ty:null, 		gn:0,
-											selTy: false, 	tyN: "NET", 	initDone:false}; 
+											selGn: false, 	ty:null,
+											selTy: false, 	initDone:false}; 
+											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT");
+											OM.user.gn = OM.fL.gn.find(o => o.ni === "NaG");
 											calcInterface(om)}//OM.user.gn = OM.fL.gn.find(o => o.ni === "M");
 
 function calcInterface(om){ 	var ui 					= precalcUserInterfaceTemplates( false,		om.reso,
@@ -471,7 +481,7 @@ function calcInterface(om){ 	var ui 					= precalcUserInterfaceTemplates( false,
 
 								ui.sty.pageTe 			= precalcThemes( ui.sty.pageTe.blue, ui.sty.pageTe);
 
-								ui.pages 				= precalcUserInterfacePages( om,ui);
+								OM.user.sty = setUserStyle( ui.sty.pageTe, OM.user.ty.ni);
 								
 								ui.templates 			= precalcUserInterfaceTemplates( ui,		om.reso,
 																						 ui.winWid, ui.winHei);
@@ -492,100 +502,84 @@ function calcInterface(om){ 	var ui 					= precalcUserInterfaceTemplates( false,
 // ri manouvreability decide PP10 init of SEG?
 
 function uiFocusUserType( e){ 	hiliteUserType( OM.ui,OM.user,e)}
-function uiChooseUserType( e){ 	chooseUserType( OM.ui,OM.user,e)}
+function uiChooseUserType( e){ 	var i=e.getAttribute("id"); i=i.split("-").pop(); chooseUserType( OM.user, i);
+								drawUserType( 		OM.user, e)}
 function uiFocusUserGender( e){ hiliteUserGender( OM.ui,OM.user,e)}
-function uiChooseUserGender( e){chooseUserGender( OM.ui,OM.user,e);
-								mkPageForInitUser2( e.id,OM.winWid,OM.winHei, OM.user, OM.ui.sty.pageIU,OM.ui.sty.pageTe)}
+
+function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop();
+	chooseUserGender( OM.user, i);
+	console.log(OM.user.gn);
+	mkGenderPanel( OM.user, OM.ui.sty.pageIU, OM.user.sty);
+	//drawUserGender( 	OM.user, e, i)
+							}
+
+function drawUserGender( u,e,i){  var cl=e.getAttribute("class"); console.log(cl);
+
+	var E =Array.from(document.querySelectorAll(cl)); E.forEach( function(e){ e.remove()});
+
+	E =mkGenderPanel( u, OM.ui.sty.pageIU, u.sty, E, cl);
+	E.forEach( function(e){ sV.appendChild(e)})}
+
+//dB->oL & up
 function bindMany( sel,c){ var e=Array.from(document.querySelectorAll( sel));
 	e.forEach( function(e){ e.addEventListener("mouseover", function(){ c( "mouseover",	e)})});
 	e.forEach( function(e){ e.addEventListener("mousedown", function(){ c( "mousedown", e)})})}
 function listenForUser(){
-	bindMany( '.pAIU_tBt', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserType( e); 	break;
-														case "mouseover" 	: uiFocusUserType( e); 		break; }});
-	bindMany( '.pAIU_gBt', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;
-														case "mouseover" 	: uiFocusUserGender( e); 	break; }})}
+	bindMany( '.pAIU_tyA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserType( e); 	break;
+													/*	case "mouseover" 	: uiFocusUserType( e); 		break;*/ }});
+	bindMany( '.pAIU_gnA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;
+													/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ }})}
 function uiChooseSb( e){ console.log(e); chooseUserFe( OM.ui,OM.user,e)}
 function chooseUserFe( ui,usr,e){ var id = e.id.split("-").pop();}
 
-function showPage( p){ //clearPage();
-	for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV); 
-}
-function askForUser( ui,usr){ var p =OM.ui.pages.find(o => o.nim =='initUser');	showPage( p); listenForUser()}
-function clearPage(){
-	var e=Array.from(document.querySelectorAll('.pAIU_gBT')); console.log(e); 
-	//var e=Array.from(document.querySelectorAll('.pAWrap .pAIU_txt .pAIU_gBt .pAIU_gBT .pAIU_tBt .pAIU_tBT'));
-	//console.log(e);
-	//e.forEach( function(e){ e.remove()});
-}
+function askForUser( ui,usr){ var p =mkPageForInitUser( usr, ui.sty.pageIU, usr.sty); showSv( p); listenForUser()}
+function showSv( p){ for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV)}
 
-function hiliteUserGender(ui,usr,e){ if(!usr.selGn){hilitGx( e,usr,ui.sty.pageIU)}}
-function hilitGx(e,usr,s){
-	if(usr.crtGnFo!=null){ if(usr.crtGnFo!=e){ colGex( e,s.selBtT); colGex( usr.crtFo,s.btT);
-		usr.crtGnFo =e; usr.crtFo =e;}}
-	else{ usr.crtGnFo =e; usr.crtFo =e; colGex( usr.crtGnFo,s.selBtT); }}
+function chooseUserGender(u,i){
+	if(u.gn.ni == i){ 	u.gn = OM.fL.gn.find(o => o.ni === "NaG"); 	u.selGn =true}
+	else {				u.gn = OM.fL.gn.find(o => o.ni === i); 		u.selGn=false}}
+function chooseUserType(u,i){
+	if(u.ty.ni == i){ 	u.ty = OM.fL.es.find(o => o.ni === "NaT"); 	u.selTy =true}
+	else {				u.ty = OM.fL.es.find(o => o.ni === i); 		u.selTy=false}}
+/*
+function hiliteUserGender(ui,usr,e){ if(!usr.selGn){hilitGx( e, usr)}}
+function hilitGx(e,usr){ if(usr.crtGnFo!=null){ if(usr.crtGnFo!=e){
+	colGex( e, usr.sty.selAreaT); colGex( usr.crtFo, usr.sty.areaT); usr.crtGnFo =e; usr.crtFo =e;}} else{
+	usr.crtGnFo =e; usr.crtFo =e; colGex( usr.crtGnFo, usr.sty.selAreaT); }}
 function colGex( e,c){ var r=e.id.split("-").pop(); var l=e.id.split("_").shift(); r=l+"_gBT-"+r;
 	l =document.getElementById( r);	l.setAttribute('fill',c)}
-function chooseUserGender(ui,usr,e){ var id = e.id.split("-").pop(); 
-	if( usr.selGn &&(usr.gn.ni ==id)){ resetGe( id,usr,ui.sty.pageIU); 	chooseG( e,usr,ui.sty.pageIU,id)}
-								else { resetGx( usr,ui.sty.pageIU); 	chooseG( e,usr,ui.sty.pageIU,id); }}
-function resetGe( id,usr,s){ var
- 	Id="#pAIU_gBt-"+usr.gn.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btB); usr.crtGnFo=null;
-	Id="#pAIU_gBT-"+usr.gn.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btT); usr.selGn=false;}
-function resetGx( usr,s){ if(usr.selGn){ var
-	id="#pAIU_gBt-"+usr.gn.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btB);
-	id="#pAIU_gBT-"+usr.gn.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btT);}}
-function chooseG(e,usr,s,id){
-	if(usr.crtGnFo!=null && usr.crtGnFo!=e){ colGex(usr.crtGnFo,s.btT)}
-	e.setAttribute('fill',s.selBtB); colGex(e,s.selBtT);
-	usr.gn = OM.fL.gn.find(o => o.ni === id);
-	if( usr.selGn){ if( id =="M" && usr.gn <  0){ usr.gn =  0; usr.selGn =false}
-					if( id =="M" && usr.gn > -1){ usr.gn = -1;					}
-					if( id =="F" && usr.gn >  0){ usr.gn =  1;					}
-					if( id =="F" && usr.gn > -1){ usr.gn =  0; usr.selGn =false}}
-	else 		{ 	if( id =="M" && usr.gn <  0){ usr.gn =  0; usr.selGn =true}
-					if( id =="M" && usr.gn > -1){ usr.gn = -1; usr.selGn =true}
-					if( id =="F" && usr.gn >  0){ usr.gn =  1; usr.selGn =true}
-					if( id =="F" && usr.gn > -1){ usr.gn =  0; usr.selGn =true}}}
+function chooseUserGender(u,i){
+	if(u.gn.ni == i){ 	u.gn = OM.fL.gn.find(o => o.ni === "NaG"); 	u.selGn =true}
+	else {				u.gn = OM.fL.gn.find(o => o.ni === e); 		u.selGn=false}}
 
-function hiliteUserType(ui,usr,e){ if(!usr.selTy){hilitTx( e,usr,ui.sty.pageIU); }}
-function hilitTx(e,usr,s){
-	if(usr.crtTyFo!=null){ if(usr.crtTyFo!=e){ colTex( e,s.selBtT); colTex( usr.crtTyFo,s.btT);
+function hiliteUserType(ui,usr,e){ if(!usr.selTy){console.log(usr); hilitTx( e, usr); }}
+function hilitTx(e,usr){
+	if(usr.crtTyFo!=null){ if(usr.crtTyFo!=e){ colTex( e, usr.sty.selAreaT); colTex( usr.crtTyFo, usr.sty.areaT);
 		usr.crtTyFo =e; usr.crtFo =e;}}
-	else{ usr.crtTyFo =e; colTex( usr.crtTyFo,s.selBtT); }}
+	else{ usr.crtTyFo =e; colTex( usr.crtTyFo, usr.sty.selAreaT); }}
 function colTex( e,c){ var r=e.id.split("-").pop(); var l=e.id.split("_").shift(); r=l+"_tBT-"+r;
 	l =document.getElementById( r);	l.setAttribute('fill',c)}
 function chooseUserType(ui,usr,e){ var id = e.id.split("-").pop();
-	if( usr.selTy &&(usr.ty.ni ==id)){ resetTy( id,usr,ui.sty.pageIU)}
-	else{ resetTx( usr,ui.sty.pageIU); chooseT( e,usr,ui.sty.pageIU,id); }}
-function resetTy( id,usr,s){ var
- 	Id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btB); usr.crtTyFo=null;
-	Id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btT); usr.selTy=false;}
-function resetTx( usr,s){ if(usr.selTy){ var
-	id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btB);
-	id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btT);}}
-function chooseT(e,usr,s,id){
-	if(usr.crtTyFo!=null && usr.crtTyFo!=e){ colTex(usr.crtTyFo,s.btT)}
-	e.setAttribute('fill',s.selBtB); colTex(e,s.selBtT);
-	usr.ty = OM.fL.es.find(o => o.ni === id);	usr.selTy=true;}
-/*function hiliteUserType(ui,demo,usr,e){ if(!usr.selTy){hilitex( e,usr,ui.sty.pageIU)}}
-function hilitex(e,usr,s){
-	if(usr.curFo!=null){ if(usr.curFo!=e){ colTex( e,s.selBtT); colTex( usr.curFo,s.btT); usr.curFo =e}}
-	else{ usr.curFo =e; colTex( usr.curFo,s.selBtT); }}
-function colTex( e,c){ var r=e.id.split("-").pop(); var l=e.id.split("_").shift(); r=l+"_tBT-"+r;
-	l =document.getElementById( r);	l.setAttribute('fill',c)}
-function chooseUserType(ui,demo,usr,e){ var id = e.id.split("-").pop();
-	if( usr.selTy &&(usr.ty.ni ==id)){ resetTy( id,usr,ui.sty.pageIU)}
-	else{ resetEx( usr,ui.sty.pageIU); chooseT( e,usr,ui.sty.pageIU,id); }}
-function resetTy( id,usr,s){ var
- 	Id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btB); usr.curFo=null;
-	Id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',s.btT); usr.selTy=false;}
-function resetEx( usr,s){ if(usr.selTy){ var
-	id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btB);
-	id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',s.btT);}}
-function chooseT(e,usr,s,id){
-	if(usr.curFo!=null && usr.curFo!=e){ colTex(usr.curFo,s.btT)}
-	e.setAttribute('fill',s.selBtB); colTex(e,s.selBtT);
-	usr.ty = OM.fL.es.find(o => o.ni === id);	usr.selTy=true;}*/
+	if( usr.selTy &&(usr.ty.ni ==id)){ resetTy( id, usr)}
+	else{ resetTx( usr, usr.sty); chooseT( e,usr,id); hilitTx( e, usr); }}
+function resetTy( id,usr){ var
+ 	Id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',usr.sty.area); usr.crtTyFo=null;
+	Id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',usr.sty.areaT); usr.selTy=false;}
+function resetTx( usr,s){ console.log(s);if(usr.selTy){ var
+	id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',usr.sty.area);
+	id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',usr.sty.areaT);}}
+function chooseT(e,usr,id){ console.log( OM.fL.es); console.log(id);
+	if(usr.crtTyFo!=null && usr.crtTyFo!=e){
+		colTex(usr.crtTyFo, usr.sty.selAreaT);
+		usr.ty = OM.fL.es.find(o => o.ni ==="NaT"); usr.selTy=false;
+		usr.sty= setUserStyle( null, usr.ty.ni); }
+	else{
+		usr.ty = OM.fL.es.find(o => o.ni === id);	usr.selTy=true;
+		usr.sty= setUserStyle( null, usr.ty.ni);
+		e.setAttribute('fill', usr.sty.selArea); colTex(e, usr.sty.selAreaT);
+		console.log( usr.sty)}}*/
+
+
 
 function mkFeature( ui,t){ 
 	if(t.act.sV){ t.sV =mkFeatureSVG( ui,t)}
@@ -596,27 +590,10 @@ function mkFeatureSVG( ui,t){ var f =mkL( 0,0,ui.winWid,ui.winHei,t.nim,ui.sty.b
 function precalcFeature( ui,template){ var fe =mkFeature( ui,template); ui.features.push( fe); }
 function precalcFeatures( ui,templates,fesLen) {
 	for(var i=0; i < fesLen; i++) { precalcFeature( ui,templates[i])} /*ui.fesLen =fesLen;*/ return ui}
-function rePage( om,nim){ var e=mkL(10,10,25,25,"test","#ffffff","tester",false);
-	sV.appendChild(e); //n.u.
-	for(var i=0; i<om.pagLen; i++){ if(om.ui.pages[i].nim==nim){
-	console.log(om.ui.pages[i]);
-	om.ui.pages[i]=mkPage( nim,om.ui); console.log(om.ui.pages[i]); showPage( om.ui.pages[i])}}}
-function mkPage( nim,ui,usr){ var b; switch(nim) {
-	case "initUser" : b =mkPageForInitUser( nim, ui.winWid, ui.winHei, ui.sty.pageIU, usr, ui.sty.pageTe)} return b}
-	//case "initUser" : b =mkPageForInitUser( nim, ui.winWid, ui.winHei, ui.sty.pageIU, usr)} return b}
-function precalcUserInterfacePages( om,ui){ var re=[]; var b;
-	for(var i=0; i < ui.pagLen;i++){ b =mkPage(om.pages[i],ui,om.user); re.push( b)} return re}
-function whatPageForInitUser( p){
-
-	for(var i=0; i < p.L; i++){ console.log(p.E[i])}
-
-	console.log('futoni');
-	p.b=mkL(10,10,25,25,"test","#ffffff","tester",false); sV.appendChild( p.b); document.body.appendChild( sV);
-	return p
-}
-
 function setUserStyle( sty,usrTyN){ var r; console.log(sty);
-	switch(usrTyN){ case "RIF": case "NET": r =sty.orange; break;
+	if(sty ==null){ var sty = OM.user.sty}
+	switch(usrTyN){ case "NaT": 			r =sty.gray; break;
+					case "RIF": case "NET": r =sty.orange; break;
 					case "FIR": case "TEN": r =sty.blue; break;
 					case "RIT": case "NEF": r =sty.olive; break;
 					case "TIR": case "FEN": r =sty.green; break;
@@ -624,64 +601,26 @@ function setUserStyle( sty,usrTyN){ var r; console.log(sty);
 					case "TER": case "FIN": r =sty.copper; break;
 					case "NIT": case "REF": r =sty.brass; break;
 					case "TIN": case "FER": r =sty.cyan; break;} return r}
-function mkPageForInitUser2(  id, winWid, winHei, usr, s, c){ console.log(s);
-	function usTt(t){ if(usr.selTy &&(usr.ty.ni ==t)){ p.c.c= c.selArea; 	p.c.b=c.selAreaB; }
+function mokPageForInitUser2(  id, winWid, winHei, usr, s, c){ console.log(c);
+
+	function usTt(t){ if(usr.selTy &&(usr.ty.ni ==t)){ p.c.c= c.selArea; 	p.c.b=c.hilite; }
 												else { p.c.c= c.area; 		p.c.b=c.areaB; }					return p.c}
-	function usTT(t){ if(usr.selTy &&(usr.ty.ni ==t)){ p.c.c= c.selAreaT; 	p.c.b=c.selAreaB; p.c.x= b.x+b.h }
+	function usTT(t){ if(u.ty.ni !="NaG"){
+			if(usr.selTy &&(usr.ty.ni ==t)){ p.c.c= c.selAreaT; 	p.c.b=c.selAreaB; p.c.x= b.x+b.h }
 				else if(!usr.selTy && p.crtTyFo ==t ){ p.c.c= c.selAreaT; 		p.c.x= b.x+s.bPD}
-												else { p.c.c= c.areaT; 		p.c.b=c.areaB;	p.c.x= b.x+s.bPD} 	return p.c}
+												else { p.c.c= c.areaT; 		p.c.b=c.areaB;	p.c.x= b.x+s.bPD} return p.c}}
 	function mkInitUserPanel( usr){ var TPM; if(us.gn < 0){TPM =
 	[["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]}else {TPM =
 	[["FIR","RIF","TIR","RIT"],["FER","REF","TER","RET"],["NIF","FIN","NIT","TIN"],["NEF","FEN","NET","TEN"]]}return TPM}
-	if(usr.paComp <2){ usr.paComp++}
-	if(usr.gn < 0){ c = c.black} else { c = c.white}
-	var nim = id.split("-").pop();
-	var b ={ w:s.btnWid, h:s.btnHei,	x:s.fraWid, xi:s.btnGrX,  	y:s.fraHei, yi:s.btnGrY };
-	b.x=s.fraWid; b.y+=b.yi;
-	var p ={ nim:nim, e:[], l:0, E:[], L:0, c:{c:""}, crtFo:""};
-	if(usr.crtFo){p.crtFo=usr.crtFo.id.split("-").pop()}
-	b.e=mkT(b.x,b.y-s.bPD, 	"pAIU_txt-tx4",s.t, 	"pAIU_txt",s.fonSiz,"USER TYPE:");	p.e.push( b.e);b.x+=s.lV;
-	
-	p.c=usTt("FIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIN",p.c.c,"pAIU_tBT",s.fonSiz,"FIN");p.e.push(b.e);b.x+=b.xi;
-	p.c=usTt("FIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIR",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("FIR");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FIR",p.c.c,"pAIU_tBT",s.fonSiz,"FIR");p.e.push(b.e);b.x+=b.xi;
-	p.c=usTt("FEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FEN",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("FEN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FEN",p.c.c,"pAIU_tBT",s.fonSiz,"FEN");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("FER");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FER",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("FER");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-FER",p.c.c,"pAIU_tBT",s.fonSiz,"FER");p.e.push( b.e);
-	b.x=s.fraWid+s.lV;b.y+=b.yi;
-	p.c=usTt("NIF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NIF",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("NIF");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-NIF",p.c.c,"pAIU_tBT",s.fonSiz,"NIF");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("NIT");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NIT",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("NIT");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-NIT",p.c.c,"pAIU_tBT",s.fonSiz,"NIT");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("NEF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NEF",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("NEF");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-NEF",p.c.c,"pAIU_tBT",s.fonSiz,"NEF");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("NET");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NET",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("NET");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-NET",p.c.c,"pAIU_tBT",s.fonSiz,"NET");p.e.push( b.e);
-	b.x=s.fraWid+s.lV;b.y+=b.yi;
-	p.c=usTt("RIF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RIF",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("RIF");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-RIF",p.c.c,"pAIU_tBT",s.fonSiz,"RIF");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("RIT");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RIT",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("RIT");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-RIT",p.c.c,"pAIU_tBT",s.fonSiz,"RIT");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("REF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-REF",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("REF");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-REF",p.c.c,"pAIU_tBT",s.fonSiz,"REF");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("RET");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RET",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("RET");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-RET",p.c.c,"pAIU_tBT",s.fonSiz,"RET");p.e.push( b.e);
-	b.x=s.fraWid+s.lV;b.y+=b.yi;
-	p.c=usTt("TIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TIN",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("TIN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-TIN",p.c.c,"pAIU_tBT",s.fonSiz,"TIN");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("TIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TIR",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("TIR");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-TIR",p.c.c,"pAIU_tBT",s.fonSiz,"TIR");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("TEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TEN",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("TEN");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-TEN",p.c.c,"pAIU_tBT",s.fonSiz,"TEN");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("TER");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TER",p.c.c,"pAIU_tBt",p.c.b,s.btnBrd);p.e.push( b.e);
-	p.c=usTT("TER");b.e=mkT(p.c.x,b.y-s.bPD,"pAIU_tBT-TER",p.c.c,"pAIU_tBT",s.fonSiz,"TER");p.e.push( b.e);
+	//if(usr.paComp <2){ usr.paComp++}
 
-	if(usr.paComp==1){
-		b.x=s.fraWid+s.mV+s.lV; b.y=s.fraHei+s.fraHei;
-		p.e=mkC( p.e,b.x,b.y,s.cE,s.cE,"cUIU",c.plane,"cUIU",false,true,4,0.7,usr.tyN,true);
-		p.e=mkW( p.e,b.x,b.y,s.cE,s.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa","#ddffdd")}
+			/*if(usr.gn < 0){ c = c.black} else { c = c.white} */
+			/* rrr xxx */ //wires & numrs cording to gnd
+
+	var b ={ w:s.btnWid, h:s.btnHei,	x:s.fraWid, xi:s.btnGrX,  	y:s.fraHei, yi:s.btnGrY };
+	var p ={ nim:id, e:[], l:0, E:[], L:0, c:{c:""}, crtFo:""};
+
+
 
 	//p.e=mkP( p.e,b.x,b.y,s.cE,s.cE,4);
 
@@ -690,66 +629,261 @@ function mkPageForInitUser2(  id, winWid, winHei, usr, s, c){ console.log(s);
 
 	p.L =p.E.length; p.l =p.e.length;
 
-	for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV);
+	for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV); listenForUser();
 
 	return p}
 
+//textnodet talteen user objiin?
+	/*function usGt(t){ if(u.selGn && u.gn.ni ==t){ 	p.c= c.selArea; 	p.b=c.selAreaB }
+										else { 		p.c= c.area; 		p.b=c.areaB} return p.c}
+	function usGT(t){ if(u.selGn && u.gn.ni ==t){ 	p.c= c.selAreaT}
+										else { 		p.c= c.areaT; 		p.c=c.areaB} return p.c}*/
+function mkPageForInitUser( u,d,c){	var E =[]; var cl="pAIU"; var id =cl+"_base";
+	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,id,cl,0,undefined, 0.66); E.push(e);
+	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e); 
+	E =mkGenderPanel( u,d,c,E,cl);
+	E = mkTypePanel ( u,d,c,E,cl);
+	E = mkTempCube ( u,d,c,E,cl ); 
+	//if( u.gn.ni !="NaG"){ E =mkCubeWire( u,d,c,E,cl)}
+	//if( u.ty.ni !="NaT"){ E =mkCubeElem( u,d,c,E,cl)}
+	//function drS(v,l,id,cl,op)
+	E.forEach( function(e){ sV.appendChild(e)});
+	return E}
+function mkTempCube( u,d,c,E,cl){ var e; var v=""; var x=OM.ui.winWid-d.cE-d.cE+66; var y=d.cE/2; var w=d.cE; var h=d.cE; var id=cl; var d=d.cuD; var op=d.op2; var co=u.sty.plane;
+						v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+
+							(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
+							(x+w+(w/d)+","+(y+(h/2)-(h/d)))+" "+
+							(x+w-(w/d)+","+(y+(h/2)+(h/d)));
+						e =drS(v, u.sty.cShade, id+"-cU-hrz", cl, op); 								E.push(e);
+						v =  x - (w/d)+","+(y+(h/2)+(h/d)-(h/2)) +" "+
+							(x + (w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+
+							(x+w+(w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+
+							(x+w-(w/d)+","+(y+(h/2)+(h/d)-(h/2)));
+						//e =mkS(v, id+"-sP", u.sty.cShade, id+"-sP-top", op2);
+						e =drS(v, u.sty.cShade, id+"-cU-top", cl, op);								E.push(e);
+						v =  x - (w/d)+","+(y+(h/2)+(h/d)+(h/2)) +" "+
+							(x + (w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+
+							(x+w+(w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+
+							(x+w-(w/d)+","+(y+(h/2)+(h/d)+(h/2)));
+						//e =mkS(v, id+"-sP", u.sty.cShade, id+"-sP-btm", op2/1.618); 
+						e =drS(v, u.sty.cShade, id+"-cU-btm", cl, op/1.618); 						E.push(e);
+						v =  x + (w/2)-(w/d)+","+(y + (h/d)) +" "+
+							(x + (w/2)+(w/d)+","+(y - (h/d)))+" "+
+							(x + (w/2)+(w/d)+","+(y+h-(h/d)))+" "+
+							(x + (w/2)-(w/d)+","+(y+h+(h/d)));
+						//e =mkS(v, id+"-sP", u.sty.cShade, id+"-sP-vrt", op2); 		
+						e =drS(v, u.sty.cShade, id+"-cU-vrt", cl, op); 								E.push(e);
+						e =drA(x+(w/d),	y-(h/d),w,h,co,id+"-btm",cl+"-btm",0,undefined,op); 		E.push(e);
+						e =mkK(x, 		y, 		w,h,co,id+"-mid",cl+"-mid",0,undefined,op/1.618);	E.push(e);
+						e =mkK(x-(w/d),	y+(h/d),w,h,co,id+"-top",cl+"-top",0,undefined,op);			E.push(e); return E}
+/* function drA(x,y,w,h,l,id,cl,b,L,op) //brass->amber
+function mkK(x,y,w,h,id,co,cl,op) { var r=document.createElementNS( nS,'rect');
+					if( x> -1){ 	r.setAttribute( 'x',x)}	
+					if( y> -1){ 	r.setAttribute( 'y',y)}
+									r.setAttribute( 'opacity',op);
+									r.setAttribute( 'width',w);
+									r.setAttribute( 'height',h);
+					if( id!=false){ r.setAttribute( 'id', 	id) }
+					if( co!=false){ r.setAttribute( 'fill', co) }
+					if( cl!=false){ r.setAttribute( 'class',cl) }return r}
 
-function mkPageForInitUser( nim,winWid,winHei,s,usr,c){
+p.e=mkC( p.e,b.x,b.y,d.cE,d.cE,"cUIU",c.plane,"cUIU",false,true,4,0.7,u.ty.ni,true);
+	p.e=mkW( p.e,b.x,b.y,d.cE,d.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa","#ddffdd");
+function mkC(c,x,y,w,h,id,co,cl,xA,yA,d,op,usrTyN,n){ var e=null; var v=""; //todo:tyn (if user male?, muuten nappien alle)
+	if(!xA){ if(!yA){ 	e =mkK(x+(w/d),y+(h/d),w,h,id+"-btm",co,cl+"-btm",op); c.push(e);
+						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
+						e =mkL(x-(w/d),	y-(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e)}
+				else{
+						v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+
+							(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
+							(x+w+(w/d)+","+(y+(h/2)-(h/d)))+" "+
+							(x+w-(w/d)+","+(y+(h/2)+(h/d)));
+						e =mkS(v,id+"-sP","#ffcccc",id+"-sP-hrz",op);c.push(e);
+						v =  x - (w/d)+","+(y+(h/2)+(h/d)-(h/2)) +" "+
+							(x + (w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+
+							(x+w+(w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+
+							(x+w-(w/d)+","+(y+(h/2)+(h/d)-(h/2)));
+						e =mkS(v,id+"-sP","#ffcccc",id+"-sP-top",op);c.push(e);
+						v =  x - (w/d)+","+(y+(h/2)+(h/d)+(h/2)) +" "+
+							(x + (w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+
+							(x+w+(w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+
+							(x+w-(w/d)+","+(y+(h/2)+(h/d)+(h/2)));
+						e =mkS(v,id+"-sP","#ffcccc",id+"-sP-btm",op/1.618);c.push(e);
+						v =  x + (w/2)-(w/d)+","+(y + (h/d)) +" "+
+							(x + (w/2)+(w/d)+","+(y - (h/d)))+" "+
+							(x + (w/2)+(w/d)+","+(y+h-(h/d)))+" "+
+							(x + (w/2)-(w/d)+","+(y+h+(h/d)));
+						e =mkS(v,id+"-sP","#ffcccc",id+"-sP-vrt",op);c.push(e);
+
+						e =mkK(x+(w/d),	y-(h/d),w,h,id+"-btm",co,cl+"-btm",op); 		c.push(e);
+						e =mkK(x, 		y, 		w,h,id+"-mid",co,cl+"-mid",op/1.618);	c.push(e);
+						e =mkK(x-(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top",op);			c.push(e);
+if(n){
+	e=mkTFun(x+11, 				y-9,		"cUIUFun-1","#662525","cUIUFun",66,"5","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x+w+8,				y-9,		"cUIUFun-2","#662525","cUIUFun",66,"8","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x+w+21,			y+(h/2)-9,	"cUIUFun-3","#662525","cUIUFun",66,"1","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x + 11, 			y+(h/2)-9,	"cUIUFun-4","#662525","cUIUFun",66,"4","strike_fighter",0.5); c.push(e);
+
+	e=mkTFun(x+w-(w/d)+10, 		y+h-(h/d)-9,"cUIUFun-5","#252566","cUIUFun",66,"2","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x-(w/d)+11,		y+h-(h/d)-9,"cUIUFun-6","#252566","cUIUFun",66,"3","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x-(w/d)+8,			y+(h/d)-9,	"cUIUFun-7","#252566","cUIUFun",66,"6","strike_fighter",0.5); c.push(e);
+	e=mkTFun(x+w-(w/d)+7, 		y+(h/d)-9,	"cUIUFun-8","#252566","cUIUFun",66,"7","strike_fighter",0.5); c.push(e)}
+
+					}}else{if(!yA){
+						e =mkL(x-(w/d),	y+(h/d),w,h,id+"-btm",co,cl+"-btm"); c.push(e);
+						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
+						e =mkL(x+(w/d),	y-(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e)}else{
+						e =mkL(x-(w/d),	y-(h/d),w,h,id+"-btm",co,cl+"-btm"); c.push(e);
+						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
+						e =mkL(x+(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e);
+					}}return c}*/
+function mkGenderPanel( u,d,c){ var E=[]; var cl="pAIU"
+	function usGC(t){ id =cl+"_gnC-"+t; cL =cl+" "+cl+"_gnC"}
+	function usGA(t){ id =cl+"_gnA-"+t; cL =cl+" "+cl+"_gnA";
+		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
+								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
+	function usGT(t){ id =cl+"_gnT-"+t; cL =cl+" "+cl+"_gnT";
+		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
+								else{ 	l =u.sty.areaT 		}}
+	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
+	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3);
+/*	usGC("g"); e =drT(x+xi, 		y+d.bPD,c.hilite,"gender",	id, cL, f); 	E.push(e);*/ x+=d.lV;
+	usGA("F"); e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usGT("F"); e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
+	usGA("M"); e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usGT("M"); e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);
+	E.forEach( function(e){ sV.appendChild(e)});
+	bindMany( '.pAIU_gnA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;
+													/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ }})
+	return E}
+function mkTypePanel( u,d,c,E,cl){
+	function usTC(X,Y){ id =cl+"_tyC-"+t; cL =cl+" "+cl+"_tyC"}
+	function usTA(X,Y){ id =cl+"_tyA-"+t; cL =cl+" "+cl+"_tyA";
+		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
+								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
+	function usTT(X,Y){ id =cl+"_tyT-"+t; cL =cl+" "+cl+"_tyT"; txt =lT(X,Y);
+		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selAreaT 	}
+								else{ 	l =u.sty.areaT 		}}
+	function lT(X,Y){ var pT; if(u.gn.ni != 'NaG' && !u.gn.ma){ pT=[
+		["FIR","RIF","TIR","RIT"],["FER","REF","TER","RET"],["NIF","FIN","NIT","TIN"],["NEF","FEN","NET","TEN"]]}else{pT=[
+		["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]}
+		return pT[Y][X]}
+	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi; var w=d.btnWid;
+	var h=d.btnHei; var x=X;	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var t;
+	usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"type:",	id, cL, f); 		E.push(e); x+=d.lV;
+	usTA(0,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(0,0); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(1,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(1,0); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(2,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(2,0); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(3,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(3,0); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x=X+d.lV; y+=yi;
+	usTA(0,1); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(0,1); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(1,1); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(1,1); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(2,1); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(2,1); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(3,1); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(3,1); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x=X+d.lV; y+=yi;
+	usTA(0,2); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(0,2); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(1,2); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(1,2); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(2,2); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(2,2); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(3,2); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(3,2); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x=X+d.lV; y+=yi;
+	usTA(0,3); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(0,3); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(1,3); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(1,3); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(2,3); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(2,3); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
+	usTA(3,3); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usTT(3,3); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x=X+d.lV; y+=yi;return E}
+//p.c=usTt("FIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+//p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FIN",p.c,"pAIU_tBT",d.fonSiz,"FIN");p.e.push(b.e);b.x+=b.xi;
+/* function drA(x,y,w,h,l,id,cl,b,L){ var e=document.createElementNS( nS,'rect'); e.setAttribute('x',x);e.setAttribute('y',y);
+ 	e.setAttribute( 'width',w); e.setAttribute( 'height',h); e.setAttribute( 'fill',l);
+	if(b > 0){ e.setAttribute( 'stroke',L); e.setAttribute( 'stroke-width',b)}
+	e.setAttribute( 'id',id); e.setAttribute( 'class',cl); return e}
+function drT(x,y,l,id,cl,f,F){ */
+
+
+
+/*
+	var b ={ w:d.btnWid, h:d.btnHei,	x:d.fraWid, xi:d.btnGrX,  	y:d.fraHei, yi:d.btnGrY };
+	var p ={ e:[], l:0, E:[], L:0, c:""};
+
+	b.e=mkGenderPanel()
+
+	b.e=mkLT( d.lP, d.tP, winWid-d.lP-d.rP, winHei-d.tP-d.bP, "pAIU", c.base, "pAWrap",0.66); 	p.e.push( b.e);
+			  b.e=mkT(b.x,b.y-d.bPD,"pAIU_txt-tx3",c.hilite,"pAIU_txt",d.fonSiz,"USER SEX :");	p.e.push( b.e);b.x+=d.lV;
+p.c=usGt("F");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_gBt-F",p.c,"pAIU_gBt",p.b, d.btnBrd); 				p.e.push( b.e);
+p.c=usGT("F");b.e=mkT(b.x+5,b.y-d.bPD,"pAIU_gBT-F",p.c,"pAIU_gBT", d.fonSiz,"F"); 		p.e.push( b.e);b.x+=d.fonSiz*1.618;
+p.c=usGt("M");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_gBt-M",p.c,"pAIU_gBt",p.b, d.btnBrd);	 			p.e.push( b.e);
+p.c=usGT("M");b.e=mkT(b.x+5,b.y-d.bPD,"pAIU_gBT-M",p.c,"pAIU_gBT", d.fonSiz,"M"); 				p.e.push( b.e);
+	b.x=d.fraWid+d.lV; b.y+=b.yi;
+	p.e=mkTypePanel( p.e, winWid, winHei, u, d, c, b.x, b.y);
+	if(u.paComp==1){
+		b.x=d.fraWid+d.mV+d.lV;	b.y=d.fraHei+d.fraHei;
+		p.e=mkC( p.e,b.x,b.y,d.cE,d.cE,"cUIU",c.plane,"cUIU",false,true,4,0.7,u.ty.ni,true);
+		p.e=mkW( p.e,b.x,b.y,d.cE,d.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa","#ddffdd")}
+	b.x=d.fraWid+d.mV+d.lV; b.y=d.fraHei+d.fraHei;
+	p.e=mkC( p.e,b.x,b.y,d.cE,d.cE,"cUIU",c.plane,"cUIU",false,true,4,0.7,u.ty.ni,true);
+	p.e=mkW( p.e,b.x,b.y,d.cE,d.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa","#ddffdd");
+	p.L =p.E.length; p.l =p.e.length; return p}*/
+function mokTypePanel( u, d, c, E, cl){
+	function usTt(t){ if(u.selTy &&(u.ty.ni ==t)){ 	l= c.selArea; 	L=c.hilite; }
+								else { 				l= c.area; 		L=c.areaB; } 	return p.c}
+	function usTT(t){ if(u.ty.ni ==t){ 				l= c.selAreaT; 	L=c.selAreaB;  	x= x+h }
+								else { 				l= c.areaT; 	L=c.areaB;	 	x= x+d.bPD} return p.c}
+	var l,L=""; var x,X=d.fraWid; var xi=d.btnGrX; var yi=d.btnGrY; var y,Y=d.fraHei+yi; var w=d.btnWid; var h=d.btnHei;
+	var f=d.fonSiz; var b=d.btnBrd;
+
+
+	var b ={ w:d.btnWid, h:d.btnHei,	x:x,  	y:y, yi:d.btnGrY };
+	b.x=d.fraWid; b.y+=b.yi;
+	var p ={ e:[], l:0, E:[], L:0, c:""};
+	b.e=mkT(b.x,b.y-d.bPD, 	"pAIU_txt-tx4",d.t, 	"pAIU_txt",d.fonSiz,"USER TYPE:");	p.e.push( b.e);b.x+=d.lV;
 	
-	function usGt(t){ if(usr.selGn &&(usr.gn.ni ==t)){ p.c.c= c.selArea; 	p.c.b=c.selAreaB; }
-												else { p.c.c= c.area; 	 	p.c.b=c.areaB; }	 				return p.c}
-	function usGT(t){ if(usr.selGn &&(usr.gn.ni ==t)){ p.c.c= c.selAreaT; 		p.c.x= b.x+b.h }
-				else if(!usr.selGn && p.crtGnFo ==t ){ p.c.c= c.selAreaT; 		p.c.x= b.x+s.bPD}
-												else { p.c.c= c.areaT; 		p.c.b=c.areaB;	p.c.x= b.x+s.bPD} 	return p.c}
-
-	var b ={ w:s.btnWid, h:s.btnHei,	x:s.fraWid, xi:s.btnGrX,  	y:s.fraHei, yi:s.btnGrY };
-	var p ={ nim:nim, e:[], l:0, E:[], L:0, c:{c:""}, crtFo:""};
-	if(usr.crtFo){p.crtFo=usr.crtFo.id.split("-").pop()}
-	c = c.gray;
-	b.e=mkLT(s.lP,s.tP,winWid-s.lP-s.rP,winHei-s.tP-s.bP,"pAIU",c.base,"pAWrap",0.66); 				p.e.push( b.e);
-
-			  b.e=mkT(b.x,b.y-s.bPD,"pAIU_txt-tx3",c.hilite,"pAIU_txt",s.fonSiz,"USER SEX :");	p.e.push( b.e);b.x+=s.lV;
-p.c=usGt("F");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_gBt-F",p.c.c,"pAIU_gBt",p.c.b, s.btnBrd);p.e.push( b.e);
-p.c=usGT("F");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_gBT-F",p.c.c,"pAIU_gBT",s.fonSiz,"F"); 		p.e.push( b.e);b.x+=s.fonSiz*1.618;
-p.c=usGt("M");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_gBt-M",p.c.c,"pAIU_gBt",p.c.b,s.btnBrd);	p.e.push( b.e);
-p.c=usGT("M");b.e=mkT(b.x+5,b.y-s.bPD,"pAIU_gBT-M",p.c.c,"pAIU_gBT",s.fonSiz,"M"); 		p.e.push( b.e);
-
-b.x=s.fraWid+s.lV; b.y+=b.yi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-FIR",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-FEN",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-FER",c.area,"pAIU_tSh",0.2);p.e.push( b.e);
-	b.x=s.fraWid+s.lV;b.y+=b.yi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-NIF",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-NIT",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-NEF",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-NET",c.area,"pAIU_tSh",0.2);p.e.push( b.e);
-	b.x=s.fraWid+s.lV;b.y+=b.yi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-RIF",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-RIT",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-REF",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-RET",c.area,"pAIU_tSh",0.2);p.e.push( b.e);
-	b.x=s.fraWid+s.lV;b.y+=b.yi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-TIN",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-TIR",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-TEN",c.area,"pAIU_tSh",0.2);p.e.push( b.e);b.x+=b.xi;
-	b.e=mkLT(b.x,b.y,b.w,b.h,"pAIU_tBt-TER",c.area,"pAIU_tSh",0.2);p.e.push( b.e);
-
-	//c = c.gray;
-	b.x=s.fraWid+s.mV+s.lV; b.y=s.fraHei+s.fraHei;
-	p.e=mkC( p.e,b.x,b.y,s.cE,s.cE,"cUIU",c.plane,"cUIU",false,true,4,0.7,usr.tyN,true);
-	p.e=mkW( p.e,b.x,b.y,s.cE,s.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa","#ddffdd");
-
-	p.L =p.E.length; p.l =p.e.length; return p}
-
-/*blue:{ base:"#123456", hilite:"#ff6600", area:"#345678", areaT:"#89abcd", selArea:"#6789ab",
-						selAreaT:"#deefde", cShade:"#ffcccc", valNum:"#662525", shaNum:"#252566", plane:"#336688"},*/
-
-	
-function hpE(e,p){ e.setAttribute('visibility','hidden'); p.e.push(e)}
-function shE(a,l){ for(var i=0; i < l; i++){ a[i].setAttribute( 'visibility','visible')} /*console.log(a);*/}
-function Theme( base,hilite,area,areaT,selArea,selAreaT,cubeShade,){}
+	p.c=usTt("FIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FIN",p.c,"pAIU_tBT",d.fonSiz,"FIN");p.e.push(b.e);b.x+=b.xi;
+	p.c=usTt("FIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIR",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("FIR");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FIR",p.c,"pAIU_tBT",d.fonSiz,"FIR");p.e.push(b.e);b.x+=b.xi;
+	p.c=usTt("FEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FEN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("FEN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FEN",p.c,"pAIU_tBT",d.fonSiz,"FEN");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("FER");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FER",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("FER");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FER",p.c,"pAIU_tBT",d.fonSiz,"FER");p.e.push( b.e);
+	b.x=d.fraWid+d.lV;b.y+=b.yi;
+	p.c=usTt("NIF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NIF",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("NIF");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-NIF",p.c,"pAIU_tBT",d.fonSiz,"NIF");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("NIT");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NIT",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("NIT");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-NIT",p.c,"pAIU_tBT",d.fonSiz,"NIT");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("NEF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NEF",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("NEF");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-NEF",p.c,"pAIU_tBT",d.fonSiz,"NEF");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("NET");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NET",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("NET");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-NET",p.c,"pAIU_tBT",d.fonSiz,"NET");p.e.push( b.e);
+	b.x=d.fraWid+d.lV;b.y+=b.yi;
+	p.c=usTt("RIF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RIF",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("RIF");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-RIF",p.c,"pAIU_tBT",d.fonSiz,"RIF");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("RIT");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RIT",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("RIT");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-RIT",p.c,"pAIU_tBT",d.fonSiz,"RIT");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("REF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-REF",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("REF");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-REF",p.c,"pAIU_tBT",d.fonSiz,"REF");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("RET");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RET",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("RET");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-RET",p.c,"pAIU_tBT",d.fonSiz,"RET");p.e.push( b.e);
+	b.x=d.fraWid+d.lV;b.y+=b.yi;
+	p.c=usTt("TIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TIN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("TIN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-TIN",p.c,"pAIU_tBT",d.fonSiz,"TIN");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("TIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TIR",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("TIR");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-TIR",p.c,"pAIU_tBT",d.fonSiz,"TIR");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("TEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TEN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("TEN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-TEN",p.c,"pAIU_tBT",d.fonSiz,"TEN");p.e.push( b.e);b.x+=b.xi;
+	p.c=usTt("TER");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TER",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
+	p.c=usTT("TER");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-TER",p.c,"pAIU_tBT",d.fonSiz,"TER");p.e.push( b.e); return a}
 function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,mC,qR,kK,pJ,pages) {
 	var s={ sBs:0, qUs:0, qDs:0, dCs:0, mCs:0, qRs:0, kKs:0, pJs:0, pL:0};
 	if(src){s.sGs =src.sGs; 	s.qUs =src.qUs; 	s.qDs =src.qDs; 	s.dCs =src.dCs;
@@ -764,8 +898,8 @@ function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,m
 						selAreaB:"#6789ab", areaB:"#6789ab", shArea:"#012345"},
 					alpha:{ cube:0.7, wire:0.38}},
 				pageIU : { b:"#123456", t:"#ff6600", btB:"#345678", btT:"#89abcd", selBtB:"#6789ab", selBtT:"#deefde", 
-					lV:173, mV:452,bPL:10, bPD:7, cE:280, 		fraWid:66, 	fraHei:66, 	 
-					rP:66, tP:25, lP:40, bP:19, 				btnWid:66, 	btnHei:25,
+					lV:173, mV:452, bPL:10, bPD:20, cE:280, 	fraWid:66, 	fraHei:66,  op1:0.66, op2:0.7,	 
+					rP:66,  tP:25,  lP:40,  bP:19,  lP:7,tPL:15,btnWid:66, 	btnHei:25, 	cuD:4,
 																btnGrX:88, 	btnGrY:40, 	fonSiz:25, 	btnBrd:2 }},
 		sV:null,	winWid:0, 	winHei:0, overflow:false, features:[], fesLen:0,  pages:[], pagLen:s.pL,
 		devices:{
@@ -780,7 +914,7 @@ function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,m
 /*AMMO*/ 	aM:{ sV:null,	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0},
 /*EXPLORER*/eX:{ sV:null,	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0},
 /*GRAM    */gR:{ sV:null,	disWid:0, 	disHei:0, 	disHrz:0, 	disVrt:0},
-/*DEVBAR  */dB:{ sV:null,	disWid:0, 	disHei:0,	disHrz:0, 	disVrt:0},
+/*DEVBAR  */oL:{ sV:null,	disWid:0, 	disHei:0,	disHrz:0, 	disVrt:0},
 /*DIOMOG  */dG:{ sV:null,	disWid:0, 	disHei:0,	disHrz:0, 	disVrt:0},
 /*SYSGRID */sGs: s.sGs,
 			sG:{ sV:null, 	disWid:0, 	disHei:0,  	disHrz:0, 	disVrt:0,
@@ -866,7 +1000,7 @@ function blueToGray(t){ 		var T =copyTheme(t); T =mTHue(T, 25); return T}
 function precalcDevicesForFeature( ui,feNim,act,qU){
 	var dev={ 	DOM:null,sB:null, pJ:null, tT:null, gL:null,
 				sQ:null, aM:null, sH:null, cA:null, mE:null,
-				sT:null, eX:null, gR:null, dB:null, dG:null, pM:null,
+				sT:null, eX:null, gR:null, oL:null, dG:null, pM:null,
 				sG:null, qU:null, dC:null, mC:null, kK:null, yO:null };
 	if(act.sB){ dev.sB = mkSidebar( 	ui, feNim,				act.sV);
 				dev.pJ = mkProjector( 	ui, feNim, 				act.sV);
@@ -880,7 +1014,7 @@ function precalcDevicesForFeature( ui,feNim,act,qU){
 	if(act.cA){ dev.cA = mkCannon( 		ui, feNim, 	act.DOM, 	act.sV, 	dev.aM)}
 	if(act.eX){ dev.eX = mkExplorer( 	ui, feNim,	act.DOM,	act.sV)}
 	if(act.gR){ dev.gR = mkGram( 		ui, feNim,	act.DOM,	act.sV)}
-	if(act.dB){ dev.dB = mkDevBar( 		ui, feNim,	act.DOM,	act.sV)}
+	if(act.oL){ dev.oL = mkOneLiner( 	ui, feNim,	act.DOM,	act.sV)}
 	if(act.dG){ dev.dG = mkDialog( 		ui, feNim,	act.DOM,	act.sV, 	dev.gL)}
 
 	if(act.sG){ dev.sG = mkSystemGrid( 	ui, feNim, 	act.DOM)}
@@ -935,7 +1069,7 @@ function mkShotgun( ui,fe,DOM,sV,par){  var re=new Shotgun( ui,fe,DOM,sV,par); 	
 function mkCannon( ui,fe,DOM,sV,par){   var re=new Cannon( ui,fe,DOM,sV,par); 		re =mkCannonElements( re);return re}
 function mkExplorer( ui,feNim,DOM,sV){	var re=new Explorer( ui,feNim,DOM,sV); 		re =mkExplorerElements( re);return re}
 function mkGram( ui,feNim,DOM,sV){ 		var re=new Gram( ui,feNim,DOM,sV);	 		re =mkGramElements( re);return re}
-function mkDevBar( ui,feNim,DOM,sV){ 	var re=new DevBar( ui,feNim,DOM,sV); 		re =mkDevBarElements( re);return re}
+function mkOneLiner( ui,feNim,DOM,sV){ 	var re=new OneLiner( ui,feNim,DOM,sV); 		re =mkOneLinerElements( re);return re}
 function mkSystemGrid( ui,feNim,DOM){ 	var re=new SystemGrid( ui,feNim,DOM); 		re =mkSystemGridElements(re);return re}
 function mkQuad( ui,hnd,sV,qU){ 		var re=new Quad( ui,hnd,sV,qU); 			re =caQuad( re,qU);return re}
 function mkDice( ui,hnd,sV,par){ 		var re=new Dice( ui,hnd,sV,par);return re}
@@ -1024,10 +1158,10 @@ function Gram( ui,feNim,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null;
 	var sty = { brdWid:3,
 		bG:OM.coGrid,	d:"#000000"};
 	this.sty =sty;}
-function DevBar( ui,feNim,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
+function OneLiner( ui,feNim,DOM,SVG){ this.ui =ui; this.actDOM =DOM; this.DOM =null; this.actSVG =SVG; this.sV =null;
 	this.feNim=feNim; this.disWid =ui.winWid -ui.devices.sB.disWid -ui.devices.gL.mVX -ui.devices.gL.lVX;
 	this.disHei =ui.devices.gL.dBH;
-	this.disHrz =ui.devices.gL.mVX +ui.devices.gL.lVX; this.disVrt =ui.winHei -ui.devices.gL.dBH;
+	this.disHrz =ui.devices.gL.mVX +ui.devices.gL.lVX; this.disVrt =0;
 	var sty = { pad:3, 
 		bG:"#000000",  txt:"#00ff00"};
 	this.sty =sty;}
@@ -1141,54 +1275,7 @@ function mkTFun(x,y,id,co,cl,fonSiz,txt,fonFam,op){ var t =document.createElemen
 								t.textContent =txt; return t}
 //b.e=mkTFun(b.x,b.y,"cUIUFun-1","#662525","cUIUFun",66,"1","strike_fighter",0.5);
 function mkY(){ /*värierottelu mkC*/}
-function mkC(c,x,y,w,h,id,co,cl,xA,yA,d,op,usrTyN,n){ var e=null; var v=""; //todo:tyn (if user male?, muuten nappien alle)
-	if(!xA){ if(!yA){ 	e =mkK(x+(w/d),y+(h/d),w,h,id+"-btm",co,cl+"-btm",op); c.push(e);
-						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
-						e =mkL(x-(w/d),	y-(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e)}
-				else{
-						v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+
-							(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
-							(x+w+(w/d)+","+(y+(h/2)-(h/d)))+" "+
-							(x+w-(w/d)+","+(y+(h/2)+(h/d)));
-						e =mkS(v,id+"-sP","#ffcccc",id+"-sP-hrz",op);c.push(e);
-						v =  x - (w/d)+","+(y+(h/2)+(h/d)-(h/2)) +" "+
-							(x + (w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+
-							(x+w+(w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+
-							(x+w-(w/d)+","+(y+(h/2)+(h/d)-(h/2)));
-						e =mkS(v,id+"-sP","#ffcccc",id+"-sP-top",op);c.push(e);
-						v =  x - (w/d)+","+(y+(h/2)+(h/d)+(h/2)) +" "+
-							(x + (w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+
-							(x+w+(w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+
-							(x+w-(w/d)+","+(y+(h/2)+(h/d)+(h/2)));
-						e =mkS(v,id+"-sP","#ffcccc",id+"-sP-btm",op/1.618);c.push(e);
-						v =  x + (w/2)-(w/d)+","+(y + (h/d)) +" "+
-							(x + (w/2)+(w/d)+","+(y - (h/d)))+" "+
-							(x + (w/2)+(w/d)+","+(y+h-(h/d)))+" "+
-							(x + (w/2)-(w/d)+","+(y+h+(h/d)));
-						e =mkS(v,id+"-sP","#ffcccc",id+"-sP-vrt",op);c.push(e);
 
-						e =mkK(x+(w/d),	y-(h/d),w,h,id+"-btm",co,cl+"-btm",op); 		c.push(e);
-						e =mkK(x, 		y, 		w,h,id+"-mid",co,cl+"-mid",op/1.618);	c.push(e);
-						e =mkK(x-(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top",op);			c.push(e);
-if(n){
-	e=mkTFun(x+11, 				y-9,		"cUIUFun-1","#662525","cUIUFun",66,"5","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x+w+8,				y-9,		"cUIUFun-2","#662525","cUIUFun",66,"8","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x+w+21,			y+(h/2)-9,	"cUIUFun-3","#662525","cUIUFun",66,"1","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x + 11, 			y+(h/2)-9,	"cUIUFun-4","#662525","cUIUFun",66,"4","strike_fighter",0.5); c.push(e);
-
-	e=mkTFun(x+w-(w/d)+10, 		y+h-(h/d)-9,"cUIUFun-5","#252566","cUIUFun",66,"2","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x-(w/d)+11,		y+h-(h/d)-9,"cUIUFun-6","#252566","cUIUFun",66,"3","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x-(w/d)+8,			y+(h/d)-9,	"cUIUFun-7","#252566","cUIUFun",66,"6","strike_fighter",0.5); c.push(e);
-	e=mkTFun(x+w-(w/d)+7, 		y+(h/d)-9,	"cUIUFun-8","#252566","cUIUFun",66,"7","strike_fighter",0.5); c.push(e)}
-
-					}}else{if(!yA){
-						e =mkL(x-(w/d),	y+(h/d),w,h,id+"-btm",co,cl+"-btm"); c.push(e);
-						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
-						e =mkL(x+(w/d),	y-(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e)}else{
-						e =mkL(x-(w/d),	y-(h/d),w,h,id+"-btm",co,cl+"-btm"); c.push(e);
-						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
-						e =mkL(x+(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e);
-					}}return c}
 function mkW(c,x,y,w,h,co,st,d,op,Co,cO,CO){  var
 	e=mkI(	x-((w/d)/2),	y+((h/d)/2),	x+((w/d)/2)+(w-(w/d)), 			y+((h/d)/2),	"cHUI",Co,st,op); c.push(e);
 	e=mkI(	x-((w/d)/2),	y+((h/d)/2)+h,	x+((w/d)/2)+(w-(w/d)), 			y+((h/d)/2)+h,	"cHUI",Co,st,op); c.push(e);
@@ -1282,6 +1369,30 @@ $('svg path').attr('fill','url(#MyGradient)');*/
 }*/
 function mkSG(pt,id,co,cl,op) { var p=document.createElementNS( nS,'polygon'); p.setAttribute("points", pt);
 	p.setAttribute( 'fill',co); p.setAttribute( 'id',id); p.setAttribute( 'class',cl); if(op!=false){ p.setAttribute( 'opacity',op)} return p}
+function drA(x,y,w,h,l,id,cl,b,L,op){ var e=document.createElementNS( nS,'rect'); e.setAttribute( 'fill',l);
+	e.setAttribute('x',x);e.setAttribute('y',y); e.setAttribute( 'width',w); e.setAttribute( 'height',h); 
+	if(b > 0){ e.setAttribute( 'stroke',L); e.setAttribute( 'stroke-width',b)}
+	if(op!=undefined){ e.setAttribute( 'opacity',op)} e.setAttribute( 'id',id); e.setAttribute( 'class',cl); return e}
+function drT(x,y,l,t,id,cl,f,F){ var e=document.createElementNS( nS,'text'); e.setAttribute('x',x);e.setAttribute('y',y);
+ 	e.setAttribute( 'id', id); e.setAttribute( 'class', cl); e.setAttribute( 'font-size',f); e.setAttribute( 'fill',l);
+ 	if(F==undefined){ e.setAttribute( 'font-family','profont')}else{ e.setAttribute( 'font-family',F)} e.textContent =t;
+ 	e.setAttribute( 'pointer-events', 'none'); return e}
+function drS(v,l,id,cl,op){ var e=document.createElementNS( nS,'polygon'); e.setAttribute("points",v);
+	e.setAttribute( 'fill',l); e.setAttribute('id',id); e.setAttribute('class',cl);
+	if(op!=undefined){ e.setAttribute( 'opacity',op)} return e}
+//e =mkS(v, id+"-sP", u.sty.cShade, id+"-sP-hrz", op); 
+/*function mkS(pt,id,co,cl,op) { var p=document.createElementNS( nS,'polygon'); p.setAttribute("points", pt);
+	p.setAttribute( 'fill',co); if(id!=false){p.setAttribute( 'id',id)} p.setAttribute( 'class',cl); if(op!=false){ p.setAttribute( 'opacity',op)} return p}*/
+
+/* function mkT(x,y,id,co,cl,fonSiz,txt,fonFam){ var t =document.createElementNS( nS,'text'); y+=fonSiz;
+					if( x> -1){ 	t.setAttribute( 'x',x)}	
+					if( y> -1){ 	t.setAttribute( 'y',y)}
+			if(fonSiz!=false){ 	t.setAttribute( 'font-size',fonSiz)}
+				if( id!=false){ t.setAttribute( 'id', 	id) }
+				if( co!=false){ t.setAttribute( 'fill', co) }
+				if( cl!=false){ t.setAttribute( 'class',cl) }
+								t.setAttribute( 'pointer-events', 'none');
+								t.textContent =txt; return t}*/
 function mkL(x,y,w,h,id,co,cl,sC,sW){ var r=document.createElementNS( nS,'rect');
 					if( x> -1){ 	r.setAttribute( 'x',x)}	
 					if( y> -1){ 	r.setAttribute( 'y',y)}
@@ -1380,11 +1491,11 @@ function mkGramElements( gR){ 	if( gR.actSVG){ gR.sV =mkGramSVG( gR)}
 												if( gR.actSVG){ gR.DOM.appendChild(gR.sV)}} return gR}
 function mkGramDOM( gR){		var re =mkD( gR.disHrz,gR.disVrt,gR.disWid,gR.disHei,"gRD",gR.sty.bG,"gRD"); return re}
 function mkGramSVG( gR){		var re =mkL( gR.disHrz,gR.disVrt,gR.disWid,gR.disHei,"gR",gR.sty.bG,"gR",''); return re}
-function mkDevBarElements( dB){ if( dB.actSVG){ dB.sV =mkDevBarSVG( dB)}
-								if( dB.actDOM){ dB.DOM =mkDevBarDOM( dB);
-												if( dB.actSVG){ dB.DOM.appendChild(dB.sV)}} return dB}
-function mkDevBarDOM( dB){		var re =mkD( dB.disHrz,dB.disVrt,dB.disWid,dB.disHei,"dBD",dB.sty.bG,"dBD"); return re}
-function mkDevBarSVG( dB){		var re =mkL( dB.disHrz,dB.disVrt,dB.disWid,dB.disHei,"dB",dB.sty.bG,"dB",''); return re}
+function mkOneLinerElements( oL){ if( oL.actSVG){ oL.sV =mkOneLinerSVG( oL)}
+								if( oL.actDOM){ oL.DOM =mkOneLinerDOM( oL);
+												if( oL.actSVG){ oL.DOM.appendChild(oL.sV)}} return oL}
+function mkOneLinerDOM( oL){	var re =mkD( oL.disHrz,oL.disVrt,oL.disWid,oL.disHei,"oLD",oL.sty.bG,"oLD"); return re}
+function mkOneLinerSVG( oL){	var re =mkL( oL.disHrz,oL.disVrt,oL.disWid,oL.disHei,"oL", oL.sty.bG,"oL",''); return re}
 function mkDialogElements( dG){ if( dG.actSVG){ dG.sV =mkDialogSVG( dG)}
 								if( dG.actDOM){ dG.DOM =mkDialogDOM( dG);
 												if( dG.actSVG){ dG.DOM.appendChild(dG.sV)}} return dG}
@@ -1426,7 +1537,7 @@ function precalcSuperTabs( feNim){var sTs=[]; switch( feNim){
 	case "money" : sTs=[ "hello","world"]; break;
 	case "mosaic": sTs=[ "world"]; 		break}return sTs}
 function calcSuperTabs( ui, fes, fesL){	for(var i=0; i<fesL; i++){ for(var j=0; j<fes[i].sTsLen; j++){
-	fes[i].sTs[j] =mkSuperTab( fes[i], fes[i].sTs[j])}} console.log(OM.user); return ui}
+	fes[i].sTs[j] =mkSuperTab( fes[i], fes[i].sTs[j])}} console.log(OM.user); /*bind sT to user not fe*/return ui}
 function mkSuperTab( fe,sTNi){ var o; switch( sTNi){ 	case "hello": o =mkSuperTabHello( fe); break;
 														case "world": o =mkSuperTabWorld( fe); break; } return o}
 function mkSuperTabHello( fe){ var o=new SuperTab("hello",fe,OM.user); return o}
@@ -1436,23 +1547,23 @@ function SuperTab( ni,fe,usr){ this.ni=ni; this.user=usr; this.fe=fe; OM.user.sT
 function getDevicesForFeature( h){ var r=null; switch( h){
 	case "yozen": 	r = {  DOM:true, sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
-							sT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
+							sT:true, eX:true, gR:true, oL:true, dG:false,pM:false,
 							sG:true, qU:false,dC:false,mC:false,kK:false,yO:false};return r;
 	case "money" : 	r = {  DOM:true, sV:true, sB:true, tT:true, gL:true, 
 							sQ:true, aM:true, sH:true, cA:true, mE:false,
-							sT:true, eX:true, gR:false,dB:true, dG:false,pM:false,
+							sT:true, eX:true, gR:false,oL:true, dG:false,pM:false,
 							sG:false,qU:false,dC:false,mC:false,kK:false,yO:false};return r;
 	case "mosaic": 	r =	{  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:true,
-							sT:true, eX:true, gR:true, dB:true, dG:false,pM:false,
+							sT:true, eX:true, gR:true, oL:true, dG:false,pM:false,
 							sG:false,qU:true, dC:false,mC:false,kK:false,yO:false};return r;
 	case "dharma" : r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
-							sT:false,eX:true, gR:true, dB:true, dG:false,pM:false,
+							sT:false,eX:true, gR:true, oL:true, dG:false,pM:false,
 							sG:false,qU:false,dC:false,mC:false,kK:false,yO:true };return r;
 	case "zygn": 	r = {  DOM:false,sV:true, sB:true, tT:true, gL:true,
 							sQ:true, aM:false,sH:false,cA:false,mE:false,
-							sT:true, eX:true, gR:false,dB:true, dG:false,pM:false,
+							sT:true, eX:true, gR:false,oL:true, dG:false,pM:false,
 							sG:false,qU:true, dC:false,mC:false,kK:false,yO:false};return r}}
 
 function precalcToolsForFeatures( ui, fes, fesLen){
