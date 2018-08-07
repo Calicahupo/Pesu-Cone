@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>mustikkapiirakka2585</title>
+<title>SOS-Aston-3.141-2654</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -17,7 +17,7 @@
 </style><!-- src="diodi/di0016.js"></script><!-aldiod--> <!-- src="diodi/dB0000.js"></script><!-devBar-->
 <script src="diodi/jquery-2.js"></script><script>
 //window.addEventListener("resize", draw, true);
-function draw(){ calcInterface( OM); predraw( OM); clearScreen(); postinit( OM); /*clearScreen();*/}
+function draw(){ /*calcInterface( OM);*/ predraw( OM); /*clearScreen();*/ postinit( OM); /*clearScreen();*/}
 function clearScreen(){var e=Array.from(document.querySelectorAll('*')); e.forEach( function(e){ e.remove()})}
 var OM={ 
 	defUser:false,
@@ -372,21 +372,23 @@ function C( n,l,d){ var o=OM.Context.Co(n,"C",l,d); this.n=o.n; this.ni=o.ni; th
 function O( n,l,d){ var o=OM.Context.Co(n,"O",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 function S( n,l,d){ var o=OM.Context.Co(n,"S",l,d); this.n=o.n; this.ni=o.ni; this.log=o.log; this.dia=o.dia}
 
-OM.Gender={ seed: ["NaG","f","F","m","M"],
+//function Girl( n,g,a){ var o=OM.Gender.Gn(n,"f",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+//function Boy ( n,g,a){ var o=OM.Gender.Gn(n,"m",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+OM.Gender={ seed: ["NaG","Girlism","Boyism","Womanism","Manism"], //seed: ["NaG","f","F","m","M"],
 	Gn:function( n,ni,m,a){ var o={ n:n, ni:ni, ma:m, ad:a}; return o}}
-function NaG( n, g,a){ var o=OM.Gender.Gn(n,"NaG",g,a); this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
-function Girl( n,g,a){ var o=OM.Gender.Gn(n,"f",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
-function Woman(n,g,a){ var o=OM.Gender.Gn(n,"F",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
-function Boy ( n,g,a){ var o=OM.Gender.Gn(n,"m",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
-function Man ( n,g,a){ var o=OM.Gender.Gn(n,"M",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function NaG( n, g,a){  	var o=OM.Gender.Gn(n,"NaG",g,a); this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Girlism( n, g,a){  var o=OM.Gender.Gn(n,"Girlism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Boyism( n, g,a){  	var o=OM.Gender.Gn(n,"Boyism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Womanism(n,g,a){  	var o=OM.Gender.Gn(n,"Womanism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Manism( n,g,a){  	var o=OM.Gender.Gn(n,"Manism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
 /*                                                                                                              ! ?
                                                                                                                TÿE
-                                                                                                        °     OÿŸÿNOB     ƒ
-                                                                                                        §      oÿÿ
-                                                                                                       >"<      sÿÿ
-                                                                                                        Å        aÿÿ
-                                                                                                       Ä Ä        eÿÿ
-                                                                                                     Ö< Ö< Ö<      sÿÿ
+                                                                                                       °      OÿŸÿDON     ƒ
+                                                                                                       §       oÿÿ
+                                                                                                     ö >"<      sÿÿ
+                                                                                                      äÅ  }      aÿÿ
+                                                                                                     Ä Ä Ä        eÿÿ
+                                                                                                    Ö< Ö< Ö<       sÿÿ
                                                                                               ÿ      ÿÿÿÿÿ¢         ÿÿ
                                                                                                ÿÿÿ ÿÿÿÿÿÿÿÿÿÿ$     tÿÿ
                                                                                                 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ€ asÿÿÿ
@@ -443,12 +445,12 @@ function mkContext(id){ var co=null;switch( id){case "O":co =new O( 1, false,fal
 												case "S":co =new S( 2, false,true ); return co;
 												case "L":co =new L( 3, true, false); return co;
 												case "C":co =new C( 4, true, true ); return co}}
-function mkGender(id){ var gn=null;switch( id){ case "NaG":gn=new NaG ( 0, false,false); return gn;
-												case "f":gn =new Girl ( 1, false,false); return gn;
-												case "F":gn =new Woman( 2, false,true ); return gn;
-												case "m":gn =new Boy  ( 3, true, false); return gn;
-												case "M":gn =new Man  ( 4, true ,true ); return gn;}}
-function precalcGender(gn){ var gns=[];var bu=null; for(var n=0; n <=4  ;n++){bu=mkGender(gn[n]); gns.push(bu)} return gns}
+function mkGender(id){ var gn=null;switch( id){ case "NaG":gn=new 		NaG 	( 0, false,false); return gn;
+												case "Girlism":gn=new 	Girlism ( 1, false,false); return gn;	
+												case "Boyism":gn=new 	Boyism 	( 2, true, false); return gn;
+												case "Manism":gn =new 	Womanism( 3, true ,true ); return gn;
+												case "Womanism":gn =new Manism  ( 4, false,true ); return gn;}}
+function precalcGender(gn){ var gns=[];var bu=null; for(var n=0; n <=4  ;n++){bu=mkGender(gn[n]);gns.push(bu)}return gns}
 function precalcDice( di) { var dis=[];var bu=null; for(var n=0; n < 22 ;n++){ bu=mkPanda( di[n]);dis.push(bu)} return dis}
 function precalcTypes( ty){ var tys=[];var bu=null; for(var n=0; n <=16 ;n++){ bu=mkType( ty[n]); tys.push(bu)} return tys}
 function precalcSpirits(sp){var sps=[];var bu=null; for(var n=0; n < 8  ;n++){bu=mkSpirit(sp[n]); sps.push(bu)} return sps}
@@ -467,7 +469,9 @@ function precalcInterface(om){
 											selGn: false, 	ty:null,
 											selTy: false, 	initDone:false}; 
 											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT");
+											console.log( OM.fL.gn);
 											OM.user.gn = OM.fL.gn.find(o => o.ni === "NaG");
+											console.log(OM.user.gn);
 											calcInterface(om)}//OM.user.gn = OM.fL.gn.find(o => o.ni === "M");
 
 function calcInterface(om){ 	var ui 					= precalcUserInterfaceTemplates( false,		om.reso,
@@ -502,16 +506,10 @@ function calcInterface(om){ 	var ui 					= precalcUserInterfaceTemplates( false,
 // ri manouvreability decide PP10 init of SEG?
 
 function uiFocusUserType( e){ 	hiliteUserType( OM.ui,OM.user,e)}
-function uiChooseUserType( e){ 	var i=e.getAttribute("id"); i=i.split("-").pop(); chooseUserType( OM.user, i);
-								drawUserType( 		OM.user, e)}
+
 function uiFocusUserGender( e){ hiliteUserGender( OM.ui,OM.user,e)}
 
-function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop();
-	chooseUserGender( OM.user, i);
-	console.log(OM.user.gn);
-	mkGenderPanel( OM.user, OM.ui.sty.pageIU, OM.user.sty);
-	//drawUserGender( 	OM.user, e, i)
-							}
+
 
 function drawUserGender( u,e,i){  var cl=e.getAttribute("class"); console.log(cl);
 
@@ -524,7 +522,7 @@ function drawUserGender( u,e,i){  var cl=e.getAttribute("class"); console.log(cl
 function bindMany( sel,c){ var e=Array.from(document.querySelectorAll( sel));
 	e.forEach( function(e){ e.addEventListener("mouseover", function(){ c( "mouseover",	e)})});
 	e.forEach( function(e){ e.addEventListener("mousedown", function(){ c( "mousedown", e)})})}
-function listenForUser(){
+function ölistenForUser(){
 	bindMany( '.pAIU_tyA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserType( e); 	break;
 													/*	case "mouseover" 	: uiFocusUserType( e); 		break;*/ }});
 	bindMany( '.pAIU_gnA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;
@@ -532,15 +530,10 @@ function listenForUser(){
 function uiChooseSb( e){ console.log(e); chooseUserFe( OM.ui,OM.user,e)}
 function chooseUserFe( ui,usr,e){ var id = e.id.split("-").pop();}
 
-function askForUser( ui,usr){ var p =mkPageForInitUser( usr, ui.sty.pageIU, usr.sty); showSv( p); listenForUser()}
+function askForUser( ui,usr){ /*var p =*/mkPageForInitUser( usr, ui.sty.pageIU, usr.sty); /*showSv( p); listenForUser()*/}
 function showSv( p){ for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV)}
 
-function chooseUserGender(u,i){
-	if(u.gn.ni == i){ 	u.gn = OM.fL.gn.find(o => o.ni === "NaG"); 	u.selGn =true}
-	else {				u.gn = OM.fL.gn.find(o => o.ni === i); 		u.selGn=false}}
-function chooseUserType(u,i){
-	if(u.ty.ni == i){ 	u.ty = OM.fL.es.find(o => o.ni === "NaT"); 	u.selTy =true}
-	else {				u.ty = OM.fL.es.find(o => o.ni === i); 		u.selTy=false}}
+
 /*
 function hiliteUserGender(ui,usr,e){ if(!usr.selGn){hilitGx( e, usr)}}
 function hilitGx(e,usr){ if(usr.crtGnFo!=null){ if(usr.crtGnFo!=e){
@@ -638,18 +631,24 @@ function mokPageForInitUser2(  id, winWid, winHei, usr, s, c){ console.log(c);
 										else { 		p.c= c.area; 		p.b=c.areaB} return p.c}
 	function usGT(t){ if(u.selGn && u.gn.ni ==t){ 	p.c= c.selAreaT}
 										else { 		p.c= c.areaT; 		p.c=c.areaB} return p.c}*/
-function mkPageForInitUser( u,d,c){	var E =[]; var cl="pAIU"; var id =cl+"_base";
-	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,id,cl,0,undefined, 0.66); E.push(e);
+										//on form complete
+										//hilite hover gone
+										//You are #char
+										//DONE RESET
+function mkPageForInitUser( u,d,c){	var cl="pAIU"; var id =cl+"_base";
+	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,id,cl,0,undefined, 0.66);
+	sV.appendChild( e);
 	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e); 
-	E =mkGenderPanel( u,d,c,E,cl);
-	E = mkTypePanel ( u,d,c,E,cl);
-	E = mkTempCube ( u,d,c,E,cl ); 
+	mkGenderPanel( u,d,c);
+	mkTypePanel ( u,d,c);
+	mkTypeCube ( u,d,c ); 
+
+
 	//if( u.gn.ni !="NaG"){ E =mkCubeWire( u,d,c,E,cl)}
 	//if( u.ty.ni !="NaT"){ E =mkCubeElem( u,d,c,E,cl)}
 	//function drS(v,l,id,cl,op)
-	E.forEach( function(e){ sV.appendChild(e)});
-	return E}
-function mkTempCube( u,d,c,E,cl){ var e; var v=""; var x=OM.ui.winWid-d.cE-d.cE+66; var y=d.cE/2; var w=d.cE; var h=d.cE; var id=cl; var d=d.cuD; var op=d.op2; var co=u.sty.plane;
+}
+function mkTypeCube( u,d,c){ var cl="pAIU"; var e; var E=[]; var v=""; var x=OM.ui.winWid-d.cE-d.cE+66; var y=d.cE/2; var w=d.cE; var h=d.cE; var id=cl; var d=d.cuD; var op=d.op2; var co=u.sty.plane;
 						v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+
 							(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
 							(x+w+(w/d)+","+(y+(h/2)-(h/d)))+" "+
@@ -675,7 +674,13 @@ function mkTempCube( u,d,c,E,cl){ var e; var v=""; var x=OM.ui.winWid-d.cE-d.cE+
 						e =drS(v, u.sty.cShade, id+"-cU-vrt", cl, op); 								E.push(e);
 						e =drA(x+(w/d),	y-(h/d),w,h,co,id+"-btm",cl+"-btm",0,undefined,op); 		E.push(e);
 						e =mkK(x, 		y, 		w,h,co,id+"-mid",cl+"-mid",0,undefined,op/1.618);	E.push(e);
-						e =mkK(x-(w/d),	y+(h/d),w,h,co,id+"-top",cl+"-top",0,undefined,op);			E.push(e); return E}
+						e =mkK(x-(w/d),	y+(h/d),w,h,co,id+"-top",cl+"-top",0,undefined,op);			E.push(e);
+	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
+	/*bindMany( '.pAIU_gnA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;
+														case "mouseover" 	: uiFocusUserGender( e); 	break; }})*/
+}
+
+
 /* function drA(x,y,w,h,l,id,cl,b,L,op) //brass->amber
 function mkK(x,y,w,h,id,co,cl,op) { var r=document.createElementNS( nS,'rect');
 					if( x> -1){ 	r.setAttribute( 'x',x)}	
@@ -737,7 +742,7 @@ if(n){
 						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
 						e =mkL(x+(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e);
 					}}return c}*/
-function mkGenderPanel( u,d,c){ var E=[]; var cl="pAIU"
+function mkGenderPanel( u,d,c){ 
 	function usGC(t){ id =cl+"_gnC-"+t; cL =cl+" "+cl+"_gnC"}
 	function usGA(t){ id =cl+"_gnA-"+t; cL =cl+" "+cl+"_gnA";
 		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
@@ -745,32 +750,103 @@ function mkGenderPanel( u,d,c){ var E=[]; var cl="pAIU"
 	function usGT(t){ id =cl+"_gnT-"+t; cL =cl+" "+cl+"_gnT";
 		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}
+	var E=[]; var cl="pAIU";
+	var o =document.getElementsByClassName(cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3);
 /*	usGC("g"); e =drT(x+xi, 		y+d.bPD,c.hilite,"gender",	id, cL, f); 	E.push(e);*/ x+=d.lV;
-	usGA("F"); e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-	usGT("F"); e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
-	usGA("M"); e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-	usGT("M"); e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);
-	E.forEach( function(e){ sV.appendChild(e)});
+	console.log(u.gn); //NaG
+	if(u.gn.ni=="NaG"){
+		usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("Womanism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
+		usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("Manism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
+	else if(u.gn.ni=="Manism"){
+		usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("Womanism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
+		usGA("Boyism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("Boyism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
+	else if(u.gn.ni=="Womanism"){ 
+		usGA("Girlism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("Girlism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
+		usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("Manism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
+	else if(u.gn.ni=="Girlism"){
+		usGA("NaG"); 		e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("NaG"); 		e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
+		usGA("Boyism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("Boyism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
+	else if(u.gn.ni=="Boyism"){
+		usGA("Girlism"); 		e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("Girlism"); 		e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
+		usGA("NaG"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usGT("NaG"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
+	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
 	bindMany( '.pAIU_gnA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;
-													/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ }})
-	return E}
-function mkTypePanel( u,d,c,E,cl){
-	function usTC(X,Y){ id =cl+"_tyC-"+t; cL =cl+" "+cl+"_tyC"}
-	function usTA(X,Y){ id =cl+"_tyA-"+t; cL =cl+" "+cl+"_tyA";
+													/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ }})}
+function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop(); 
+	chooseUserGender( OM.user, i);
+	mkGenderPanel( OM.user, OM.ui.sty.pageIU, OM.user.sty);
+	mkTypePanel( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
+function chooseUserGender(u,i){ u.gn =OM.fL.gn.find(o => o.ni ==i); console.log(u.gn)}
+
+	/*
+	switch(u.gn.ni){
+		case "NaG": var v = OM.fL.gn; console.log(v); break;
+		case "Manism": console.log("Manism"); break; 
+		case "Womanism": console.log("Womanism"); break; 
+		case "Boyism": console.log("Boyism"); break; 
+		case "Girlism": console.log("Girlism"); break; }*/
+/*	if(u.gn.ni =="NaG"){ 	u.gn =OM.fL.gn.find(o => o.ni ==i); u.selGn =true;console.log(u.gn);} else
+	if(u.gn.ni =="Manism"){ u.gn =OM.fL.gn.find(o => o.ni =="Boyism");u.selGn =true;console.log(u.gn);} else
+	if(u.gn.ni =="Boyism"){ u.gn =OM.fL.gn.find(o => o.ni =="NaG"); u.selGn =false;console.log(u.gn);}else
+	if(u.gn.ni =="Girlism"){ u.gn =OM.fL.gn.find(o => o.ni =="NaG");u.selGn =true;console.log(u.gn);} else
+	if(u.gn.ni =="Womanism"){u.gn =OM.fL.gn.find(o => o.ni =="Girlism");u.selGn =false;console.log(u.gn);}*/
+
+
+		/*if(!u.gn.ad){ 		u.gn = OM.fL.gn.find 	(o => o.ni == "NaG"); 	u.selGn =false}
+		else{  		 		var a =OM.fL.gn.filter 	(o => o.ma == u.gn.ma);
+							a  	  =OM.fL.gn.filter 	(o => o.ad != u.gn.ad);
+						  	u.gn = a.find 			(o => o.ni != "NaG"); */
+			//console.log(a);
+						//u.gn = OM.fL.gn.filter(o => o.ni === "NaG");
+						//u.gn = OM.fL.gn.find(o =>)
+
+				//		console.log(u.gn)
+			
+	
+	//if(u.gn.ni == i){ 	u.gn = OM.fL.gn.find(o => o.ni === "NaG"); 	u.selGn =true}
+	//else {				u.gn = OM.fL.gn.find(o => o.ni === i); 		u.selGn=false}}
+function uiChooseUserType( e){ 	var i=e.getAttribute("id"); i=i.split("-").pop(); console.log(i);
+	chooseUserType( OM.user, i); 								console.log(OM.user.ty);
+	mkTypePanel( OM.user, OM.ui.sty.pageIU, OM.user.sty);}
+function chooseUserType(u,i){ console.log(i);
+	if(u.ty.ni == i){ 	u.ty = OM.fL.es.find(o => o.ni === "NaT"); 	u.selTy =true}
+	else {				u.ty = OM.fL.es.find(o => o.ni === i); 		u.selTy=false}
+	u.sty = setUserStyle( OM.ui.sty.pageTe, u.ty.ni);
+	console.log(u);}
+function mkTypePanel( u,d,c,cl){ 
+	function usTC(X,Y){ id =cl+"_tyC-"+u.ty.ni; cL =cl+" "+cl+"_tyC"}
+	function usTA(X,Y){ id =cl+"_tyA-"+u.ty.ni; cL =cl+" "+cl+"_tyA";
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
 								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
-	function usTT(X,Y){ id =cl+"_tyT-"+t; cL =cl+" "+cl+"_tyT"; txt =lT(X,Y);
+	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+u.ty.ni; cL =cl+" "+cl+"_tyT"; txt =lT(sX,sY);
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selAreaT 	}
-								else{ 	l =u.sty.areaT 		}}
-	function lT(X,Y){ var pT; if(u.gn.ni != 'NaG' && !u.gn.ma){ pT=[
-		["FIR","RIF","TIR","RIT"],["FER","REF","TER","RET"],["NIF","FIN","NIT","TIN"],["NEF","FEN","NET","TEN"]]}else{pT=[
-		["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]}
-		return pT[Y][X]}
+								else{ 	l =u.sty.areaT 		}}}
+	function lT(sX,sY){ if(u.gn.ni =='NaG'){ return ""} var pT; 
+		if(!u.gn.ad){ if(!u.gn.ma){ pT=[
+		["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]]}else{pT=[
+		["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]]}}
+		if(!u.gn.ma){ pT=
+[["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]]}
+		else{ pT=
+[["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
+		return pT[sY][sX]}
+	var E=[]; var Cl="pAIU_tyA pAIU_tyT"; var cl="pAIU";
+	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi; var w=d.btnWid;
 	var h=d.btnHei; var x=X;	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var t;
-	usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"type:",	id, cL, f); 		E.push(e); x+=d.lV;
+	usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type :",	id, cL, f); 		E.push(e); x+=d.lV;
 	usTA(0,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
 	usTT(0,0); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
 	usTA(1,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
@@ -802,7 +878,14 @@ function mkTypePanel( u,d,c,E,cl){
 	usTA(2,3); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
 	usTT(2,3); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
 	usTA(3,3); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
-	usTT(3,3); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x=X+d.lV; y+=yi;return E}
+	usTT(3,3); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x=X+d.lV; y+=yi;
+	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
+	console.log(E);
+	bindMany( '.pAIU_tyA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserType( e);	break;
+													/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ }})}
+
+
+
 //p.c=usTt("FIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
 //p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FIN",p.c,"pAIU_tBT",d.fonSiz,"FIN");p.e.push(b.e);b.x+=b.xi;
 /* function drA(x,y,w,h,l,id,cl,b,L){ var e=document.createElementNS( nS,'rect'); e.setAttribute('x',x);e.setAttribute('y',y);
