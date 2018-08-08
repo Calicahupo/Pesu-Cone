@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2654</title>
+<title>SOS-Aston-3.141-2664</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -164,47 +164,33 @@ OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FE
 	Qp:function(p){var o={ anc:p};
 		p.x? p.y? p.z?/*Ne*/o.nim="abc" :/*Ni*/o.nim="bca" : p.z?/*Fe*/o.nim="bac" :/*Fi*/o.nim="acb" :
 			 p.y? p.z?/*Te*/o.nim="bac" :/*Ti*/o.nim="acb" : p.z?/*Re*/o.nim="bca" :/*Ri*/o.nim="cab";return o},
-	TmSuomi:function( ni){ switch( ni){ case"NaT": return"NaT";
-	case"TEN":return"UAV"; 	case"NET":return"UVA"; 	case"FEN":return"UTV"; 	case"NEF":return"UVT";
-	case"TIN":return"SAV"; 	case"NIT":return"SVA"; 	case"FIN":return"STV"; 	case"NIF":return"SVT";
-	case"RET":return"URT"; 	case"TER":return"UTR"; 	case"REF":return"URT"; 	case"FER":return"UTR";
-	case"RIT":return"SRA"; 	case"TIR":return"SAR";	case"RIF":return"SRT"; 	case"FIR":return"STR"}},
-	TmEngZodiacF:function( ni){ switch( ni){ case"NaT": return"NaT";
-	case"TEN":return"Mehiläinen"; 	case"NET":return"Ahma"; 	case"FEN":return"Kala"; 	case"NEF":return"Kissa";
-	case"TIN":return"Panda"; 		case"NIT":return"Pöllö"; 	case"FIN":return"Norppa"; 	case"NIF":return"Mustekala";
-	case"RET":return"Majava"; 		case"TER":return"Susi"; 	case"REF":return"Kilpikonna";case"FER":return"Lammas";
-	case"RIT":return"Koiranpentu"; 	case"TIR":return"Hämähäkki";case"RIF":return"Hauki"; 	case"FIR":return"Vesilintu"}},
-	TmFinZodiacF:function( ni){ switch( ni){ case"NaT": return"NaT";
-	case"TEN":return"Bee"; 			case"NET":return"Wolverine";case"FEN":return"Fish"; 	case"NEF":return"Cat";
-	case"TIN":return"Panda"; 		case"NIT":return"Owl"; 		case"FIN":return"Seal"; 	case"NIF":return"Octopus";
-	case"RET":return"Beaver"; 		case"TER":return"Wolf"; 	case"REF":return"Turtle"; 	case"FER":return"Sheep";
-	case"RIT":return"Puppy"; 		case"TIR":return"Spider"; 	case"RIF":return"Pike"; 	case"FIR":return"Waterfowl"}},
-	TmEngZodiacM:function( ni){ switch( ni){ case"NaT": return"NaT";
-	case"FIR":return"Driver"; 		case"RIF":return"Pike"; 	case"TIR":return"Cobbler"; 	case"RIT":return"Eagle";
-	case"FER":return"Chief"; 		case"REF":return"Kilpikonna";case"TER":return"Blacksmith";case"RET":return"Mason";
-	case"NIF":return"Meteor"; 		case"FIN":return"Sun"; 		case"NIT":return"Crow"; 	case"TIN":return"Elf";
-	case"NEF":return"Planet"; 		case"FEN":return"Star"; 	case"NET":return"Snake"; 	case"TEN":return"Troll"}},
-	TmFinZodiacM:function( ni){ switch( ni){ case"NaT": return"NaT";
-	case"FIR":return"Lautturi"; 	case"RIF":return"Hauki"; 	case"TIR":return"Suutari"; 	case"RIT":return"Kotka";
-	case"FER":return"Päällikkö"; 	case"REF":return"Turtle"; 	case"TER":return"Seppä"; 	case"RET":return"Muurari";
-	case"NIF":return"Meteoriitti"; 	case"FIN":return"Aurinko"; 	case"NIT":return"Korppi"; 	case"TIN":return"Haltia";
-	case"NEF":return"Planeetta"; 	case"FEN":return"Tähti"; 	case"NET":return"Käärme"; 	case"TEN":return"Peikko"}},
-	TmRegName:function( ni){ switch( ni){ case"NaT": return"NaT";
-	case "RIT": return "A"; 	case "RET": return "A"; 	case "RIF": return "AB";	case "REF": return "AB";
-	case "TIN": return "O"; 	case "TEN": return "B"; 	case "TIR": return "B";		case "TER": return "O";
-	case "FIN": return "O"; 	case "FEN": return "B"; 	case "FIR": return "B";		case "FER": return "AB";
-	case "NIT": return"AB"; 	case "NET": return"AB"; 	case "NIF": return "A";		case "NEF": return "A"}},
-	TmSentM:function( ni){ switch( ni){ case"NaT": return"NaT";	
-		case "RIT":return "AUT"; 	case "RET":return "ARL"; 	case "RIF":return "ABV"; 	case "REF":return "DAR";
-		case "TIN":return "DTH"; 	case "TEN":return "AAN"; 	case "TIR":return "DUT";	case "TER":return "DRL";
-		case "FIN":return "ATT" ;	case "FEN":return "ASO"; 	case "FIR":return "DBV";	case "FER":return "AAR";
-		case "NIT":return "ATH"; 	case "NET":return "DAN"; 	case "NIF":return "DTT";	case "NEF":return "DSO"}},
-	TmSentF:function( ni){ switch( ni){ case"NaT": return"NaT";	
-		case "RIT":return "AUT"; 	case "RET":return "ARL"; 	case "RIF":return "ABV"; 	case "REF":return "DAR";
-		case "TIN":return "DTH"; 	case "TEN":return "AAN"; 	case "TIR":return "DUT";	case "TER":return "DRL";
-		case "FIN":return "ATT" ;	case "FEN":return "ASO"; 	case "FIR":return "DBV";	case "FER":return "AAR";
-		case "NIT":return "ATH"; 	case "NET":return "DAN"; 	case "NIF":return "DTT";	case "NEF":return "DSO"}},
-	TmSent:function( ni){ var sty ={ sentM:"", poli:""};sty.ni=ni;
+	TmEngEdu:function(){ var r=[["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],
+								["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]; return r},
+	TmEngChiM:function(){var r=	[["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]];return r},
+	TmEngChiF:function(){var r=[["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]];return r},
+	TmEngAduM:function(){var r=[["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],
+								["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]; return r},
+	TmEngAduF:function(){var r=[["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],
+								["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]]; return r},
+	TmEngZodF:function(){var r=[["Bee", 		"Wolverine",	"Fishes",  		"Cat"],
+								["Panda", 		"Owl",			"Seal",			"Octopus"],
+								["Beaver", 		"Wolf", 		"Turtle", 		"Sheep",],
+								["Puppy", 		"Spider", 		"Pike", 		"Waterfowl"]]; return r},
+	TmEngZodM:function(){var r=[["Driver", 		"Pike",			"Cobbler",  	"Eagle"],
+								["Chief", 		"Turtle",		"Blacksmith"	,"Mason"],
+								["Meteor", 		"Sun", 			"Raven", 		"Elf",],
+								["Planet", 		"Star", 		"Snake", 		"Troll"]]; return r},
+	TmFinZodF:function(){var r=[["Mehiläinen", 	"Ahma",			"Kalat",  		"Kissa"],
+								["Panda", 		"Pöllö",		"Norppa",		"Mustakala"],
+								["Majava", 		"Susi", 		"Kilpikonna", 	"Lammas",],
+								["Koiranpentu",	"Hämähäkki", 	"Hauki", 		"Vesilintu"]]; return r},
+	TmFinZodM:function(){var r=[["Kuljettaja", 	"Hauki",		"Suutari",  	"Kotka"],
+								["Päällikkö", 	"Kilpikonna",	"Seppä", 		"Muurari"],
+								["Meteoriitti", "Aurinko", 		"Korppi", 		"Haltia",],
+								["Planeettta", 	"Tähti", 		"Käärme", 		"Peikko"]]; return r},
+	TmEngPres:function(){ var r ={ edu: OM.Type.TmEngEdu(), chiF:[], aduM:[], aduF:[], zodM:[], zodF:[]}; console.log(r);return r},
+	TmSent:function( ni){ var sty ={ fin:{}, eng:{}}; 	sty.ni=ni;
+														sty.fin 	= 	this.TmFin()
 														sty.suomi 	= 	this.TmSuomi( ni);
 														sty.engZodiacF =this.TmEngZodiacF( ni);
 														sty.engZodiacM =this.TmEngZodiacM( ni);
@@ -235,7 +221,7 @@ OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FE
 		o.j=new this.j( 10,!o.z,  o.x7, o.y7, o.x6, o.y6);
 		o.k=new this.k( 11,!o.z,  o.x8, o.y8, o.x5, o.y5);
 		o.l=new this.l( 12, o.z,  o.x3, o.y3, o.x2, o.y2);
-		o.sent =this.TmSent( ni);  	o.qp =this.Qp( o);	return o}}
+		o.pres =this.TmEngPres( ni);  	o.qp =this.Qp( o);	return o}}
 function NaT( n,z,x,y,X,Y){var o=OM.Type.Tm( n,z,x,y,X,Y,"NaT");this.a=o.a;this.d=o.d;this.g=o.g;this.j=o.j;this.b=o.b;
 this.e=o.e;this.h=o.h;this.k=o.k;this.c=o.c;this.f=o.f;this.i=o.i;this.l=o.l;this.f1=o.f1;this.f3=o.f3;this.f5=o.f5;this.f7
 =o.f7;this.f2=o.f2;this.f4=o.f4;this.f6=o.f6;this.f8=o.f8;this.n=o.n;this.ni=o.ni;this.ve=o.ve;this.sent=o.sent;this.x=o.x;
@@ -381,12 +367,57 @@ function Girlism( n, g,a){  var o=OM.Gender.Gn(n,"Girlism",g,a);this.n=o.n;this.
 function Boyism( n, g,a){  	var o=OM.Gender.Gn(n,"Boyism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
 function Womanism(n,g,a){  	var o=OM.Gender.Gn(n,"Womanism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
 function Manism( n,g,a){  	var o=OM.Gender.Gn(n,"Manism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+
+/*
+OM.Lang={ seed: ["English","Finnish"],
+	La:function( n,ni){ var o={n:n, ni:ni, ty:{}}; return o},
+	English:function(n,ni){ var o=OM.Language.La(n,"English");
+	this.adTyCoF = [["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],
+					["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]];
+	this.adTyCom = [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],
+					["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]];
+	this.chTyCoF = [["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]];
+	this.chTyCoM = [["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]];
+	this.adTyZoF = [["Bee", 	"Wolverine","Fish",		"Cat" 	],["Panda",		"Owl", 		"Seal", "Octopus"	],
+					["Beaver", 	"Lion", 	"Turtle", 	"Sheep" ],["Puppy", 	"Spider", 	"Pike", "Waterfowl" ]]}
+  	Finnish:function(n,ni){ var o=OM.Language.La(n,"English");
+	this.adTyCoF = [["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],
+					["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]];
+	this.adTyCom = [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],
+					["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]];
+	this.chTyCoF = [["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]];
+	this.chTyCoM = [["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]];
+	this.adTyZoF = [["Bee", 	"Wolverine","Fish",		"Cat" 	],["Panda",		"Owl", 		"Seal", "Octopus"	],
+					["Beaver", 	"Lion", 	"Turtle", 	"Sheep" ],["Puppy", 	"Spider", 	"Pike", "Waterfowl" ]}
+
+
+	case"RIT":return"SRA"; 	case"TIR":return"SAR";	case"RIF":return"SRT"; 	case"FIR":return"STR"}},
+	TmEngZodiacF:function( ni){ switch( ni){ case"NaT": return"NaT";
+	case"TEN":return"Mehiläinen"; 	case"NET":return"Ahma"; 	case"FEN":return"Kala"; 	case"NEF":return"Kissa";
+	case"TIN":return"Panda"; 		case"NIT":return"Pöllö"; 	case"FIN":return"Norppa"; 	case"NIF":return"Mustekala";
+	case"RET":return"Majava"; 		case"TER":return"Susi"; 	case"REF":return"Kilpikonna";case"FER":return"Lammas";
+	case"RIT":return"Koiranpentu"; 	case"TIR":return"Hämähäkki";case"RIF":return"Hauki"; 	case"FIR":return"Vesilintu"}},
+	TmFinZodiacF:function( ni){ switch( ni){ case"NaT": return"NaT";
+	case"TEN":return"Bee"; 			case"NET":return"Wolverine";case"FEN":return"Fish"; 	case"NEF":return"Cat";
+	case"TIN":return"Panda"; 		case"NIT":return"Owl"; 		case"FIN":return"Seal"; 	case"NIF":return"Octopus";
+	case"RET":return"Beaver"; 		case"TER":return"Wolf"; 	case"REF":return"Turtle"; 	case"FER":return"Sheep";
+	case"RIT":return"Puppy"; 		case"TIR":return"Spider"; 	case"RIF":return"Pike"; 	case"FIR":return"Waterfowl"}},
+	TmEngZodiacM:function( ni){ switch( ni){ case"NaT": return"NaT";
+	case"FIR":return"Driver"; 		case"RIF":return"Pike"; 	case"TIR":return"Cobbler"; 	case"RIT":return"Eagle";
+	case"FER":return"Chief"; 		case"REF":return"Kilpikonna";case"TER":return"Blacksmith";case"RET":return"Mason";
+	case"NIF":return"Meteor"; 		case"FIN":return"Sun"; 		case"NIT":return"Crow"; 	case"TIN":return"Elf";
+	case"NEF":return"Planet"; 		case"FEN":return"Star"; 	case"NET":return"Snake"; 	case"TEN":return"Troll"}},
+	TmFinZodiacM:function( ni){ switch( ni){ case"NaT": return"NaT";
+	case"FIR":return"Lautturi"; 	case"RIF":return"Hauki"; 	case"TIR":return"Suutari"; 	case"RIT":return"Kotka";
+	case"FER":return"Päällikkö"; 	case"REF":return"Turtle"; 	case"TER":return"Seppä"; 	case"RET":return"Muurari";
+	case"NIF":return"Meteoriitti"; 	case"FIN":return"Aurinko"; 	case"NIT":return"Korppi"; 	case"TIN":return"Haltia";
+	case"NEF":return"Planeetta"; 	case"FEN":return"Tähti"; 	case"NET":return"Käärme"; 	case"TEN":return"Peikko"}},*/
 /*                                                                                                              ! ?
                                                                                                                TÿE
                                                                                                        °      OÿŸÿDON     ƒ
                                                                                                        §       oÿÿ
                                                                                                      ö >"<      sÿÿ
-                                                                                                      äÅ  }      aÿÿ
+                                                                                                      äÅ …}      aÿÿ
                                                                                                      Ä Ä Ä        eÿÿ
                                                                                                     Ö< Ö< Ö<       sÿÿ
                                                                                               ÿ      ÿÿÿÿÿ¢         ÿÿ
@@ -455,6 +486,7 @@ function precalcDice( di) { var dis=[];var bu=null; for(var n=0; n < 22 ;n++){ b
 function precalcTypes( ty){ var tys=[];var bu=null; for(var n=0; n <=16 ;n++){ bu=mkType( ty[n]); tys.push(bu)} return tys}
 function precalcSpirits(sp){var sps=[];var bu=null; for(var n=0; n < 8  ;n++){bu=mkSpirit(sp[n]); sps.push(bu)} return sps}
 function precalcContexts(c){var cos=[];var bu=null; for(var n=0; n < 4  ;n++){bu=mkContext(c[n]); cos.push(bu)} return cos}
+function precalcLang(c){var lan=[];var bu=null; for(var n=0; n <= 1  ;n++){bu=mkLang(c[n]); lan.push(bu)} return lan}
 function precalcForest( om){ om.fL={};	om.fL.co = precalcContexts( om.Context.seed);
 										//om.fL.sp = precalcSpirits( 	om.Spirit.seed);
 										om.fL.es = precalcTypes( 	om.Type.seed);
@@ -467,7 +499,8 @@ function precalcInterface(om){
 											sTs: [], 		sT:null,	
 											crtTyFo:null, 	crtGnFo:null, 	sty:null,
 											selGn: false, 	ty:null,
-											selTy: false, 	initDone:false}; 
+											selTy: false, 	sQ:0,
+											initDone:false}; 
 											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT");
 											console.log( OM.fL.gn);
 											OM.user.gn = OM.fL.gn.find(o => o.ni === "NaG");
@@ -833,11 +866,13 @@ function mkTypePanel( u,d,c,cl){
 	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+u.ty.ni; cL =cl+" "+cl+"_tyT"; txt =lT(sX,sY);
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}}
-	function lT(sX,sY){ if(u.gn.ni =='NaG'){ return ""} var pT; 
-		if(!u.gn.ad){ if(!u.gn.ma){ pT=[
-		["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]]}else{pT=[
-		["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]]}}
-		if(!u.gn.ma){ pT=
+	function lT(sX,sY){ console.log(u.gn);
+
+		if(u.gn.ni =='NaG'){ return ""} var pT; 
+		if(!u.gn.ad){ if(u.gn.ma){ pT=[
+		["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]]}else{pT=[
+		["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]]}}
+		if(u.gn.ma){ pT=
 [["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]]}
 		else{ pT=
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
