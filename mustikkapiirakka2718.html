@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2707</title>
+<title>SOS-Aston-3.141-2718</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -164,7 +164,7 @@ OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FE
 	Qp:function(p){var o={ anc:p};
 		p.x? p.y? p.z?/*Ne*/o.nim="abc" :/*Ni*/o.nim="bca" : p.z?/*Fe*/o.nim="bac" :/*Fi*/o.nim="acb" :
 			 p.y? p.z?/*Te*/o.nim="bac" :/*Ti*/o.nim="acb" : p.z?/*Re*/o.nim="bca" :/*Ri*/o.nim="cab";return o},
-	TmFinPres:function(){ var r ={ edu: OM.Type.TmFinEdu(), chiF:OM.Type.TmFinChiF(), chiM:OM.Type.TmFinChiM(),
+	TmFinPres:function(){ var r ={ ni:"fin",edu: OM.Type.TmFinEdu(), chiF:OM.Type.TmFinChiF(), chiM:OM.Type.TmFinChiM(),
 		aduM:OM.Type.TmFinAduM(), aduF:OM.Type.TmFinAduF(), zodM:OM.Type.TmFinZodM(), zodF:OM.Type.TmFinZodF()};return r},
 	TmFinEdu:function(){ var r=[["UAV","UVA","UTV","UVT"],["SAV","SVA","STV","SVT"],
 								["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]; return r},
@@ -174,7 +174,7 @@ OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FE
 								["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]; return r},
 	TmFinAduF:function(){var r=[["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],
 								["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]]; return r},
-	TmEngPres:function(){ var r ={ edu: OM.Type.TmEngEdu(), chiF:OM.Type.TmEngChiF(), chiM:OM.Type.TmEngChiM(),
+	TmEngPres:function(){ var r ={ ni:"eng", edu: OM.Type.TmEngEdu(), chiF:OM.Type.TmEngChiF(), chiM:OM.Type.TmEngChiM(),
 		aduM:OM.Type.TmEngAduM(), aduF:OM.Type.TmEngAduF(), zodM:OM.Type.TmEngZodM(), zodF:OM.Type.TmEngZodF()};return r},
 	TmEngEdu:function(){ var r=[["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],
 								["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]; return r},
@@ -501,24 +501,26 @@ function precalcDice( di) { var dis=[];var bu=null; for(var n=0; n < 22 ;n++){ b
 function precalcTypes( ty){ var tys=[];var bu=null; for(var n=0; n <=16 ;n++){ bu=mkType( ty[n]); tys.push(bu)} return tys}
 function precalcSpirits(sp){var sps=[];var bu=null; for(var n=0; n < 8  ;n++){bu=mkSpirit(sp[n]); sps.push(bu)} return sps}
 function precalcContexts(c){var cos=[];var bu=null; for(var n=0; n < 4  ;n++){bu=mkContext(c[n]); cos.push(bu)} return cos}
-function precalcLang(c){var lan=[];var bu=null; for(var n=0; n <= 1  ;n++){bu=mkLang(c[n]); lan.push(bu)} return lan}
+function precalcLang(){/*var lan=[];var bu=null; for(var n=0; n <= 1  ;n++){bu=mkLang(c[n]); lan.push(bu)} return lan*/
+var bu = {eng: OM.Type.TmEngPres(), fin: OM.Type.TmFinPres()}; return bu}
 function precalcForest( om){ om.fL={};	om.fL.co = precalcContexts( om.Context.seed);
 										//om.fL.sp = precalcSpirits( 	om.Spirit.seed);
 										om.fL.es = precalcTypes( 	om.Type.seed);
 										om.fL.di = precalcDice( 	om.Dice.seed);
 										om.fL.gn = precalcGender( 	om.Gender.seed);
-										om.fL.la = {eng: OM.Type.TmEngPres(), fin: OM.Type.TmFinPres()};
-										console.log(om.fL.lfa)}
+										om.fL.la = precalcLang();}
 function precalc() {	precalcForest(OM); 		//console.log( OM.fL);
 						precalcInterface(OM);}
 function precalcInterface(om){
+
 								OM.user = {crtPa:'initUser',crtFo:null, 	crtFe:null, paComp:0,
 											sTs: [], 		sT:null,	
 											crtTyFo:null, 	crtGnFo:null, 	sty:null,
 											selGn: false, 	ty:null,
 											selTy: false, 	sQ:0,
 											la:null, initDone:false}; 
-											OM.user.la = OM.Type.TmEngPres(); console.log(OM.user.la);
+											console.log(OM.fL.la);
+											OM.user.la = OM.fL.la.eng; console.log(OM.user.la);
 											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT");
 											OM.user.gn = OM.fL.gn.find(o => o.ni === "NaG");
 											calcInterface(om)}//OM.user.gn = OM.fL.gn.find(o => o.ni === "M");
@@ -688,6 +690,8 @@ function mkPageForInitUser( u,d,c){	var cl="pAIU"; var id =cl+"_base";
 	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,id,cl,0,undefined, 0.66);
 	sV.appendChild( e);
 	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e); 
+	mkPanelLabels( u,d,c);
+	mkLanguagePanel( u,d,c);
 	mkGenderPanel( u,d,c);
 	mkTypePanel ( u,d,c);
 	mkTypeCube ( u,d,c ); 
@@ -697,6 +701,7 @@ function mkPageForInitUser( u,d,c){	var cl="pAIU"; var id =cl+"_base";
 	//if( u.ty.ni !="NaT"){ E =mkCubeElem( u,d,c,E,cl)}
 	//function drS(v,l,id,cl,op)
 }
+function mkPanelLabels(u,d,c){ console.log("tähän se menee")}
 function mkTypeCube( u,d,c){ var cl="pAIU"; var e; var E=[]; var v=""; var x=OM.ui.winWid-d.cE-d.cE+66; var y=d.cE/2; var w=d.cE; var h=d.cE; var id=cl; var d=d.cuD; var op=d.op2; var co=u.sty.plane;
 						v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+
 							(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
@@ -791,6 +796,23 @@ if(n){
 						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
 						e =mkL(x+(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e);
 					}}return c}*/
+function mkLanguagePanel( u,d,c){
+	function usLC(){ var id =cl+"_laC"; cL =cl+" "+cl+"_laC"}
+	function usLT(t){ id =cl+"_laT-"+t; cL =cl+" "+cl+"_laT";
+		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
+								else{ 	l =u.sty.areaT 		}}
+	var E=[]; var cl="pAIU"; var Cl="pAIU_laA pAIU_laT";
+	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
+	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
+	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
+	console.log(x); console.log(y); console.log(d.bPD);
+	usLC("l"); e =drT(x, 		y-d.bPD,c.hilite,"language :",	id, cL, f); 	E.push(e); y+=yi;
+	//	usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usLT("English"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"English",id, cL, f);  			E.push(e); x+=h*1.618; 
+	//	usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usLT("Finnish"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Finnish",id, cL, f);  			E.push(e);
+
+}
 function mkGenderPanel( u,d,c){ 
 	function usGC(t){ id =cl+"_gnC-"+t; cL =cl+" "+cl+"_gnC"}
 	function usGA(t){ id =cl+"_gnA-"+t; cL =cl+" "+cl+"_gnA";
@@ -799,8 +821,8 @@ function mkGenderPanel( u,d,c){
 	function usGT(t){ id =cl+"_gnT-"+t; cL =cl+" "+cl+"_gnT";
 		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}
-	var E=[]; var cl="pAIU";
-	var o =document.getElementsByClassName(cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
+	var E=[]; var cl="pAIU"; var Cl="pAIU_gnA pAIU_gnT";
+	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
 /*	usGC("g"); e =drT(x+xi, 		y+d.bPD,c.hilite,"gender",	id, cL, f); 	E.push(e);*/ x+=d.lV;
@@ -835,6 +857,7 @@ function mkGenderPanel( u,d,c){
 													/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ }})}
 function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop(); 
 	chooseUserGender( OM.user, i);
+	mkLanguagePanel( OM.user, OM.ui.sty.pageIU, OM.user.sty);
 	mkGenderPanel( OM.user, OM.ui.sty.pageIU, OM.user.sty);
 	mkTypePanel( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
 function chooseUserGender(u,i){ u.gn =OM.fL.gn.find(o => o.ni ==i); console.log(u.gn)}
@@ -877,7 +900,7 @@ function chooseUserType(u,i){ console.log(i);
 function mkTypePanel( u,d,c,cl){ 
 	console.log(u.ty);
 console.log(u.la.edu);
-	function usTC(X,Y){ var str = OM.fL.la.eng.edu; console.log(str); var id =cl+"_tyC-"+str; console.log(id);/*cL =cl+" "+cl+"_tyC"*/}
+	function usTC(){ var id =cl+"_tyC"; }
 	function usTA(X,Y){ id =cl+"_tyA-"+u.la.edu[Y][X]; /*cL =cl+" "+cl+"_tyA";*/
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
 								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
@@ -902,7 +925,7 @@ console.log(u.la.edu);
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi; var w=d.btnWid;
 	var h=d.btnHei; var x=X;	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var t;
-	usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"language :",	id, cL, f); 	E.push(e); y+=yi;
+
 	usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type:",	id, cL, f); 	E.push(e); x+=d.lV;
 	usTA(0,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
 	usTT(0,0); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
