@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2664</title>
+<title>SOS-Aston-3.141-2707</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -164,6 +164,18 @@ OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FE
 	Qp:function(p){var o={ anc:p};
 		p.x? p.y? p.z?/*Ne*/o.nim="abc" :/*Ni*/o.nim="bca" : p.z?/*Fe*/o.nim="bac" :/*Fi*/o.nim="acb" :
 			 p.y? p.z?/*Te*/o.nim="bac" :/*Ti*/o.nim="acb" : p.z?/*Re*/o.nim="bca" :/*Ri*/o.nim="cab";return o},
+	TmFinPres:function(){ var r ={ edu: OM.Type.TmFinEdu(), chiF:OM.Type.TmFinChiF(), chiM:OM.Type.TmFinChiM(),
+		aduM:OM.Type.TmFinAduM(), aduF:OM.Type.TmFinAduF(), zodM:OM.Type.TmFinZodM(), zodF:OM.Type.TmFinZodF()};return r},
+	TmFinEdu:function(){ var r=[["UAV","UVA","UTV","UVT"],["SAV","SVA","STV","SVT"],
+								["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]; return r},
+	TmFinChiM:function(){var r=	[["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]];return r},
+	TmFinChiF:function(){var r=[["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]];return r},
+	TmFinAduM:function(){var r=[["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],
+								["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]; return r},
+	TmFinAduF:function(){var r=[["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],
+								["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]]; return r},
+	TmEngPres:function(){ var r ={ edu: OM.Type.TmEngEdu(), chiF:OM.Type.TmEngChiF(), chiM:OM.Type.TmEngChiM(),
+		aduM:OM.Type.TmEngAduM(), aduF:OM.Type.TmEngAduF(), zodM:OM.Type.TmEngZodM(), zodF:OM.Type.TmEngZodF()};return r},
 	TmEngEdu:function(){ var r=[["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],
 								["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]; return r},
 	TmEngChiM:function(){var r=	[["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]];return r},
@@ -188,7 +200,6 @@ OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FE
 								["Päällikkö", 	"Kilpikonna",	"Seppä", 		"Muurari"],
 								["Meteoriitti", "Aurinko", 		"Korppi", 		"Haltia",],
 								["Planeettta", 	"Tähti", 		"Käärme", 		"Peikko"]]; return r},
-	TmEngPres:function(){ var r ={ edu: OM.Type.TmEngEdu(), chiF:[], aduM:[], aduF:[], zodM:[], zodF:[]}; console.log(r);return r},
 	TmSent:function( ni){ var sty ={ fin:{}, eng:{}}; 	sty.ni=ni;
 														sty.fin 	= 	this.TmFin()
 														sty.suomi 	= 	this.TmSuomi( ni);
@@ -221,7 +232,11 @@ OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FE
 		o.j=new this.j( 10,!o.z,  o.x7, o.y7, o.x6, o.y6);
 		o.k=new this.k( 11,!o.z,  o.x8, o.y8, o.x5, o.y5);
 		o.l=new this.l( 12, o.z,  o.x3, o.y3, o.x2, o.y2);
-		o.pres =this.TmEngPres( ni);  	o.qp =this.Qp( o);	return o}}
+		//o.lang ={ eng: OM.Type.TmEngPres(), fin: OM.Type.TmFinPres()};
+		//o.pres =o.lang.eng; 
+
+
+		o.qp =this.Qp( o);	return o}}
 function NaT( n,z,x,y,X,Y){var o=OM.Type.Tm( n,z,x,y,X,Y,"NaT");this.a=o.a;this.d=o.d;this.g=o.g;this.j=o.j;this.b=o.b;
 this.e=o.e;this.h=o.h;this.k=o.k;this.c=o.c;this.f=o.f;this.i=o.i;this.l=o.l;this.f1=o.f1;this.f3=o.f3;this.f5=o.f5;this.f7
 =o.f7;this.f2=o.f2;this.f4=o.f4;this.f6=o.f6;this.f8=o.f8;this.n=o.n;this.ni=o.ni;this.ve=o.ve;this.sent=o.sent;this.x=o.x;
@@ -491,7 +506,9 @@ function precalcForest( om){ om.fL={};	om.fL.co = precalcContexts( om.Context.se
 										//om.fL.sp = precalcSpirits( 	om.Spirit.seed);
 										om.fL.es = precalcTypes( 	om.Type.seed);
 										om.fL.di = precalcDice( 	om.Dice.seed);
-										om.fL.gn = precalcGender( 	om.Gender.seed)}
+										om.fL.gn = precalcGender( 	om.Gender.seed);
+										om.fL.la = {eng: OM.Type.TmEngPres(), fin: OM.Type.TmFinPres()};
+										console.log(om.fL.lfa)}
 function precalc() {	precalcForest(OM); 		//console.log( OM.fL);
 						precalcInterface(OM);}
 function precalcInterface(om){
@@ -500,11 +517,10 @@ function precalcInterface(om){
 											crtTyFo:null, 	crtGnFo:null, 	sty:null,
 											selGn: false, 	ty:null,
 											selTy: false, 	sQ:0,
-											initDone:false}; 
+											la:null, initDone:false}; 
+											OM.user.la = OM.Type.TmEngPres(); console.log(OM.user.la);
 											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT");
-											console.log( OM.fL.gn);
 											OM.user.gn = OM.fL.gn.find(o => o.ni === "NaG");
-											console.log(OM.user.gn);
 											calcInterface(om)}//OM.user.gn = OM.fL.gn.find(o => o.ni === "M");
 
 function calcInterface(om){ 	var ui 					= precalcUserInterfaceTemplates( false,		om.reso,
@@ -786,7 +802,7 @@ function mkGenderPanel( u,d,c){
 	var E=[]; var cl="pAIU";
 	var o =document.getElementsByClassName(cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
-	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3);
+	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
 /*	usGC("g"); e =drT(x+xi, 		y+d.bPD,c.hilite,"gender",	id, cL, f); 	E.push(e);*/ x+=d.lV;
 	console.log(u.gn); //NaG
 	if(u.gn.ni=="NaG"){
@@ -859,14 +875,16 @@ function chooseUserType(u,i){ console.log(i);
 	u.sty = setUserStyle( OM.ui.sty.pageTe, u.ty.ni);
 	console.log(u);}
 function mkTypePanel( u,d,c,cl){ 
-	function usTC(X,Y){ id =cl+"_tyC-"+u.ty.ni; cL =cl+" "+cl+"_tyC"}
-	function usTA(X,Y){ id =cl+"_tyA-"+u.ty.ni; cL =cl+" "+cl+"_tyA";
+	console.log(u.ty);
+console.log(u.la.edu);
+	function usTC(X,Y){ var str = OM.fL.la.eng.edu; console.log(str); var id =cl+"_tyC-"+str; console.log(id);/*cL =cl+" "+cl+"_tyC"*/}
+	function usTA(X,Y){ id =cl+"_tyA-"+u.la.edu[Y][X]; /*cL =cl+" "+cl+"_tyA";*/
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
 								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
 	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+u.ty.ni; cL =cl+" "+cl+"_tyT"; txt =lT(sX,sY);
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}}
-	function lT(sX,sY){ console.log(u.gn);
+	function lT(sX,sY){ //console.log(u.gn);
 
 		if(u.gn.ni =='NaG'){ return ""} var pT; 
 		if(!u.gn.ad){ if(u.gn.ma){ pT=[
@@ -877,11 +895,15 @@ function mkTypePanel( u,d,c,cl){
 		else{ pT=
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
 		return pT[sY][sX]}
+
+//var temp = OM.Type.TmFinPres(); console.log(temp);
+
 	var E=[]; var Cl="pAIU_tyA pAIU_tyT"; var cl="pAIU";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi; var w=d.btnWid;
 	var h=d.btnHei; var x=X;	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var t;
-	usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type :",	id, cL, f); 		E.push(e); x+=d.lV;
+	usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"language :",	id, cL, f); 	E.push(e); y+=yi;
+	usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type:",	id, cL, f); 	E.push(e); x+=d.lV;
 	usTA(0,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
 	usTT(0,0); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
 	usTA(1,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
