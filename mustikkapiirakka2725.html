@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2718</title>
+<title>SOS-Aston-3.141-2725</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -701,7 +701,19 @@ function mkPageForInitUser( u,d,c){	var cl="pAIU"; var id =cl+"_base";
 	//if( u.ty.ni !="NaT"){ E =mkCubeElem( u,d,c,E,cl)}
 	//function drS(v,l,id,cl,op)
 }
-function mkPanelLabels(u,d,c){ console.log("tähän se menee")}
+function mkPanelLabels(u,d,c){ 	console.log(u.ty); console.log(u.la.edu);
+	function usLC(t){ var id =cl+t; cL= cl + id;}
+//var temp = OM.Type.TmFinPres(); console.log(temp);
+//noi ei parsi oikein, tya-
+	var E=[]; var Cl="pAIU_plL pAIU_plT"; var cl="pAIU";
+	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
+	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi; var w=d.btnWid;
+	var h=d.btnHei; var x=X;	var f=d.fonSiz; var b=d.btnBrd; var id=cl+"_pl";//rrr; var cL; var t;
+	usLC("l"); e =drT(x, 		y-d.bPD,c.hilite,"language :",	id, cL, f); 	E.push(e); y+=yi;
+	usLC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type:",	id, cL, f); 	E.push(e); x+=d.lV;}
+
+
+
 function mkTypeCube( u,d,c){ var cl="pAIU"; var e; var E=[]; var v=""; var x=OM.ui.winWid-d.cE-d.cE+66; var y=d.cE/2; var w=d.cE; var h=d.cE; var id=cl; var d=d.cuD; var op=d.op2; var co=u.sty.plane;
 						v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+
 							(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
@@ -801,7 +813,7 @@ function mkLanguagePanel( u,d,c){
 	function usLT(t){ id =cl+"_laT-"+t; cL =cl+" "+cl+"_laT";
 		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}
-	var E=[]; var cl="pAIU"; var Cl="pAIU_laA pAIU_laT";
+	var E=[]; var cl="pAIU"; var Cl="pAIU_laA pAIU_laT pAIU_laC";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
@@ -821,7 +833,7 @@ function mkGenderPanel( u,d,c){
 	function usGT(t){ id =cl+"_gnT-"+t; cL =cl+" "+cl+"_gnT";
 		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}
-	var E=[]; var cl="pAIU"; var Cl="pAIU_gnA pAIU_gnT";
+	var E=[]; var cl="pAIU"; var Cl="pAIU_gnA pAIU_gnT pAIU_gnC";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
@@ -907,7 +919,7 @@ console.log(u.la.edu);
 	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+u.ty.ni; cL =cl+" "+cl+"_tyT"; txt =lT(sX,sY);
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}}
-	function lT(sX,sY){ //console.log(u.gn);
+	function lT(sX,sY){ //console.log(u.gn);∨
 
 		if(u.gn.ni =='NaG'){ return ""} var pT; 
 		if(!u.gn.ad){ if(u.gn.ma){ pT=[
@@ -920,13 +932,14 @@ console.log(u.la.edu);
 		return pT[sY][sX]}
 
 //var temp = OM.Type.TmFinPres(); console.log(temp);
-
-	var E=[]; var Cl="pAIU_tyA pAIU_tyT"; var cl="pAIU";
+//noi ei parsi oikein, tya-
+	var E=[]; var Cl="pAIU_tyA pAIU_tyT pAIU_tyC"; var cl="pAIU";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
-	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi; var w=d.btnWid;
-	var h=d.btnHei; var x=X;	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var t;
+	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi+yi; var w=d.btnWid;
+	var h=d.btnHei; var x=X; x+=xi+xi;	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var t;
+	x=X+(xi*2);
 
-	usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type:",	id, cL, f); 	E.push(e); x+=d.lV;
+	//usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type:",	id, cL, f); 	E.push(e); x+=d.lV;
 	usTA(0,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
 	usTT(0,0); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
 	usTA(1,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
