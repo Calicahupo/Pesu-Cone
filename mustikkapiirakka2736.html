@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2734</title>
+<title>SOS-Aston-3.141-2736</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -585,44 +585,6 @@ function askForUser( ui,usr){ /*var p =*/mkUserPage( usr, ui.sty.pageIU, usr.sty
 function showSv( p){ for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV)}
 
 
-/*
-function hiliteUserGender(ui,usr,e){ if(!usr.selGn){hilitGx( e, usr)}}
-function hilitGx(e,usr){ if(usr.crtGnFo!=null){ if(usr.crtGnFo!=e){
-	colGex( e, usr.sty.selAreaT); colGex( usr.crtFo, usr.sty.areaT); usr.crtGnFo =e; usr.crtFo =e;}} else{
-	usr.crtGnFo =e; usr.crtFo =e; colGex( usr.crtGnFo, usr.sty.selAreaT); }}
-function colGex( e,c){ var r=e.id.split("-").pop(); var l=e.id.split("_").shift(); r=l+"_gBT-"+r;
-	l =document.getElementById( r);	l.setAttribute('fill',c)}
-function chooseUserGender(u,i){
-	if(u.gn.ni == i){ 	u.gn = OM.fL.gn.find(o => o.ni === "NaG"); 	u.selGn =true}
-	else {				u.gn = OM.fL.gn.find(o => o.ni === e); 		u.selGn=false}}
-
-function hiliteUserType(ui,usr,e){ if(!usr.selTy){console.log(usr); hilitTx( e, usr); }}
-function hilitTx(e,usr){
-	if(usr.crtTyFo!=null){ if(usr.crtTyFo!=e){ colTex( e, usr.sty.selAreaT); colTex( usr.crtTyFo, usr.sty.areaT);
-		usr.crtTyFo =e; usr.crtFo =e;}}
-	else{ usr.crtTyFo =e; colTex( usr.crtTyFo, usr.sty.selAreaT); }}
-function colTex( e,c){ var r=e.id.split("-").pop(); var l=e.id.split("_").shift(); r=l+"_tBT-"+r;
-	l =document.getElementById( r);	l.setAttribute('fill',c)}
-function chooseUserType(ui,usr,e){ var id = e.id.split("-").pop();
-	if( usr.selTy &&(usr.ty.ni ==id)){ resetTy( id, usr)}
-	else{ resetTx( usr, usr.sty); chooseT( e,usr,id); hilitTx( e, usr); }}
-function resetTy( id,usr){ var
- 	Id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',usr.sty.area); usr.crtTyFo=null;
-	Id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(Id); e.setAttribute('fill',usr.sty.areaT); usr.selTy=false;}
-function resetTx( usr,s){ console.log(s);if(usr.selTy){ var
-	id="#pAIU_tBt-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',usr.sty.area);
-	id="#pAIU_tBT-"+usr.ty.ni; var e=document.querySelector(id); e.setAttribute('fill',usr.sty.areaT);}}
-function chooseT(e,usr,id){ console.log( OM.fL.es); console.log(id);
-	if(usr.crtTyFo!=null && usr.crtTyFo!=e){
-		colTex(usr.crtTyFo, usr.sty.selAreaT);
-		usr.ty = OM.fL.es.find(o => o.ni ==="NaT"); usr.selTy=false;
-		usr.sty= setUserStyle( null, usr.ty.ni); }
-	else{
-		usr.ty = OM.fL.es.find(o => o.ni === id);	usr.selTy=true;
-		usr.sty= setUserStyle( null, usr.ty.ni);
-		e.setAttribute('fill', usr.sty.selArea); colTex(e, usr.sty.selAreaT);
-		console.log( usr.sty)}}*/
-
 
 
 function mkFeature( ui,t){ 
@@ -645,47 +607,13 @@ function setUserStyle( sty,usrTyN){ var r; console.log(sty);
 					case "TER": case "FIN": r =sty.copper; break;
 					case "NIT": case "REF": r =sty.brass; break;
 					case "TIN": case "FER": r =sty.cyan; break;} return r}
-function mokPageForInitUser2(  id, winWid, winHei, usr, s, c){ console.log(c);
-
-	function usTt(t){ if(usr.selTy &&(usr.ty.ni ==t)){ p.c.c= c.selArea; 	p.c.b=c.hilite; }
-												else { p.c.c= c.area; 		p.c.b=c.areaB; }					return p.c}
-	function usTT(t){ if(u.ty.ni !="NaG"){
-			if(usr.selTy &&(usr.ty.ni ==t)){ p.c.c= c.selAreaT; 	p.c.b=c.selAreaB; p.c.x= b.x+b.h }
-				else if(!usr.selTy && p.crtTyFo ==t ){ p.c.c= c.selAreaT; 		p.c.x= b.x+s.bPD}
-												else { p.c.c= c.areaT; 		p.c.b=c.areaB;	p.c.x= b.x+s.bPD} return p.c}}
-	function mkInitUserPanel( usr){ var TPM; if(us.gn < 0){TPM =
-	[["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]}else {TPM =
-	[["FIR","RIF","TIR","RIT"],["FER","REF","TER","RET"],["NIF","FIN","NIT","TIN"],["NEF","FEN","NET","TEN"]]}return TPM}
-	//if(usr.paComp <2){ usr.paComp++}
-
-			/*if(usr.gn < 0){ c = c.black} else { c = c.white} */
-			/* rrr xxx */ //wires & numrs cording to gnd
-
-	var b ={ w:s.btnWid, h:s.btnHei,	x:s.fraWid, xi:s.btnGrX,  	y:s.fraHei, yi:s.btnGrY };
-	var p ={ nim:id, e:[], l:0, E:[], L:0, c:{c:""}, crtFo:""};
-
-
-
-	//p.e=mkP( p.e,b.x,b.y,s.cE,s.cE,4);
-
-	//p =whatPageForInitUser(p);
-	b.e=mkL(10,10,25,25,"test","#ffffff","tester",false); hpE(b.e,p);
-
-	p.L =p.E.length; p.l =p.e.length;
-
-	for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV); listenForUser();
-
-	return p}
 
 //textnodet talteen user objiin?
 	/*function usGt(t){ if(u.selGn && u.gn.ni ==t){ 	p.c= c.selArea; 	p.b=c.selAreaB }
 										else { 		p.c= c.area; 		p.b=c.areaB} return p.c}
 	function usGT(t){ if(u.selGn && u.gn.ni ==t){ 	p.c= c.selAreaT}
 										else { 		p.c= c.areaT; 		p.c=c.areaB} return p.c}*/
-										//on form complete
-										//hilite hover gone
-										//You are #char
-										//DONE RESET
+										//on form complete	//hilite hover gone	//You are #char	//DONE RESET (MORE) kolmas nappi unohtu mikä se oli
 function mkUserPage( u,d,c){	var cl="pAIU"; var id =cl+"_base";
 	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,id,cl,0,undefined, 0.66);
 	sV.appendChild( e);
@@ -704,8 +632,7 @@ function drUserPage(u,d,c){
 }
 function mkPanelLabels(u,d,c){ 	console.log(u.ty); console.log(u.la.edu);
 	function usLC(t){ var id =cl+t; cL= cl + id;}
-//var temp = OM.Type.TmFinPres(); console.log(temp);
-//noi ei parsi oikein, tya-
+//noi ei parsi oikein, tya-?
 	var E=[]; var Cl="pAIU_plL pAIU_plT"; var cl="pAIU";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi; var w=d.btnWid;
@@ -714,19 +641,19 @@ function mkPanelLabels(u,d,c){ 	console.log(u.ty); console.log(u.la.edu);
 	usLC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type:",	id, cL, f); 	E.push(e); x+=d.lV;
 	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);}
 
-function mkLanguagePanel( u,d,c){
+function mkLanguagePanel( u,d,c){ //labels should flip?
 	function usLT(t){ id =cl+"_laT-"+t; cL =cl+" "+cl+"_laT";
 		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}
 	var E=[]; var cl="pAIU"; var Cl="pAIU_laA pAIU_laT pAIU_laC";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
-	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3);//y+=yi;
+	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*2.5);//y+=yi;
 	console.log(x); console.log(y); console.log(d.bPD);
 	//	usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
 		usLT("English"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"English",id, cL, f);  			E.push(e); x+=w*2; 
 	//	usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usLT("Finnish"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Finnish",id, cL, f);  	console.log(e);		E.push(e);
+		usLT("Finnish"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Suomi",id, cL, f);  	console.log(e);		E.push(e);
 		E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
 }
 
@@ -981,89 +908,6 @@ function chooseUserType(u,i){ console.log(i);
 
 													
 
-
-
-//p.c=usTt("FIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-//p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FIN",p.c,"pAIU_tBT",d.fonSiz,"FIN");p.e.push(b.e);b.x+=b.xi;
-/* function drA(x,y,w,h,l,id,cl,b,L){ var e=document.createElementNS( nS,'rect'); e.setAttribute('x',x);e.setAttribute('y',y);
- 	e.setAttribute( 'width',w); e.setAttribute( 'height',h); e.setAttribute( 'fill',l);
-	if(b > 0){ e.setAttribute( 'stroke',L); e.setAttribute( 'stroke-width',b)}
-	e.setAttribute( 'id',id); e.setAttribute( 'class',cl); return e}
-function drT(x,y,l,id,cl,f,F){ */
-
-
-
-/*
-	var b ={ w:d.btnWid, h:d.btnHei,	x:d.fraWid, xi:d.btnGrX,  	y:d.fraHei, yi:d.btnGrY };
-	var p ={ e:[], l:0, E:[], L:0, c:""};
-
-	b.e=mkGenderPanel()
-
-	b.e=mkLT( d.lP, d.tP, winWid-d.lP-d.rP, winHei-d.tP-d.bP, "pAIU", c.base, "pAWrap",0.66); 	p.e.push( b.e);
-			  b.e=mkT(b.x,b.y-d.bPD,"pAIU_txt-tx3",c.hilite,"pAIU_txt",d.fonSiz,"USER SEX :");	p.e.push( b.e);b.x+=d.lV;
-p.c=usGt("F");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_gBt-F",p.c,"pAIU_gBt",p.b, d.btnBrd); 				p.e.push( b.e);
-p.c=usGT("F");b.e=mkT(b.x+5,b.y-d.bPD,"pAIU_gBT-F",p.c,"pAIU_gBT", d.fonSiz,"F"); 		p.e.push( b.e);b.x+=d.fonSiz*1.618;
-p.c=usGt("M");b.e=mkL(b.x,b.y,b.h,b.h,"pAIU_gBt-M",p.c,"pAIU_gBt",p.b, d.btnBrd);	 			p.e.push( b.e);
-p.c=usGT("M");b.e=mkT(b.x+5,b.y-d.bPD,"pAIU_gBT-M",p.c,"pAIU_gBT", d.fonSiz,"M"); 				p.e.push( b.e);
-	b.x=d.fraWid+d.lV; b.y+=b.yi;
-	p.e=mkTypePanel( p.e, winWid, winHei, u, d, c, b.x, b.y);
-	if(u.paComp==1){
-		b.x=d.fraWid+d.mV+d.lV;	b.y=d.fraHei+d.fraHei;
-		p.e=mkC( p.e,b.x,b.y,d.cE,d.cE,"cUIU",c.plane,"cUIU",false,true,4,0.7,u.ty.ni,true);
-		p.e=mkW( p.e,b.x,b.y,d.cE,d.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa","#ddffdd")}
-	b.x=d.fraWid+d.mV+d.lV; b.y=d.fraHei+d.fraHei;
-	p.e=mkC( p.e,b.x,b.y,d.cE,d.cE,"cUIU",c.plane,"cUIU",false,true,4,0.7,u.ty.ni,true);
-	p.e=mkW( p.e,b.x,b.y,d.cE,d.cE,"#ddff66",1,4,0.38,"#99bbff","#ff88aa","#ddffdd");
-	p.L =p.E.length; p.l =p.e.length; return p}*/
-function mokTypePanel( u, d, c, E, cl){
-	function usTt(t){ if(u.selTy &&(u.ty.ni ==t)){ 	l= c.selArea; 	L=c.hilite; }
-								else { 				l= c.area; 		L=c.areaB; } 	return p.c}
-	function usTT(t){ if(u.ty.ni ==t){ 				l= c.selAreaT; 	L=c.selAreaB;  	x= x+h }
-								else { 				l= c.areaT; 	L=c.areaB;	 	x= x+d.bPD} return p.c}
-	var l,L=""; var x,X=d.fraWid; var xi=d.btnGrX; var yi=d.btnGrY; var y,Y=d.fraHei+yi; var w=d.btnWid; var h=d.btnHei;
-	var f=d.fonSiz; var b=d.btnBrd;
-
-
-	var b ={ w:d.btnWid, h:d.btnHei,	x:x,  	y:y, yi:d.btnGrY };
-	b.x=d.fraWid; b.y+=b.yi;
-	var p ={ e:[], l:0, E:[], L:0, c:""};
-	b.e=mkT(b.x,b.y-d.bPD, 	"pAIU_txt-tx4",d.t, 	"pAIU_txt",d.fonSiz,"USER TYPE:");	p.e.push( b.e);b.x+=d.lV;
-	
-	p.c=usTt("FIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("FIN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FIN",p.c,"pAIU_tBT",d.fonSiz,"FIN");p.e.push(b.e);b.x+=b.xi;
-	p.c=usTt("FIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FIR",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("FIR");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FIR",p.c,"pAIU_tBT",d.fonSiz,"FIR");p.e.push(b.e);b.x+=b.xi;
-	p.c=usTt("FEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FEN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("FEN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FEN",p.c,"pAIU_tBT",d.fonSiz,"FEN");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("FER");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-FER",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("FER");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-FER",p.c,"pAIU_tBT",d.fonSiz,"FER");p.e.push( b.e);
-	b.x=d.fraWid+d.lV;b.y+=b.yi;
-	p.c=usTt("NIF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NIF",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("NIF");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-NIF",p.c,"pAIU_tBT",d.fonSiz,"NIF");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("NIT");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NIT",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("NIT");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-NIT",p.c,"pAIU_tBT",d.fonSiz,"NIT");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("NEF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NEF",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("NEF");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-NEF",p.c,"pAIU_tBT",d.fonSiz,"NEF");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("NET");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-NET",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("NET");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-NET",p.c,"pAIU_tBT",d.fonSiz,"NET");p.e.push( b.e);
-	b.x=d.fraWid+d.lV;b.y+=b.yi;
-	p.c=usTt("RIF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RIF",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("RIF");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-RIF",p.c,"pAIU_tBT",d.fonSiz,"RIF");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("RIT");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RIT",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("RIT");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-RIT",p.c,"pAIU_tBT",d.fonSiz,"RIT");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("REF");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-REF",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("REF");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-REF",p.c,"pAIU_tBT",d.fonSiz,"REF");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("RET");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-RET",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("RET");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-RET",p.c,"pAIU_tBT",d.fonSiz,"RET");p.e.push( b.e);
-	b.x=d.fraWid+d.lV;b.y+=b.yi;
-	p.c=usTt("TIN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TIN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("TIN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-TIN",p.c,"pAIU_tBT",d.fonSiz,"TIN");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("TIR");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TIR",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("TIR");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-TIR",p.c,"pAIU_tBT",d.fonSiz,"TIR");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("TEN");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TEN",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("TEN");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-TEN",p.c,"pAIU_tBT",d.fonSiz,"TEN");p.e.push( b.e);b.x+=b.xi;
-	p.c=usTt("TER");b.e=mkL(b.x,b.y,b.w,b.h,"pAIU_tBt-TER",p.c,"pAIU_tBt",p.b,d.btnBrd);p.e.push( b.e);
-	p.c=usTT("TER");b.e=mkT(p.c.x,b.y-d.bPD,"pAIU_tBT-TER",p.c,"pAIU_tBT",d.fonSiz,"TER");p.e.push( b.e); return a}
 function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,mC,qR,kK,pJ,pages) {
 	var s={ sBs:0, qUs:0, qDs:0, dCs:0, mCs:0, qRs:0, kKs:0, pJs:0, pL:0};
 	if(src){s.sGs =src.sGs; 	s.qUs =src.qUs; 	s.qDs =src.qDs; 	s.dCs =src.dCs;
