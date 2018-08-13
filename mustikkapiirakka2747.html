@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2737</title>
+<title>SOS-Aston-3.141-2747</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -11,7 +11,7 @@
     	url('diodi/strikefighter-webfont.woff') 	format('woff'); font-weight: normal; font-style: normal;}
     /*@font-face { font-family: 'VGA'; 				src: url('diodi/PerfectDOSVGA437.woff2') format('woff2'),
         url('diodi/PerfectDOSVGA437.woff') 			format('woff'); font-weight: normal; font-style: normal;}
-        , url('diodi/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg')*/
+        , url('diodi/PerfectDOSVGA437.svg#PerfectDOSVGA437') format('svg')*//*hexadecimal sequencer bebas?*/
 	html{height:100%;padding:0px;margin:0px;font-family:profont;font-size:13px;background-color:black;color:white;}
 	body{height:100%;padding:0px;margin:0px;background-color:transparent;}
 </style><!-- src="diodi/di0016.js"></script><!-aldiod--> <!-- src="diodi/dB0000.js"></script><!-devBar-->
@@ -614,9 +614,7 @@ function setUserStyle( sty,usrTyN){ var r; console.log(sty);
 	function usGT(t){ if(u.selGn && u.gn.ni ==t){ 	p.c= c.selAreaT}
 										else { 		p.c= c.areaT; 		p.c=c.areaB} return p.c}*/
 										//on form complete	//hilite hover gone	//You are #char	//DONE RESET (MORE) kolmas nappi unohtu mikä se oli
-function mkUserPage( u,d,c){	var cl="pAIU"; var id =cl+"_base";
-	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,id,cl,0,undefined, 0.66);
-	sV.appendChild( e);
+function mkUserPage( u,d,c){	
 	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e); 
 	drUserPage( u,d,c);
 	//if( u.gn.ni !="NaG"){ E =mkCubeWire( u,d,c,E,cl)}
@@ -624,14 +622,20 @@ function mkUserPage( u,d,c){	var cl="pAIU"; var id =cl+"_base";
 	//function drS(v,l,id,cl,op)
 }
 function drUserPage(u,d,c){
+	var o =document.getElementsByClassName("pAIU_base"); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
+	var cl="pAIU"; var id =cl+"-base";
+	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e);
+	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,cl,cl,0,undefined, 0.66);
+	sV.appendChild( e);
 	mkPanelLabels( u,d,c);
 	mkLanguagePanel( u,d,c);
 	mkGenderPanel( u,d,c);
 	mkTypePanel ( u,d,c);
-	mkTypeCube ( u,d,c ); 
+	mkTypeCube ( u,d,c );
+	mkUserResult( u,d,c);
 }
 function mkPanelLabels(u,d,c){ 	console.log(u.ty); console.log(u.la.edu);
-	function usLC(t){ var id =cl+t; cL= cl + id;}
+	function usLC(t){ var id =cl+"_plL-"+t; cL= cl + id;}
 //noi ei parsi oikein, tya-?
 	var E=[]; var Cl="pAIU_plL pAIU_plT"; var cl="pAIU";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
@@ -645,7 +649,7 @@ function mkLanguagePanel( u,d,c){ //labels should flip?
 	function usLT(t){ id =cl+"_laT-"+t; cL =cl+" "+cl+"_laT";
 		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}
-	var E=[]; var cl="pAIU"; var Cl="pAIU_laA pAIU_laT pAIU_laC";
+	var E=[]; var cl="pAIU"; var Cl="pAIU_laT";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*2.5);//y+=yi;
@@ -699,6 +703,23 @@ function mkGenderPanel( u,d,c){
 		usGT("NaG"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
 	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
 	bindMany( '.pAIU_gnA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;}})}
+
+function mkUserResult(u,d,c){
+	if(!u.initDone){
+	var E=[]; var cl="pAIU"; var Cl="pAIU_reA pAIU_reT pAIU_reC";
+	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
+	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
+	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
+	 x+=d.lV;
+
+	 e =drA(250, 		66, 			225, 		287, 		l, 	id, cL, b, L);  E.push(e);
+
+	 e =drA(250, 		366, 			225, 		173, 		l, 	id, cL, b, L);  E.push(e);
+
+	 e =drA(500, 		300, 			366, 		287, 		l, 	id, cL, b, L);  E.push(e);
+	
+	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
+	bindMany( '.pAIU_gknA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;}})}}
 
 function mkTypePanel( u,d,c,cl){ 
 	console.log(u.ty);
@@ -767,6 +788,7 @@ console.log(u.la.edu);
 	console.log(E);
 	bindMany( '.pAIU_tyA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserType( e);	break;/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ }})}
 		
+
 
 
 
@@ -867,6 +889,13 @@ if(n){
 					}}return c}*/
 
 											/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ //}})}
+
+
+
+
+
+
+
 function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop(); 
 	chooseUserGender( OM.user, i);
 	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
