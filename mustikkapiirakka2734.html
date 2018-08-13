@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2731</title>
+<title>SOS-Aston-3.141-2734</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -710,8 +710,26 @@ function mkPanelLabels(u,d,c){ 	console.log(u.ty); console.log(u.la.edu);
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi; var w=d.btnWid;
 	var h=d.btnHei; var x=X;	var f=d.fonSiz; var b=d.btnBrd; var id=cl+"_pl";//rrr; var cL; var t;
-	usLC("l"); e =drT(x, 		y-d.bPD,c.hilite,"language :",	id, cL, f); 	console.log(e); E.push(e); y+=yi;
-	usLC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type:",	id, cL, f); 	E.push(e); x+=d.lV;}
+	usLC("l"); e =drT(x, 		y-d.bPD,c.hilite,"language :",	id, cL, f); 	E.push(e); y+=yi;
+	usLC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type:",	id, cL, f); 	E.push(e); x+=d.lV;
+	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);}
+
+function mkLanguagePanel( u,d,c){
+	function usLT(t){ id =cl+"_laT-"+t; cL =cl+" "+cl+"_laT";
+		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
+								else{ 	l =u.sty.areaT 		}}
+	var E=[]; var cl="pAIU"; var Cl="pAIU_laA pAIU_laT pAIU_laC";
+	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
+	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
+	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3);//y+=yi;
+	console.log(x); console.log(y); console.log(d.bPD);
+	//	usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usLT("English"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"English",id, cL, f);  			E.push(e); x+=w*2; 
+	//	usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+		usLT("Finnish"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Finnish",id, cL, f);  	console.log(e);		E.push(e);
+		E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
+}
+
 function mkGenderPanel( u,d,c){ 
 	function usGC(t){ id =cl+"_gnC-"+t; cL =cl+" "+cl+"_gnC"}
 	function usGA(t){ id =cl+"_gnA-"+t; cL =cl+" "+cl+"_gnA";
@@ -918,23 +936,7 @@ if(n){
 						e =mkL(x, 		y, 		w,h,id+"-mid",co,cl+"-mid"); c.push(e);
 						e =mkL(x+(w/d),	y+(h/d),w,h,id+"-top",co,cl+"-top"); c.push(e);
 					}}return c}*/
-function mkLanguagePanel( u,d,c){
-	function usLC(){ var id =cl+"_laC"; cL =cl+" "+cl+"_laC"}
-	function usLT(t){ id =cl+"_laT-"+t; cL =cl+" "+cl+"_laT";
-		if( u.selGn && u.gn.ni ==t) { 	l =u.sty.selAreaT 	}
-								else{ 	l =u.sty.areaT 		}}
-	var E=[]; var cl="pAIU"; var Cl="pAIU_laA pAIU_laT pAIU_laC";
-	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
-	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
-	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
-	console.log(x); console.log(y); console.log(d.bPD);
-	usLC("l"); e =drT(x, 		y-d.bPD,c.hilite,"language :",	id, cL, f); 	E.push(e); y+=yi;
-	//	usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usLT("English"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"English",id, cL, f);  			E.push(e); x+=h*1.618; 
-	//	usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usLT("Finnish"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Finnish",id, cL, f);  			E.push(e);
 
-}
 											/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ //}})}
 function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop(); 
 	chooseUserGender( OM.user, i);
