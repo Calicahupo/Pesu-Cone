@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2736</title>
+<title>SOS-Aston-3.141-2737</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -655,7 +655,8 @@ function mkLanguagePanel( u,d,c){ //labels should flip?
 	//	usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
 		usLT("Finnish"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Suomi",id, cL, f);  	console.log(e);		E.push(e);
 		E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
-}
+		bindMany( '.pAIU_laT', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserLang( e);	break;}})}
+
 
 function mkGenderPanel( u,d,c){ 
 	function usGC(t){ id =cl+"_gnC-"+t; cL =cl+" "+cl+"_gnC"}
@@ -802,6 +803,7 @@ function mkTypeCube( u,d,c){ var cl="pAIU"; var e; var E=[]; var v=""; var x=OM.
 }
 
 
+
 /* function drA(x,y,w,h,l,id,cl,b,L,op) //brass->amber
 function mkK(x,y,w,h,id,co,cl,op) { var r=document.createElementNS( nS,'rect');
 					if( x> -1){ 	r.setAttribute( 'x',x)}	
@@ -899,12 +901,14 @@ function chooseUserGender(u,i){ u.gn =OM.fL.gn.find(o => o.ni ==i); console.log(
 	//else {				u.gn = OM.fL.gn.find(o => o.ni === i); 		u.selGn=false}}
 function uiChooseUserType( e){ 	var i=e.getAttribute("id"); i=i.split("-").pop(); console.log(i);
 	chooseUserType( OM.user, i); 								console.log(OM.user.ty);
-	mkTypePanel( OM.user, OM.ui.sty.pageIU, OM.user.sty); drUserPage(rrrrr)}
+	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty);}
 function chooseUserType(u,i){ console.log(i);
 	if(u.ty.ni == i){ 	u.ty = OM.fL.es.find(o => o.ni === "NaT"); 	u.selTy =true}
 	else {				u.ty = OM.fL.es.find(o => o.ni === i); 		u.selTy=false}
 	u.sty = setUserStyle( OM.ui.sty.pageTe, u.ty.ni);
 	console.log(u);}
+
+function uiChooseUserLang( e){ console.log(e); }
 
 													
 
