@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2760</title>
+<title>SOS-Aston-3.141-2764</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -67,7 +67,10 @@ function predraw( om){ sV.setAttribute( 'height',window.innerHeight); sV.setAttr
 
 				}}}
 $(document).ready( function(){ postinit( OM)})
-function postinit( om){ askForUser( om.ui, om.user); }
+function postinit( om){ drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty);
+
+	//askForUser( om.ui, om.user);
+}
 
 function mkDiffSpace( se){ }
 function DiffractionPlane( nim,o1,f1,o2,f2,o3,f3,o4,f4){ this.nim=nim;
@@ -623,17 +626,21 @@ function mkUserPage( u,d,c){
 	//function drS(v,l,id,cl,op)
 }
 function drUserPage(u,d,c){
-	var o =document.getElementsByClassName("pAIU_base"); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
-	var cl="pAIU"; var id =cl+"-base";
-	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e);
-	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,cl,cl,0,undefined, 0.66);
-	sV.appendChild( e);
+	mkPanelBackground(u,d,c);
 	mkPanelLabels( u,d,c);
 	mkLanguagePanel( u,d,c);
 	mkGenderPanel( u,d,c);
 	mkTypePanel ( u,d,c);
 	mkTypeCube ( u,d,c );
 	mkUserResult( u,d,c);
+}
+function mkPanelBackground(u,d,c){
+	var o =document.getElementsByClassName("pAIU-base"); console.log(o); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
+	var cl="pAIU"; var cL=cl; var id =cl+"-base";
+	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e);
+	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,id,cL,0,undefined, 0.66);
+	sV.appendChild( e);
+
 }
 function mkPanelLabels(u,d,c){ 	console.log(u.ty); console.log(u.la.edu);
 	function usLC(t){ var id =cl+"_plL-"+t; cL= cl + id;}
@@ -654,7 +661,6 @@ function mkLanguagePanel( u,d,c){ //labels should flip?
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*2.5);//y+=yi;
-	console.log(x); console.log(y); console.log(d.bPD);
 	//	usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
 		usLT("ENG"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"English",id, cL, f);  			E.push(e); x+=w*2; 
 	//	usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
@@ -676,7 +682,7 @@ function mkGenderPanel( u,d,c){
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
 /*	usGC("g"); e =drT(x+xi, 		y+d.bPD,c.hilite,"gender",	id, cL, f); 	E.push(e);*/ x+=d.lV;
-	console.log(u.gn); //NaG
+	//console.log(u.gn); //NaG
 	if(u.gn.ni=="NaG"){
 		usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
 		usGT("Womanism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
@@ -739,7 +745,7 @@ function mkUserResult(u,d,c){
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
 		return pT[sY][sX]}*/
 function mkTypeLabel(X,Y,u){
-	if(typeof u!='undefined'){console.log(u);}
+	//rrrr//if(typeof u!='undefined'){console.log(u);}
 	if(u.gn.ni=="NaG"){ return ""}
 
 	var r = 2;
@@ -1613,7 +1619,7 @@ function precalcSuperTabs( feNim){var sTs=[]; switch( feNim){
 	case "money" : sTs=[ "hello","world"]; break;
 	case "mosaic": sTs=[ "world"]; 		break}return sTs}
 function calcSuperTabs( ui, fes, fesL){	for(var i=0; i<fesL; i++){ for(var j=0; j<fes[i].sTsLen; j++){
-	fes[i].sTs[j] =mkSuperTab( fes[i], fes[i].sTs[j])}} console.log(OM.user); /*bind sT to user not fe*/return ui}
+	fes[i].sTs[j] =mkSuperTab( fes[i], fes[i].sTs[j])}}/* console.log(OM.user);*/ /*bind sT to user not fe*/return ui}
 function mkSuperTab( fe,sTNi){ var o; switch( sTNi){ 	case "hello": o =mkSuperTabHello( fe); break;
 														case "world": o =mkSuperTabWorld( fe); break; } return o}
 function mkSuperTabHello( fe){ var o=new SuperTab("hello",fe,OM.user); return o}
