@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2757</title>
+<title>SOS-Aston-3.141-2760</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -502,7 +502,7 @@ function precalcTypes( ty){ var tys=[];var bu=null; for(var n=0; n <=16 ;n++){ b
 function precalcSpirits(sp){var sps=[];var bu=null; for(var n=0; n < 8  ;n++){bu=mkSpirit(sp[n]); sps.push(bu)} return sps}
 function precalcContexts(c){var cos=[];var bu=null; for(var n=0; n < 4  ;n++){bu=mkContext(c[n]); cos.push(bu)} return cos}
 function precalcLang(){/*var lan=[];var bu=null; for(var n=0; n <= 1  ;n++){bu=mkLang(c[n]); lan.push(bu)} return lan*/
-var bu = {eng: OM.Type.TmEngPres(), fin: OM.Type.TmFinPres()}; return bu}
+var bu = {eng: OM.Type.TmEngPres(), fin: OM.Type.TmFinPres()}; bu.cur = bu.eng; return bu}
 function precalcForest( om){ om.fL={};	om.fL.co = precalcContexts( om.Context.seed);
 										//om.fL.sp = precalcSpirits( 	om.Spirit.seed);
 										om.fL.es = precalcTypes( 	om.Type.seed);
@@ -518,9 +518,10 @@ function precalcInterface(om){
 											crtTyFo:null, 	crtGnFo:null, 	sty:null,
 											selGn: false, 	ty:null,
 											selTy: false, 	sQ:0,
-											la:null, initDone:false}; 
+											la:null,  		laSty:null, initDone:false}; 
 											console.log(OM.fL.la);
-											OM.user.la = OM.fL.la.eng; console.log(OM.user.la);
+											OM.user.la = OM.fL.la.cur; //console.log(OM.user.la);
+											OM.user.laSty = OM.fL.la.cur.edu;
 											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT");
 											OM.user.gn = OM.fL.gn.find(o => o.ni === "NaG");
 											calcInterface(om)}//OM.user.gn = OM.fL.gn.find(o => o.ni === "M");
@@ -738,18 +739,18 @@ function mkUserResult(u,d,c){
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
 		return pT[sY][sX]}*/
 function mkTypeLabel(X,Y,u){
+	if(typeof u!='undefined'){console.log(u);}
 	if(u.gn.ni=="NaG"){ return ""}
 
 	var r = 2;
 r= X+" "+Y;
- console.log(u.gn)
  return r}
-function mkTypePanel( u,d,c,cl){  console.log(u.ty);console.log(u.la.edu);
+function mkTypePanel( u,d,c,cl){  //console.log(u.ty);console.log(u.la.edu);
 	function usTA(X,Y){ id =cl+"_tyA-"+u.la.edu[Y][X]; /*cL =cl+" "+cl+"_tyA";*/
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
 								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
-	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+u.ty.ni; cL =cl+" "+cl+"_tyT";
-		txt =mkTypeLabel(sX,sY,OM.user);
+	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+sX+"+"+sY; cL =cl+" "+cl+"_tyT";
+		txt =mkTypeLabel(sX,sY,OM.user); //console.log(OM.user);
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selAreaT 	}
 								else{ 	l =u.sty.areaT 		}}}
 	
