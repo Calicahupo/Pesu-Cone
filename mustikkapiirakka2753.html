@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2749</title>
+<title>SOS-Aston-3.141-2753</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -655,9 +655,9 @@ function mkLanguagePanel( u,d,c){ //labels should flip?
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*2.5);//y+=yi;
 	console.log(x); console.log(y); console.log(d.bPD);
 	//	usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usLT("English"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"English",id, cL, f);  			E.push(e); x+=w*2; 
+		usLT("ENG"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"English",id, cL, f);  			E.push(e); x+=w*2; 
 	//	usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usLT("Finnish"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Suomi",id, cL, f);  	console.log(e);		E.push(e);
+		usLT("FIN"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Suomi",id, cL, f);  	console.log(e);		E.push(e);
 		E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
 		bindMany( '.pAIU_laT', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserLang( e);	break;}})}
 
@@ -705,8 +705,9 @@ function mkGenderPanel( u,d,c){
 	bindMany( '.pAIU_gnA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;}})}
 
 function mkUserResult(u,d,c){
+	function usRA(t){ id =cl+"_reR"; cL =cl+" "+cl+"_reR"}
 	if(!u.initDone){
-	var E=[]; var cl="pAIU"; var Cl="pAIU_reA pAIU_reT pAIU_reC";
+	var E=[]; var cl="pAIU"; var Cl="pAIU_reR pAIU_reD";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var x=d.fraWid+xi+xi+xi;  var yi=d.btnGrY; var y=d.fraHei; var w=d.btnWid; var h=d.btnHei;
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
@@ -716,12 +717,12 @@ function mkUserResult(u,d,c){
 // drA(x,y,w,h,l,id,cl,b,L,op)
 	 e =drA(250, 		366, 			225, 		173, 		l, 	id, cL, b, L);  E.push(e);
 	 e=drA(250, 375, xi, yi, 	"#006600", id, cl, b, ); E.push(e);
-	 e=drA(250, 450, xi, yi, 	"#006800", id, cl, b, ); E.push(e);
+	 usRA("R"); e=drA(250, 450, xi, yi, 	"#ff6800", id, cl, b, ); E.push(e);
 
 	 e =drA(500, 		300, 			366, 		287, 		l, 	id, cL, b, L);  E.push(e);
 	
 	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
-	bindMany( '.pAIU_gknA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;}})}}
+	bindMany( '#pAIU_reR', function(ev,e) { switch(ev){ case "mousedown" 	: uiResetUser( e);	break;}})}}
 
 function mkTypePanel( u,d,c,cl){ 
 	console.log(u.ty);
@@ -894,9 +895,18 @@ if(n){
 
 
 
+/*{crtPa:'initUser',crtFo:null, 	crtFe:null, paComp:0,
+											sTs: [], 		sT:null,	
+											crtTyFo:null, 	crtGnFo:null, 	sty:null,
+											selGn: false, 	ty:null,
+											selTy: false, 	sQ:0,
+											la:null, initDone:false}; */
 
-
-
+function uiResetUser( e){
+	OM.user.selTy=false;
+	OM.user.gn = OM.fL.gn.find(o => o.ni =="NaG");
+	//OM.user.ty = OM.fL.ty.find(o => o.ni =="NaT");
+	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
 
 function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop(); 
 	chooseUserGender( OM.user, i);
