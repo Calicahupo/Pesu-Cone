@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2753</title>
+<title>SOS-Aston-3.141-2757</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -724,18 +724,10 @@ function mkUserResult(u,d,c){
 	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
 	bindMany( '#pAIU_reR', function(ev,e) { switch(ev){ case "mousedown" 	: uiResetUser( e);	break;}})}}
 
-function mkTypePanel( u,d,c,cl){ 
-	console.log(u.ty);
-console.log(u.la.edu);
-	function usTC(){ var id =cl+"_tyC"; }
-	function usTA(X,Y){ id =cl+"_tyA-"+u.la.edu[Y][X]; /*cL =cl+" "+cl+"_tyA";*/
-		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
-								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
-	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+u.ty.ni; cL =cl+" "+cl+"_tyT"; txt =lT(sX,sY);
-		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selAreaT 	}
-								else{ 	l =u.sty.areaT 		}}}
-	function lT(sX,sY){ //console.log(u.gn);∨
 
+//var temp = OM.Type.TmFinPres(); console.log(temp);
+//noi ei parsi oikein, tya-
+/*function lT(sX,sY){ //console.log(u.gn);∨
 		if(u.gn.ni =='NaG'){ return ""} var pT; 
 		if(!u.gn.ad){ if(u.gn.ma){ pT=[
 		["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]]}else{pT=[
@@ -744,17 +736,29 @@ console.log(u.la.edu);
 [["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]]}
 		else{ pT=
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
-		return pT[sY][sX]}
+		return pT[sY][sX]}*/
+function mkTypeLabel(X,Y,u){
+	if(u.gn.ni=="NaG"){ return ""}
 
-//var temp = OM.Type.TmFinPres(); console.log(temp);
-//noi ei parsi oikein, tya-
+	var r = 2;
+r= X+" "+Y;
+ console.log(u.gn)
+ return r}
+function mkTypePanel( u,d,c,cl){  console.log(u.ty);console.log(u.la.edu);
+	function usTA(X,Y){ id =cl+"_tyA-"+u.la.edu[Y][X]; /*cL =cl+" "+cl+"_tyA";*/
+		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
+								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
+	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+u.ty.ni; cL =cl+" "+cl+"_tyT";
+		txt =mkTypeLabel(sX,sY,OM.user);
+		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selAreaT 	}
+								else{ 	l =u.sty.areaT 		}}}
+	
 	var E=[]; var Cl="pAIU_tyA pAIU_tyT pAIU_tyC"; var cl="pAIU";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var l,L=""; var xi=d.btnGrX; var X=OM.ui.winWid -(d.cE*4);  var yi=d.btnGrY; var y=d.fraHei+yi+yi; var w=d.btnWid;
 	var h=d.btnHei; var x=X; x+=xi+xi;	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var t;
 	x=X+d.lV;
 
-	//usTC("g"); e =drT(x, 		y-d.bPD,c.hilite,"user type:",	id, cL, f); 	E.push(e); x+=d.lV;
 	usTA(0,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
 	usTT(0,0); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
 	usTA(1,0); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
@@ -913,6 +917,17 @@ function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop(
 	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
 function chooseUserGender(u,i){ u.gn =OM.fL.gn.find(o => o.ni ==i); console.log(u.gn)}
 
+function uiChooseUserType( e){ 	var i=e.getAttribute("id"); i=i.split("-").pop(); console.log(i);
+	chooseUserType( OM.user, i); 								console.log(OM.user.ty);
+	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty);}
+function chooseUserType(u,i){ console.log(i);
+	if(u.ty.ni == i){ 	u.ty = OM.fL.es.find(o => o.ni === "NaT"); 	u.selTy =true}
+	else {				u.ty = OM.fL.es.find(o => o.ni === i); 		u.selTy=false}
+	u.sty = setUserStyle( OM.ui.sty.pageTe, u.ty.ni);
+	console.log(u);}
+
+function uiChooseUserLang( e){ console.log(e); }
+
 	/*
 	switch(u.gn.ni){
 		case "NaG": var v = OM.fL.gn; console.log(v); break;
@@ -940,16 +955,7 @@ function chooseUserGender(u,i){ u.gn =OM.fL.gn.find(o => o.ni ==i); console.log(
 	
 	//if(u.gn.ni == i){ 	u.gn = OM.fL.gn.find(o => o.ni === "NaG"); 	u.selGn =true}
 	//else {				u.gn = OM.fL.gn.find(o => o.ni === i); 		u.selGn=false}}
-function uiChooseUserType( e){ 	var i=e.getAttribute("id"); i=i.split("-").pop(); console.log(i);
-	chooseUserType( OM.user, i); 								console.log(OM.user.ty);
-	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty);}
-function chooseUserType(u,i){ console.log(i);
-	if(u.ty.ni == i){ 	u.ty = OM.fL.es.find(o => o.ni === "NaT"); 	u.selTy =true}
-	else {				u.ty = OM.fL.es.find(o => o.ni === i); 		u.selTy=false}
-	u.sty = setUserStyle( OM.ui.sty.pageTe, u.ty.ni);
-	console.log(u);}
 
-function uiChooseUserLang( e){ console.log(e); }
 
 													
 
