@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2776</title>
+<title>SOS-Aston-3.141-2791</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -642,7 +642,7 @@ function mkPanelBackground(u,d,c){
 	sV.appendChild( e);
 
 }
-function mkPanelLabels(u,d,c){ 	console.log(u.ty); console.log(u.la.edu);
+function mkPanelLabels(u,d,c){ 	
 	function usLC(t){ var id =cl+"_plL-"+t; cL= cl + id;}
 //noi ei parsi oikein, tya-?
 	var E=[]; var Cl="pAIU_plL pAIU_plT"; var cl="pAIU";
@@ -747,10 +747,15 @@ function mkUserResult(u,d,c){
 		else{ pT=
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
 		return pT[sY][sX]}*/
-function mkTypeLabel(X,Y,u){
-	if(u.gn.ni=="NaG"){ return ""}
+function mkTypeLabel(X,Y,u){ console.log(u.ty); console.log(u.la); console.log(u.la.aduM);
+	if(u.gn.ni=="NaG"){ return u.la.edu[Y][X]}
+	if(u.gn.ni=="Manism"){ return u.la.aduM[Y][X]}
+	if(u.gn.ni=="Boyism"){ return u.la.chiM[Y][X]}
+	if(u.gn.ni=="Womanism"){ return u.la.chiF[Y][X]}
+	if(u.gn.ni=="Girlism"){ return u.la.aduF[Y][X]}
 	console.log(X); console.log(Y); console.log(u.laSty);
-	return u.laSty[Y][X];}
+//	return u.laSty[Y][X];
+}
 	//rrrr//if(typeof u!='undefined'){console.log(u);}
 	//if(u.gn.ni=="NaG"){ return ""}
 	//var r = 2;r= X+" "+Y; return r}
@@ -758,10 +763,10 @@ function mkTypePanel( u,d,c,cl){  //console.log(u.ty);console.log(u.la.edu);
 	function usTA(X,Y){ id =cl+"_tyA-"+Y+"+"+X; /*cL =cl+" "+cl+"_tyA";*/ 
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
 								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
-	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+sX+"+"+sY; cL =cl+" "+cl+"_tyT";
+	function usTT(sX,sY){ /*if(!(sY>1&& !u.gn.ad)){//<--seiveri + }*/ id =cl+"_tyT-"+sX+"+"+sY; cL =cl+" "+cl+"_tyT";
 		txt =mkTypeLabel(sX,sY,OM.user); //console.log(OM.user);
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selAreaT 	}
-								else{ 	l =u.sty.areaT 		}}}
+								else{ 	l =u.sty.areaT 		}}
 	
 	var E=[]; var Cl="pAIU_tyA pAIU_tyT pAIU_tyC"; var cl="pAIU";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
