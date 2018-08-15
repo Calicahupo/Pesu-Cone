@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2764</title>
+<title>SOS-Aston-3.141-2773</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -713,6 +713,7 @@ function mkGenderPanel( u,d,c){
 
 function mkUserResult(u,d,c){
 	function usRA(t){ id =cl+"_reR"; cL =cl+" "+cl+"_reR"}
+	function usRD(t){ id =cl+"_reD"; cL =cl+" "+cl+"_reD"}
 	if(!u.initDone){
 	var E=[]; var cl="pAIU"; var Cl="pAIU_reR pAIU_reD";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
@@ -723,13 +724,15 @@ function mkUserResult(u,d,c){
 	 e =drA(250, 		66, 			225, 		287, 		l, 	id, cL, b, L);  E.push(e);
 // drA(x,y,w,h,l,id,cl,b,L,op)
 	 e =drA(250, 		366, 			225, 		173, 		l, 	id, cL, b, L);  E.push(e);
-	 e=drA(250, 375, xi, yi, 	"#006600", id, cl, b, ); E.push(e);
+	// e=drA(250, 375, xi, yi, 	"#006600", id, cl, b, ); E.push(e);
 	 usRA("R"); e=drA(250, 450, xi, yi, 	"#ff6800", id, cl, b, ); E.push(e);
+	 usRD("D"); e=drA(250, 400, xi, yi, 	"#006600", id, cl, b, ); E.push(e);
 
 	 e =drA(500, 		300, 			366, 		287, 		l, 	id, cL, b, L);  E.push(e);
 	
 	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
-	bindMany( '#pAIU_reR', function(ev,e) { switch(ev){ case "mousedown" 	: uiResetUser( e);	break;}})}}
+	bindMany( '#pAIU_reR', function(ev,e) { switch(ev){ case "mousedown" 	: uiResetUser( e);	break;}});
+	bindMany( '#pAIU_reD', function(ev,e) { switch(ev){ case "mousedown" 	: console.log("ulaanbator");	break;}})}}
 
 
 //var temp = OM.Type.TmFinPres(); console.log(temp);
@@ -745,6 +748,7 @@ function mkUserResult(u,d,c){
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
 		return pT[sY][sX]}*/
 function mkTypeLabel(X,Y,u){
+	console.log(X); console.log(Y); console.log(u);
 	//rrrr//if(typeof u!='undefined'){console.log(u);}
 	if(u.gn.ni=="NaG"){ return ""}
 
@@ -752,7 +756,7 @@ function mkTypeLabel(X,Y,u){
 r= X+" "+Y;
  return r}
 function mkTypePanel( u,d,c,cl){  //console.log(u.ty);console.log(u.la.edu);
-	function usTA(X,Y){ id =cl+"_tyA-"+u.la.edu[Y][X]; /*cL =cl+" "+cl+"_tyA";*/
+	function usTA(X,Y){ id =cl+"_tyA-"+Y+"+"+X; /*cL =cl+" "+cl+"_tyA";*/ console.log(t);
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
 								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
 	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+sX+"+"+sY; cL =cl+" "+cl+"_tyT";
