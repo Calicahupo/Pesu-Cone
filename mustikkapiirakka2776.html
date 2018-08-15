@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2773</title>
+<title>SOS-Aston-3.141-2776</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -441,7 +441,7 @@ OM.Lang={ seed: ["English","Finnish"],
                                                                                               ÿ      ÿÿÿÿÿ¢         ÿÿ
                                                                                                ÿÿÿ ÿÿÿÿÿÿÿÿÿÿ$     tÿÿ
                                                                                                 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ€ asÿÿÿ
-                                                                                            ÿÿÿÿÿÿÿold spice so lÿÿÿÿ
+                                                                                            ÿÿÿÿÿÿÿold°spice°so°lÿÿÿÿ
                                                                                ..:::::~~ˆ~ˆ~~~~~~~~~~~^ˆ~ˆ¨~¨~¨*~ˆ*/
 function mkPanda(id){ var di=null; switch( id){ case "des":di=new des(  1, false,null, null ); return di;
 												case "asc":di=new asc(  2, true, null, null ); return di;
@@ -748,15 +748,14 @@ function mkUserResult(u,d,c){
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
 		return pT[sY][sX]}*/
 function mkTypeLabel(X,Y,u){
-	console.log(X); console.log(Y); console.log(u);
-	//rrrr//if(typeof u!='undefined'){console.log(u);}
 	if(u.gn.ni=="NaG"){ return ""}
-
-	var r = 2;
-r= X+" "+Y;
- return r}
+	console.log(X); console.log(Y); console.log(u.laSty);
+	return u.laSty[Y][X];}
+	//rrrr//if(typeof u!='undefined'){console.log(u);}
+	//if(u.gn.ni=="NaG"){ return ""}
+	//var r = 2;r= X+" "+Y; return r}
 function mkTypePanel( u,d,c,cl){  //console.log(u.ty);console.log(u.la.edu);
-	function usTA(X,Y){ id =cl+"_tyA-"+Y+"+"+X; /*cL =cl+" "+cl+"_tyA";*/ console.log(t);
+	function usTA(X,Y){ id =cl+"_tyA-"+Y+"+"+X; /*cL =cl+" "+cl+"_tyA";*/ 
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
 								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
 	function usTT(sX,sY){ if(!(sY>1&& !u.gn.ad)){ id =cl+"_tyT-"+sX+"+"+sY; cL =cl+" "+cl+"_tyT";
