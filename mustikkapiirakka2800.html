@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2791</title>
+<title>SOS-Aston-3.141-2800</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -714,6 +714,9 @@ function mkGenderPanel( u,d,c){
 function mkUserResult(u,d,c){
 	function usRA(t){ id =cl+"_reR"; cL =cl+" "+cl+"_reR"}
 	function usRD(t){ id =cl+"_reD"; cL =cl+" "+cl+"_reD"}
+	function usBA(t){ id =cl+"_reL"; cL =cl+" "+cl+"_reL"}
+	function usBT(t){ id =cl+"_reT"; cL =cl+" "+cl+"_reT"}
+	function usBG(t){ id =cl+"_reG"; cL =cl+" "+cl+"_reG"}
 	if(!u.initDone){
 	var E=[]; var cl="pAIU"; var Cl="pAIU_reR pAIU_reD";
 	var o =document.getElementsByClassName(Cl); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
@@ -722,11 +725,18 @@ function mkUserResult(u,d,c){
 	 x+=d.lV;
 
 	 e =drA(250, 		66, 			225, 		287, 		l, 	id, cL, b, L);  E.push(e);
-// drA(x,y,w,h,l,id,cl,b,L,op)
+	 usBA("gn"); e=drA(255,75,33,33, "#222288", id,cl,b); E.push(e);
+	 usBT("gn"); e =drT(250, 	66+f, 	"#ffffff", 		u.ty.ni,  id, cL, f);  	E.push(e); x+=xi;
+
+	 usBA("gn"); e=drA(300,75,33,33, "#222288", id,cl,b); E.push(e);
+	 usBG("gn"); e =drT(300, 	66+f, 	"#ffffff", 		u.gn.ni,  id, cL, f);  	E.push(e); x+=xi;
+
+
+//e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
 	 e =drA(250, 		366, 			225, 		173, 		l, 	id, cL, b, L);  E.push(e);
 	// e=drA(250, 375, xi, yi, 	"#006600", id, cl, b, ); E.push(e);
-	 usRA("R"); e=drA(250, 450, xi, yi, 	"#ff6800", id, cl, b, ); E.push(e);
-	 usRD("D"); e=drA(250, 400, xi, yi, 	"#006600", id, cl, b, ); E.push(e);
+	 usRA("R"); e=drA(250, 450, xi, yi, 	"#ff6800", id, cl, b, L,1); E.push(e);
+	 usRD("D"); e=drA(250, 400, xi, yi, 	"#006600", id, cl, b, L,1); E.push(e);
 
 	 e =drA(500, 		300, 			366, 		287, 		l, 	id, cL, b, L);  E.push(e);
 	
@@ -747,12 +757,12 @@ function mkUserResult(u,d,c){
 		else{ pT=
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
 		return pT[sY][sX]}*/
-function mkTypeLabel(X,Y,u){ console.log(u.ty); console.log(u.la); console.log(u.la.aduM);
-	if(u.gn.ni=="NaG"){ return u.la.edu[Y][X]}
-	if(u.gn.ni=="Manism"){ return u.la.aduM[Y][X]}
-	if(u.gn.ni=="Boyism"){ return u.la.chiM[Y][X]}
-	if(u.gn.ni=="Womanism"){ return u.la.chiF[Y][X]}
-	if(u.gn.ni=="Girlism"){ return u.la.aduF[Y][X]}
+function mkTypeLabel(X,Y,u){ console.log(u.ty); console.log(u.la); console.log(u.la.chiM);
+	if(u.gn.ni=="NaG"){ 				return u.la.edu[Y][X]}
+	if(u.gn.ni=="Manism"){ 				return u.la.aduM[Y][X]}
+	if(u.gn.ni=="Boyism"){ 	if(!Y>1){	return u.la.chiM[Y][X]} else {return ""}}
+	if(u.gn.ni=="Womanism"){ 			return u.la.aduF[Y][X]}
+	if(u.gn.ni=="Girlism"){ if(!Y>1){	return u.la.aduF[Y][X]}else {return ""}}
 	console.log(X); console.log(Y); console.log(u.laSty);
 //	return u.laSty[Y][X];
 }
