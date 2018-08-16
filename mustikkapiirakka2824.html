@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2808</title>
+<title>SOS-Aston-3.141-2824</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -167,42 +167,42 @@ OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FE
 	Qp:function(p){var o={ anc:p};
 		p.x? p.y? p.z?/*Ne*/o.nim="abc" :/*Ni*/o.nim="bca" : p.z?/*Fe*/o.nim="bac" :/*Fi*/o.nim="acb" :
 			 p.y? p.z?/*Te*/o.nim="bac" :/*Ti*/o.nim="acb" : p.z?/*Re*/o.nim="bca" :/*Ri*/o.nim="cab";return o},
-	TmFinPres:function(){ var r ={ ni:"fin",edu: OM.Type.TmFinEdu(), chiF:OM.Type.TmFinChiF(), chiM:OM.Type.TmFinChiM(),
-		aduM:OM.Type.TmFinAduM(), aduF:OM.Type.TmFinAduF(), zodM:OM.Type.TmFinZodM(), zodF:OM.Type.TmFinZodF()};return r},
-	TmFinEdu:function(){ var r=[["UAV","UVA","UTV","UVT"],["SAV","SVA","STV","SVT"],
-								["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]; return r},
-	TmFinChiM:function(){var r=	[["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]];return r},
-	TmFinChiF:function(){var r=[["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]];return r},
-	TmFinAduM:function(){var r=[["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],
-								["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]; return r},
-	TmFinAduF:function(){var r=[["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],
-								["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]]; return r},
-	TmEngPres:function(){ var r ={ ni:"eng", edu: OM.Type.TmEngEdu(), chiF:OM.Type.TmEngChiF(), chiM:OM.Type.TmEngChiM(),
-		aduM:OM.Type.TmEngAduM(), aduF:OM.Type.TmEngAduF(), zodM:OM.Type.TmEngZodM(), zodF:OM.Type.TmEngZodF()};return r},
-	TmEngEdu:function(){ var r=[["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],
-								["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]]; return r},
-	TmEngChiM:function(){var r=	[["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]];return r},
-	TmEngChiF:function(){var r=[["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]];return r},
-	TmEngAduM:function(){var r=[["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],
-								["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]; return r},
-	TmEngAduF:function(){var r=[["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],
-								["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]]; return r},
-	TmEngZodF:function(){var r=[["Bee", 		"Wolverine",	"Fishes",  		"Cat"],
-								["Panda", 		"Owl",			"Seal",			"Octopus"],
-								["Beaver", 		"Wolf", 		"Turtle", 		"Sheep",],
-								["Puppy", 		"Spider", 		"Pike", 		"Waterfowl"]]; return r},
-	TmEngZodM:function(){var r=[["Driver", 		"Pike",			"Cobbler",  	"Eagle"],
-								["Chief", 		"Turtle",		"Blacksmith"	,"Mason"],
-								["Meteor", 		"Sun", 			"Raven", 		"Elf",],
-								["Planet", 		"Star", 		"Snake", 		"Troll"]]; return r},
-	TmFinZodF:function(){var r=[["Mehiläinen", 	"Ahma",			"Kalat",  		"Kissa"],
-								["Panda", 		"Pöllö",		"Norppa",		"Mustakala"],
-								["Majava", 		"Susi", 		"Kilpikonna", 	"Lammas",],
-								["Koiranpentu",	"Hämähäkki", 	"Hauki", 		"Vesilintu"]]; return r},
-	TmFinZodM:function(){var r=[["Kuljettaja", 	"Hauki",		"Suutari",  	"Kotka"],
-								["Päällikkö", 	"Kilpikonna",	"Seppä", 		"Muurari"],
-								["Meteoriitti", "Aurinko", 		"Korppi", 		"Haltia",],
-								["Planeettta", 	"Tähti", 		"Käärme", 		"Peikko"]]; return r},
+	TmFinPres:function(){ var r ={ ni:"fin",edu: OM.Type.TmFinEdu, chiF:OM.Type.TmFinChiF, chiM:OM.Type.TmFinChiM,
+		aduM:OM.Type.TmFinAduM, aduF:OM.Type.TmFinAduF, zodM:OM.Type.TmFinZodM, zodF:OM.Type.TmFinZodF};return r},
+	TmFinEdu:  [["UAV","UVA","UTV","UVT"],["SAV","SVA","STV","SVT"],
+	 			["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]],
+	TmFinChiM: [["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]],
+	TmFinChiF: [["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]],
+	TmFinAduM: [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],
+				["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]],
+	TmFinAduF: [["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],
+				["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]],
+	TmEngPres:function(){ var r ={ ni:"eng", edu: OM.Type.TmEngEdu, chiF:OM.Type.TmEngChiF, chiM:OM.Type.TmEngChiM,
+		aduM:OM.Type.TmEngAduM, aduF:OM.Type.TmEngAduF, zodM:OM.Type.TmEngZodM, zodF:OM.Type.TmEngZodF};return r},
+	TmEngEdu:  [["TEN","NET","FEN","NEF"],["TIN","NIT","FIN","NIF"],
+				["RET","TER","REF","FER"],["RIT","TIR","RIF","FIR"]],
+	TmEngChiM: [["MTN","MNT","MFN","MNF"],["RTM","TRM","RFM","FRM"]],
+	TmEngChiF: [["FRF","RFF","TRF","RTF"],["NFF","FNF","NTF","TNF"]],
+	TmEngAduM: [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],
+				["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]],
+	TmEngAduF: [["FIRF","RIFF","TIRF","RITF"],["FERF","REFF","TERF","RETF"],
+				["NIFF","FINF","NITF","TINF"],["NEFF","FENF","NETF","TENF"]],
+	TmEngZodF: [["Bee", 		"Wolverine",	"Fishes",  		"Cat"],
+				["Panda", 		"Owl",			"Seal",			"Octopus"],
+				["Beaver", 		"Wolf", 		"Turtle", 		"Sheep",],
+				["Puppy", 		"Spider", 		"Pike", 		"Waterfowl"]],
+	TmEngZodM: [["Driver", 		"Pike",			"Cobbler",  	"Eagle"],
+				["Chief", 		"Turtle",		"Blacksmith"	,"Mason"],
+				["Meteor", 		"Sun", 			"Raven", 		"Elf",],
+				["Planet", 		"Star", 		"Snake", 		"Troll"]],
+	TmFinZodF: [["Mehiläinen", 	"Ahma",			"Kalat",  		"Kissa"],
+				["Panda", 		"Pöllö",		"Norppa",		"Mustakala"],
+				["Majava", 		"Susi", 		"Kilpikonna", 	"Lammas",],
+				["Koiranpentu",	"Hämähäkki", 	"Hauki", 		"Vesilintu"]],
+	TmFinZodM: [["Kuljettaja", 	"Hauki",		"Suutari",  	"Kotka"],
+				["Päällikkö", 	"Kilpikonna",	"Seppä", 		"Muurari"],
+				["Meteoriitti", "Aurinko", 		"Korppi", 		"Haltia",],
+				["Planeettta", 	"Tähti", 		"Käärme", 		"Peikko"]],
 	TmSent:function( ni){ var sty ={ fin:{}, eng:{}}; 	sty.ni=ni;
 														sty.fin 	= 	this.TmFin()
 														sty.suomi 	= 	this.TmSuomi( ni);
@@ -731,8 +731,8 @@ function mkUserResult(u,d,c){
 	 x+=d.lV;
 
 	 e =drA(250, 		66, 			225, 		287, 		l, 	id, cL, b, L);  E.push(e);
-	 usBA("gn"); e=drA(255,75,33,33, "#222288", id,cl,b); E.push(e);
-	 usBT("gn"); e =drT(250, 	66+f, 	"#ffffff", 		u.ty.noun,  id, cL, f);  	E.push(e); x+=xi;
+	 usBA("ty"); e=drA(255,75,33,33, "#222288", id,cl,b); E.push(e);
+	 usBT("ty"); e =drT(250, 	66+f, 	"#ffffff", 		u.ty.ni,  id, cL, f);  	E.push(e); x+=xi;
 
 	 usBA("gn"); e=drA(300,75,33,33, "#222288", id,cl,b); E.push(e);
 	 usBG("gn"); e =drT(300, 	66+f, 	"#ffffff", 		u.gn.noun,  id, cL, f);  	E.push(e); x+=xi;
@@ -947,18 +947,32 @@ function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop(
 	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
 function chooseUserGender(u,i){ u.gn =OM.fL.gn.find(o => o.ni ==i); console.log(u.gn)}
 
-function uiChooseUserType( e){ 	var c=e.getAttribute("id"); c=c.split("-").pop();
- 	c=c.split("+");
-	console.log(c);
-
-
-	//chooseUserType( OM.user, i); 								console.log(OM.user.ty);
+function uiChooseUserType( e){ 	var c=e.getAttribute("id"); c=c.split("-").pop(); c=c.split("+");
+	chooseUserType( OM.user, c[0], c[1]);
 	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty);}
-function chooseUserType(u,i){ console.log(i);
+function chooseUserType(u,x,y){if(u.gn.ni=="NaG"){ uiNeutralType(u,x,y)} else
+	if(u.gn.ad){if(u.gn.ma){ uiWomanType(u,x,y)} else { uiManType(u,x,y)}} else
+				if(u.gn.ma){ uiGirlType(u,x,y)} else { uiBoyType(u,x,y)}}
+function uiNeutralType(u,x,y){ var r = "neutral "+x+y; console.log(r);}
+//function uiWomanType(u,x,y){ var r = "woman "+x+y; console.log(r);}
+//function uiManType(y,x){ var r = "man "+x+y; console.log(r);}
+//function uiManType(y,x){ console.log(OM.Type); var r = OM.Type.TmFinAduM[x][y]; console.log(r)}
+function uiManType(u,x,y){ var r =OM.Type.TmFinAduM[x][y]; r=r.substring(1);
+	u.ty = OM.fL.es.find(o => o.ni === r); u.selTy=true; console.log(r);}
+function uiWomanType(u,x,y){ var r =OM.Type.TmFinAduF[x][y]; r=r.slice(0, -1);
+	u.ty = OM.fL.es.find(o => o.ni === r); u.selTy=true; console.log(r);}
+function uiGirlType(u,x,y){ var r = "girl "+x+y; console.log(r);}
+function uiBoyType(u,x,y){ var r = "boy "+x+y; console.log(r);}
+
+
+
+
+/*
+	console.log(i);
 	if(u.ty.ni == i){ 	u.ty = OM.fL.es.find(o => o.ni === "NaT"); 	u.selTy =true}
 	else {				u.ty = OM.fL.es.find(o => o.ni === i); 		u.selTy=false}
 	u.sty = setUserStyle( OM.ui.sty.pageTe, u.ty.ni);
-	console.log(u);}
+	console.log(u);}*/
 
 function uiChooseUserLang( e){ console.log(e); }
 
