@@ -1,5 +1,5 @@
 v3
-Identical   T(DLT)              <=> T(xyzw)
+Identical   T(IDN)              <=> T(xyzw)
 Super-Ego   T(SEG)              <=> T(xyzW)
 Mirror      T(MRR)              <=> T(xyZw)
 Donkey      (T(SEG))(MRR)       <=> T(xyZW)
