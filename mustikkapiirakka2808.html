@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2803</title>
+<title>SOS-Aston-3.141-2808</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -640,8 +640,8 @@ function drUserPage(u,d,c){
 	mkTypeCube ( u,d,c );
 	mkUserResult( u,d,c);
 }
-function mkPanelBackground(u,d,c){
-	var o =document.getElementsByClassName("pAIU-base"); console.log(o); for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
+function mkPanelBackground(u,d,c){ //shaibaa rrrr xxxx eitoimi
+	var o =document.getElementsByClassName("pAIU-base");  for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var cl="pAIU"; var cL=cl; var id =cl+"-base";
 	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e);
 	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,id,cL,0,undefined, 0.66);
@@ -670,7 +670,7 @@ function mkLanguagePanel( u,d,c){ //labels should flip?
 	//	usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
 		usLT("ENG"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"English",id, cL, f);  			E.push(e); x+=w*2; 
 	//	usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usLT("FIN"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Suomi",id, cL, f);  	console.log(e);		E.push(e);
+		usLT("FIN"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"Suomi",id, cL, f);  		E.push(e);
 		E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
 		bindMany( '.pAIU_laT', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserLang( e);	break;}})}
 
@@ -763,7 +763,7 @@ function mkUserResult(u,d,c){
 		else{ pT=
 [["MTEN","MNET","MFEN","MNEF"],["MTIN","MNIT","MFIN","MNIF"],["MRET","MTER","MREF","MFER"],["MRIT","MTIR","MRIF","MFIR"]]}
 		return pT[sY][sX]}*/
-function mkTypeLabel(X,Y,u){ console.log(u.ty); console.log(u.la); console.log(u.la.chiM);
+function mkTypeLabel(X,Y,u){ //console.log(u.ty); console.log(u.la); console.log(u.la.chiM);
 	if(u.gn.ni=="NaG"){ 				return u.la.edu[Y][X]}
 	if(u.gn.ni=="Manism"){ 				return u.la.aduM[Y][X]}
 	if(u.gn.ni=="Boyism"){ 	if(!Y>1){	return u.la.chiM[Y][X]} else {return ""}}
@@ -776,7 +776,7 @@ function mkTypeLabel(X,Y,u){ console.log(u.ty); console.log(u.la); console.log(u
 	//if(u.gn.ni=="NaG"){ return ""}
 	//var r = 2;r= X+" "+Y; return r}
 function mkTypePanel( u,d,c,cl){  //console.log(u.ty);console.log(u.la.edu);
-	function usTA(X,Y){ id =cl+"_tyA-"+Y+"+"+X; /*cL =cl+" "+cl+"_tyA";*/ 
+	function usTA(X,Y){ id =cl+"_tyA-"+Y+"+"+X; cL =cl+"_tyA";
 		if( u.selTy && u.ty.ni ==t) { 	l =u.sty.selArea; 	L =u.sty.selAreaB  	 }
 								else{ 	l =u.sty.area; 		L =u.sty.areaB 		}}
 	function usTT(sX,sY){ /*if(!(sY>1&& !u.gn.ad)){//<--seiveri + }*/ id =cl+"_tyT-"+sX+"+"+sY; cL =cl+" "+cl+"_tyT";
@@ -823,7 +823,6 @@ function mkTypePanel( u,d,c,cl){  //console.log(u.ty);console.log(u.la.edu);
 	usTA(3,3); e =drA(x, 		y, 			w, 		h, 		l, 	id, cL, b, L);  E.push(e);
 	usTT(3,3); e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x=X+d.lV; y+=yi;
 	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
-	console.log(E);
 	bindMany( '.pAIU_tyA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserType( e);	break;/*	case "mouseover" 	: uiFocusUserGender( e); 	break;*/ }})}
 		
 
@@ -948,8 +947,12 @@ function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop(
 	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
 function chooseUserGender(u,i){ u.gn =OM.fL.gn.find(o => o.ni ==i); console.log(u.gn)}
 
-function uiChooseUserType( e){ 	var i=e.getAttribute("id"); i=i.split("-").pop(); console.log(i);
-	chooseUserType( OM.user, i); 								console.log(OM.user.ty);
+function uiChooseUserType( e){ 	var c=e.getAttribute("id"); c=c.split("-").pop();
+ 	c=c.split("+");
+	console.log(c);
+
+
+	//chooseUserType( OM.user, i); 								console.log(OM.user.ty);
 	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty);}
 function chooseUserType(u,i){ console.log(i);
 	if(u.ty.ni == i){ 	u.ty = OM.fL.es.find(o => o.ni === "NaT"); 	u.selTy =true}
