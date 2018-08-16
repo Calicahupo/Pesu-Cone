@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2800</title>
+<title>SOS-Aston-3.141-2803</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -380,11 +380,17 @@ function S( n,l,d){ var o=OM.Context.Co(n,"S",l,d); this.n=o.n; this.ni=o.ni; th
 //function Boy ( n,g,a){ var o=OM.Gender.Gn(n,"m",g,a); 	this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
 OM.Gender={ seed: ["NaG","Girlism","Boyism","Womanism","Manism"], //seed: ["NaG","f","F","m","M"],
 	Gn:function( n,ni,m,a){ var o={ n:n, ni:ni, ma:m, ad:a}; return o}}
-function NaG( n, g,a){  	var o=OM.Gender.Gn(n,"NaG",g,a); this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
-function Girlism( n, g,a){  var o=OM.Gender.Gn(n,"Girlism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
-function Boyism( n, g,a){  	var o=OM.Gender.Gn(n,"Boyism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
-function Womanism(n,g,a){  	var o=OM.Gender.Gn(n,"Womanism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
-function Manism( n,g,a){  	var o=OM.Gender.Gn(n,"Manism",g,a);this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function NaG( n, g,a){  	var o=OM.Gender.Gn(n,"NaG",g,a); this.noun="Nongender";
+this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Girlism( n, g,a){  var o=OM.Gender.Gn(n,"Girlism",g,a);this.noun="Girl";
+this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Boyism( n, g,a){  	var o=OM.Gender.Gn(n,"Boyism",g,a);this.noun="Boy";
+this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Womanism(n,g,a){  	var o=OM.Gender.Gn(n,"Womanism",g,a);this.noun="Woman";
+this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+function Manism( n,g,a){  	var o=OM.Gender.Gn(n,"Manism",g,a);this.noun="Man";
+this.n=o.n;this.ni=o.ni;this.ma=o.ma;this.ad=o.ad}
+//function mkLangManism(){ var o = {noun: "man"} return o}
 
 /*
 OM.Lang={ seed: ["English","Finnish"],
@@ -726,10 +732,10 @@ function mkUserResult(u,d,c){
 
 	 e =drA(250, 		66, 			225, 		287, 		l, 	id, cL, b, L);  E.push(e);
 	 usBA("gn"); e=drA(255,75,33,33, "#222288", id,cl,b); E.push(e);
-	 usBT("gn"); e =drT(250, 	66+f, 	"#ffffff", 		u.ty.ni,  id, cL, f);  	E.push(e); x+=xi;
+	 usBT("gn"); e =drT(250, 	66+f, 	"#ffffff", 		u.ty.noun,  id, cL, f);  	E.push(e); x+=xi;
 
 	 usBA("gn"); e=drA(300,75,33,33, "#222288", id,cl,b); E.push(e);
-	 usBG("gn"); e =drT(300, 	66+f, 	"#ffffff", 		u.gn.ni,  id, cL, f);  	E.push(e); x+=xi;
+	 usBG("gn"); e =drT(300, 	66+f, 	"#ffffff", 		u.gn.noun,  id, cL, f);  	E.push(e); x+=xi;
 
 
 //e =drT(x+d.tPL, 	y+d.bPD, 	l, 		txt,  id, cL, f);  			E.push(e); x+=xi;
