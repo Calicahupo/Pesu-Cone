@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2824</title>
+<title>SOS-Aston-3.141-2835</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -689,31 +689,10 @@ function mkGenderPanel( u,d,c){
 	var f=d.fonSiz; var b=d.btnBrd; var id; var cL; var X=OM.ui.winWid -(d.cE*4); x=X+(xi*3); y+=yi;
 /*	usGC("g"); e =drT(x+xi, 		y+d.bPD,c.hilite,"gender",	id, cL, f); 	E.push(e);*/ x+=d.lV;
 	//console.log(u.gn); //NaG
-	if(u.gn.ni=="NaG"){
-		usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("Womanism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
-		usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("Manism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
-	else if(u.gn.ni=="Manism"){
-		usGA("Womanism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("Womanism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
-		usGA("Boyism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("Boyism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
-	else if(u.gn.ni=="Womanism"){ 
-		usGA("Girlism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("Girlism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
-		usGA("Manism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("Manism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
-	else if(u.gn.ni=="Girlism"){
-		usGA("NaG"); 		e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("NaG"); 		e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
-		usGA("Boyism"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("Boyism"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
-	else if(u.gn.ni=="Boyism"){
-		usGA("Girlism"); 		e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("Girlism"); 		e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
-		usGA("NaG"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
-		usGT("NaG"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);}
+	usGA("F"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usGT("F"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"F",id, cL, f);  			E.push(e); x+=h*1.618; 
+	usGA("M"); 	e =drA(x, 		y, 			h, 		h, 		l, 	id, cL, b, L);  E.push(e);
+	usGT("M"); 	e =drT(x+d.lP, 	y+d.bPD, 	l, 		"M",id, cL, f);  			E.push(e);
 	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
 	bindMany( '.pAIU_gnA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;}})}
 
@@ -942,10 +921,20 @@ function uiResetUser( e){
 	//OM.user.ty = OM.fL.ty.find(o => o.ni =="NaT");
 	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
 
-function uiChooseUserGender( e){ var i=e.getAttribute("id"); i=i.split("-").pop(); 
-	chooseUserGender( OM.user, i);
+function uiChooseUserGender( e){ var g=e.getAttribute("id"); g=g.split("-").pop(); 
+	chooseUserGender( OM.user, g);
 	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
-function chooseUserGender(u,i){ u.gn =OM.fL.gn.find(o => o.ni ==i); console.log(u.gn)}
+function chooseUserGender(u,g){
+	if(u.gn.ni=="NaG"){
+		if(g=="M"){ u.gn =OM.fL.gn.find(o => o.ni=="Manism")}else if(g=="F"){u.gn=OM.fL.gn.find(o => o.ni=="Womanism")}}
+	else if(u.gn.ni == "Manism" && g == "F"){ u.gn=OM.fL.gn.find(o => o.ni=="Womanism") }
+	else if(u.gn.ni == "Manism" && g == "M"){ u.gn=OM.fL.gn.find(o => o.ni=="Boyism") }
+	else if(u.gn.ni == "Womanism" && g == "F"){ u.gn=OM.fL.gn.find(o => o.ni=="Girlism") }
+	else if(u.gn.ni == "Womanism" && g == "M"){ u.gn=OM.fL.gn.find(o => o.ni=="Manism") }
+	else if(u.gn.ni == "Boyism" && g == "F"){ u.gn=OM.fL.gn.find(o => o.ni=="Womanism") }
+	else if(u.gn.ni == "Boyism" && g == "M"){ u.gn=OM.fL.gn.find(o => o.ni=="Manism") }
+	else if(u.gn.ni == "Girlism" && g == "F"){ u.gn=OM.fL.gn.find(o => o.ni=="Womanism") }
+	else if(u.gn.ni == "Girlism" && g == "M"){ u.gn=OM.fL.gn.find(o => o.ni=="Manism") }}
 
 function uiChooseUserType( e){ 	var c=e.getAttribute("id"); c=c.split("-").pop(); c=c.split("+");
 	chooseUserType( OM.user, c[0], c[1]);
