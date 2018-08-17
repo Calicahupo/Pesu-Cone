@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2859</title>
+<title>SOS-Aston-3.141-2870</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -67,7 +67,7 @@ function predraw( om){ sV.setAttribute( 'height',window.innerHeight); sV.setAttr
 
 				}}}
 $(document).ready( function(){ postinit( OM)})
-function postinit( om){ drUserPage( OM.user, OM.ui.th, OM.user.sty);
+function postinit( om){ drUserPage( OM.user, OM.ui.th);
 
 }
 
@@ -423,7 +423,7 @@ function precalcInterface(om){
 											console.log(OM.fL.la);
 											OM.user.la = OM.fL.la.cur; //console.log(OM.user.la);
 											OM.user.laSty = OM.fL.la.cur.edu;
-											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT"); console.log(OM.user);
+											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT"); //console.log(OM.user);
 											OM.user.gn = OM.fL.gn.find(o => o.ni === "NaG");
 											calcInterface(om)}//OM.user.gn = OM.fL.gn.find(o => o.ni === "M");
 
@@ -438,7 +438,7 @@ function calcInterface(om){ 	var ui 					= precalcUserInterfaceTemplates( false,
 
 								ui.th					= precalcThemes( ui.th);
 
-								console.log(ui.th);
+								//console.log(ui.th);
 
 								OM.user.sty = 			ui.th.blue;
 
@@ -488,7 +488,7 @@ function mkFeature( ui,t){
 	if(t.act.sV){ t.sV =mkFeatureSVG( ui,t)}
 	/*if(t.act.DOM){ t.dev.DOM =mkFeatureDOM( ui,t); if(t.act.sV){ t.dev.DOM.appendChild( t.dev.sV)}}*/ return t}
 function mkFeatureDOM( ui,t){ var f =mkD( 0,0,ui.winWid,ui.winHei,t.nim,'transparent',t.nim ); return f}
-function mkFeatureSVG( ui,t){ var f =mkL( 0,0,ui.winWid,ui.winHei,t.nim,ui.th.blue.base,t.nim,'' ); return f}
+function mkFeatureSVG( ui,t){ var f =mkL( 0,0,ui.winWid,ui.winHei,t.nim,ui.th.sty.blue.base,t.nim,'' ); return f}
 
 function precalcFeature( ui,template){ var fe =mkFeature( ui,template); ui.features.push( fe); }
 function precalcFeatures( ui,templates,fesLen) {
@@ -512,7 +512,9 @@ function setUserStyle( ty){ var r; console.log(sty);
 										else { 		p.c= c.areaT; 		p.c=c.areaB} return p.c}*/
 										//on form complete	//hilite hover gone	//You are #char	//DONE RESET (MORE) kolmas nappi unohtu mikä se oli
 
-function drUserPage(u,d,c){
+function drUserPage(u,d){ 
+	c = styleUser(u,d,OM.ui);
+	console.log(d);
 	mkPanelBackground(u,d,c);
 	mkPanelLabels( u,d,c);
 	mkLanguagePanel( u,d,c);
@@ -521,15 +523,39 @@ function drUserPage(u,d,c){
 	mkTypeCube ( u,d,c );
 	mkUserResult( u,d,c);
 }
-function mkPanelBackground(u,d,c){ //shaibaa rrrr xxxx eitoimi
+function styleUser(u,d,ui){ var r;
+	switch(u.ty.ni){ case "NaT": 			r =ui.th.black; break;
+					case "RIF": case "NET": r =ui.th.orange; break;
+					case "FIR": case "TEN": r =ui.th.blue; break;
+					case "RIT": case "NEF": r =ui.th.olive; break;
+					case "TIR": case "FEN": r =ui.th.green; break;
+					case "RET": case "NIF": r =ui.th.violet; break;
+					case "TER": case "FIN": r =ui.th.copper; break;
+					case "NIT": case "REF": r =ui.th.brass; break;
+					case "TIN": case "FER": r =ui.th.cyan; break;} u.sty = r; return r}
+
+function mkPanelBackground(u,d,c){ 
+	//shaibaa rrrr xxxx eitoimi 
+	console.log(d);
+	console.log(c);
 	var o =document.getElementsByClassName("pAIU-base");  for(var i=o.length-1; i >= 0; --i){ o[i].remove()}
 	var cl="pAIU"; var cL=cl; var id =cl+"-base";
 	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e);
-	var e =drA( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP,c.base,id,cL,0,undefined, 0.66);
-	sV.appendChild( e);
+	/*var e =drA( 
+		d.lP, 
+		d.tP, 
+		OM.ui.winWid-d.lP-d.rP, 
+		OM.ui.winHei-d.tP-d.bP,
+		c.base,
+		id,
+		cL,
+		0,
+		undefined,
+		0.66);
+	sV.appendChild( e);*/
 
 }
-function mkPanelLabels(u,d,c){ 	
+function mkPanelLabels(u,d,c){ 	console.log(d);
 	function usLC(t){ var id =cl+"_plL-"+t; cL= cl + id;}
 //noi ei parsi oikein, tya-?
 	var E=[]; var Cl="pAIU_plL pAIU_plT"; var cl="pAIU";
@@ -801,11 +827,11 @@ function uiResetUser( e){
 	OM.user.selTy=false;
 	OM.user.gn = OM.fL.gn.find(o => o.ni =="NaG");
 	//OM.user.ty = OM.fL.ty.find(o => o.ni =="NaT");
-	drUserPage( OM.user, OM.ui.th, OM.user.sty)}
+	drUserPage( OM.user, OM.ui.th)}
 
 function uiChooseUserGender( e){ var g=e.getAttribute("id"); g=g.split("-").pop(); 
 	chooseUserGender( OM.user, g);
-	drUserPage( OM.user, OM.ui.th, OM.user.sty)}
+	drUserPage( OM.user, OM.ui.th)}
 function chooseUserGender(u,g){
 	if(u.gn.ni=="NaG"){
 		if(g=="M"){ u.gn =OM.fL.gn.find(o => o.ni=="Manism")}else if(g=="F"){u.gn=OM.fL.gn.find(o => o.ni=="Womanism")}}
@@ -820,7 +846,7 @@ function chooseUserGender(u,g){
 
 function uiChooseUserType( e){ 	var c=e.getAttribute("id"); c=c.split("-").pop(); c=c.split("+");
 	chooseUserType( OM.user, c[0], c[1]);
-	drUserPage( OM.user, OM.ui.sty, OM.user.sty);}
+	drUserPage( OM.user, OM.ui.sty);}
 function chooseUserType(u,x,y){if(u.gn.ni=="NaG"){ uiNeutralType(u,x,y)} else
 	if(u.gn.ad){if(u.gn.ma){ uiWomanType(u,x,y)} else { uiManType(u,x,y)}} else
 				if(u.gn.ma){ uiGirlType(u,x,y)} else { uiBoyType(u,x,y)}}
@@ -884,11 +910,11 @@ function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,m
 			s.mCs =src.mCs; 	s.qRs =src.qRs; 	s.kKs =src.kKs; 	s.pJs =src.pJs;		s.pL =src.pagLen; }
 	else{ 	s.sGs =sG.length; 	s.qUs =qU.length; 	s.qDs =qD.length; 	s.dCs =dC.length;//length checks in caller already?
 			s.mCs =src.mCs; 	s.qRs =qR.length; 	s.kKs =kK.length; 	s.pJs =pJ.length; 	s.pL =pages.length; }
-	var ui ={ th: {blue:{ base:"#123456", hilite:"#ff6600", area:"#345678", areaT:"#89abcd", selArea:"#6789ab",
+	var ui ={ th: {sty: {blue:{ base:"#123456", hilite:"#ff6600", area:"#345678", areaT:"#89abcd", selArea:"#6789ab",
 						selAreaT:"#deefde", cShade:"#ffcccc", valNum:"#662525", shaNum:"#252566", plane:"#336688",
-						selAreaB:"#6789ab", areaB:"#6789ab", shArea:"#012345"},
+						selAreaB:"#6789ab", areaB:"#6789ab", shArea:"#012345" /*#012345*/},
 				orange:{}, olive:{}, green:{}, violet:{}, cyan:{}, copper:{}, brass:{}, //typed
-							white:{}, black:{},/*<-gendered*/gray:{},/*<-neutral*/
+							white:{}, black:{},/*<-gendered*/gray:{}},/*<-neutral*/
 				cubeA:0.7, wireA:0.38,
 				lV:173, mV:452, bPL:10, bPD:20, cE:280, 	fraWid:66, 	fraHei:66,  op1:0.66, op2:0.7,	 
 					rP:66,  tP:25,  lP:40,  bP:19,  lP:7,tPL:15,btnWid:66, 	btnHei:25, 	cuD:4,
@@ -954,16 +980,16 @@ function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,m
 
 
 function precalcThemes(t){ 
-	t.orange 	=blueToOrange(t.blue); console.log(t.orange);
-	t.olive 	=blueToOrange(t.blue);
-	t.green 	=blueToGreen(t.blue);
-	t.brass 	=blueToBrass(t.blue);
-	t.cyan 		=blueToCyan(t.blue);
-	t.violet 	=blueToViolet(t.blue);
-	t.copper 	=blueToCopper(t.blue);
-	t.black 	=blueToBlack(t.blue);
-	t.white 	=blueToWhite(t.blue);
-	//t.gray 		=blueToGray(t.gray); console.log(t);
+	t.orange 	=blueToOrange(t.sty.blue); console.log(t.orange);
+	t.olive 	=blueToOrange(t.sty.blue);
+	t.green 	=blueToGreen (t.sty.blue);
+	t.brass 	=blueToBrass (t.sty.blue);
+	t.cyan 		=blueToCyan  (t.sty.blue);
+	t.violet 	=blueToViolet(t.sty.blue);
+	t.copper 	=blueToCopper(t.sty.blue);
+	t.black 	=blueToBlack (t.sty.blue);
+	t.white 	=blueToWhite (t.sty.blue);
+	t.gray 		=blueToGray  (t.sty.blue); console.log(t);
 	return t}
 function blueToOrange(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
 function blueToOlive(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
@@ -977,6 +1003,8 @@ function blueToWhite(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
 function blueToGray(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
 
 function copyTheme(t){ var T={
+
+
 	base:t.base, 					hilite:t.hilite, 				area:t.area, 				
 	areaT:t.areaT,					selArea:t.selArea,				selAreaT:t.selAreaT,
 	cShade:t.cShade, 				valNum:t.valNum,				shaNum:t.shaNum,
@@ -987,7 +1015,7 @@ function mTHue(t,n){ //plane
 	t.areaT=mCHue(t.areaT,n);		t.selArea=mCHue(t.selArea,n); 	t.selAreaT=mCHue(t.selAreaT,n);
 	t.cShade=mCHue(t.cShade,n); 	t.valNum=mCHue(t.valNum,n);		t.shaNum=mCHue(t.shaNum,n);
 	t.plane=mCHue(t.plane,n); 		t.selAreaB=mCHue(t.selAreaB,n); t.areaB=mCHue(t.areaB,n);
-	t.areaT=mCHue(t.areaT,n); 		t.shArea=mCHue(t.shArea); return t}
+	t.areaT=mCHue(t.areaT,n); 		t.shArea=mCHue(t.shArea,n); return t}
 function mCHue(rgb, degree) {    var hsl = rgbToHSL(rgb);    hsl.h += degree;
 	if(hsl.h > 360){ hsl.h -= 360}else if(hsl.h < 0){ hsl.h += 360}    return hslToRGB(hsl)}
 function rgbToHSL(rgb){ rgb = rgb.replace(/^\s*#|\s*$/g, ''); if(rgb.length == 3){ rgb = rgb.replace(/(.)/g, '$1$1'); }
