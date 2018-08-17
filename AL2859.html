@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2835</title>
+<title>SOS-Aston-3.141-2859</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -67,9 +67,8 @@ function predraw( om){ sV.setAttribute( 'height',window.innerHeight); sV.setAttr
 
 				}}}
 $(document).ready( function(){ postinit( OM)})
-function postinit( om){ drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty);
+function postinit( om){ drUserPage( OM.user, OM.ui.th, OM.user.sty);
 
-	//askForUser( om.ui, om.user);
 }
 
 function mkDiffSpace( se){ }
@@ -240,25 +239,25 @@ OM.Type={ seed: ["NaT","RIT","RET","RIF","REF","TIN","TEN","TIR","TER","FIN","FE
 
 
 		//o.qp =this.Qp( o);	return o}}
-NaT:function( n){var o=OM.Type.Tm( n,"NaT")},
-RIT:function( n){var o=OM.Type.Tm( n,"RIT")},
-RET:function( n){var o=OM.Type.Tm( n,"RET")},
-RIF:function( n){var o=OM.Type.Tm( n,"RIF")},
-REF:function( n){var o=OM.Type.Tm( n,"REF")},
-TIN:function( n){var o=OM.Type.Tm( n,"TIN")},
-TEN:function( n){var o=OM.Type.Tm( n,"TEN")},
-TIR:function( n){var o=OM.Type.Tm( n,"TIR")},
-TER:function( n){var o=OM.Type.Tm( n,"TER")},
-FIN:function( n){var o=OM.Type.Tm( n,"FIN")},
-FEN:function( n){var o=OM.Type.Tm( n,"FEN")},
-FIR:function( n){var o=OM.Type.Tm( n,"FIR")},
-FER:function( n){var o=OM.Type.Tm( n,"FER")},
-NIT:function( n){var o=OM.Type.Tm( n,"NIT")},
-NET:function( n){var o=OM.Type.Tm( n,"NET")},
-NIF:function( n){var o=OM.Type.Tm( n,"NIF")},
-NEF:function( n){var o=OM.Type.Tm( n,"NEF")}}
-function Ty(t,x,y,z,w){ t.x=x; t.y=y; t.z=z; t.w=w; t.sty=getSty(t); return t}
-function getSty(t){ console.log(t.constructor.name);}
+NaT:function( n,ni){var o=OM.Type.Tm( n,"NaT")},
+RIT:function( n,ni){var o=OM.Type.Tm( n,"RIT")},
+RET:function( n,ni){var o=OM.Type.Tm( n,"RET")},
+RIF:function( n,ni){var o=OM.Type.Tm( n,"RIF")},
+REF:function( n,ni){var o=OM.Type.Tm( n,"REF")},
+TIN:function( n,ni){var o=OM.Type.Tm( n,"TIN")},
+TEN:function( n,ni){var o=OM.Type.Tm( n,"TEN")},
+TIR:function( n,ni){var o=OM.Type.Tm( n,"TIR")},
+TER:function( n,ni){var o=OM.Type.Tm( n,"TER")},
+FIN:function( n,ni){var o=OM.Type.Tm( n,"FIN")},
+FEN:function( n,ni){var o=OM.Type.Tm( n,"FEN")},
+FIR:function( n,ni){var o=OM.Type.Tm( n,"FIR")},
+FER:function( n,ni){var o=OM.Type.Tm( n,"FER")},
+NIT:function( n,ni){var o=OM.Type.Tm( n,"NIT")},
+NET:function( n,ni){var o=OM.Type.Tm( n,"NET")},
+NIF:function( n,ni){var o=OM.Type.Tm( n,"NIF")},
+NEF:function( n,ni){var o=OM.Type.Tm( n,"NEF")}}
+function Ty(t,x,y,z,w){ t.x=x; t.y=y; t.z=z; t.w=w; t.ni=t.constructor.name; t.sty=getSty(t); /*console.log(t);*/ return t}
+function getSty(t){ /*console.log(t.constructor.name);*/}
 
 OM.Spirit={ seed: ["IM","OM","Im","Om","If","IF","Of","OF"],
 	SpSent:function( ni){ switch(ni){
@@ -424,7 +423,7 @@ function precalcInterface(om){
 											console.log(OM.fL.la);
 											OM.user.la = OM.fL.la.cur; //console.log(OM.user.la);
 											OM.user.laSty = OM.fL.la.cur.edu;
-											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT");
+											OM.user.ty = OM.fL.es.find(o => o.ni === "NaT"); console.log(OM.user);
 											OM.user.gn = OM.fL.gn.find(o => o.ni === "NaG");
 											calcInterface(om)}//OM.user.gn = OM.fL.gn.find(o => o.ni === "M");
 
@@ -437,7 +436,13 @@ function calcInterface(om){ 	var ui 					= precalcUserInterfaceTemplates( false,
 																						 om.pages);
 								ui 						= measureWindow( ui);
 
-								ui.sty.pageTe 			= precalcThemes( ui.sty.pageTe.blue, ui.sty.pageTe);
+								ui.th					= precalcThemes( ui.th);
+
+								console.log(ui.th);
+
+								OM.user.sty = 			ui.th.blue;
+
+								//ui.sty.u 				= precalcUserStyles( ui.sty);
 
 								//OM.user.sty = setUserStyle( ui.sty.pageTe, OM.user.ty.ni);
 								
@@ -465,14 +470,7 @@ function uiFocusUserGender( e){ hiliteUserGender( OM.ui,OM.user,e)}
 
 
 
-function drawUserGender( u,e,i){  var cl=e.getAttribute("class"); console.log(cl);
 
-	var E =Array.from(document.querySelectorAll(cl)); E.forEach( function(e){ e.remove()});
-
-	E =mkGenderPanel( u, OM.ui.sty.pageIU, u.sty, E, cl);
-	E.forEach( function(e){ sV.appendChild(e)})}
-
-//dB->oL & up
 function bindMany( sel,c){ var e=Array.from(document.querySelectorAll( sel));
 	e.forEach( function(e){ e.addEventListener("mouseover", function(){ c( "mouseover",	e)})});
 	e.forEach( function(e){ e.addEventListener("mousedown", function(){ c( "mousedown", e)})})}
@@ -484,22 +482,18 @@ function ölistenForUser(){
 function uiChooseSb( e){ console.log(e); chooseUserFe( OM.ui,OM.user,e)}
 function chooseUserFe( ui,usr,e){ var id = e.id.split("-").pop();}
 
-function askForUser( ui,usr){ /*var p =*/mkUserPage( usr, ui.sty.pageIU, usr.sty); /*showSv( p); listenForUser()*/}
-function showSv( p){ for(var i=0; i < p.l; i++){sV.appendChild( p.e[i]); } document.body.appendChild( sV)}
-
-
 
 
 function mkFeature( ui,t){ 
 	if(t.act.sV){ t.sV =mkFeatureSVG( ui,t)}
 	/*if(t.act.DOM){ t.dev.DOM =mkFeatureDOM( ui,t); if(t.act.sV){ t.dev.DOM.appendChild( t.dev.sV)}}*/ return t}
 function mkFeatureDOM( ui,t){ var f =mkD( 0,0,ui.winWid,ui.winHei,t.nim,'transparent',t.nim ); return f}
-function mkFeatureSVG( ui,t){ var f =mkL( 0,0,ui.winWid,ui.winHei,t.nim,ui.sty.b,t.nim,'' ); return f}
+function mkFeatureSVG( ui,t){ var f =mkL( 0,0,ui.winWid,ui.winHei,t.nim,ui.th.blue.base,t.nim,'' ); return f}
 
 function precalcFeature( ui,template){ var fe =mkFeature( ui,template); ui.features.push( fe); }
 function precalcFeatures( ui,templates,fesLen) {
 	for(var i=0; i < fesLen; i++) { precalcFeature( ui,templates[i])} /*ui.fesLen =fesLen;*/ return ui}
-function setUserStyle( sty,usrTyN){ var r; console.log(sty);
+function setUserStyle( ty){ var r; console.log(sty);
 	if(sty ==null){ var sty = OM.user.sty}
 	switch(usrTyN){ case "NaT": 			r =sty.gray; break;
 					case "RIF": case "NET": r =sty.orange; break;
@@ -517,13 +511,7 @@ function setUserStyle( sty,usrTyN){ var r; console.log(sty);
 	function usGT(t){ if(u.selGn && u.gn.ni ==t){ 	p.c= c.selAreaT}
 										else { 		p.c= c.areaT; 		p.c=c.areaB} return p.c}*/
 										//on form complete	//hilite hover gone	//You are #char	//DONE RESET (MORE) kolmas nappi unohtu mikä se oli
-function mkUserPage( u,d,c){	
-	//var e =mkLT( d.lP, d.tP, OM.ui.winWid-d.lP-d.rP, OM.ui.winHei-d.tP-d.bP, cl, c.base, cl+"-base", 0.66); E.push(e); 
-	drUserPage( u,d,c);
-	//if( u.gn.ni !="NaG"){ E =mkCubeWire( u,d,c,E,cl)}
-	//if( u.ty.ni !="NaT"){ E =mkCubeElem( u,d,c,E,cl)}
-	//function drS(v,l,id,cl,op)
-}
+
 function drUserPage(u,d,c){
 	mkPanelBackground(u,d,c);
 	mkPanelLabels( u,d,c);
@@ -604,6 +592,7 @@ function mkUserResult(u,d,c){
 
 	 e =drA(250, 		66, 			225, 		287, 		l, 	id, cL, b, L);  E.push(e);
 	 usBA("ty"); e=drA(255,75,33,33, "#222288", id,cl,b); E.push(e);
+	 console.log(u);
 	 usBT("ty"); e =drT(250, 	66+f, 	"#ffffff", 		u.ty.ni,  id, cL, f);  	E.push(e); x+=xi;
 
 	 usBA("gn"); e=drA(300,75,33,33, "#222288", id,cl,b); E.push(e);
@@ -641,7 +630,7 @@ function mkTypeLabel(X,Y,u){ //console.log(u.ty); console.log(u.la); console.log
 	if(u.gn.ni=="Boyism"){ 	if(!Y>1){	return u.la.chiM[Y][X]} else {return ""}}
 	if(u.gn.ni=="Womanism"){ 			return u.la.aduF[Y][X]}
 	if(u.gn.ni=="Girlism"){ if(!Y>1){	return u.la.aduF[Y][X]}else {return ""}}
-	console.log(X); console.log(Y); console.log(u.laSty);
+	//console.log(X); console.log(Y); console.log(u.laSty);
 //	return u.laSty[Y][X];
 }
 	//rrrr//if(typeof u!='undefined'){console.log(u);}
@@ -812,11 +801,11 @@ function uiResetUser( e){
 	OM.user.selTy=false;
 	OM.user.gn = OM.fL.gn.find(o => o.ni =="NaG");
 	//OM.user.ty = OM.fL.ty.find(o => o.ni =="NaT");
-	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
+	drUserPage( OM.user, OM.ui.th, OM.user.sty)}
 
 function uiChooseUserGender( e){ var g=e.getAttribute("id"); g=g.split("-").pop(); 
 	chooseUserGender( OM.user, g);
-	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty)}
+	drUserPage( OM.user, OM.ui.th, OM.user.sty)}
 function chooseUserGender(u,g){
 	if(u.gn.ni=="NaG"){
 		if(g=="M"){ u.gn =OM.fL.gn.find(o => o.ni=="Manism")}else if(g=="F"){u.gn=OM.fL.gn.find(o => o.ni=="Womanism")}}
@@ -831,7 +820,7 @@ function chooseUserGender(u,g){
 
 function uiChooseUserType( e){ 	var c=e.getAttribute("id"); c=c.split("-").pop(); c=c.split("+");
 	chooseUserType( OM.user, c[0], c[1]);
-	drUserPage( OM.user, OM.ui.sty.pageIU, OM.user.sty);}
+	drUserPage( OM.user, OM.ui.sty, OM.user.sty);}
 function chooseUserType(u,x,y){if(u.gn.ni=="NaG"){ uiNeutralType(u,x,y)} else
 	if(u.gn.ad){if(u.gn.ma){ uiWomanType(u,x,y)} else { uiManType(u,x,y)}} else
 				if(u.gn.ma){ uiGirlType(u,x,y)} else { uiBoyType(u,x,y)}}
@@ -895,17 +884,15 @@ function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,m
 			s.mCs =src.mCs; 	s.qRs =src.qRs; 	s.kKs =src.kKs; 	s.pJs =src.pJs;		s.pL =src.pagLen; }
 	else{ 	s.sGs =sG.length; 	s.qUs =qU.length; 	s.qDs =qD.length; 	s.dCs =dC.length;//length checks in caller already?
 			s.mCs =src.mCs; 	s.qRs =qR.length; 	s.kKs =kK.length; 	s.pJs =pJ.length; 	s.pL =pages.length; }
-	var ui ={ sty : { b:"#000000",d:"#222222",	ledSVG:"#dddd00",ledDOM:"ff0000",ledGlo:"#00ff00",ledGloRad:6,
-				pageTe : { orange:{}, olive:{}, green:{}, violet:{}, cyan:{}, copper:{}, brass:{}, //typed
-							white:{}, black:{},/*<-gendered*/gray:{},/*<-neutral*/
-					blue:{ base:"#123456", hilite:"#ff6600", area:"#345678", areaT:"#89abcd", selArea:"#6789ab",
+	var ui ={ th: {blue:{ base:"#123456", hilite:"#ff6600", area:"#345678", areaT:"#89abcd", selArea:"#6789ab",
 						selAreaT:"#deefde", cShade:"#ffcccc", valNum:"#662525", shaNum:"#252566", plane:"#336688",
 						selAreaB:"#6789ab", areaB:"#6789ab", shArea:"#012345"},
-					alpha:{ cube:0.7, wire:0.38}},
-				pageIU : { b:"#123456", t:"#ff6600", btB:"#345678", btT:"#89abcd", selBtB:"#6789ab", selBtT:"#deefde", 
-					lV:173, mV:452, bPL:10, bPD:20, cE:280, 	fraWid:66, 	fraHei:66,  op1:0.66, op2:0.7,	 
+				orange:{}, olive:{}, green:{}, violet:{}, cyan:{}, copper:{}, brass:{}, //typed
+							white:{}, black:{},/*<-gendered*/gray:{},/*<-neutral*/
+				cubeA:0.7, wireA:0.38,
+				lV:173, mV:452, bPL:10, bPD:20, cE:280, 	fraWid:66, 	fraHei:66,  op1:0.66, op2:0.7,	 
 					rP:66,  tP:25,  lP:40,  bP:19,  lP:7,tPL:15,btnWid:66, 	btnHei:25, 	cuD:4,
-																btnGrX:88, 	btnGrY:40, 	fonSiz:25, 	btnBrd:2 }},
+					btnGrX:88, 	btnGrY:40, 	fonSiz:25, 	btnBrd:2},
 		sV:null,	winWid:0, 	winHei:0, overflow:false, features:[], fesLen:0,  pages:[], pagLen:s.pL,
 		devices:{
 /*SIDEBAR */sB:{ sV:null,disWid:66, 	disHei:0, 	disHrz:0, 	disVrt:0,
@@ -961,9 +948,34 @@ function precalcUserInterfaceTemplates( src, reso, winWid, winHei, sG,qU,qD,dC,m
 							lVX:40,	mVX:173, tHY:40, THY:25, mHY:106, bHY:75, dBH:19 },
 /*YOZEN   */yO:{ sV:null, 	disWid:0, disHei:0, disHrz:0, disVrt:0, lVX:0, mVX:0, tHY:0, mHY:0 }}};
 	if( winWid > 0){ ui.winWid =winWid; ui.winHei =winHei} return ui}
-function precalcThemes(s,d){d.orange=blueToOrange(s); 	d.olive=blueToOlive(s); 	d.green=blueToGreen(s);
-	d.brass=blueToBrass(s);	d.cyan=blueToCyan(s); 		d.violet=blueToViolet( s); 	d.copper=blueToCopper(s);
-	d.black=blueToBlack(s); d.white=blueToWhite(s); 	d.gray=blueToGray(s); 		return d}
+
+
+
+
+
+function precalcThemes(t){ 
+	t.orange 	=blueToOrange(t.blue); console.log(t.orange);
+	t.olive 	=blueToOrange(t.blue);
+	t.green 	=blueToGreen(t.blue);
+	t.brass 	=blueToBrass(t.blue);
+	t.cyan 		=blueToCyan(t.blue);
+	t.violet 	=blueToViolet(t.blue);
+	t.copper 	=blueToCopper(t.blue);
+	t.black 	=blueToBlack(t.blue);
+	t.white 	=blueToWhite(t.blue);
+	//t.gray 		=blueToGray(t.gray); console.log(t);
+	return t}
+function blueToOrange(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToOlive(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToGreen(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToBrass(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToCyan(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToViolet(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToCopper(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToBlack(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToWhite(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+function blueToGray(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
+
 function copyTheme(t){ var T={
 	base:t.base, 					hilite:t.hilite, 				area:t.area, 				
 	areaT:t.areaT,					selArea:t.selArea,				selAreaT:t.selAreaT,
@@ -992,16 +1004,9 @@ function hslToRGB(hsl){ var h=hsl.h, s=hsl.s, l=hsl.l,c=(1-Math.abs(2*l-1))*s,x=
     r = normaliseRGB(r, m); g = normaliseRGB(g, m); b = normaliseRGB(b, m); return rgbToHex(r,g,b)}
 function normaliseRGB(color, m) { color=Math.floor((color+m)*255); if (color < 0) { color = 0} return color}
 function rgbToHex(r, g, b) { return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); }
-function blueToOrange(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToOlive(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToGreen(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToBrass(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToCyan(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToViolet(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToCopper(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToBlack(t){ 		var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToWhite(t){ 		var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToGray(t){ 		var T =copyTheme(t); T =mTHue(T, 25); return T}
+
+
+
 function precalcDevicesForFeature( ui,feNim,act,qU){
 	var dev={ 	DOM:null,sB:null, pJ:null, tT:null, gL:null,
 				sQ:null, aM:null, sH:null, cA:null, mE:null,
