@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"><head> <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>SOS-Aston-3.141-2880</title>
+<title>SOS-Aston-3.141-2887</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	@font-face { font-family:'profont'; 			src:url('diodi/profontwindows-webfont.woff2')format('woff2'),
@@ -289,20 +289,18 @@ function precalcThemes(t){
 	th.white 	=blueToWhite (th.blue);
 	th.gray 	=blueToGray  (th.blue); console.log(th);
 	return th}
-function blueToOrange(t){ 	var T =copyTheme(t); T =mTHue(T, 10); return T}
-function blueToOlive(t){ 	var T =copyTheme(t); T =mTHue(T, 20); return T}
-function blueToGreen(t){ 	var T =copyTheme(t); T =mTHue(T, 30); return T}
-function blueToBrass(t){ 	var T =copyTheme(t); T =mTHue(T, 40); return T}
-function blueToCyan(t){ 	var T =copyTheme(t); T =mTHue(T, 50); return T}
-function blueToViolet(t){ 	var T =copyTheme(t); T =mTHue(T, 60); return T}
+function blueToOrange(t){ 	var T =copyTheme(t); T =mTHue(T, 180);return T} //
+function blueToOlive(t){ 	var T =copyTheme(t); T =mTHue(T, -20); return T}
+function blueToGreen(t){ 	var T =copyTheme(t); T =mTHue(T, -30); return T} //
+function blueToBrass(t){ 	var T =copyTheme(t); T =mTHue(T, 200); return T} //
+function blueToCyan(t){ 	var T =copyTheme(t); T =mTHue(T, -30); return T}
+function blueToViolet(t){ 	var T =copyTheme(t); T =mTHue(T, 30); return T} //
 function blueToCopper(t){ 	var T =copyTheme(t); T =mTHue(T, 70); return T}
 function blueToBlack(t){ 	var T =copyTheme(t); T =mTHue(T, 80); return T}
 function blueToWhite(t){ 	var T =copyTheme(t); T =mTHue(T, 90); return T}
 function blueToGray(t){ 	var T =copyTheme(t); T =mTHue(T, 100); return T}
 
 function copyTheme(t){ var T={
-
-
 	base:t.base, 					hilite:t.hilite, 				area:t.area, 				
 	areaT:t.areaT,					selArea:t.selArea,				selAreaT:t.selAreaT,
 	cShade:t.cShade, 				valNum:t.valNum,				shaNum:t.shaNum,
@@ -330,6 +328,17 @@ function hslToRGB(hsl){ var h=hsl.h, s=hsl.s, l=hsl.l,c=(1-Math.abs(2*l-1))*s,x=
     r = normaliseRGB(r, m); g = normaliseRGB(g, m); b = normaliseRGB(b, m); return rgbToHex(r,g,b)}
 function normaliseRGB(color, m) { color=Math.floor((color+m)*255); if (color < 0) { color = 0} return color}
 function rgbToHex(r, g, b) { return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); }
+
+function mTLig(hex, percent){
+    hex = hex.replace(/^\s*#|\s*$/g, '');
+    if(hex.length == 3){ hex = hex.replace(/(.)/g, '$1$1'); }
+    var r = parseInt(hex.substr(0, 2), 16),
+        g = parseInt(hex.substr(2, 2), 16),
+        b = parseInt(hex.substr(4, 2), 16);
+    return '#' +
+       ((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+       ((0|(1<<8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
+       ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1);}
 
 
 
@@ -718,8 +727,10 @@ function mkUserResult(u,d,c){
 	
 	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
 	bindMany( '#pAIU_reR', function(ev,e) { switch(ev){ case "mousedown" 	: uiResetUser( e);	break;}});
-	bindMany( '#pAIU_reD', function(ev,e) { switch(ev){ case "mousedown" 	: console.log("ulaanbator");	break;}})}}
+	bindMany( '#pAIU_reD', function(ev,e) { switch(ev){ case "mousedown" 	: uiCloseUserPage();	break;}})}}
 
+
+function uiCloseUserPage(){var o =document.getElementsByClassName("pAIU"); for(var i=o.length-1; i>=0;--i){ o[i].remove()}}
 
 //var temp = OM.Type.TmFinPres(); console.log(temp);
 //noi ei parsi oikein, tya-
@@ -746,7 +757,7 @@ function mkTypeLabel(X,Y,u){ //console.log(u.ty); console.log(u.la); console.log
 	//if(u.gn.ni=="NaG"){ return ""}
 	//var r = 2;r= X+" "+Y; return r}
 function mkTypePanel( u,d,c,cl){  //console.log(u.ty);console.log(u.la.edu);
-	function usTA(X,Y){ id =cl+"_tyA-"+Y+"+"+X; cL =cl+"_tyA";
+	function usTA(X,Y){ id =cl+"_tyA-"+Y+"+"+X; cL =cl+"_tyA pAIU";
 		if( u.selTy && u.ty.ni ==t) { 	l =u.ty.th.selArea; 	L =u.ty.th.selAreaB  	 }
 								else{ 	l =u.ty.th.area; 		L =u.ty.th.areaB 		}}
 	function usTT(sX,sY){ /*if(!(sY>1&& !u.gn.ad)){//<--seiveri + }*/ id =cl+"_tyT-"+sX+"+"+sY; cL =cl+" "+cl+"_tyT";
@@ -823,9 +834,9 @@ function mkTypeCube( u,d,c){ var cl="pAIU"; var e; var E=[]; var v=""; var x=OM.
 							(x + (w/2)-(w/d)+","+(y+h+(h/d)));
 						//e =mkS(v, id+"-sP", u.sty.cShade, id+"-sP-vrt", op2); 		
 						e =drS(v, u.ty.th.cShade, id+"-cU-vrt", cl, op); 								E.push(e);
-						e =drA(x+(w/d),	y-(h/d),w,h,co,id+"-btm",cl+"-btm",0,undefined,op); 		E.push(e);
-						e =mkK(x, 		y, 		w,h,co,id+"-mid",cl+"-mid",0,undefined,op/1.618);	E.push(e);
-						e =mkK(x-(w/d),	y+(h/d),w,h,co,id+"-top",cl+"-top",0,undefined,op);			E.push(e);
+						e =drA(x+(w/d),	y-(h/d),w,h,co,id+"-btm",cl+"-btm pAIU",0,undefined,op); 		E.push(e);
+						e =drA(x, 		y, 		w,h,co,id+"-mid",cl+"-mid pAIU",0,undefined,op/1.618);	E.push(e);
+						e =drA(x-(w/d),	y+(h/d),w,h,co,id+"-top",cl+"-top pAIU",0,undefined,op);			E.push(e);
 	E.forEach( function(e){ sV.appendChild(e)}); document.body.appendChild( sV);
 	/*bindMany( '.pAIU_gnA', function(ev,e) { switch(ev){ case "mousedown" 	: uiChooseUserGender( e);	break;
 														case "mouseover" 	: uiFocusUserGender( e); 	break; }})*/
