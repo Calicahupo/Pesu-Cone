@@ -1,21 +1,3 @@
-v3
-Identical   T(IDN)              <=> T(xyzw)
-Super-Ego   T(SEG)              <=> T(xyzW)
-Mirror      T(MRR)              <=> T(xyZw)
-Donkey      (T(SEG))(MRR)       <=> T(xyZW)
-Angel       T(NGL)              <=> T(xYzw)
-Comparative (T(SEG))(NGL)       <=> T(xYzW)
-Watched     (T(MRR))(NGL)       <=> T(xYZw)
-Fluorescent T(FLR)              <=> T(Xyzw)
-Dual        (T(FLR))(SEG)       <=> T(XyzW)
-Radiant     (T(FLR))(MRR)       <=> T(XyZw)
-Semi-Dual   (T(FLR))(NGL)       <=> T(XYzw)
-Activator   (T(SEG))(MRR)(FLR)  <=> T(XyZW)
-Watcher     (T(NGL))(MRR)       <=> T(xYZw)
-Teacher     (T(SEG))(NGL)(FLR)  <=> T(XYzW)
-Mentor      (T(NGL))(FLR)       <=> T(XyZw)
-Student     (T(NGL))(FLR)(MRR)  <=> T(XYZw)
-
 Games as a Synthesis Of Hip and Square
 □, square,  necessity,                thinking 
 ◊, diamond, contingency,              metaphysics
