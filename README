@@ -1,8 +1,18 @@
+SOCIONICS MODEL M
+
+This application is supposed to introduce Socionics Model M to the user.
+It is far from complete. However, Model M itself appears to be complete.
+
+In Model M, all perceiving introverts of Model A are extroverts.
+Vice versa, all perceiving extroverts of Model A are introverts.
+
+***
+
 Logical Progression Chart MODEL M
 
 Deviations from Model A marked by !
 
-ALTERED VARIABLES	  RELATIONSHIP          EXAMPLE
+ ALTERED VARIABLES         RELATIONSHIP          EXAMPLE
 NONE                      IDENTICAL             ENTp - ENTp
 1st                       CONTRARY              ENTp - INTp
 1st, 2nd          IF -p,  SEMI-DUAL             ENTp - ISTp
@@ -23,3 +33,17 @@ NONE                      IDENTICAL             ENTp - ENTp
                   IF –j,  LOOK-A-LIKE           ENTj - ENFj
 3rd, 4th                  -j SUPERVISOR TO –p   ENTp < ENFj !
 4th                       MIRROR                ENTp - ENTj !
+
+***
+
+Information Elements
+
+ MODEL A        MODEL M
+Se             Ri !
+Si             Re !
+Fi             Fi
+Fe             Fe
+Ti             Ti
+Te             Te
+Ne             Ni !
+Ni             Ne !
