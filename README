@@ -21,8 +21,8 @@ NONE                      IDENTICAL             ENTp - ENTp
                   IF –j,  SEMI-DUAL             ENTj - INFj
 1st, 4th                  QUASI-IDENTICAL       ENTp - INTj !
 1st, 2nd, 3rd             DUAL                  ENTp - ISFp
-1st, 2nd, 4th             -j BENEFACTOR TO –p   ENTp - ISTj !
-1st, 3rd, 4th             -p BENEFACTOR TO –j   ENTp - INFj !
+1st, 2nd, 4th             -j BENEFACTOR TO –p   ENTp < ISTj !
+1st, 3rd, 4th             -p BENEFACTOR TO –j   ENTp > INFj !
 1st, 2nd, 3rd, 4th        ACTIVE                ENTp - ISFj !
 2nd               IF –p,  LOOK-A-LIKE           ENTp - ESTp
                   IF -j,  COMPARATIVE           ENTj - ESTj
