@@ -10,27 +10,24 @@ Vice versa, all perceiving extroverts of Model A are introverts.
 
 Logical Progression Chart MODEL M
 
-Deviations from Model A marked by !
+Deviations from Model A are marked by ! and !!.
+!! means a removed if statement.
 
  ALTERED VARIABLES         RELATIONSHIP          EXAMPLE
 NONE                      IDENTICAL             ENTp - ENTp
 1st                       CONTRARY              ENTp - INTp
-1st, 2nd          IF -p,  SEMI-DUAL             ENTp - ISTp
-                  IF -j,  ILLUSIONARY           ENTj - ISTj
-1st, 3rd          IF –p,  ILLUSIONARY           ENTp - INFp
-                  IF –j,  SEMI-DUAL             ENTj - INFj
+1st, 2nd                  ILLUSIONARY           ENTp - ISTp !!
+1st, 3rd                  SEMI-DUAL             ENTp - INFp !!
 1st, 4th                  QUASI-IDENTICAL       ENTp - INTj !
 1st, 2nd, 3rd             DUAL                  ENTp - ISFp
 1st, 2nd, 4th             -j BENEFACTOR TO –p   ENTp < ISTj !
 1st, 3rd, 4th             -p BENEFACTOR TO –j   ENTp > INFj !
 1st, 2nd, 3rd, 4th        ACTIVE                ENTp - ISFj !
-2nd               IF –p,  LOOK-A-LIKE           ENTp - ESTp
-                  IF -j,  COMPARATIVE           ENTj - ESTj
+2nd                       COMPARATIVE           ENTp - ESTp !!
 2nd, 3rd                  SUPER-EGO             ENTp - ESFp
 2nd, 4th                  -j SUPERVISOR TO –p   ENTp > ESTj !
 2nd, 3rd, 4th             CONFLICTING           ENTp - ESFj !
-3rd               IF –p,  COMPARATIVE           ENTp - ENFp
-                  IF –j,  LOOK-A-LIKE           ENTj - ENFj
+3rd                       LOOK-A-LIKE           ENTp - ENFp !!
 3rd, 4th                  -j SUPERVISOR TO –p   ENTp < ENFj !
 4th                       MIRROR                ENTp - ENTj !
 
