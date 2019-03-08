@@ -5,23 +5,33 @@
 <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());  gtag('config', 'UA-25071088-1'); </script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v517</title>
+<title>Floresta v518</title>
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
 	svg {display:block}
 	#sBdiv{position:fixed; top:0px; right:0px; height:100%; width:66px;}
 	#bBdiv{position:fixed; bottom:0px; left:0px;}
-@font-face {  font-family: 'profont';  src: url('diodi/ProFontWindows.eot?#iefix') format('embedded-opentype'),  url('diodi/ProFontWindows.woff') format('woff'), url('diodi/ProFontWindows.ttf')  format('truetype'), url('diodi/ProFontWindows.svg#ProFontWindows') format('svg');  font-weight: normal;  font-style: normal;}
-@font-face {  font-family: 'StrikeFighter';  src: url('diodi/StrikeFighter.eot?#iefix') format('embedded-opentype'),  url('diodi/StrikeFighter.woff') format('woff'), url('diodi/StrikeFighter.ttf')  format('truetype'), url('diodi/StrikeFighter.svg#StrikeFighter') format('svg');  font-weight: normal;  font-style: normal;}
-@font-face {  font-family: 'SteelfishRg-Regular';  src: url('diodi/SteelfishRg-Regular.eot?#iefix') format('embedded-opentype'),  url('diodi/SteelfishRg-Regular.woff') format('woff'), url('diodi/SteelfishRg-Regular.ttf')  format('truetype'), url('diodi/SteelfishRg-Regular.svg#SteelfishRg-Regular') format('svg');  font-weight: normal;  font-style: normal;}
+@font-face { font-family: 'Steelfish'; src: url('diodi/SteelfishRg-Regular.eot'); src: local('SteelfishRg-Regular'),
+ 	url('diodi/SteelfishRg-Regular.eot?#iefix') format('embedded-opentype'),
+ 	url('diodi/SteelfishRg-Regular.woff2') format('woff2'), url('diodi/SteelfishRg-Regular.woff') format('woff'),
+ 	url('diodi/SteelfishRg-Regular.ttf') format('truetype'),
+ 	url('diodi/SteelfishRg-Regular.svg#SteelfishRg-Regular') format('svg'); font-weight: normal; font-style: normal;}
+@font-face { font-family: 'StrikeFighter'; src: url('diodi/StrikeFighter.eot');
+ 	src: local('Strike Fighter'), local('diodi/StrikeFighter'),
+ 	url('diodi/StrikeFighter.eot?#iefix') format('embedded-opentype'), url('diodi/StrikeFighter.woff2') format('woff2'),
+ 	url('diodi/StrikeFighter.woff') format('woff'), url('diodi/StrikeFighter.ttf') format('truetype'),
+ 	url('diodi/StrikeFighter.svg#StrikeFighter') format('svg'); font-weight: normal; font-style: normal;}
+@font-face { font-family: 'profont'; src: url('diodi/ProFontWindows.eot'); src: local('ProFontWindows'),
+ 	url('diodi/ProFontWindows.eot?#iefix') format('embedded-opentype'),url('diodi/ProFontWindows.woff2') format('woff2'),
+ 	url('diodi/ProFontWindows.woff') format('woff'), url('diodi/ProFontWindows.ttf') format('truetype'),
+ 	url('diodi/ProFontWindows.svg#ProFontWindows') format('svg'); font-weight: normal; font-style: normal;}
 
 	html{height:100%;padding:0px;margin:0px;font-family:profont;font-size:13px;background-color:black;color:white;}
 	body{height:100%;padding:0px;margin:0px;background-color:transparent;}
 </style>
 <script src="diodi/aldiode-data.js"></script>
 <script src="diodi/lodash.js"></script>
-<!--aldiod--> <!-- src="diodi/dB0000.js"></script><!-devBar-->
-<script src="diodi/jquery-2.js"></script><script>
+<script>
 var AL={ 
 	fe: 	"type",
 	fes: 	["type","mood","mosaic"],
@@ -469,7 +479,7 @@ function mkTypeList(compact){ var E=[]; var e=null; var liI=""; var liT=""; var 
 		//console.log(OM.re.people[n]);
 		if(OM.re.people[n].mo.symm){ liT2="#ffff00"} else{ liT2=liT}
 		e =mkT(ui.tY.liX2+3*ui.tY.cMarg, (iteHei*n)-1+ctrHei,"tY_LiB-"+n,liT2,"tY_LiB",20,OM.re.people[n].mo.pM.niH+OM.re.people[n].mo.bE.nI+OM.re.people[n].mo.pM.niT,"times new roman"); E.push(e);
-		if(!compact){e =mkT(ui.tY.liX2+140,(iteHei*n)-1+ctrHei+1,"tY_LiT-"+n,liT,"tY_LiT",20,OM.re.people[n].ni.name,"SteelfishRg-Regular"); E.push(e);}
+		if(!compact){e =mkT(ui.tY.liX2+140,(iteHei*n)-1+ctrHei+1,"tY_LiT-"+n,liT,"tY_LiT",20,OM.re.people[n].ni.name,"Steelfish"); E.push(e);}
 	} E.forEach( function(E){sV.appendChild(E)}); document.body.appendChild( sV);
 	bindMany( '.tY_Li', function(ev,e) { switch(ev){ case "mousedown" 	: typeListKey( e);	break;}});}
 
@@ -481,7 +491,7 @@ function mkTypeKeys(){ var E=[]; var e=null; var area=""; var areaB=""; var area
 		e =mkL(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))-ui.sB.disWid,ui.tY.keY,ui.tY.keyWid-1,ui.tY.keyWid-1,"tY_Keys-"+n,area,"tY_Keys",areaB,2);
 		E.push(e);
 		e=mkT(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))+(ui.tY.keyWid/2)-1-ui.sB.disWid,ui.tY.keY+(ui.tY.keyWid/7)-1,
-		"",areaT,"",ui.tY.keyWid/1.6,AL.Sociotypes.seed[n],"SteelfishRg-Regular","middle"); E.push(e);}
+		"",areaT,"",ui.tY.keyWid/1.6,AL.Sociotypes.seed[n],"Steelfish","middle"); E.push(e);}
 	E.forEach( function(E){sV.appendChild(E)}); document.body.appendChild( sV);
 	bindMany( '.tY_Keys', function(ev,e) { switch(ev){ case "mousedown" 	: typeKey( e);	break;}});}
 
