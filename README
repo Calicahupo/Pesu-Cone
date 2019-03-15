@@ -28,8 +28,8 @@ ENFp    -> INFp
 Information Elements
 
  MODEL A        MODEL M
-Se             Ri !
-Si             Re !
+Se             Si !
+Si             Se !
 Fi             Fi
 Fe             Fe
 Ti             Ti
