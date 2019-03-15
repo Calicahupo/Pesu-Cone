@@ -5,7 +5,7 @@
 <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());  gtag('config', 'UA-25071088-1'); </script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v601</title>
+<title>Floresta v610</title>
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
@@ -21,12 +21,12 @@
 <script src="diodi/lodash.js"></script>
 <script>
 var AL={ 
-	fe: 	"gender",
+	fe: 	"type",
 	fes: 	["quiz","type","gender","mosaic"],
 	tools: 	["play","fastForward","next","forward","reso"],
 	tunes: 	[100,100,1,1,4],
 	play: false, 	fastForward:false,
-	tBtools:["lock","copySim","copySims","delSim"],
+	tBtools:["copySims","delSim"],
 	moved: false}
 var sV =document.createElementNS( "http://www.w3.org/2000/svg","svg");
 var sV1=document.createElementNS( "http://www.w3.org/2000/svg","svg");
@@ -146,6 +146,50 @@ gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGauss
 gaussianFilter.setAttribute( "in","SourceGraphic"); gaussianFilter.setAttribute( "stdDeviation","16");
 filter.appendChild(gaussianFilter); 	defs.appendChild(filter);
 
+
+
+filter 		=document.createElementNS("http://www.w3.org/2000/svg", "filter");
+filter.setAttribute( 'id', 'fLeft'); 	filter.setAttribute( "x", "-50%"); filter.setAttribute( "y", "-50%"); 	
+filter.setAttribute( "width", "100%"); 	filter.setAttribute( "height", "200%");
+gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGaussianBlur");
+gaussianFilter.setAttribute( "in","SourceGraphic"); gaussianFilter.setAttribute( "stdDeviation","8");
+filter.appendChild(gaussianFilter); 	defs.appendChild(filter);
+
+filter 		=document.createElementNS("http://www.w3.org/2000/svg", "filter");
+filter.setAttribute( 'id', 'fRight'); 	filter.setAttribute( "x", "50%"); filter.setAttribute( "y", "-50%"); 	
+filter.setAttribute( "width", "100%"); 	filter.setAttribute( "height", "200%");
+gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGaussianBlur");
+gaussianFilter.setAttribute( "in","SourceGraphic"); gaussianFilter.setAttribute( "stdDeviation","8");
+filter.appendChild(gaussianFilter); 	defs.appendChild(filter);
+
+filter 		=document.createElementNS("http://www.w3.org/2000/svg", "filter");
+filter.setAttribute( 'id', 'fUpRight'); 	filter.setAttribute( "x", "50%"); filter.setAttribute( "y", "-50%"); 	
+filter.setAttribute( "width", "100%"); 	filter.setAttribute( "height", "100%");
+gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGaussianBlur");
+gaussianFilter.setAttribute( "in","SourceGraphic"); gaussianFilter.setAttribute( "stdDeviation","8");
+filter.appendChild(gaussianFilter); 	defs.appendChild(filter);
+
+filter 		=document.createElementNS("http://www.w3.org/2000/svg", "filter");
+filter.setAttribute( 'id', 'fUp'); 	filter.setAttribute( "x", "-50%"); filter.setAttribute( "y", "-50%"); 	
+filter.setAttribute( "width", "200%"); 	filter.setAttribute( "height", "100%");
+gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGaussianBlur");
+gaussianFilter.setAttribute( "in","SourceGraphic"); gaussianFilter.setAttribute( "stdDeviation","8");
+filter.appendChild(gaussianFilter); 	defs.appendChild(filter);
+
+filter 		=document.createElementNS("http://www.w3.org/2000/svg", "filter");
+filter.setAttribute( 'id', 'fDownLeft'); 	filter.setAttribute( "x", "-50%"); filter.setAttribute( "y", "50%"); 	
+filter.setAttribute( "width", "100%"); 	filter.setAttribute( "height", "100%");
+gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGaussianBlur");
+gaussianFilter.setAttribute( "in","SourceGraphic"); gaussianFilter.setAttribute( "stdDeviation","8");
+filter.appendChild(gaussianFilter); 	defs.appendChild(filter);
+
+filter 		=document.createElementNS("http://www.w3.org/2000/svg", "filter");
+filter.setAttribute( 'id', 'fDown'); 	filter.setAttribute( "x", "-50%"); filter.setAttribute( "y", "50%"); 	
+filter.setAttribute( "width", "200%"); 	filter.setAttribute( "height", "100%");
+gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGaussianBlur");
+gaussianFilter.setAttribute( "in","SourceGraphic"); gaussianFilter.setAttribute( "stdDeviation","8");
+filter.appendChild(gaussianFilter); 	defs.appendChild(filter);
+
 sV.appendChild(defs);
 
 function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry){ var r=document.createElementNS( nS,'rect');
@@ -263,6 +307,7 @@ function drawSidebar(){ var obs=[];  var buf =null;
 function sidebarKey( e){ var tab= parseInt(e.id.split("-").pop()); AL.fe=AL.fes[tab]; clearScreen(); draw();}
 
 function typeKey( e){ var tY= parseInt(e.id.split("-").pop()); tY=AL.Sociotypes.seed[tY]; tY=precalcSociotype(tY,OM.ab);
+	initTypeState(tY);
 	if(AL.pE){AL.pE.ty=tY; AL.tY=tY;}
 	else if( AL.tY==null){ AL.tY=tY;} else if(AL.tY!=tY){AL.tY=tY} else { AL.tY=null}
 	clearScreen(); draw();}
@@ -375,9 +420,9 @@ function drC(x,y,r,c,id,cl,sW,sC){ var e=document.createElementNS( nS,'circle');
 	E.forEach( function(e){ sV2.appendChild( e)});
 	div.appendChild(sV2); //document.body.appendChild( div);
 }*///ååå
-function copySimulation(sim){ console.log("copy")}
-function tabToolKey( id){ id =id.split("-").pop(); switch(id){
-	case "copySim" : copySimulation(AL.sim)}}
+function copySimulation(sim,n){ console.log("copy")}
+function tabToolKey( id){ id =id.split("-").pop(); var s=AL.sim.in; switch(id){
+	case "copySims" : var n = prompt("How many copies of Simulation "+s+"?", "20");copySimulation(AL.sim,n)}}
 function mkTabTool(n){ var E=[]; var e=null; var t; var f; var T; var F; var y; var Y=-1;
 	e = mkL( ui.tB.tooWid*n+1, 2, ui.tB.tooWid-2, ui.tB.disHei-4, "tabToo-"+AL.tBtools[n], "#555",
 		undefined,undefined,undefined,undefined,ui.tB.disHei/3.236,ui.tB.disHei/3.236);
@@ -386,8 +431,8 @@ function mkTabTool(n){ var E=[]; var e=null; var t; var f; var T; var F; var y; 
 	switch( AL.tBtools[n]){
 		case "lock" 	: t="🔒"; 					y=8; 		f=20;			break; //🔓
 		case "copySim" 	: t="copy"; 	T="(1)"; 	y=0; Y=12; 	f=15; F=20;		break;
-		case "copySims" : t="copy"; 	T="(x)";	y=0; Y=12; 	f=15; F=20;		break;
-		case "delSim" 	: t="del"; 					y=8; Y=16; 	f=15; F=15;
+		case "copySims" : t="copy"; 	T="Sim";	y=0; Y=12; 	f=15; F=20;		break;
+		case "delSim" 	: t="del"; 		T="Sim";	y=0; Y=12; 	f=15; F=20;
 	}
 	e = mkT( ui.tB.tooWid*n+(ui.tB.tooWid/2), y, undefined, "#ccc",undefined,f,t,"profont","middle"); E.push(e);
 	if(Y>0){
@@ -507,13 +552,14 @@ function mkTypeCube(cX,cY,cl){ var e; var E=[]; var v=""; var w=ui.tY.cE; var h=
 function mkTypeCage(cX,cY,cl){
 
 	function drAr(x,y,X,Y,lx,ly,lz,co,op){
+		//var stC; if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ stC="#fff"} else { stC="#000"}
 		var cNi=AL.tY.relSpace[lx][ly][lz].ni;
-		var E=[];var e=null;var id="_cUC-";var dx=false;var dy=false;var dz=false;var st;var of;
+		var E=[];var e=null;var id="_cUC-";var dx=false;var dy=false;var dz=false;var st;
 		if(lx==2){ id+="p"} else if(lx==1){ id+="t"; dx=true;}else if(lx==0){ id+="n"}
 		if(ly==2){ id+="p"} else if(ly==1){ id+="t"; dy=true;}else if(ly==0){ id+="n"}
 		if(lz==2){ id+="p"} else if(lz==1){ id+="t"; dz=true;}else if(lz==0){ id+="n"}
 		switch(AL.tY.relSpace[lx][ly][lz].str){
-			case 0: st=w/12; break; case 1: st=w/8; break; case 2:st=w/6; break;}
+			case 0:st=w/18;break; case 1:st=w/12;break; case 2:st=w/10;break; case 3:st=w/8;break; case 4:st=w/6; break;}
 		if(dx){
 			if( AL.tY.relSpace[lx][ly][lz].aDi== 1){ x += w/4;
 				v = (x-(w/6))+","+y+" "+x+","+(y+(w/12))+" "+x+","+(y-(w/12));
@@ -552,10 +598,26 @@ function mkTypeCage(cX,cY,cl){
 				e =drS(v, "#000000", id+"_head"); E.push(e);
 				e =drC(X,Y,w/13,"#336633","jou","jou",3,"#000000"); 										F.push(e);
 				e =mkT(X+1,Y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(X,Y,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); 	F.push(e)}}
+				e =mkT(X,Y,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); 	F.push(e)}
+			else if( AL.tY.relSpace[lx][ly][lz].aDi== 0){ cY = Y+ w/4.5; cX = X- w/4.5;
+				//v = (X+(w/18))+","+(Y+(w/18))+" "+(X+(w/9))+","+(Y-(w/9))+" "+(X-(w/18))+","+(Y-(w/18));
+				//e =drS(v, "#000000", id+"_head"); E.push(e);
+				e =drC(cX,cY,w/13,"#336633","jou","jou",3,"#000000"); 										F.push(e);
+				e =mkT(cX+1,cY-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
+				e =mkT(cX,cY,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); F.push(e)}
+			}
+		if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ var dFil;
+			if(AL.tY.dX>0) 		{ dFil = "url(#fLeft)"; console.log(AL.tY.tX)}
+			else if(AL.tY.dX<0) { dFil = "url(#fRight)"; console.log(AL.tY.tX)}
+			else if(AL.tY.dY<0) { dFil = "url(#fUp)"}
+			else if(AL.tY.dY>0) { dFil = "url(#fDown)"}
+			else if(AL.tY.dZ<0) { dFil = "url(#fDownLeft)"}
+			else if(AL.tY.dX>0) { dFil = "url(#fUpRight)"}
+			e=drC(cx,cy,w/10+8,"#fff"); e.setAttribute("filter",dFil); E.push(e);}
 		e=mkI(x,y,X,Y,id,co,st); E.push(e); return E}
 
 	function drFu(cx,cy,lx,ly,lz,o){
+		if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ stC="#fff"} else { stC="#000"}
 		var E=[]; var e=null; var col="#ff0000"; var st=1;
 		var cl1="_cUF"; var id1=cl1+"-"; var cl2="_fuT"; var id2=cl2+"-"; var cl3="_fuN"; var id3=cl3+"-"; 
 		if(o.str){ st=1}
@@ -565,7 +627,15 @@ function mkTypeCage(cX,cY,cl){
 		switch(o.ni){ 	case "f1" : case "f4" : col="#0000ff"; break;
 						case "f6" : case "f7" : col="#000088"; break;
 						case "f2" : case "f3" : col="#880000"; }
-		e=drC(cx,cy,w/10,col,cl1,id1,st,"#000000"); 											E.push(e);
+		if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ var dFil;
+			if(AL.tY.dX>0) 		{ dFil = "url(#fLeft)"; console.log(AL.tY.tX)}
+			else if(AL.tY.dX<0) { dFil = "url(#fRight)"; console.log(AL.tY.tX)}
+			else if(AL.tY.dY<0) { dFil = "url(#fUp)"}
+			else if(AL.tY.dY>0) { dFil = "url(#fDown)"}
+			else if(AL.tY.dZ<0) { dFil = "url(#fDownLeft)"}
+			else if(AL.tY.dX>0) { dFil = "url(#fUpRight)"}
+			e=drC(cx,cy,w/10+8,"#fff"); e.setAttribute("filter",dFil); E.push(e);}
+		e=drC(cx,cy,w/10,col,cl1,id1,st,stC); 											E.push(e);
 		e=mkT(cx+1,cy-(w/11),id2,"#ffffff",cl2,w/11,o.in,"profont","middle"); 					E.push(e);
 		e=mkT(cx,cy,id3,"#ffffff",cl3,w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma","middle"); 	E.push(e); return E}
 
@@ -1006,7 +1076,14 @@ function precalcOthers(sim){ var ret=[]; var buf=null;
 		//sim.people[i].ppl = ret;
 	}
 AL.personInTurn.ppl = ret}
-function initTypeState( tY){ /*console.log(tY)*/}
+function initTypeState( ty){
+	var tyState = getCoordinatesOfEssence("f5",ty.relSpace);
+	var tyState2= getCoordinatesOfEssence("e", ty.relSpace);
+	var tyDir = getDifferenceOfEssence(tyState,tyState2);
+	ty.dX = tyDir.x; 	ty.dY = tyDir.y; 	ty.dZ = tyDir.z;
+	ty.tX = tyState.x; 	ty.tY = tyState.y; 	ty.tZ = tyState.z;
+	ty.nB = getNeighboursOfEssence( ty.tX, ty.tY, ty.tZ, ty.relSpace);
+	console.log(ty.nB)}
 function getMood(pm,be){ var mood ="_";
 	if(pm.head){ mood = "n"+mood }
 	mood = mood + be.ni + "_";
@@ -1028,6 +1105,7 @@ function mkPerson(sim,nat,male,w1,w2){
 	var pBe = calcBeing( ni.bE.male, ni.bE.adult, OM.ab);
 	var sBe = calcBeing(!ni.bE.male, random, 	OM.ab);
 	var ind = (sim.people.length + 10).toString(36).toUpperCase();
+	//initTypeState(ty);
 	var re = new Person(sim,ni,ty,pPm,sPm,pBe,sBe,ind); return re}
 function mkPerson2(pe){
 	pe.pMo =getMood( pe.pMo.pM, pe.pMo.bE); pe.mo = pe.pMo;
@@ -1768,8 +1846,8 @@ function precalcSociotype(ni,parent){
 	var bu = mkSociotype2(mkSociotype( ni, parent)); return bu;}
 
 function orientCirc2(ty){ var C=null;
-	if(ty.ie){ C = ty.circuits.filter(o => o.lat); 			C.forEach( function(C){ C.aDi = C.rDi});}
-	else 	 { C = ty.circuits.filter(o => o.lat); 			C.forEach( function(C){ C.aDi = -C.rDi});}
+	if(ty.ie){ C = ty.circuits.filter(o => o.lat); 			C.forEach( function(C){ C.aDi = 0})}//C.rDi});}
+	else 	 { C = ty.circuits.filter(o => o.lat); 			C.forEach( function(C){ C.aDi = 0})}//-C.rDi});}
 		if(ty.sn){
 			C = ty.circuits.filter(o => o.ver); 			C.forEach( function(C){ C.aDi = C.rDi});
 			if(ty.cr){ C = ty.circuits.filter(o => o.lon); 	C.forEach( function(C){ C.aDi = -C.rDi})}
@@ -1804,21 +1882,42 @@ function precalcSocionicsEssence(funcs, circs){ var space =mk3Space();
 	space[2][1][0] = orientCirc(space,2,1,0,circs.find(o => o.ni == "k"));
 	space[2][1][2] = orientCirc(space,2,1,2,circs.find(o => o.ni == "l"));
 	space[0][1][0] = orientCirc(space,0,1,0,circs.find(o => o.ni == "j")); return space}
+function getDifferenceOfEssence(src,dst){ var r = {x: src.x -dst.x, y: src.y -dst.y, z: src.z -dst.z}; return r}
+function getCoordinatesOfEssence(ni,src){
+	for(var z=0; z<3; z++){
+		for(var y=0; y<3; y++){
+			for(var x=0; x<3; x++){
+				if(src[x][y][z]){ if(src[x][y][z].ni == ni){ return { z:z, y:y, x:x}}}}}}}
+function getNeighboursOfEssence(eX,eY,eZ,tY){ var r=[];
+	var nX1 = eX+1; nX1 ==  3 ? nX1 = 0:true;
+	var nX2 = eX-1; nX2 == -1 ? nX2 = 2:true;
+	var nY1 = eY+1; nY1 ==  3 ? nY1 = 0:true;
+	var nY2 = eY-1; nY2 == -1 ? nY2 = 2:true;
+	//var nZ1 = eZ+1; nZ1 ==  3 ? nZ1 = 0:true;
+	//var nZ2 = eZ-1; nZ2 == -1 ? nZ2 = 2:true;
+	tY[nX1][eY][eZ] ? r.push(tY[nX1][eY][eZ]):true;
+	tY[nX2][eY][eZ] ? r.push(tY[nX2][eY][eZ]):true;
+	tY[eX][nY1][eZ] ? r.push(tY[eX][nY1][eZ]):true;
+	tY[eX][nY2][eZ] ? r.push(tY[eX][nY2][eZ]):true;
+	//tY[eX][eY][nZ1] ? r.push(tY[eX][eY][nZ1]):true;
+	//tY[eX][eY][nZ2] ? r.push(tY[eX][eY][nZ2]):true;
+	return r}
+
 
 function initCirc( c){ c.count=0; c.val=0; c.spd={lon:0,lat:0,ver:0}}
 OM.AL.Circuits={ seed:["a","b","c","d","e","f","g","h","i","j","k","l"],
-	a:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=1;initCirc(this)},
-	b:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=1;initCirc(this)},
-	c:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=1;initCirc(this)},
-	d:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=1;initCirc(this)},
-	e:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=1; this.ni=ni;this.str=2;initCirc(this)},
-	f:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=-1;this.ni=ni;this.str=0;initCirc(this)},
-	g:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=-1;this.ni=ni;this.str=0;initCirc(this)},
-	h:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=1; this.ni=ni;this.str=2;initCirc(this)},
+	a:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=2;initCirc(this)},
+	b:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=2;initCirc(this)},
+	c:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=2;initCirc(this)},
+	d:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=2;initCirc(this)},
+	e:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=1; this.ni=ni;this.str=4;initCirc(this)},
+	f:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=-1;this.ni=ni;this.str=3;initCirc(this)},
+	g:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=-1;this.ni=ni;this.str=3;initCirc(this)},
+	h:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=1; this.ni=ni;this.str=4;initCirc(this)},
 	i:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=1; this.ni=ni;this.str=1;initCirc(this)},
-	j:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=-1;this.ni=ni;this.str=1;initCirc(this)},
+	j:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=-1;this.ni=ni;this.str=0;initCirc(this)},
 	k:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=-1;this.ni=ni;this.str=1;initCirc(this)},
-	l:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=1; this.ni=ni;this.str=1;initCirc(this)}}
+	l:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=1; this.ni=ni;this.str=0;initCirc(this)}}
 function inheritCirc(circ,parent){ if(parent){ circ.parent = parent.relSpace.find(o => o.ni === circ.ni)} return circ}
 function mkCircuit(ni,parent){var circ=null; switch( ni){
 	case "a":circ=new OM.AL.Circuits.a( ni); circ=inheritCirc(circ,parent); return circ;
@@ -1974,13 +2073,11 @@ function processSubTurn(sim,mX,mY){
 	draw();}
 	
 function orderPeople(sim){
-	var first=[]; var second=[];
-	sim.people.forEach( function(p){ if(p.mo.symm){ first.push( p)} else{ second.push( p)}});
-	first =shuffle(first);
-	second=shuffle(second);
-	first=first.concat(second);
-	sim.personInTurn =first[sim.subTurn];
-	return first}
+	var arr=[];
+	sim.people.forEach( function(p){ arr.push(p)});
+	arr =shuffle(arr);
+	sim.personInTurn =arr[0];
+	return arr}
 function Simulation(ppl){
 	this.people=ppl; this.events=[]; this.turn=0; this.subTurn=0;
 	orderPeople(this); OM.re.sims.push(this); this.in=OM.re.sims.length-1;}
@@ -1993,7 +2090,7 @@ function precalcSims(){ var b=null; var a=[];
 	b= new Simulation2();
 	precalcPeople(b);
 	//b.personInTurn = b.people[0];
-	b.people = orderPeople(b)}
+	b.queue = orderPeople(b)}
 
 function precalc() {	OM.ab.IEs 		=precalcInformationElements( OM.AL.IEs.seed);
 						OM.ab.absSpace 	=precalcSocionicsMetaphysics( OM.ab.IEs);
