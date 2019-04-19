@@ -5,7 +5,7 @@
 <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());  gtag('config', 'UA-25071088-1'); </script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v610</title>
+<title>Floresta v622</title>
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
@@ -246,9 +246,11 @@ function mkFr( n,sB,ni){ var et=[]; var yi=(n * sB.rowHei)+sB.disVrt; if( AL.fe 
 		var v = 0+sB.disWid+","+yi+" "+ 	(0+sB.disWid-sB.btnBrd)+","+(yi+sB.btnBrd)+" "+
 			(0+sB.disWid-sB.btnBrd)+","+(yi+sB.rowHei-sB.btnBrd)+" "+(0+sB.disWid)+","+(yi+sB.rowHei);
 		e=mkS( v,"sB_btnBrd-"+n,sB.selR/*"#880000"*/,"sB_btnBrd",false); et.push( e)} return et}
-function mkI(x,y,X,Y,id,co,st,op){var r=document.createElementNS( nS,'line');
+function mkI(x,y,X,Y,id,co,st,op,d){var r=document.createElementNS( nS,'line');
 	r.setAttribute( 'x1',x);r.setAttribute('x2',X);
-	r.setAttribute('y1',y); r.setAttribute('y2',Y); r.setAttribute('id',id); r.setAttribute( 'opacity',op);
+	r.setAttribute('y1',y); r.setAttribute('y2',Y); r.setAttribute('id',id);
+	if(op){r.setAttribute( 'opacity',op)}
+	if(d){r.setAttribute( 'stroke-dasharray',d)}
 	r.setAttribute('stroke',co); r.setAttribute( 'stroke-width',st);return r}
 
 //function processTurn(sim){}
@@ -307,7 +309,7 @@ function drawSidebar(){ var obs=[];  var buf =null;
 function sidebarKey( e){ var tab= parseInt(e.id.split("-").pop()); AL.fe=AL.fes[tab]; clearScreen(); draw();}
 
 function typeKey( e){ var tY= parseInt(e.id.split("-").pop()); tY=AL.Sociotypes.seed[tY]; tY=precalcSociotype(tY,OM.ab);
-	initTypeState(tY);
+	//initTypeState(tY);
 	if(AL.pE){AL.pE.ty=tY; AL.tY=tY;}
 	else if( AL.tY==null){ AL.tY=tY;} else if(AL.tY!=tY){AL.tY=tY} else { AL.tY=null}
 	clearScreen(); draw();}
@@ -393,6 +395,7 @@ function mkQuiz( q,n){ var b =null; var B=[];
 
 function drawType(){ var buf =null;
 	buf =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.tY.base,"tY","");
+	//buf =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY","#fff","tY","");
 	sV.appendChild(buf); document.body.appendChild( sV);
 	mkTopBar();
 	mkTypeCube(ui.tY.c1x, ui.tY.c1y, "tYC1"); 	
@@ -408,9 +411,10 @@ function drA(x,y,w,h,l,id,cl,b,L,op){ var e=document.createElementNS( nS,'rect')
 	e.setAttribute('x',x);e.setAttribute('y',y); e.setAttribute( 'width',w); e.setAttribute( 'height',h); 
 	if(b > 0){ e.setAttribute( 'stroke',L); e.setAttribute( 'stroke-width',b)}
 	if(op!=undefined){ e.setAttribute( 'opacity',op)} e.setAttribute( 'id',id); e.setAttribute( 'class',cl); return e}
-function drC(x,y,r,c,id,cl,sW,sC){ var e=document.createElementNS( nS,'circle'); e.setAttribute( 'fill',c);
+function drC(x,y,r,c,id,cl,sW,sC,d){var e=document.createElementNS( nS,'circle');e.setAttribute( 'fill',c);
 	e.setAttribute('cx',x); e.setAttribute('cy',y); e.setAttribute('r',r); e.setAttribute('id',id);
-	e.setAttribute('class',cl);	e.setAttribute('stroke',sC); e.setAttribute('stroke-width',sW); return e}
+	e.setAttribute('class',cl);	e.setAttribute('stroke',sC); e.setAttribute('stroke-width',sW);
+	if(d){e.setAttribute('stroke-dasharray',d)} return e}
 /*function mkBottomBar(){ var E=[]; var e=null;
 	var div=document.getElementById("bBdiv");
 	var divW = ui.bB.disWid+"px";
@@ -509,102 +513,109 @@ function mkTypeCube(cX,cY,cl){ var e; var E=[]; var v=""; var w=ui.tY.cE; var h=
 
 	e=mkT(x+(w/8)+1,(y+(h/32)+(h/4)+(h/2)),cl+"_IET-nnn","#ffffff",cl+"_IET",
 		w/11,OM.ab.absSpace[0][0][0].ni,"profont","middle"); E.push(e);
-	e=mkT(x+(w/8),(y+(h/8)+(h/4)+(h/2)),cl+"_IEN-nnn","#ffffff",cl+"_IEN",
-		w/22,OM.ab.absSpace[0][0][0].val,"tahoma","middle"); E.push(e);
+	/*e=mkT(x+(w/8),(y+(h/8)+(h/4)+(h/2)),cl+"_IEN-nnn","#ffffff",cl+"_IEN",
+		w/22,OM.ab.absSpace[0][0][0].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/8)+1+(w/2),(y+(h/32)+(h/4)+(h/2)),cl+"_IET-pnn","#ffffff",cl+"_IET",
 		w/11,OM.ab.absSpace[2][0][0].ni,"profont","middle");E.push(e);
-	e=mkT(x+(w/8)+(w/2),(y+(h/8)+(h/4)+(h/2)),cl+"_IEN-pnn","#ffffff",cl+"_IEN",
-		w/22,OM.ab.absSpace[2][0][0].val,"tahoma","middle");E.push(e);
+	/*e=mkT(x+(w/8)+(w/2),(y+(h/8)+(h/4)+(h/2)),cl+"_IEN-pnn","#ffffff",cl+"_IEN",
+		w/22,OM.ab.absSpace[2][0][0].val,"tahoma","middle");E.push(e);*/
 
 	e=mkT(x+(w/8)+1+(w/2),(y+(h/32)+(h/4)),cl+"_IET-ppn","#ffffff",cl+"_IET",
 		w/11,OM.ab.absSpace[2][2][0].ni,"profont","middle"); E.push(e);
-	e=mkT(x+(w/8)+(w/2),(y+(h/8)+(h/4)),cl+"_IEN-ppn","#ffffff",cl+"_IEN",
-		w/22,OM.ab.absSpace[2][2][0].val,"tahoma","middle"); E.push(e);
+	/*e=mkT(x+(w/8)+(w/2),(y+(h/8)+(h/4)),cl+"_IEN-ppn","#ffffff",cl+"_IEN",
+		w/22,OM.ab.absSpace[2][2][0].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/8)+1,(y+(h/32)+(h/4)),cl+"_IET-npn","#ffffff",cl+"_IET",
 		w/11,OM.ab.absSpace[0][2][0].ni,"profont","middle"); E.push(e);
-	e=mkT(x+(w/8),(y+(h/8)+(h/4)),cl+"_IEN-npn","#ffffff",cl+"_IEN",
-		w/22,OM.ab.absSpace[0][2][0].val,"tahoma","middle"); E.push(e);
+	/*e=mkT(x+(w/8),(y+(h/8)+(h/4)),cl+"_IEN-npn","#ffffff",cl+"_IEN",
+		w/22,OM.ab.absSpace[0][2][0].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/4)+1+(w/8),(y+(h/32)+(h/2)),cl+"_IET-nnp","#ffffff",cl+"_IET",
 		w/11,OM.ab.absSpace[0][0][2].ni,"profont","middle"); E.push(e);
-	e=mkT(x+(w/4)+(w/8),(y+(h/2)+(h/8)),cl+"_IEN-nnp","#ffffff",cl+"_IEN",
-		w/22,OM.ab.absSpace[0][0][2].val,"tahoma","middle"); E.push(e);
+	/*e=mkT(x+(w/4)+(w/8),(y+(h/2)+(h/8)),cl+"_IEN-nnp","#ffffff",cl+"_IEN",
+		w/22,OM.ab.absSpace[0][0][2].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/4)+1+(w/8),(y+(h/32)),cl+"_IET-npp","#ffffff",cl+"_IET",
 		w/11,OM.ab.absSpace[0][2][2].ni,"profont","middle"); E.push(e);
-	e=mkT(x+(w/4)+(w/8),(y+(h/8)),cl+"_IEN-nnp","#ffffff",cl+"_IEN",
-		w/22,OM.ab.absSpace[0][2][2].val,"tahoma","middle"); E.push(e);
+	/*e=mkT(x+(w/4)+(w/8),(y+(h/8)),cl+"_IEN-nnp","#ffffff",cl+"_IEN",
+		w/22,OM.ab.absSpace[0][2][2].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/4)+1+(w/8)+(w/2),(y+(h/32)),cl+"_IET-ppp","#ffffff",cl+"_IET",
 		w/11,OM.ab.absSpace[2][2][2].ni,"profont","middle"); E.push(e);
-	e=mkT(x+(w/4)+(w/8)+(w/2),(y+(h/8)),cl+"_IEN-ppp","#ffffff",cl+"_IEN",
-		w/22,OM.ab.absSpace[2][2][2].val,"tahoma","middle"); E.push(e);
+	/*e=mkT(x+(w/4)+(w/8)+(w/2),(y+(h/8)),cl+"_IEN-ppp","#ffffff",cl+"_IEN",
+		w/22,OM.ab.absSpace[2][2][2].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/4)+1+(w/8)+(w/2),(y+(h/32)+(h/2)),cl+"_IET-pnp","#ffffff",cl+"_IET",
 		w/11,OM.ab.absSpace[2][0][2].ni,"profont","middle");E.push(e);
-	e=mkT(x+(w/4)+(w/8)+(w/2),(y+(h/2)+(h/8)),cl+"_IEN-pnp","#ffffff",cl+"_IEN",
-		w/22,OM.ab.absSpace[2][0][2].val,"tahoma","middle");E.push(e);
+	/*e=mkT(x+(w/4)+(w/8)+(w/2),(y+(h/2)+(h/8)),cl+"_IEN-pnp","#ffffff",cl+"_IEN",
+		w/22,OM.ab.absSpace[2][0][2].val,"tahoma","middle");E.push(e);*/
 
 	E.forEach( function(E){sV.appendChild(E)}); document.body.appendChild( sV);}
 
 function mkTypeCage(cX,cY,cl){
 
-	function drAr(x,y,X,Y,lx,ly,lz,co,op){
+	function drAr(x,y,X,Y,lx,ly,lz){
+		var cSD; var cVD; var cMD; var dash; var co="#ff0000";
 		//var stC; if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ stC="#fff"} else { stC="#000"}
 		var cNi=AL.tY.relSpace[lx][ly][lz].ni;
+		var cS =AL.tY.relSpace[lx][ly][lz].s; if(cS){ cSD="S"} else{ cSD="s"}
+		var cV =AL.tY.relSpace[lx][ly][lz].v; if(cV){ cVD="V"} else{ cVD="v"}
+		var cM =AL.tY.relSpace[lx][ly][lz].m; if(cM){ cMD="M"} else{ cMD="m"}
+		if(!cM){ dash="2,2"}
+		if(!cV){ co ="#6688ff"}
 		var E=[];var e=null;var id="_cUC-";var dx=false;var dy=false;var dz=false;var st;
 		if(lx==2){ id+="p"} else if(lx==1){ id+="t"; dx=true;}else if(lx==0){ id+="n"}
 		if(ly==2){ id+="p"} else if(ly==1){ id+="t"; dy=true;}else if(ly==0){ id+="n"}
 		if(lz==2){ id+="p"} else if(lz==1){ id+="t"; dz=true;}else if(lz==0){ id+="n"}
-		switch(AL.tY.relSpace[lx][ly][lz].str){
-			case 0:st=w/18;break; case 1:st=w/12;break; case 2:st=w/10;break; case 3:st=w/8;break; case 4:st=w/6; break;}
+		switch(AL.tY.relSpace[lx][ly][lz].s){
+			case true: st=Math.round(w/8); break; case false: st=Math.round(w/13); break;}
+			//case 1:st=w/18;break; case 2:st=w/12;break;/*case 3:st=w/10;break;*/case 3:st=w/8;break; case 4:st=w/6; break;}
 		if(dx){
 			if( AL.tY.relSpace[lx][ly][lz].aDi== 1){ x += w/4;
 				v = (x-(w/6))+","+y+" "+x+","+(y+(w/12))+" "+x+","+(y-(w/12));
 				e =drS(v, "#000000", id+"_head"); E.push(e);
 				e =drC(x,y,w/13,"#484848","jou","jou",3,"#000000");  										F.push(e);
 				e =mkT(x+1,y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(x,y,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); F.push(e)}
+				e =mkT(x+1,y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
 			else if( AL.tY.relSpace[lx][ly][lz].aDi== -1){ X -= w/4;
 				v = (X+(w/6))+","+Y+" "+X+","+(Y+(w/12))+" "+X+","+(Y-(w/12));
 				e =drS(v, "#000000", id+"_head"); E.push(e);
 				e =drC(X,Y,w/13,"#484848","jou","jou",3,"#000000"); 										F.push(e);
 				e =mkT(X+1,Y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(X,Y,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); 	F.push(e)}}
+				e =mkT(X+1,Y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}}
 		if(dy){
 			if( AL.tY.relSpace[lx][ly][lz].aDi== 1){ y += w/4;
 				v = (x-(w/12))+","+y+" "+(x+(w/12))+","+y+" "+x+","+(y-(w/6));
 				e =drS(v, "#000000", id+"_head"); E.push(e);
 				e =drC(x,y,w/13,"#555533","jou","jou",3,"#000000"); 										F.push(e);
 				e =mkT(x+1,y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(x,y,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); 	F.push(e)}
+				e =mkT(x+1,y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
 			else if( AL.tY.relSpace[lx][ly][lz].aDi== -1){ Y -= w/4;
 				v = (X-(w/12))+","+Y+" "+(X+(w/12))+","+Y+" "+X+","+(Y+(w/6));
 				e =drS(v, "#000000", id+"_head"); E.push(e);
 				e =drC(X,Y,w/13,"#555533","jou","jou",3,"#000000"); 										F.push(e);
 				e =mkT(X+1,Y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(X,Y,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); 	F.push(e)}}
+				e =mkT(X+1,Y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}}
 		if(dz){
 			if( AL.tY.relSpace[lx][ly][lz].aDi== -1){ x += w/6; y-= w/6;
 				v = (x-(w/18))+","+(y-(w/18))+" "+(x-(w/9))+","+(y+(w/9))+" "+(x+(w/18))+","+(y+(w/18));
 				e =drS(v, "#000000", id+"_head"); E.push(e);
 				e =drC(x,y,w/13,"#336633","jou","jou",3,"#000000"); 										F.push(e);
 				e =mkT(x+1,y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(x,y,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); 	F.push(e)}
+				e =mkT(x+1,y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
 			else if( AL.tY.relSpace[lx][ly][lz].aDi== 1){ Y += w/6; X -= w/6;
 				v = (X+(w/18))+","+(Y+(w/18))+" "+(X+(w/9))+","+(Y-(w/9))+" "+(X-(w/18))+","+(Y-(w/18));
 				e =drS(v, "#000000", id+"_head"); E.push(e);
 				e =drC(X,Y,w/13,"#336633","jou","jou",3,"#000000"); 										F.push(e);
 				e =mkT(X+1,Y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(X,Y,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); 	F.push(e)}
+				e =mkT(X+1,Y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
 			else if( AL.tY.relSpace[lx][ly][lz].aDi== 0){ cY = Y+ w/4.5; cX = X- w/4.5;
 				//v = (X+(w/18))+","+(Y+(w/18))+" "+(X+(w/9))+","+(Y-(w/9))+" "+(X-(w/18))+","+(Y-(w/18));
 				//e =drS(v, "#000000", id+"_head"); E.push(e);
 				e =drC(cX,cY,w/13,"#336633","jou","jou",3,"#000000"); 										F.push(e);
 				e =mkT(cX+1,cY-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(cX,cY,"jou","#ffffff","jou",w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma", "middle"); F.push(e)}
+				e =mkT(cX+1,cY-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
 			}
 		if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ var dFil;
 			if(AL.tY.dX>0) 		{ dFil = "url(#fLeft)"; console.log(AL.tY.tX)}
@@ -614,19 +625,25 @@ function mkTypeCage(cX,cY,cl){
 			else if(AL.tY.dZ<0) { dFil = "url(#fDownLeft)"}
 			else if(AL.tY.dX>0) { dFil = "url(#fUpRight)"}
 			e=drC(cx,cy,w/10+8,"#fff"); e.setAttribute("filter",dFil); E.push(e);}
-		e=mkI(x,y,X,Y,id,co,st); E.push(e); return E}
+		e=mkI(x,y,X,Y,id,co,st,undefined,dash); E.push(e); return E}
 
 	function drFu(cx,cy,lx,ly,lz,o){
-		if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ stC="#fff"} else { stC="#000"}
-		var E=[]; var e=null; var col="#ff0000"; var st=1;
+		var cSD; var cVD; var cMD; var dash; var col="#000000"; var stC="#6688ff";
+		if(o.s){ cSD="S"} else{ cSD="s"}
+		if(o.v){ cVD="V"} else{ cVD="v"}
+		if(o.m){ cMD="M"} else{ cMD="m"}
+		//if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ stC="#fff"} else { stC="#000"}
+		var E=[]; var e=null; /*var col="#ff0000";*/ var st=3;
 		var cl1="_cUF"; var id1=cl1+"-"; var cl2="_fuT"; var id2=cl2+"-"; var cl3="_fuN"; var id3=cl3+"-"; 
-		if(o.str){ st=1}
+		if(o.s){ st=8}
+		if(o.v){ stC="#ff0000"}
+		if(!o.m){ dash="2,2"}
 		if(lx==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
 		if(ly==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
 		if(lz==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
-		switch(o.ni){ 	case "f1" : case "f4" : col="#0000ff"; break;
+		/*switch(o.ni){ 	case "f1" : case "f4" : col="#0000ff"; break;
 						case "f6" : case "f7" : col="#000088"; break;
-						case "f2" : case "f3" : col="#880000"; }
+						case "f2" : case "f3" : col="#880000"; }*/
 		if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ var dFil;
 			if(AL.tY.dX>0) 		{ dFil = "url(#fLeft)"; console.log(AL.tY.tX)}
 			else if(AL.tY.dX<0) { dFil = "url(#fRight)"; console.log(AL.tY.tX)}
@@ -635,26 +652,31 @@ function mkTypeCage(cX,cY,cl){
 			else if(AL.tY.dZ<0) { dFil = "url(#fDownLeft)"}
 			else if(AL.tY.dX>0) { dFil = "url(#fUpRight)"}
 			e=drC(cx,cy,w/10+8,"#fff"); e.setAttribute("filter",dFil); E.push(e);}
-		e=drC(cx,cy,w/10,col,cl1,id1,st,stC); 											E.push(e);
-		e=mkT(cx+1,cy-(w/11),id2,"#ffffff",cl2,w/11,o.in,"profont","middle"); 					E.push(e);
-		e=mkT(cx,cy,id3,"#ffffff",cl3,w/22,AL.tY.relSpace[lx][ly][lz].val,"tahoma","middle"); 	E.push(e); return E}
+		e=drC(cx,cy,w/10,col,cl1,id1,st,stC,dash); 									E.push(e);
+		e=mkT(cx+1,cy-(w/11),id2,"#ffffff",cl2,w/11,o.in,"profont","middle"); 		E.push(e);
+		e=mkT(cx+1,cy-(w/60),id3,"#ffffff",cl3,w/17,cSD+cVD+cMD,"profont","middle");E.push(e); return E}
 
 	var e; var E=[]; var F=[]; var v=""; var w=ui.tY.cE; var h=ui.tY.cE; var id=cl; var d=ui.tY.cuD; var op=ui.tY.op2; var co=ui.tY.plane; var x=cX+h/d+ui.tY.cuHrz; var y=cY+h/d+ui.tY.cMarg;
 
-	e=drAr(x-(w/8),			y+(w/4)+(w/16),		x-(w/8),		y+w/8+h,			0,1,0,"#000000");E=E.concat(e);
-	e=drAr(x-(w/4)-(w/16)+w,y+(w/4)+(w/16),		x-(w/4)-(w/16)+w,y+w/8+h,			2,1,0,"#000000");E=E.concat(e);
-	e=drAr(x+(w/4)+w/16,	y-(w/8),			x+(w/4)+w/16,	y-(w/4)-(w/16)+h,	0,1,2,"#000000");E=E.concat(e);
-	e=drAr(x+w+(w/8),		y-(w/8),			x+w+(w/8),		y-(w/4)-(w/16)+h,	2,1,2,"#000000");E=E.concat(e);
+	//
+	//
+	e=drAr(x+(w/4)+w/16,	y-(w/8),			x+(w/4)+w/16,	y-(w/4)-(w/16)+h,	0,1,2);E=E.concat(e);
+	e=drAr(x+w+(w/8),		y-(w/8),			x+w+(w/8),		y-(w/4)-(w/16)+h,	2,1,2);E=E.concat(e);
 
-	e =drAr(x+(w/4)+w/16,	y-(w/8),			x+w+(w/8),		y-(w/8),			1,2,2,"#000000");E=E.concat(e);
-	e =drAr(x+(w/4)+w/16,	y-(w/4)-(w/16)+h,	x+w+(w/8),		y-(w/4)-(w/16)+h,	1,0,2,"#000000");E=E.concat(e);
-	e =drAr(x-(w/8),		y+(w/4)+(w/16),		x-(w/4)-(w/16)+w,y+(w/4)+(w/16),	1,2,0,"#000000");E=E.concat(e);
-	e =drAr(x-(w/8),		y+(w/8)+h,			x-(w/4)-(w/16)+w,y+(w/8)+h,			1,0,0,"#000000");E=E.concat(e);
+	e =drAr(x+(w/4)+w/16,	y-(w/8),			x+w+(w/8),		y-(w/8),			1,2,2);E=E.concat(e);
+	e =drAr(x+(w/4)+w/16,	y-(w/4)-(w/16)+h,	x+w+(w/8),		y-(w/4)-(w/16)+h,	1,0,2);E=E.concat(e);
+	//
+	//
 
-	e =drAr(x-(w/8),		y+(w/4)+(w/16), 	x+(w/4)+w/16,	y-(w/8), 			0,2,1,"#000000");E=E.concat(e);
-	e =drAr(x-(w/4)-(w/16)+w,y+(w/4)+(w/16),	x+w+(w/8),		y-(w/8), 			2,2,1,"#000000");E=E.concat(e);
-	e =drAr(x-(w/8),		y+(w/8)+h,			x+(w/4)+w/16,	y-(w/4)-(w/16)+h,	0,0,1,"#000000");E=E.concat(e);
-	e =drAr(x-(w/4)-(w/16)+w,y+(w/8)+h,			x+w+(w/8),		y-(w/4)-(w/16)+h,	2,0,1,"#000000");E=E.concat(e);
+	e =drAr(x-(w/8),		y+(w/4)+(w/16), 	x+(w/4)+w/16,	y-(w/8), 			0,2,1);E=E.concat(e);
+	e =drAr(x-(w/4)-(w/16)+w,y+(w/4)+(w/16),	x+w+(w/8),		y-(w/8), 			2,2,1);E=E.concat(e);
+	e =drAr(x-(w/8),		y+(w/8)+h,			x+(w/4)+w/16,	y-(w/4)-(w/16)+h,	0,0,1);E=E.concat(e);
+	e =drAr(x-(w/4)-(w/16)+w,y+(w/8)+h,			x+w+(w/8),		y-(w/4)-(w/16)+h,	2,0,1);E=E.concat(e);
+
+	e=drAr(x-(w/4)-(w/16)+w,y+(w/4)+(w/16),		x-(w/4)-(w/16)+w,y+w/8+h,			2,1,0);E=E.concat(e);
+	e =drAr(x-(w/8),		y+(w/4)+(w/16),		x-(w/4)-(w/16)+w,y+(w/4)+(w/16),	1,2,0);E=E.concat(e);
+	e =drAr(x-(w/8),		y+(w/8)+h,			x-(w/4)-(w/16)+w,y+(w/8)+h,			1,0,0);E=E.concat(e);
+	e=drAr(x-(w/8),			y+(w/4)+(w/16),		x-(w/8),		y+w/8+h,			0,1,0);E=E.concat(e);
 
 	e =drFu(x-(w/8),		y+(w/4)+(w/16), 	0,2,0,AL.tY.relSpace[0][2][0]); E=E.concat(e);
 	e =drFu(x-(w/8),		y+(w/8)+h,			0,0,0,AL.tY.relSpace[0][0][0]); E=E.concat(e);
@@ -1770,25 +1792,27 @@ function connectSpaces(abs,rel){	rel[0][0][0].IE = abs[0][0][0];	rel[0][0][2].IE
 	rel[0][2][0].IE = abs[0][2][0];	rel[0][2][2].IE = abs[0][2][2];	rel[2][0][0].IE = abs[2][0][0];
 	rel[2][0][2].IE = abs[2][0][2];	rel[2][2][0].IE = abs[2][2][0];	rel[2][2][2].IE = abs[2][2][2]; return rel}
 function tor(src){ var ret = mk3Space();
-	ret[0][2][0]=src[0][0][0];	ret[2][2][0]=src[0][2][0];	ret[2][0][0]=src[2][2][0];	ret[0][0][0]=src[2][0][0];
-	ret[0][2][2]=src[0][0][2];	ret[2][2][2]=src[0][2][2];	ret[2][0][2]=src[2][2][2];	ret[0][0][2]=src[2][0][2];
-
-	ret[1][2][2]=src[0][1][2];	ret[2][1][2]=src[1][2][2];	ret[1][0][2]=src[2][1][2];	ret[0][1][2]=src[1][0][2];
-
-	ret[2][0][1]=src[0][0][1];	ret[2][2][1]=src[2][0][1];	ret[0][2][1]=src[2][2][1];	ret[0][0][1]=src[0][2][1];
-
-	ret[1][2][0]=src[0][1][0];	ret[2][1][0]=src[1][2][0];	ret[1][0][0]=src[2][1][0];	ret[0][1][0]=src[1][0][0];
+ret[0][2][0]=src[0][0][0];ret[2][2][0]=src[0][2][0];ret[2][0][0]=src[2][2][0];ret[0][0][0]=src[2][0][0];
+ret[0][2][2]=src[0][0][2];ret[2][2][2]=src[0][2][2];ret[2][0][2]=src[2][2][2];ret[0][0][2]=src[2][0][2];
+ret[1][2][2]=src[0][1][2];ret[2][1][2]=src[1][2][2];ret[1][0][2]=src[2][1][2];ret[0][1][2]=src[1][0][2];
+ret[2][0][1]=src[2][2][1];ret[2][2][1]=src[0][2][1];ret[0][2][1]=src[0][0][1];ret[0][0][1]=src[2][0][1];
+ret[1][2][0]=src[0][1][0];ret[2][1][0]=src[1][2][0];ret[1][0][0]=src[2][1][0];ret[0][1][0]=src[1][0][0];
+//201=oikea ala	//0,0,1 b
+//221=oikea ylä	//2,0,1 a
+//021=vasen ylä //2,2,1 d
+//001=vasen ala //0,2,1 c
 	return ret}
 function rot(src){ var ret = mk3Space();
-	ret[0][0][0]=src[0][2][0];	ret[0][2][0]=src[2][2][0];	ret[2][2][0]=src[2][0][0];	ret[2][0][0]=src[0][0][0];
-	ret[0][0][2]=src[0][2][2];	ret[0][2][2]=src[2][2][2];	ret[2][2][2]=src[2][0][2];	ret[2][0][2]=src[0][0][2];
-
-	ret[0][1][2]=src[1][2][2];	ret[1][2][2]=src[2][1][2];	ret[2][1][2]=src[1][0][2];	ret[1][0][2]=src[0][1][2];
-
-	ret[0][0][1]=src[2][0][1];	ret[2][0][1]=src[2][2][1];	ret[2][2][1]=src[0][2][1];	ret[0][2][1]=src[0][0][1];
-
-	ret[0][1][0]=src[1][2][0];	ret[1][2][0]=src[2][1][0];	ret[2][1][0]=src[1][0][0];	ret[1][0][0]=src[0][1][0];
+ret[0][0][0]=src[0][2][0];ret[0][2][0]=src[2][2][0];ret[2][2][0]=src[2][0][0];ret[2][0][0]=src[0][0][0];
+ret[0][0][2]=src[0][2][2];ret[0][2][2]=src[2][2][2];ret[2][2][2]=src[2][0][2];ret[2][0][2]=src[0][0][2];
+ret[0][1][2]=src[1][2][2];ret[1][2][2]=src[2][1][2];ret[2][1][2]=src[1][0][2];ret[1][0][2]=src[0][1][2];
+ret[0][0][1]=src[0][2][1];ret[2][0][1]=src[0][0][1];ret[2][2][1]=src[2][0][1];ret[0][2][1]=src[2][2][1];
+ret[0][1][0]=src[1][2][0];ret[1][2][0]=src[2][1][0];ret[2][1][0]=src[1][0][0];ret[1][0][0]=src[0][1][0];
   	return ret}
+//001=vasen ala //2,0,1 a
+//201=oikea ala	//2,2,1 d
+//221=oikea ylä	//0,2,1 c
+//021=vasen ylä	//0,0,1 b
 function ver(src){ var ret = mk3Space(); for(var z=0; z<3; z++){ for(var y=0; y<3; y++){ for(var x=0; x<3; x++){
 	ret[z][2-y][x] = src[z][y][x];}}}  return ret}
 function lon(src){ var ret = mk3Space(); for(var z=0; z<3; z++){ for(var y=0; y<3; y++){ for(var x=0; x<3; x++){
@@ -1797,13 +1821,13 @@ function lat(src){ var ret = mk3Space(); for(var z=0; z<3; z++){ for(var y=0; y<
 	ret[z][y][2-x] = src[z][y][x];}}}  return ret}
 
 function orientRelSpace(ty, relSpace){ switch(ty.ni){
-	case "ISTR": relSpace =connectSpaces(ty.absSpace, tor(lon(lat(relSpace)))); break;
-	case "ISTC": relSpace =connectSpaces(ty.absSpace, tor(lat(relSpace))); 		break;
-	case "ESTR": relSpace =connectSpaces(ty.absSpace, tor(lon(relSpace))); 		break;
+	case "ISTR": relSpace =connectSpaces(ty.absSpace, lon(lat(tor(relSpace)))); break;
+	case "ISTC": relSpace =connectSpaces(ty.absSpace, lat(tor(relSpace))); 		break;
+	case "ESTR": relSpace =connectSpaces(ty.absSpace, lon(tor(relSpace))); 		break;
 	case "ESTC": relSpace =connectSpaces(ty.absSpace, tor(relSpace)); 			break;
-	case "INFR": relSpace =connectSpaces(ty.absSpace, rot(lon(lat(relSpace)))); break;
-	case "INFC": relSpace =connectSpaces(ty.absSpace, rot(lat(relSpace))); 		break;
-	case "ENFR": relSpace =connectSpaces(ty.absSpace, rot(lon(relSpace))); 		break;
+	case "INFR": relSpace =connectSpaces(ty.absSpace, lon(lat(rot(relSpace)))); break;
+	case "INFC": relSpace =connectSpaces(ty.absSpace, lat(rot(relSpace))); 		break;
+	case "ENFR": relSpace =connectSpaces(ty.absSpace, lon(rot(relSpace))); 		break;
 	case "ENFC": relSpace =connectSpaces(ty.absSpace, rot(relSpace)); 			break;
 	case "ISFR": relSpace =connectSpaces(ty.absSpace, lon(lat(ver(relSpace)))); break;
 	case "ISFC": relSpace =connectSpaces(ty.absSpace, lat(ver(relSpace))); 		break;
@@ -1846,8 +1870,8 @@ function precalcSociotype(ni,parent){
 	var bu = mkSociotype2(mkSociotype( ni, parent)); return bu;}
 
 function orientCirc2(ty){ var C=null;
-	if(ty.ie){ C = ty.circuits.filter(o => o.lat); 			C.forEach( function(C){ C.aDi = 0})}//C.rDi});}
-	else 	 { C = ty.circuits.filter(o => o.lat); 			C.forEach( function(C){ C.aDi = 0})}//-C.rDi});}
+	if(ty.ie){ C = ty.circuits.filter(o => o.lat); 			C.forEach( function(C){ C.aDi = C.rDi})}
+	else 	 { C = ty.circuits.filter(o => o.lat); 			C.forEach( function(C){ C.aDi = -C.rDi})}
 		if(ty.sn){
 			C = ty.circuits.filter(o => o.ver); 			C.forEach( function(C){ C.aDi = C.rDi});
 			if(ty.cr){ C = ty.circuits.filter(o => o.lon); 	C.forEach( function(C){ C.aDi = -C.rDi})}
@@ -1904,20 +1928,32 @@ function getNeighboursOfEssence(eX,eY,eZ,tY){ var r=[];
 	return r}
 
 
-function initCirc( c){ c.count=0; c.val=0; c.spd={lon:0,lat:0,ver:0}}
+function initCirc( c){ c.count=0; c.K=0; c.Q=0; c.spd={lon:0,lat:0,ver:0}}
 OM.AL.Circuits={ seed:["a","b","c","d","e","f","g","h","i","j","k","l"],
-	a:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=2;initCirc(this)},
-	b:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=2;initCirc(this)},
-	c:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=2;initCirc(this)},
-	d:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.rDi=-1;this.ni=ni;this.str=2;initCirc(this)},
-	e:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=1; this.ni=ni;this.str=4;initCirc(this)},
-	f:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=-1;this.ni=ni;this.str=3;initCirc(this)},
-	g:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=-1;this.ni=ni;this.str=3;initCirc(this)},
-	h:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.rDi=1; this.ni=ni;this.str=4;initCirc(this)},
-	i:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=1; this.ni=ni;this.str=1;initCirc(this)},
-	j:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=-1;this.ni=ni;this.str=0;initCirc(this)},
-	k:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=-1;this.ni=ni;this.str=1;initCirc(this)},
-	l:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.rDi=1; this.ni=ni;this.str=0;initCirc(this)}}
+	a:function( ni){this.lon=false; this.lat=true; 	this.ver=false; 	this.rDi=-1; 	this.ni=ni;
+					this.s=true; 	this.v=false; 	this.m=true;		initCirc(this)},
+	b:function( ni){this.lon=false; this.lat=true; 	this.ver=false; 	this.rDi=1; 	this.ni=ni;
+					this.s=false; 	this.v=false; 	this.m=false; 		initCirc(this)},
+	c:function( ni){this.lon=false; this.lat=true; 	this.ver=false; 	this.rDi=-1; 	this.ni=ni;
+					this.s=false; 	this.v=true; 	this.m=true;		initCirc(this)},
+	d:function( ni){this.lon=false; this.lat=true; 	this.ver=false; 	this.rDi=1; 	this.ni=ni;
+	 				this.s=true; 	this.v=true; 	this.m=false;		initCirc(this)},
+	e:function( ni){this.lon=true; 	this.lat=false; this.ver=false; 	this.rDi=1; 	this.ni=ni;
+	 				this.s=true; 	this.v=true; 	this.m=true;		initCirc(this)},
+	f:function( ni){this.lon=true;  this.lat=false; this.ver=false; 	this.rDi=-1; 	this.ni=ni;
+					this.s=false; 	this.v=false; 	this.m=true;		initCirc(this)},
+	g:function( ni){this.lon=true; 	this.lat=false; this.ver=false; 	this.rDi=-1; 	this.ni=ni;
+					this.s=false; 	this.v=true; 	this.m=false;		initCirc(this)},
+	h:function( ni){this.lon=true; 	this.lat=false; this.ver=false; 	this.rDi=1; 	this.ni=ni;
+					this.s=true; 	this.v=false; 	this.m=false;		initCirc(this)},
+	i:function( ni){this.lon=false; this.lat=false; this.ver=true; 		this.rDi=1; 	this.ni=ni;
+					this.s=true; 	this.v=true; 	this.m=false;		initCirc(this)},
+	j:function( ni){this.lon=false; this.lat=false; this.ver=true; 		this.rDi=-1; 	this.ni=ni;
+					this.s=false; 	this.v=false; 	this.m=true;		initCirc(this)},
+	k:function( ni){this.lon=false; this.lat=false; this.ver=true; 		this.rDi=-1; 	this.ni=ni;
+					this.s=true; 	this.v=false; 	this.m=true;		initCirc(this)},
+	l:function( ni){this.lon=false; this.lat=false; this.ver=true; 		this.rDi=1; 	this.ni=ni;
+					this.s=false; 	this.v=true; 	this.m=false;		initCirc(this)}}
 function inheritCirc(circ,parent){ if(parent){ circ.parent = parent.relSpace.find(o => o.ni === circ.ni)} return circ}
 function mkCircuit(ni,parent){var circ=null; switch( ni){
 	case "a":circ=new OM.AL.Circuits.a( ni); circ=inheritCirc(circ,parent); return circ;
@@ -1935,16 +1971,24 @@ function mkCircuit(ni,parent){var circ=null; switch( ni){
 function precalcCircuits(seed,parent){ circs =[]; var bu=null;
 	for(let n=0; n < 12;n++){ bu=mkCircuit( seed[n],parent); circs.push(bu);} return circs;}
 
-function initFunc( f){ f.count=0; f.val=0; f.spd={lon:0,lat:0,ver:0}}
+function initFunc( f){ f.count=0; f.Q=0; f.K=0; f.spd={lon:0,lat:0,ver:0}}
 OM.AL.Funcs={ seed: ["f1","f2","f3","f4","f5","f6","f7","f8"],
-	f1:function( ni){ this.lon=true; this.lat=true; this.ver=false;this.ni=ni;this.in="1",this.str=false;initFunc(this)},
-	f2:function( ni){ this.lon=true; this.lat=false;this.ver=false;this.ni=ni;this.in="2",this.str=false;initFunc(this)},
-	f3:function( ni){ this.lon=false;this.lat=false;this.ver=false;this.ni=ni;this.in="3",this.str=false;initFunc(this)},
-	f4:function( ni){ this.lon=false;this.lat=true; this.ver=false;this.ni=ni;this.in="4",this.str=false;initFunc(this)},
-	f5:function( ni){ this.lon=false;this.lat=true; this.ver=true; this.ni=ni;this.in="5",this.str=true; initFunc(this)},
-	f6:function( ni){ this.lon=false;this.lat=false;this.ver=true; this.ni=ni;this.in="6",this.str=true; initFunc(this)},
-	f7:function( ni){ this.lon=true; this.lat=false;this.ver=true; this.ni=ni;this.in="7",this.str=true; initFunc(this)},
-	f8:function( ni){ this.lon=true; this.lat=true; this.ver=true; this.ni=ni;this.in="8",this.str=true; initFunc(this)}}
+	f1:function( ni){ 	this.lon=true; 	this.lat=true; 	this.ver=false;	this.ni=ni;	this.in="1";
+						this.s=false; 	this.v=false; 	this.m=true; 	initFunc(this)},
+	f2:function( ni){ 	this.lon=true; 	this.lat=false;	this.ver=false;	this.ni=ni;	this.in="2";
+						this.s=false; 	this.v=true; 	this.m=false; 	initFunc(this)},
+	f3:function( ni){ 	this.lon=false; this.lat=false; this.ver=false; this.ni=ni; this.in="3";
+						this.s=false; 	this.v=true; 	this.m=false; 	initFunc(this)},
+	f4:function( ni){ 	this.lon=false;	this.lat=true; 	this.ver=false;	this.ni=ni;	this.in="4";
+						this.s=false; 	this.v=false; 	this.m=true; 	initFunc(this)},
+	f5:function( ni){ 	this.lon=false;	this.lat=true; 	this.ver=true; 	this.ni=ni;	this.in="5";
+						this.s=true; 	this.v=true; 	this.m=true; 	initFunc(this)},
+	f6:function( ni){ 	this.lon=false;	this.lat=false;	this.ver=true; 	this.ni=ni;	this.in="6";
+						this.s=true; 	this.v=false; 	this.m=false; 	initFunc(this)},
+	f7:function( ni){ 	this.lon=true; 	this.lat=false;	this.ver=true; 	this.ni=ni;	this.in="7";
+						this.s=true; 	this.v=false; 	this.m=false; 	initFunc(this)},
+	f8:function( ni){ 	this.lon=true; 	this.lat=true; 	this.ver=true; 	this.ni=ni;	this.in="8";
+						this.s=true; 	this.v=true; 	this.m=true; 	initFunc(this)}}
 function inheritFunc(func,parent){ if(parent){ func.parent = parent.funcs.find(o => o.ni === func.ni)} return func}
 function mkFunc(ni,parent){ var func=null; switch( ni){
 	case "f1":func=new OM.AL.Funcs.f1( ni); func=inheritFunc(func,parent); return func;
