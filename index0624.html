@@ -5,7 +5,7 @@
 <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());  gtag('config', 'UA-25071088-1'); </script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v622</title>
+<title>Floresta v624</title>
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
@@ -562,7 +562,7 @@ function mkTypeCage(cX,cY,cl){
 		var cS =AL.tY.relSpace[lx][ly][lz].s; if(cS){ cSD="S"} else{ cSD="s"}
 		var cV =AL.tY.relSpace[lx][ly][lz].v; if(cV){ cVD="V"} else{ cVD="v"}
 		var cM =AL.tY.relSpace[lx][ly][lz].m; if(cM){ cMD="M"} else{ cMD="m"}
-		if(!cM){ dash="2,2"}
+		if(!cM){ dash="3,3"}
 		if(!cV){ co ="#6688ff"}
 		var E=[];var e=null;var id="_cUC-";var dx=false;var dy=false;var dz=false;var st;
 		if(lx==2){ id+="p"} else if(lx==1){ id+="t"; dx=true;}else if(lx==0){ id+="n"}
@@ -637,7 +637,7 @@ function mkTypeCage(cX,cY,cl){
 		var cl1="_cUF"; var id1=cl1+"-"; var cl2="_fuT"; var id2=cl2+"-"; var cl3="_fuN"; var id3=cl3+"-"; 
 		if(o.s){ st=8}
 		if(o.v){ stC="#ff0000"}
-		if(!o.m){ dash="2,2"}
+		if(!o.m){ dash="3,3"}
 		if(lx==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
 		if(ly==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
 		if(lz==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
@@ -1770,7 +1770,7 @@ function mkBeing( ni,parent){ var be=null; switch(ni){
 function precalcBeings(seed,parent){ var bes =[]; var bu=null;
 	for(let n=0; n < 4;n++){ bu=mkBeing( seed[n],parent); bes.push(bu);} return bes;}
 
-OM.AL.Sociotypes={ seed:["ISFC","ISFR","ISTC","ISTR","INFC","INFR","INTC","INTR","ESFC","ESFR","ESTC","ESTR","ENFC","ENFR","ENTC","ENTR","NaT"],
+OM.AL.Sociotypes={ seed:["ISFR","ISFC","ISTR","ISTC","INFR","INFC","INTR","INTC","ESFR","ESFC","ESTR","ESTC","ENFR","ENFC","ENTR","ENTC","NaT"],
 	ISFC:function( ni){ this.ni=ni; this.ie=false;this.sn=false;this.ft=false;this.cr=false;this.zo="Wolverine"},
 	ISFR:function( ni){ this.ni=ni; this.ie=false;this.sn=false;this.ft=false;this.cr=true; this.zo="Dolphin"},
 	ISTC:function( ni){ this.ni=ni; this.ie=false;this.sn=false;this.ft=true; this.cr=false;this.zo="Alligator"},
@@ -1790,29 +1790,19 @@ OM.AL.Sociotypes={ seed:["ISFC","ISFR","ISTC","ISTR","INFC","INFR","INTC","INTR"
 	NaT: function( ni){ this.ni=ni; }}
 function connectSpaces(abs,rel){	rel[0][0][0].IE = abs[0][0][0];	rel[0][0][2].IE = abs[0][0][2];
 	rel[0][2][0].IE = abs[0][2][0];	rel[0][2][2].IE = abs[0][2][2];	rel[2][0][0].IE = abs[2][0][0];
-	rel[2][0][2].IE = abs[2][0][2];	rel[2][2][0].IE = abs[2][2][0];	rel[2][2][2].IE = abs[2][2][2]; return rel}
+	rel[2][0][2].IE = abs[2][0][2];	rel[2][2][0].IE = abs[2][2][0];	rel[2][2][2].IE = abs[2][2][2];return rel}
 function tor(src){ var ret = mk3Space();
 ret[0][2][0]=src[0][0][0];ret[2][2][0]=src[0][2][0];ret[2][0][0]=src[2][2][0];ret[0][0][0]=src[2][0][0];
 ret[0][2][2]=src[0][0][2];ret[2][2][2]=src[0][2][2];ret[2][0][2]=src[2][2][2];ret[0][0][2]=src[2][0][2];
 ret[1][2][2]=src[0][1][2];ret[2][1][2]=src[1][2][2];ret[1][0][2]=src[2][1][2];ret[0][1][2]=src[1][0][2];
 ret[2][0][1]=src[2][2][1];ret[2][2][1]=src[0][2][1];ret[0][2][1]=src[0][0][1];ret[0][0][1]=src[2][0][1];
-ret[1][2][0]=src[0][1][0];ret[2][1][0]=src[1][2][0];ret[1][0][0]=src[2][1][0];ret[0][1][0]=src[1][0][0];
-//201=oikea ala	//0,0,1 b
-//221=oikea ylä	//2,0,1 a
-//021=vasen ylä //2,2,1 d
-//001=vasen ala //0,2,1 c
-	return ret}
+ret[1][2][0]=src[0][1][0];ret[2][1][0]=src[1][2][0];ret[1][0][0]=src[2][1][0];ret[0][1][0]=src[1][0][0];return ret}
 function rot(src){ var ret = mk3Space();
 ret[0][0][0]=src[0][2][0];ret[0][2][0]=src[2][2][0];ret[2][2][0]=src[2][0][0];ret[2][0][0]=src[0][0][0];
 ret[0][0][2]=src[0][2][2];ret[0][2][2]=src[2][2][2];ret[2][2][2]=src[2][0][2];ret[2][0][2]=src[0][0][2];
 ret[0][1][2]=src[1][2][2];ret[1][2][2]=src[2][1][2];ret[2][1][2]=src[1][0][2];ret[1][0][2]=src[0][1][2];
 ret[0][0][1]=src[0][2][1];ret[2][0][1]=src[0][0][1];ret[2][2][1]=src[2][0][1];ret[0][2][1]=src[2][2][1];
-ret[0][1][0]=src[1][2][0];ret[1][2][0]=src[2][1][0];ret[2][1][0]=src[1][0][0];ret[1][0][0]=src[0][1][0];
-  	return ret}
-//001=vasen ala //2,0,1 a
-//201=oikea ala	//2,2,1 d
-//221=oikea ylä	//0,2,1 c
-//021=vasen ylä	//0,0,1 b
+ret[0][1][0]=src[1][2][0];ret[1][2][0]=src[2][1][0];ret[2][1][0]=src[1][0][0];ret[1][0][0]=src[0][1][0];return ret}
 function ver(src){ var ret = mk3Space(); for(var z=0; z<3; z++){ for(var y=0; y<3; y++){ for(var x=0; x<3; x++){
 	ret[z][2-y][x] = src[z][y][x];}}}  return ret}
 function lon(src){ var ret = mk3Space(); for(var z=0; z<3; z++){ for(var y=0; y<3; y++){ for(var x=0; x<3; x++){
@@ -1821,13 +1811,13 @@ function lat(src){ var ret = mk3Space(); for(var z=0; z<3; z++){ for(var y=0; y<
 	ret[z][y][2-x] = src[z][y][x];}}}  return ret}
 
 function orientRelSpace(ty, relSpace){ switch(ty.ni){
-	case "ISTR": relSpace =connectSpaces(ty.absSpace, lon(lat(tor(relSpace)))); break;
-	case "ISTC": relSpace =connectSpaces(ty.absSpace, lat(tor(relSpace))); 		break;
-	case "ESTR": relSpace =connectSpaces(ty.absSpace, lon(tor(relSpace))); 		break;
+	case "ISTR": relSpace =connectSpaces(ty.absSpace, tor(lon(lat(relSpace)))); break;
+	case "ISTC": relSpace =connectSpaces(ty.absSpace, tor(lat(relSpace))); 		break;
+	case "ESTR": relSpace =connectSpaces(ty.absSpace, tor(lon(relSpace))); 		break;
 	case "ESTC": relSpace =connectSpaces(ty.absSpace, tor(relSpace)); 			break;
-	case "INFR": relSpace =connectSpaces(ty.absSpace, lon(lat(rot(relSpace)))); break;
-	case "INFC": relSpace =connectSpaces(ty.absSpace, lat(rot(relSpace))); 		break;
-	case "ENFR": relSpace =connectSpaces(ty.absSpace, lon(rot(relSpace))); 		break;
+	case "INFR": relSpace =connectSpaces(ty.absSpace, rot(lon(lat(relSpace)))); break;
+	case "INFC": relSpace =connectSpaces(ty.absSpace, rot(lat(relSpace))); 		break;
+	case "ENFR": relSpace =connectSpaces(ty.absSpace, rot(lon(relSpace))); 		break;
 	case "ENFC": relSpace =connectSpaces(ty.absSpace, rot(relSpace)); 			break;
 	case "ISFR": relSpace =connectSpaces(ty.absSpace, lon(lat(ver(relSpace)))); break;
 	case "ISFC": relSpace =connectSpaces(ty.absSpace, lat(ver(relSpace))); 		break;
@@ -1931,29 +1921,29 @@ function getNeighboursOfEssence(eX,eY,eZ,tY){ var r=[];
 function initCirc( c){ c.count=0; c.K=0; c.Q=0; c.spd={lon:0,lat:0,ver:0}}
 OM.AL.Circuits={ seed:["a","b","c","d","e","f","g","h","i","j","k","l"],
 	a:function( ni){this.lon=false; this.lat=true; 	this.ver=false; 	this.rDi=-1; 	this.ni=ni;
-					this.s=true; 	this.v=false; 	this.m=true;		initCirc(this)},
+					this.s=true; 	this.v=true; 	this.m=true;		initCirc(this)},
 	b:function( ni){this.lon=false; this.lat=true; 	this.ver=false; 	this.rDi=1; 	this.ni=ni;
-					this.s=false; 	this.v=false; 	this.m=false; 		initCirc(this)},
+					this.s=false; 	this.v=true; 	this.m=false; 		initCirc(this)},
 	c:function( ni){this.lon=false; this.lat=true; 	this.ver=false; 	this.rDi=-1; 	this.ni=ni;
 					this.s=false; 	this.v=true; 	this.m=true;		initCirc(this)},
 	d:function( ni){this.lon=false; this.lat=true; 	this.ver=false; 	this.rDi=1; 	this.ni=ni;
 	 				this.s=true; 	this.v=true; 	this.m=false;		initCirc(this)},
 	e:function( ni){this.lon=true; 	this.lat=false; this.ver=false; 	this.rDi=1; 	this.ni=ni;
-	 				this.s=true; 	this.v=true; 	this.m=true;		initCirc(this)},
+	 				this.s=true; 	this.v=false; 	this.m=true;		initCirc(this)},
 	f:function( ni){this.lon=true;  this.lat=false; this.ver=false; 	this.rDi=-1; 	this.ni=ni;
 					this.s=false; 	this.v=false; 	this.m=true;		initCirc(this)},
 	g:function( ni){this.lon=true; 	this.lat=false; this.ver=false; 	this.rDi=-1; 	this.ni=ni;
-					this.s=false; 	this.v=true; 	this.m=false;		initCirc(this)},
+					this.s=false; 	this.v=false; 	this.m=false;		initCirc(this)},
 	h:function( ni){this.lon=true; 	this.lat=false; this.ver=false; 	this.rDi=1; 	this.ni=ni;
 					this.s=true; 	this.v=false; 	this.m=false;		initCirc(this)},
 	i:function( ni){this.lon=false; this.lat=false; this.ver=true; 		this.rDi=1; 	this.ni=ni;
-					this.s=true; 	this.v=true; 	this.m=false;		initCirc(this)},
+					this.s=true; 	this.v=false; 	this.m=false;		initCirc(this)},
 	j:function( ni){this.lon=false; this.lat=false; this.ver=true; 		this.rDi=-1; 	this.ni=ni;
 					this.s=false; 	this.v=false; 	this.m=true;		initCirc(this)},
 	k:function( ni){this.lon=false; this.lat=false; this.ver=true; 		this.rDi=-1; 	this.ni=ni;
 					this.s=true; 	this.v=false; 	this.m=true;		initCirc(this)},
 	l:function( ni){this.lon=false; this.lat=false; this.ver=true; 		this.rDi=1; 	this.ni=ni;
-					this.s=false; 	this.v=true; 	this.m=false;		initCirc(this)}}
+					this.s=false; 	this.v=false; 	this.m=false;		initCirc(this)}}
 function inheritCirc(circ,parent){ if(parent){ circ.parent = parent.relSpace.find(o => o.ni === circ.ni)} return circ}
 function mkCircuit(ni,parent){var circ=null; switch( ni){
 	case "a":circ=new OM.AL.Circuits.a( ni); circ=inheritCirc(circ,parent); return circ;
