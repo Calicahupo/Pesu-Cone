@@ -5,7 +5,7 @@
 <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);}
 	gtag('js', new Date());  gtag('config', 'UA-25071088-1'); </script>
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v624</title>
+<title>Floresta v637</title>
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
 	svg text::selection { background: none;}
@@ -21,13 +21,15 @@
 <script src="diodi/lodash.js"></script>
 <script>
 var AL={ 
-	fe: 	"type",
+	fe: 	"mosaic",
 	fes: 	["quiz","type","gender","mosaic"],
 	tools: 	["play","fastForward","next","forward","reso"],
 	tunes: 	[100,100,1,1,4],
 	play: false, 	fastForward:false,
 	tBtools:["copySims","delSim"],
-	moved: false}
+	moved: false,
+	Subj:[],
+	Obj: []}
 var sV =document.createElementNS( "http://www.w3.org/2000/svg","svg");
 var sV1=document.createElementNS( "http://www.w3.org/2000/svg","svg");
 var sV2=document.createElementNS( "http://www.w3.org/2000/svg","svg");
@@ -55,7 +57,7 @@ var ui ={winWid:0, winHei:0,
 	cya: {l: { h:180, s:25 , v:100}, f:{ h:180, s:50 , v:50 }, h:{ h:180, s:100, v:100}},
 	gre: {l: { h:135, s:25 , v:100}, f:{ h:135, s:50 , v:50 }, h:{ h:135, s:100, v:100}}, 
 	lil: {l: { h:315, s:25 , v:100}, f:{ h:315, s:50 , v:50 }, h:{ h:315, s:100, v:100}}, 
-	yel: {l: { h:60 , s:25 , v:100}, f:{ h:60 , s:50 , v:50 }, h:{ h:60 , s:100, v:100}}, 
+	yel: {l: { h:70 , s:25 , v:100}, f:{ h:70 , s:50 , v:50 }, h:{ h:70 , s:100, v:100}}, 
 	vio: {l: { h:275, s:25 , v:100}, f:{ h:275, s:50 , v:50 }, h:{ h:275, s:100, v:100}}, 
 	blu: {l: { h:222, s:25 , v:100}, f:{ h:222, s:50 , v:50 }, h:{ h:222, s:100, v:100}}, 
 	ora: {l: { h:30 , s:25 , v:100}, f:{ h:30 , s:50 , v:50 }, h:{ h:30 , s:100, v:100}}, 
@@ -293,7 +295,7 @@ function mkTo( n, sB){ var r=[]; var b; var l; var s; var y; var x=sB.disWid-(sB
 	bindE( b, function(ev,e) { switch(ev){ case "mousedown" 	: toolKey( e);	break;}}); return r}
 function mkHUD(sim){ var E=[]; var e=null;
 	e=mkL(0,ui.sB.fesHei+3, ui.sB.disWid, ui.sB.HUDhei-6,"",ui.sB.HUDbg,""); E.push(e);
-	e=mkT(ui.sB.disWid-3,ui.sB.fesHei+2, "", "#ffffff", "", ui.sB.fnt,AL.sim.in+":"+AL.sim.turn+AL.sim.personInTurn.ni.in, "profont","end"); E.push(e); return E}
+	e=mkT(ui.sB.disWid-3,ui.sB.fesHei+2, "", "#ffffff", "", ui.sB.fnt,AL.sim.in+":"+AL.sim.turn+AL.sim.keySubj.ni.in, "profont","end"); E.push(e); return E}
 function drawSidebar(){ var obs=[];  var buf =null;
 	var div=document.getElementById("sBdiv");
 	buf =mkL(0,ui.sB.disVrt,ui.sB.disWid,ui.sB.disHei,"sB",ui.sB.bG,"sB","");
@@ -313,10 +315,10 @@ function typeKey( e){ var tY= parseInt(e.id.split("-").pop()); tY=AL.Sociotypes.
 	if(AL.pE){AL.pE.ty=tY; AL.tY=tY;}
 	else if( AL.tY==null){ AL.tY=tY;} else if(AL.tY!=tY){AL.tY=tY} else { AL.tY=null}
 	clearScreen(); draw();}
-function typeListKey( e){let r=e.id.split("-").pop(); r=AL.sim.people.find(o => o.ni.in == r); 
+function typeListKey( e){let r=e.id.split("-").pop(); r=AL.sim.subjs.find(o => o.ni.in == r); 
 	//console.log(r);
 	// ööö
-	console.log(AL.sim.people);
+	console.log(AL.sim.subjs);
 	if(r.ty){ AL.tY = r.ty}
 	if(r.mo){ AL.mO = r.mo}
 	if(r.mo.bE){ AL.bE = r.mo.bE}
@@ -403,7 +405,8 @@ function drawType(){ var buf =null;
 	mkTypeList();							
 	mkTypeKeys();
 	mkTypeStage();								
-	mkBottomBar(); }
+	//mkBottomBar();
+}
 function drS(v,l,id,cl,op){ var e=document.createElementNS( nS,'polygon'); e.setAttribute("points",v);
 	e.setAttribute( 'fill',l); e.setAttribute('id',id); e.setAttribute('class',cl);
 	if(op!=undefined){ e.setAttribute( 'opacity',op)} return e}
@@ -556,14 +559,15 @@ function mkTypeCube(cX,cY,cl){ var e; var E=[]; var v=""; var w=ui.tY.cE; var h=
 function mkTypeCage(cX,cY,cl){
 
 	function drAr(x,y,X,Y,lx,ly,lz){
-		var cSD; var cVD; var cMD; var dash; var co="#ff0000";
+		var cSD; var cVD; var cMD; var dash; var co="#ff0000"; var col="#880000"; var stW=w/65;
 		//var stC; if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ stC="#fff"} else { stC="#000"}
 		var cNi=AL.tY.relSpace[lx][ly][lz].ni;
 		var cS =AL.tY.relSpace[lx][ly][lz].s; if(cS){ cSD="S"} else{ cSD="s"}
 		var cV =AL.tY.relSpace[lx][ly][lz].v; if(cV){ cVD="V"} else{ cVD="v"}
 		var cM =AL.tY.relSpace[lx][ly][lz].m; if(cM){ cMD="M"} else{ cMD="m"}
-		if(!cM){ dash="3,3"}
-		if(!cV){ co ="#6688ff"}
+		//if(cS){ stW=w/25} else{ stW=w/75}
+		if(!cM){ dash=w/105+","+w/105}
+		if(!cV){ co ="#6688ff"; col="#334488"}
 		var E=[];var e=null;var id="_cUC-";var dx=false;var dy=false;var dz=false;var st;
 		if(lx==2){ id+="p"} else if(lx==1){ id+="t"; dx=true;}else if(lx==0){ id+="n"}
 		if(ly==2){ id+="p"} else if(ly==1){ id+="t"; dy=true;}else if(ly==0){ id+="n"}
@@ -573,49 +577,49 @@ function mkTypeCage(cX,cY,cl){
 			//case 1:st=w/18;break; case 2:st=w/12;break;/*case 3:st=w/10;break;*/case 3:st=w/8;break; case 4:st=w/6; break;}
 		if(dx){
 			if( AL.tY.relSpace[lx][ly][lz].aDi== 1){ x += w/4;
-				v = (x-(w/6))+","+y+" "+x+","+(y+(w/12))+" "+x+","+(y-(w/12));
-				e =drS(v, "#000000", id+"_head"); E.push(e);
-				e =drC(x,y,w/13,"#484848","jou","jou",3,"#000000");  										F.push(e);
+				v = (x-(w/6))+","+y+" "+x+","+(y+(w/14))+" "+x+","+(y-(w/14));
+				e =drS(v, co, id+"_head"); E.push(e);
+				e =drC(x,y,w/13,col,"jou","jou",stW,co);  										F.push(e);
 				e =mkT(x+1,y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(x+1,y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
+				e =mkT(x+1,y-(w/60),"jou","#ffffff","jou",w/17,cVD+cSD+cMD,"profont", "middle");F.push(e)}
 			else if( AL.tY.relSpace[lx][ly][lz].aDi== -1){ X -= w/4;
-				v = (X+(w/6))+","+Y+" "+X+","+(Y+(w/12))+" "+X+","+(Y-(w/12));
-				e =drS(v, "#000000", id+"_head"); E.push(e);
-				e =drC(X,Y,w/13,"#484848","jou","jou",3,"#000000"); 										F.push(e);
+				v = (X+(w/6))+","+Y+" "+X+","+(Y+(w/14))+" "+X+","+(Y-(w/14));
+				e =drS(v, co, id+"_head"); E.push(e);
+				e =drC(X,Y,w/13,col,"jou","jou",stW,co); 										F.push(e);
 				e =mkT(X+1,Y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(X+1,Y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}}
+				e =mkT(X+1,Y-(w/60),"jou","#ffffff","jou",w/17,cVD+cSD+cMD,"profont", "middle");F.push(e)}}
 		if(dy){
 			if( AL.tY.relSpace[lx][ly][lz].aDi== 1){ y += w/4;
-				v = (x-(w/12))+","+y+" "+(x+(w/12))+","+y+" "+x+","+(y-(w/6));
-				e =drS(v, "#000000", id+"_head"); E.push(e);
-				e =drC(x,y,w/13,"#555533","jou","jou",3,"#000000"); 										F.push(e);
+				v = (x-(w/14))+","+y+" "+(x+(w/14))+","+y+" "+x+","+(y-(w/6));
+				e =drS(v, co, id+"_head"); E.push(e);
+				e =drC(x,y,w/13,col,"jou","jou",stW,co); 										F.push(e);
 				e =mkT(x+1,y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(x+1,y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
+				e =mkT(x+1,y-(w/60),"jou","#ffffff","jou",w/17,cVD+cSD+cMD,"profont", "middle");F.push(e)}
 			else if( AL.tY.relSpace[lx][ly][lz].aDi== -1){ Y -= w/4;
-				v = (X-(w/12))+","+Y+" "+(X+(w/12))+","+Y+" "+X+","+(Y+(w/6));
-				e =drS(v, "#000000", id+"_head"); E.push(e);
-				e =drC(X,Y,w/13,"#555533","jou","jou",3,"#000000"); 										F.push(e);
+				v = (X-(w/14))+","+Y+" "+(X+(w/14))+","+Y+" "+X+","+(Y+(w/6));
+				e =drS(v, co, id+"_head"); E.push(e);
+				e =drC(X,Y,w/13,col,"jou","jou",stW,co); 										F.push(e);
 				e =mkT(X+1,Y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(X+1,Y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}}
+				e =mkT(X+1,Y-(w/60),"jou","#ffffff","jou",w/17,cVD+cSD+cMD,"profont", "middle");F.push(e)}}
 		if(dz){
 			if( AL.tY.relSpace[lx][ly][lz].aDi== -1){ x += w/6; y-= w/6;
 				v = (x-(w/18))+","+(y-(w/18))+" "+(x-(w/9))+","+(y+(w/9))+" "+(x+(w/18))+","+(y+(w/18));
-				e =drS(v, "#000000", id+"_head"); E.push(e);
-				e =drC(x,y,w/13,"#336633","jou","jou",3,"#000000"); 										F.push(e);
+				e =drS(v, co, id+"_head"); E.push(e);
+				e =drC(x,y,w/13,col,"jou","jou",stW,co); 										F.push(e);
 				e =mkT(x+1,y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(x+1,y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
+				e =mkT(x+1,y-(w/60),"jou","#ffffff","jou",w/17,cVD+cSD+cMD,"profont", "middle");F.push(e)}
 			else if( AL.tY.relSpace[lx][ly][lz].aDi== 1){ Y += w/6; X -= w/6;
 				v = (X+(w/18))+","+(Y+(w/18))+" "+(X+(w/9))+","+(Y-(w/9))+" "+(X-(w/18))+","+(Y-(w/18));
-				e =drS(v, "#000000", id+"_head"); E.push(e);
-				e =drC(X,Y,w/13,"#336633","jou","jou",3,"#000000"); 										F.push(e);
+				e =drS(v, co, id+"_head"); E.push(e);
+				e =drC(X,Y,w/13,col,"jou","jou",stW,co); 										F.push(e);
 				e =mkT(X+1,Y-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(X+1,Y-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
+				e =mkT(X+1,Y-(w/60),"jou","#ffffff","jou",w/17,cVD+cSD+cMD,"profont", "middle");F.push(e)}
 			else if( AL.tY.relSpace[lx][ly][lz].aDi== 0){ cY = Y+ w/4.5; cX = X- w/4.5;
 				//v = (X+(w/18))+","+(Y+(w/18))+" "+(X+(w/9))+","+(Y-(w/9))+" "+(X-(w/18))+","+(Y-(w/18));
 				//e =drS(v, "#000000", id+"_head"); E.push(e);
-				e =drC(cX,cY,w/13,"#336633","jou","jou",3,"#000000"); 										F.push(e);
+				e =drC(cX,cY,w/13,col,"jou","jou",stW,co); 										F.push(e);
 				e =mkT(cX+1,cY-(w/11),undefined,"#ffffff",undefined,w/13,cNi,"profont","middle"); 			F.push(e);
-				e =mkT(cX+1,cY-(w/60),"jou","#ffffff","jou",w/17,cSD+cVD+cMD,"profont", "middle");F.push(e)}
+				e =mkT(cX+1,cY-(w/60),"jou","#ffffff","jou",w/17,cVD+cSD+cMD,"profont", "middle");F.push(e)}
 			}
 		if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ var dFil;
 			if(AL.tY.dX>0) 		{ dFil = "url(#fLeft)"; console.log(AL.tY.tX)}
@@ -628,16 +632,16 @@ function mkTypeCage(cX,cY,cl){
 		e=mkI(x,y,X,Y,id,co,st,undefined,dash); E.push(e); return E}
 
 	function drFu(cx,cy,lx,ly,lz,o){
-		var cSD; var cVD; var cMD; var dash; var col="#000000"; var stC="#6688ff";
+		var cSD; var cVD; var cMD; var dash; var col="#334488"; var stC="#6688ff";
 		if(o.s){ cSD="S"} else{ cSD="s"}
 		if(o.v){ cVD="V"} else{ cVD="v"}
 		if(o.m){ cMD="M"} else{ cMD="m"}
 		//if((lx==AL.tY.tX)&&(ly==AL.tY.tY)&&(lz==AL.tY.tZ)){ stC="#fff"} else { stC="#000"}
-		var E=[]; var e=null; /*var col="#ff0000";*/ var st=3;
+		var E=[]; var e=null; /*var col="#ff0000";*/ var st=w/65;
 		var cl1="_cUF"; var id1=cl1+"-"; var cl2="_fuT"; var id2=cl2+"-"; var cl3="_fuN"; var id3=cl3+"-"; 
-		if(o.s){ st=8}
-		if(o.v){ stC="#ff0000"}
-		if(!o.m){ dash="3,3"}
+		if(o.s){ st=w/25}
+		if(o.v){ stC="#ff0000"; col="#880000"}
+		if(!o.m){ dash=w/105+","+w/105}
 		if(lx==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
 		if(ly==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
 		if(lz==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
@@ -654,7 +658,7 @@ function mkTypeCage(cX,cY,cl){
 			e=drC(cx,cy,w/10+8,"#fff"); e.setAttribute("filter",dFil); E.push(e);}
 		e=drC(cx,cy,w/10,col,cl1,id1,st,stC,dash); 									E.push(e);
 		e=mkT(cx+1,cy-(w/11),id2,"#ffffff",cl2,w/11,o.in,"profont","middle"); 		E.push(e);
-		e=mkT(cx+1,cy-(w/60),id3,"#ffffff",cl3,w/17,cSD+cVD+cMD,"profont","middle");E.push(e); return E}
+		e=mkT(cx+1,cy-(w/60),id3,"#ffffff",cl3,w/17,cVD+cSD+cMD,"profont","middle");E.push(e); return E}
 
 	var e; var E=[]; var F=[]; var v=""; var w=ui.tY.cE; var h=ui.tY.cE; var id=cl; var d=ui.tY.cuD; var op=ui.tY.op2; var co=ui.tY.plane; var x=cX+h/d+ui.tY.cuHrz; var y=cY+h/d+ui.tY.cMarg;
 
@@ -696,21 +700,23 @@ function mkTypeList(compact){ var E=[]; var e=null; var liI=""; var liT=""; var 
 	var iteHei=Math.round(lisHei/18);
 	if(!compact){ width = ui.tY.liW} else{ width = ui.mC.liW}
 	e =mkL(ui.tY.liX, ui.tY.liY+ui.tY.c1x, width, ui.tY.liHe,"tY_L",ui.sB.bG,"ty_L_bg",""); 	E.push(e);
-	for(var n=0; n<AL.sim.people.length;n++){
-		if(AL.sim.people[n] != AL.pE){ liI=ui.tY.liI; liT=ui.tY.liT; liB=ui.tY.liB;}
+	for(var n=0; n<AL.sim.subjs.length;n++){
+		if(AL.sim.subjs[n] != AL.pE){
+			if(AL.sim.subjs[n]==AL.keySubj)	{liI="#ffffff"; liT="#000000"; liB="#000000"}
+			else 									{liI=ui.tY.liI; liT=ui.tY.liT; liB=ui.tY.liB;}}
 		else 						{ liI=ui.tY.sLiI;liT=ui.tY.sLiT;liB=ui.tY.sLiB;}
-		if(AL.sim.people[n].ni.bE.male) { if(AL.sim.people[n].ni.bE.adult){ absB="♂("} else{ absB="*♂("}}
-		else 							{ if(AL.sim.people[n].ni.bE.adult){ absB="♀("} else{ absB="*♀("}}
-		e =mkL(ui.tY.liX2+1, iteHei*n+ctrHei+1,width-2,iteHei-2,"tY_Li-"+AL.sim.people[n].ni.in,liI,"tY_Li",liB,1); E.push(e);
-		e =mkT(ui.tY.liX2+4,(iteHei*n)-1+ctrHei,"tY_LiT-"+n,liT,"tY_LiT",20,AL.sim.people[n].ni.in+" "+AL.sim.people[n].ty.ni,"profont"); E.push(e);
+		if(AL.sim.subjs[n].ni.bE.male) { if(AL.sim.subjs[n].ni.bE.adult){ absB="♂("} else{ absB="*♂("}}
+		else 							{ if(AL.sim.subjs[n].ni.bE.adult){ absB="♀("} else{ absB="*♀("}}
+		e =mkL(ui.tY.liX2+1, iteHei*n+ctrHei+1,width-2,iteHei-2,"tY_Li-"+AL.sim.subjs[n].ni.in,liI,"tY_Li",liB,1); E.push(e);
+		e =mkT(ui.tY.liX2+4,(iteHei*n)-1+ctrHei,"tY_LiT-"+n,liT,"tY_LiT",20,AL.sim.subjs[n].ni.in+" "+AL.sim.subjs[n].ty.ni,"profont"); E.push(e);
 		/*e =mkL(ui.tY.liX+3*ui.tY.cMarg, (iteHei*n)-1+ctrHei, iteHei, iteHei, "tY_gn-"+n,"#000000",undefined,
 			"#cccccc",1); E.push(e);*/
-		if(AL.sim.people[n].mo.symm){ var liT2="#ffff00"} else{ var liT2=liT}
-		e =mkT(ui.tY.liX2+3*ui.tY.cMarg, (iteHei*n)-1+ctrHei,"tY_LiB-"+n,liT2,"tY_LiB",20,
-			absB+AL.sim.people[n].mo.pM.niH+AL.sim.people[n].mo.bE.nI+AL.sim.people[n].mo.pM.niT+", "+
-			AL.sim.people[n].sMo.pM.niH+AL.sim.people[n].sMo.bE.nI+AL.sim.people[n].sMo.pM.niT+")","times new roman");
+		if(AL.sim.subjs[n].mo.symm){ var liT2="#ffff00"} else{ var liT2=liT}
+		e =mkT(ui.tY.liX2+3*ui.tY.cMarg, (iteHei*n)-1+ctrHei,"tY_LiB-"+n,liT2,"tY_LiB",15,
+			absB+AL.sim.subjs[n].mo.pM.niH+AL.sim.subjs[n].mo.bE.nI+AL.sim.subjs[n].mo.pM.niT+", "+
+			AL.sim.subjs[n].sMo.pM.niH+AL.sim.subjs[n].sMo.bE.nI+AL.sim.subjs[n].sMo.pM.niT+")","times new roman");
 			E.push(e);
-		if(!compact){e =mkT(ui.tY.liX2+260,(iteHei*n)-1+ctrHei+1,"tY_LiT-"+n,liT,"tY_LiT",20,AL.sim.people[n].ni.name,"Steelfish"); E.push(e);}
+		if(!compact){e =mkT(ui.tY.liX2+260,(iteHei*n)-1+ctrHei+1,"tY_LiT-"+n,liT,"tY_LiT",20,AL.sim.subjs[n].ni.name,"Steelfish"); E.push(e);}
 	} E.forEach( function(E){sV.appendChild(E)}); document.body.appendChild( sV);
 	bindMany( '.tY_Li', function(ev,e) { switch(ev){ case "mousedown" 	: typeListKey( e);	break;}});}
 
@@ -985,7 +991,8 @@ function drawMood(){var buf =null;
 	mkMoodDisp();
 	mkMoodStage();
 	mkTypeList();
-	mkBottomBar();}
+	//mkBottomBar();
+}
 
 function chunkArray(myArray, chunk_size){
 	var index = 0;
@@ -1002,7 +1009,7 @@ function mosaicKeyMouseUp(mX,mY) 	{ if(AL.moved){ processSubTurn( AL.sim, mX, mY
 
 function mkMosaicDisp(){
 	var pC, tC;
-	var pRow=2; var pCol=1;	if(AL.sim.people.length > 2){ pRow=4; pCol=2} if(AL.sim.people.length > 8){ pRow=6; pCol=3}
+	var pRow=2; var pCol=1;	if(AL.sim.subjs.length > 2){ pRow=4; pCol=2} if(AL.sim.subjs.length > 8){ pRow=6; pCol=3}
 	var w= Math.floor(ui.mC.disWid/(4*AL.pE.mo.bE.reso+2)); // tile width
 	var h= Math.floor((ui.winHei-ui.bB.disHei-ui.tB.disHei)/(4*AL.pE.mo.bE.reso+2)); // tile height
 	var X= Math.round((ui.mC.disWid-((4*AL.pE.mo.bE.reso+2)*w))/2)+ui.mC.liW; // screen offset x
@@ -1011,16 +1018,16 @@ function mkMosaicDisp(){
 	var pH=Math.floor((h-pCol)/pCol)-1; // person height
 	var fOff=2; if(pH < 9){ fOff=1}
 	var c; var e; var E=[]; var E2=[];
-	for(var y=0; y<4*AL.personInTurn.mo.bE.reso+2; y++){ for(var x=0; x<4*AL.personInTurn.mo.bE.reso+2; x++){
-		c =AL.personInTurn.ni.mC[y][x];
+	for(var y=0; y<4*AL.keySubj.mo.bE.reso+2; y++){ for(var x=0; x<4*AL.keySubj.mo.bE.reso+2; x++){
+		c =AL.keySubj.ni.mC[y][x];
 		c = hsvToRgb(c.h, c.s, c.v);
 		c = rgbToHex(c.r, c.g, c.b);
 		e=mkL(w*x+X, h*y+Y, w, h, "mC_"+x+"-"+y, c, "mC", "#666", 1); E.push(e);
-		if(AL.personInTurn.mCppl[y][x]){
-			var ppl =chunkArray(AL.personInTurn.mCppl[y][x],pRow);
-			for(var i=0; i<ppl.length;i++){
-				for(var j=0; j<ppl[i].length;j++){
-					pC=ppl[i][j].ni.mC[y][x];
+		if(AL.keySubj.agentMc[y][x]){
+			var agents =chunkArray(AL.keySubj.agentMc[y][x],pRow);
+			for(var i=0; i<agents.length;i++){
+				for(var j=0; j<agents[i].length;j++){
+					pC=agents[i][j].ni.mC[y][x];
 					tC=mosaicTextColor(pC);
 					pC=hsvToRgb( pC.h, pC.s, pC.v);
 					pC=rgbToHex( pC.r, pC.g, pC.b);
@@ -1028,7 +1035,7 @@ function mkMosaicDisp(){
 						"",pC, "mC_P",tC,undefined,false,3,3);
 					E2.push(e);
 					e=mkT(w*x+X+(j*(pW+1))+(pW/2)+j+2, h*y+Y+(i*(pH+1))-fOff,
-						"",tC,"mC_PT",pH,ppl[i][j].ni.in,"profont","middle");
+						"",tC,"mC_PT",pH,agents[i][j].ni.in,"profont","middle");
 					E2.push(e);	}}}}}
 	E=E.concat(E2);
 	E.forEach( function(E){sV.appendChild(E)}); document.body.appendChild( sV);
@@ -1042,7 +1049,7 @@ function drawMosaic(){ var buf=null;
 	mkTopBar();
 	mkTypeList(true);
 	mkMosaicDisp();
-	mkBottomBar();
+	//mkBottomBar();
 }
 
 
@@ -1050,23 +1057,23 @@ function drawMosaic(){ var buf=null;
 function resizeWindow(){ clearScreen();predraw();draw()}
 window.addEventListener("resize", resizeWindow, true);
 
-OM.re = { people:[], sims:[]};
+OM.re = { subjs:[], sims:[]};
 OM.ab = {};
 
 function doEvent(e){
 
 	console.log(e.mX); console.log(e.mY);
-	for(var n=0; n<e.subject.ppl.length; n++){
-		if(e.subject.ni.in ==e.subject.ppl[n]){
+	for(var n=0; n<e.subject.agents.length; n++){
+		if(e.subject.ni.in ==e.subject.agents[n]){
 			e.subject.mo.x = e.vX; e.subject.mo.y = e.vY;
 			e.subject.ni.mX= e.mX; e.subject.ni.mY= e.mY}
 		else{
-			e.subject.ppl[n].mo.x += e.vX; e.subject.ppl[n].mo.y += e.vY;
-			e.subject.ppl[n].ni.mX += e.vX;e.subject.ppl[n].ni.mY-=e.vY; }}
+			e.subject.agents[n].mo.x += e.vX; e.subject.agents[n].mo.y += e.vY;
+			e.subject.agents[n].ni.mX += e.vX;e.subject.agents[n].ni.mY-=e.vY; }}
 	//precalcOthers(e.sim.people);
-	clearMosaic(e.sim.personInTurn);
-	console.log(e.sim.personInTurn.ni.mC);
-	for(var n=0; n<e.sim.personInTurn.ppl.length; n++){ populateMosaic(e.sim.personInTurn, e.sim.personInTurn.ppl[n])}
+	clearMosaic(e.sim.keySubj);
+	console.log(e.sim.keySubj.ni.mC);
+	for(var n=0; n<e.sim.keySubj.agents.length; n++){ populateMosaic(e.sim.keySubj, e.sim.keySubj.agents[n])}
 	clearScreen();
 	draw();
 
@@ -1080,24 +1087,24 @@ function Event(sim,pe,mX,mY,mVX,mVY,vX,vY){
 function calcBeing(male,adult,parent){ var r;
 	if(!adult){if(male){ r =mkBeing("mas"), parent} else{ r =mkBeing("fem"), parent}}
 	else 	 { if(male){ r =mkBeing("MAS"), parent} else{ r =mkBeing("FEM"), parent}} return r}
-function precalcPeople(sim){ var bu=null; 
-	bu=mkPerson(sim,true,true); 				sim.people.push(bu);
-	bu=mkPerson(sim,false,true); 				sim.people.push(bu); 
-	bu=mkPerson(sim,true,false); 				sim.people.push(bu); 
-	bu=mkPerson(sim,false,false); 				sim.people.push(bu); 
-	bu=mkPerson(sim,true,true,false,false); 	sim.people.push(bu); 
-	bu=mkPerson(sim,false,true,false,false); 	sim.people.push(bu); 
-	bu=mkPerson(sim,true,false,false,false); 	sim.people.push(bu); 
-	bu=mkPerson(sim,false,false,false,false);	sim.people.push(bu);
+function precalcSubjs(sim){ var bu=null; 
+	bu=mkSubj(sim,true,true); 				sim.subjs.push(bu);
+	bu=mkSubj(sim,false,true); 				sim.subjs.push(bu);  
+	bu=mkSubj(sim,true,true,false,false); 	sim.subjs.push(bu); 
+	bu=mkSubj(sim,false,true,false,false); 	sim.subjs.push(bu); 
+	bu=mkSubj(sim,true,false,false,false); 	sim.subjs.push(bu); 
+	bu=mkSubj(sim,false,false,false,false);	sim.subjs.push(bu);
+	bu=mkSubj(sim,true,false); 				sim.subjs.push(bu); 
+	bu=mkSubj(sim,false,false); 			sim.subjs.push(bu);
 }
-function precalcOthers(sim){ var ret=[]; var buf=null;
-	for(var i=0; i<sim.people.length; i++){
-		if(sim.people[i].ni.in == AL.personInTurn.ni.in){ ret.push(sim.people[i])}
-		else{ buf=mkOther(sim.people[i]); ret.push(buf)}
+function precalcObjs(sim){ var ret=[]; var buf=null;
+	for(var i=0; i<sim.subjs.length; i++){
+		if(sim.subjs[i].ni.in == AL.keySubj.ni.in){ ret.push(sim.subjs[i])}
+		else{ buf=mkObj(sim.subjs[i]); ret.push(buf)}
 		//console.log(ret);
 		//sim.people[i].ppl = ret;
 	}
-AL.personInTurn.ppl = ret}
+	AL.keySubj.agents = ret}
 function initTypeState( ty){
 	var tyState = getCoordinatesOfEssence("f5",ty.relSpace);
 	var tyState2= getCoordinatesOfEssence("e", ty.relSpace);
@@ -1116,7 +1123,7 @@ function getMood(pm,be){ var mood ="_";
 	var mo = mkMood(mood, OM.ab); return mo}
 
 //function MkPerson( sim,nat,male,)
-function mkPerson(sim,nat,male,w1,w2){
+function mkSubj(sim,nat,male,w1,w2){
 	var adult; if(w1==undefined){ adult =true} else if(w1==false){ adult =false}
 	var ni = dataInventFullName(nat,male,w1,w2);
 	ni.bE = calcBeing(male, adult, OM.ab.sexes);
@@ -1126,103 +1133,82 @@ function mkPerson(sim,nat,male,w1,w2){
 	var sPm = mkPrimalMood( AL.PrimalMoods.seed[Math.floor(Math.random()*(OM.ab.pMs.length))], OM.ab);
 	var pBe = calcBeing( ni.bE.male, ni.bE.adult, OM.ab);
 	var sBe = calcBeing(!ni.bE.male, random, 	OM.ab);
-	var ind = (sim.people.length + 10).toString(36).toUpperCase();
+	var ind = (sim.subjs.length + 10).toString(36).toUpperCase();
 	//initTypeState(ty);
-	var re = new Person(sim,ni,ty,pPm,sPm,pBe,sBe,ind); return re}
-function mkPerson2(pe){
+	var re = new Subj(sim,ni,ty,pPm,sPm,pBe,sBe,ind); return re}
+function mkSubj2(pe){
 	pe.pMo =getMood( pe.pMo.pM, pe.pMo.bE); pe.mo = pe.pMo;
 	pe.sMo =getMood( pe.sMo.pM, pe.sMo.bE);
 	mkMosaic(pe, false);
 	if(pe.mo.bE.male){
-		pe.ni.mX = pe.ni.bE.reso;
+		pe.ni.mX = (3*pe.ni.bE.reso)+1;
 		pe.ni.mY = pe.ni.bE.reso}
 	else{
 		pe.ni.mX = pe.ni.bE.reso;
 		pe.ni.mY = (3*pe.ni.bE.reso)+1}}
-function mkOther(pe){	var ni= _.cloneDeep(pe.ni);
+function mkObj(pe){	var ni= _.cloneDeep(pe.ni);
+					var ty= _.cloneDeep(pe.ty);
+					var pMo=_.cloneDeep(pe.pMo);
+					var sMo=_.cloneDeep(pe.sMo);
+					if(pe.mo == pe.pMo){ var mo =pMo} else if(pe.mo == pe.sMo){ var mo =sMo}
+					var re= new Obj(ni,ty,mo,pMo,sMo);  return re}
+function mkObj2(pe){	mkMosaic(pe, true);
+	if(!pe.ni.bE.male){ pe.ni.mX += (2*pe.ni.bE.reso)+1;}
+	else { pe.ni.mX -= (2*pe.ni.bE.reso)+1}}
+function Obj(ni,ty,mo,pMo,sMo){
+	this.ni =ni; this.ty =ty; this.pMo=pMo; this.sMo=sMo; this.mo =mo; mkObj2(this)}
+function Subj(sim,ni,ty,pPm,sPm,pBe,sBe,ind){ this.sim=sim; this.ni =ni; this.ty =ty; this.ni.in =ind;
+	this.pMo ={pM:pPm, bE:pBe}; this.sMo ={pM:sPm, bE:sBe}; mkSubj2(this);}
+/*function copyPerson(pe){var ni= _.cloneDeep(pe.ni);
 						var ty= _.cloneDeep(pe.ty);
 						var pMo=_.cloneDeep(pe.pMo);
 						var sMo=_.cloneDeep(pe.sMo);
 						if(pe.mo == pe.pMo){ var mo =pMo} else if(pe.mo == pe.sMo){ var mo =sMo}
-						var re= new Other(ni,ty,mo,pMo,sMo);  return re}
-function mkOther2(pe){	mkMosaic(pe, true);	pe.ni.mX += (2*pe.ni.bE.reso)+1;}
-function Other(ni,ty,mo,pMo,sMo){ this.ni =ni; this.ty =ty; this.pMo=pMo; this.sMo=sMo; this.mo =mo; mkOther2(this)}
-function Person(sim,ni,ty,pPm,sPm,pBe,sBe,ind){ this.sim=sim; this.ni =ni; this.ty =ty; this.ni.in =ind;
-	this.pMo ={pM:pPm, bE:pBe}; this.sMo ={pM:sPm, bE:sBe}; mkPerson2(this);}
-function copyPerson(pe){var ni= _.cloneDeep(pe.ni);
-						var ty= _.cloneDeep(pe.ty);
-						var pMo=_.cloneDeep(pe.pMo);
-						var sMo=_.cloneDeep(pe.sMo);
-						if(pe.mo == pe.pMo){ var mo =pMo} else if(pe.mo == pe.sMo){ var mo =sMo}
-						var re= new Person(ni,ty,mo,pMo,sMo);  return re}
+						var re= new Person(ni,ty,mo,pMo,sMo);  return re}*/
 
 // devBar usage: 
 
 function interleaveDomains(R,lM,rM) { var r = (2*R)+1; var X = 2*r; var Y = r; var m = mkNullMatrix(Y,X);
 	for(var y=0; y<Y; y++){	for(var x=0; x<X; x++) { if(x<r) { m[y][x] = lM[y][x] }
 													 else 	 { m[y][x] = rM[y][x-r] }}} return m }
-function mkMosaic(pe,o){ var mC ={ };
-	if(!o){
-		if ( pe.mo.bE.male) {
-			mC.uL = pe.mo.qU;
-			mC.uR = mkXYPlaneTemplate( pe.mo.bE.reso,true);
-			for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.uR[n].reverse()}
-			//mC.dL = mkXYPlaneTemplate( pe.mo.bE.reso,false);
-			mC.dL = pe.sMo.qU;
-			mC.dR = mkXYPlaneTemplate( pe.mo.bE.reso,false);
-			for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.dR[n].reverse()}
-			mC.u = interleaveDomains( pe.mo.bE.reso, mC.uL, mC.uR);
-			mC.d = interleaveDomains( pe.mo.bE.reso, mC.dL, mC.dR);
-			pe.ni.mC = mC.u.concat(mC.d);
-			}
-		else 				{
-			//mC.uL = mkXYPlaneTemplate( pe.mo.bE.reso,true);
-			mC.uL = pe.sMo.qU;
-			mC.uR = mkXYPlaneTemplate( pe.mo.bE.reso,true);
-			for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.uR[n].reverse()}
-			mC.dL = pe.mo.qU;
-			mC.dR = mkXYPlaneTemplate( pe.mo.bE.reso,false);
-			for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.dR[n].reverse()}
-			mC.u = interleaveDomains( pe.mo.bE.reso, mC.uL, mC.uR);
-			mC.d = interleaveDomains( pe.mo.bE.reso, mC.dL, mC.dR);
-			pe.ni.mC = mC.u.concat(mC.d)}}
-	else{
-		if ( pe.mo.bE.male) {
-			mC.uR = pe.mo.qU;
-			for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.uR[n].reverse()}
-			mC.uL = mkXYPlaneTemplate( pe.mo.bE.reso,true);
-			mC.dL = mkXYPlaneTemplate( pe.mo.bE.reso,false);
-			//mC.dR = mkXYPlaneTemplate( pe.mo.bE.reso,false);
-			mC.dR = pe.sMo.qU;
-			for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.dR[n].reverse()}
-			mC.u = interleaveDomains( pe.mo.bE.reso, mC.uL, mC.uR);
-			mC.d = interleaveDomains( pe.mo.bE.reso, mC.dL, mC.dR);
-			pe.ni.mC = mC.u.concat(mC.d);
-			}
-		else 				{
-			mC.uL = mkXYPlaneTemplate( pe.mo.bE.reso,true);
-			//mC.uR = mkXYPlaneTemplate( pe.mo.bE.reso,true);
-			mC.uR = pe.sMo.qU;
-			for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.uR[n].reverse()}
-			mC.dR = pe.mo.qU;
-			for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.dR[n].reverse()}
-			mC.dL = mkXYPlaneTemplate( pe.mo.bE.reso,false);
-			mC.u = interleaveDomains( pe.mo.bE.reso, mC.uL, mC.uR);
-			mC.d = interleaveDomains( pe.mo.bE.reso, mC.dL, mC.dR);
-			pe.ni.mC = mC.u.concat(mC.d)}}}
+function mkMosaic(pe){ var mC ={ };
+	if ( pe.mo.bE.male) {
+		mC.uR = pe.mo.qU;
+		mC.uL = mkXYPlane(pe.mo); // getMood( pe.pMo.pM, pe.pMo.bE); //mkXYPlaneTemplate( pe.mo.bE.reso,true);
+		console.log(mC.uL);
+		for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.uL[n].reverse()}
+		//mC.dL = mkXYPlaneTemplate( pe.mo.bE.reso,false);
+		mC.dL = pe.sMo.qU;
+		mC.dR = mkXYPlane(pe.sMo); //getMood( pe.sMo.pM, pe.sMo.bE); //mkXYPlaneTemplate( pe.mo.bE.reso,false);
+		for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.dR[n].reverse()}
+		mC.u = interleaveDomains( pe.mo.bE.reso, mC.uL, mC.uR);
+		mC.d = interleaveDomains( pe.mo.bE.reso, mC.dL, mC.dR);
+		pe.ni.mC = mC.u.concat(mC.d);
+		}
+	else 				{
+		//mC.uL = mkXYPlaneTemplate( pe.mo.bE.reso,true);
+		mC.uR = pe.sMo.qU;
+		mC.uL = mkXYPlane(pe.sMo); //mkXYPlaneTemplate( pe.mo.bE.reso,true);
+		for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.uL[n].reverse()}
+		mC.dL = pe.mo.qU;
+		mC.dR = mkXYPlane(pe.mo); //mkXYPlaneTemplate( pe.mo.bE.reso,false);
+		for(var n=0; n<2*pe.mo.bE.reso+1; n++){ mC.dR[n].reverse()}
+		mC.u = interleaveDomains( pe.mo.bE.reso, mC.uL, mC.uR);
+		mC.d = interleaveDomains( pe.mo.bE.reso, mC.dL, mC.dR);
+		pe.ni.mC = mC.u.concat(mC.d)}}
 
 
 function evalQuantity(ari){ var ret=null;
-	switch( ari ) { case "-X" 	: ret =function(R,X,Y){ return -X 	};break;
-					case "X" 	: ret =function(R,X,Y){ return X 	};break;
-					case "-Y" 	: ret =function(R,X,Y){ return -Y 	};break;
-					case "Y" 	: ret =function(R,X,Y){ return Y 	};break;
-					case "X - Y": ret =function(R,X,Y){ return X - Y};break;
-					case "Y - X": ret =function(R,X,Y){ return Y - X};break;
-					case "X - R": ret =function(R,X,Y){ return X - R};break;
-					case "R - X": ret =function(R,X,Y){ return R - X};break;
-					case "Y - R": ret =function(R,X,Y){ return Y - R};break;
-					case "R - Y": ret =function(R,X,Y){ return R - Y};break;} return ret}
+	switch( ari ) { case "-X" 	: ret =function(r,X,Y){ return -X 	};break;
+					case "X" 	: ret =function(r,X,Y){ return X 	};break;
+					case "-Y" 	: ret =function(r,X,Y){ return -Y 	};break;
+					case "Y" 	: ret =function(r,X,Y){ return Y 	};break;
+					case "X - Y": ret =function(r,X,Y){ return X - Y};break;
+					case "Y - X": ret =function(r,X,Y){ return Y - X};break;
+					case "X - r": ret =function(r,X,Y){ return X - r};break;
+					case "r - X": ret =function(r,X,Y){ return r - X};break;
+					case "Y - r": ret =function(r,X,Y){ return Y - r};break;
+					case "r - Y": ret =function(r,X,Y){ return r - Y};break;} return ret}
 function evalXYPlane(m){ var bK, gK, bQ, gQ =null;
 	bK =evalQuantity(m.bAriK); gK =evalQuantity(m.gAriK); bQ =evalQuantity(m.bAriQ); gQ =evalQuantity(m.gAriQ);
 	if(m.bE.male){ for(var y=0; y<2*m.bE.reso+1; y++){ for(var x=0; x<2*m.bE.reso+1; x++){
@@ -1285,6 +1271,11 @@ function blendColours(src,dst,r){ var buf=null; var ret=[];
 function chunkify(src,dst,r){ 	var min =Math.min(src,dst);	var max =Math.max(src,dst);
 								var range = max-min;		var chunk = Math.round(range/(r-1));
 	var ret=[];	for(var n=0; n<r; n++){ ret.push(n*chunk + min)} return ret}
+function mkBoolMatrix(y,x){	var q=[];
+	for(var n=0; n<y; n++){
+		q.push([]);
+		if(x){ for(var m=0; m<x; m++){	q[n].push(false)}}
+		else { for(var m=0; m<y; m++){	q[n].push(false)}}} return q}
 function mkNullMatrix(y,x){	var q=[];
 	for(var n=0; n<y; n++){
 		q.push([]);
@@ -1390,85 +1381,6 @@ function offsetUpwards( m,r){	var a=[];	for(var n=0; n<r; n++){	a.push(null)}	m.
 function offsetLeftwards( m,r) { 				for(var n=0; n<r; n++){ 				m[n].push(null)}}
 function connectHalfQuadrants(master,slave,r){
 	for(var y=0; y<r; y++){	for(var x=0; x<r; x++){	if(master[x][y]==null){ master[x][y] =slave[x][y]}}} return master}
-function mkXYPlaneTemplate(r,male){
-	var qU={ };
-	if(male){
-		qU.uLV = mkHalfQuadrantTemplate(ui.ora.l, true, r);
-		 	qU.uLV=rotate(qU.uLV, r);
-		qU.uLH = mkHalfQuadrantTemplate(ui.blu.l, false,r);
-			qU.uLH =flipDiagonal(rotate( qU.uLH, r-1), r-1);
-			offsetDownwards( qU.uLH, r-1);	offsetLeftwards( qU.uLH, r);
-		qU.uRV = mkHalfQuadrantTemplate(ui.red.l, true, r);
-			qU.uRV=flipDiagonal(qU.uRV, r);
-		qU.uRH = mkHalfQuadrantTemplate(ui.cya.l, false,r);
-			qU.uRH =rotate(rotate(qU.uRH, r-1), r-1);
-			offsetDownwards( qU.uRH, r-1); offsetRightwards( qU.uRH, r);
-		qU.dLV = mkHalfQuadrantTemplate(ui.yel.l, true, r);
-			qU.dLV =flipDiagonal(rotate(rotate(qU.dLV, r), r), r);
-		qU.dLH = mkHalfQuadrantTemplate(ui.vio.l, false,r);
-			offsetUpwards( qU.dLH, r-1); offsetLeftwards( qU.dLH, r);
-		qU.dRV = mkHalfQuadrantTemplate(ui.lil.l, true, r);
-			qU.dRV =rotate(rotate(rotate(qU.dRV, r), r), r);
-		qU.dRH = mkHalfQuadrantTemplate(ui.gre.l, false,r);
-			qU.dRH =flipDiagonal(rotate(rotate(rotate( qU.dRH, r-1), r-1), r-1), r-1);
-			offsetUpwards( qU.dRH, r-1); offsetRightwards( qU.dRH, r);
-
-		qU.uL = connectHalfQuadrants( qU.uLV, qU.uLH, r);
-		qU.uR = connectHalfQuadrants( qU.uRV, qU.uRH, r);
-		qU.dL = connectHalfQuadrants( qU.dLV, qU.dLH, r);
-		qU.dR = connectHalfQuadrants( qU.dRV, qU.dRH, r);
-
-		qU.u = mkXYColumn( ui.gra.l, r);
-		qU.d = mkXYColumn( ui.gra.l, r);
-		qU.l = mkXYRow( ui.gra.h, r);
-		qU.r = mkXYRow( ui.gra.h, r);
-		qU.c =[{ h: ui.gra.f.h, s: ui.gra.f.s, v: ui.gra.f.v}];
-
-		qU.U = interleaveQuadrants( r, qU.uL, 	qU.u, 	qU.uR);
-		qU.C = [qU.l.concat( qU.c).concat(qU.r)]; 					
-		qU.D = interleaveQuadrants( r, qU.dL, 	qU.d, 	qU.dR);
-
-		qU = qU.U.concat( qU.C).concat( qU.D);
-	}
-	else {
-		qU.uLH = mkHalfQuadrantTemplate(ui.yel.l, true, r);
-			qU.uLH =flipDiagonal(rotate( qU.uLH, r), r);
-		qU.uLV = mkHalfQuadrantTemplate(ui.vio.l, false, r);
-			qU.uLV =rotate( qU.uLV,r-1);
-			offsetRightwards( qU.uLV, r-1); offsetUpwards( qU.uLV, r);
-		qU.uRH = mkHalfQuadrantTemplate(ui.ora.l, true, r);
-			qU.uRH =rotate(rotate( qU.uRH, r), r);
-		qU.uRV = mkHalfQuadrantTemplate(ui.blu.l, false, r);
-			qU.uRV =flipDiagonal( qU.uRV, r-1);
-			offsetLeftwards( qU.uRV, r-1); offsetUpwards( qU.uRV, r);
-		qU.dLH = mkHalfQuadrantTemplate(ui.lil.l, true, r);
-		qU.dLV = mkHalfQuadrantTemplate(ui.gre.l, false,r);
-			qU.dLV =flipDiagonal(rotate(rotate( qU.dLV, r-1), r-1), r-1);
-			offsetRightwards( qU.dLV, r-1); offsetDownwards( qU.dLV, r);
-		qU.dRH = mkHalfQuadrantTemplate(ui.red.l, true, r);
-			qU.dRH =flipDiagonal(rotate(rotate(rotate( qU.dRH, r), r), r), r);
-		qU.dRV = mkHalfQuadrantTemplate(ui.cya.l, false, r);
-			qU.dRV =rotate(rotate(rotate( qU.dRV, r-1), r-1), r-1);
-			offsetLeftwards( qU.dRV, r-1); offsetDownwards( qU.dRV, r);
-
-		qU.uL = connectHalfQuadrants( qU.uLV, qU.uLH, r);
-		qU.uR = connectHalfQuadrants( qU.uRV, qU.uRH, r);
-		qU.dL = connectHalfQuadrants( qU.dLV, qU.dLH, r);
-		qU.dR = connectHalfQuadrants( qU.dRV, qU.dRH, r);
-
-		qU.u = mkXYColumn( ui.gra.h, r);
-		qU.d = mkXYColumn( ui.gra.h, r);
-		qU.l = mkXYRow( ui.gra.l, r);
-		qU.r = mkXYRow( ui.gra.l, r);
-		qU.c =[{ h: ui.gra.f.h, s: ui.gra.f.s, v: ui.gra.f.v}];
-
-		qU.U = interleaveQuadrants( r, qU.uL, 	qU.u, 	qU.uR);
-		qU.C = [qU.l.concat( qU.c).concat(qU.r)]; 					
-		qU.D = interleaveQuadrants( r, qU.dL, 	qU.d, 	qU.dR);
-
-		qU = qU.U.concat( qU.C).concat( qU.D);	
-	}
-	return qU}
 function mkXYPlane(m){
 	var qU={ uLH:null,uLV:null,uRH:null,uRV:null,l:null,c:null,r:null,dLH:null,dLV:null,d:null,dRH:null,dRV:null,
 		uL:null, uR:null, dL:null, dR:null};
@@ -1511,23 +1423,23 @@ function mkXYPlane(m){
 		qU = qU.U.concat( qU.C).concat( qU.D);
 		}
 	else{
-		qU.uLH = mkHalfQuadrant(ui.yel, true, m.bE.reso, m.goodForm);
+		qU.uLH = mkHalfQuadrant(ui.ora, true, m.bE.reso, m.goodForm);
 			qU.uLH =flipDiagonal(rotate( qU.uLH,m.bE.reso), m.bE.reso);
-		qU.uLV = mkHalfQuadrant(ui.vio, false,m.bE.reso, m.badForm);
+		qU.uLV = mkHalfQuadrant(ui.blu, false,m.bE.reso, m.badForm);
 			qU.uLV =rotate( qU.uLV,m.bE.reso-1);
 			offsetRightwards( qU.uLV, m.bE.reso-1); offsetUpwards( qU.uLV, m.bE.reso);
-		qU.uRH = mkHalfQuadrant(ui.ora, true, m.bE.reso, m.goodForm);
+		qU.uRH = mkHalfQuadrant(ui.yel, true, m.bE.reso, m.goodForm);
 			qU.uRH =rotate(rotate( qU.uRH, m.bE.reso), m.bE.reso);
-		qU.uRV = mkHalfQuadrant(ui.blu, false,m.bE.reso, m.badForm);
+		qU.uRV = mkHalfQuadrant(ui.vio, false,m.bE.reso, m.badForm);
 			qU.uRV =flipDiagonal( qU.uRV, m.bE.reso-1);
 			offsetLeftwards( qU.uRV, m.bE.reso-1); offsetUpwards( qU.uRV, m.bE.reso);
-		qU.dLH = mkHalfQuadrant(ui.lil, true, m.bE.reso, m.goodForm);
-		qU.dLV = mkHalfQuadrant(ui.gre, false,m.bE.reso, m.badForm);
+		qU.dLH = mkHalfQuadrant(ui.red, true, m.bE.reso, m.goodForm);
+		qU.dLV = mkHalfQuadrant(ui.cya, false,m.bE.reso, m.badForm);
 			qU.dLV =flipDiagonal(rotate(rotate( qU.dLV, m.bE.reso-1), m.bE.reso-1), m.bE.reso-1);
 			offsetRightwards( qU.dLV, m.bE.reso-1); offsetDownwards( qU.dLV, m.bE.reso);
-		qU.dRH = mkHalfQuadrant(ui.red, true, m.bE.reso, m.goodForm);
+		qU.dRH = mkHalfQuadrant(ui.lil, true, m.bE.reso, m.goodForm);
 			qU.dRH =flipDiagonal(rotate(rotate(rotate( qU.dRH, m.bE.reso), m.bE.reso), m.bE.reso), m.bE.reso);
-		qU.dRV = mkHalfQuadrant(ui.cya, false,m.bE.reso, m.badForm);
+		qU.dRV = mkHalfQuadrant(ui.gre, false,m.bE.reso, m.badForm);
 			qU.dRV =rotate(rotate(rotate( qU.dRV, m.bE.reso-1),m.bE.reso-1),m.bE.reso-1);
 			offsetLeftwards( qU.dRV, m.bE.reso-1); offsetDownwards( qU.dRV, m.bE.reso);
 
@@ -1548,38 +1460,38 @@ function mkXYPlane(m){
 
 		qU = qU.U.concat( qU.C).concat( qU.D);
 		}
-	m.qU = qU}
+	return qU}
 function parseModalForm(m){ var h=""; var v="";
 	if(!m.bE.male){
 		m.goodForm.forEach( function(s){ h=h+s});
 		m.badForm.forEach(  function(s){ v=v+s});
-		switch( h){ case 'abc': m.gMF = "α, β, γ"; 			m.gAriQ = "Y"; 			m.gAriK = "X - Y"; 		break;
-					case 'acb': m.gMF = "α, γ, β"; 			m.gAriQ = "X - Y"; 		m.gAriK = "Y"; 			break;
-					case 'bac': m.gMF = "β, α, γ";			m.gAriQ = "Y"; 			m.gAriK = "R - X";		break;
-					case 'bca': m.gMF = "β, γ, α";			m.gAriQ = "X - Y"; 		m.gAriK = "R - X";		break;
-					case 'cab': m.gMF = "γ, α, β";			m.gAriQ = "R - X"; 		m.gAriK = "Y";			break;
-					case 'cba': m.gMF = "γ, β, α";			m.gAriQ = "R - X"; 		m.gAriK = "X - Y";		}
-		switch( v){ case 'abc': m.bMF = "α', β', γ'";		m.bAriQ = "-X"; 		m.bAriK = "X - Y";		break;
-					case 'acb': m.bMF = "α', γ', β'";		m.bAriQ = "X - Y"; 		m.bAriK = "-X";			break;
-					case 'bac': m.bMF = "β', α', γ'";		m.bAriQ = "-X"; 		m.bAriK = "Y - R";		break;
-					case 'bca': m.bMF = "β', γ', α'";		m.bAriQ = "X - Y"; 		m.bAriK = "Y - R";		break;
-					case 'cab': m.bMF = "γ', α', β'";		m.bAriQ = "Y - R"; 		m.bAriK = "-X";			break;
-					case 'cba': m.bMF = "γ', β', α'";		m.bAriQ = "Y - R"; 		m.bAriK = "X - Y";		}}
+		switch( h){ case 'abc': m.gMF = "α,β,γ"; 			m.gAriQ = "Y"; 			m.gAriK = "X - Y"; 		break;
+					case 'acb': m.gMF = "α,γ,β"; 			m.gAriQ = "X - Y"; 		m.gAriK = "Y"; 			break;
+					case 'bac': m.gMF = "β,α,γ";			m.gAriQ = "Y"; 			m.gAriK = "r - X";		break;
+					case 'bca': m.gMF = "β,γ,α";			m.gAriQ = "X - Y"; 		m.gAriK = "r - X";		break;
+					case 'cab': m.gMF = "γ,α,β";			m.gAriQ = "r - X"; 		m.gAriK = "Y";			break;
+					case 'cba': m.gMF = "γ,β,α";			m.gAriQ = "r - X"; 		m.gAriK = "X - Y";		}
+		switch( v){ case 'abc': m.bMF = "α',β',γ'";		m.bAriQ = "-X"; 		m.bAriK = "X - Y";		break;
+					case 'acb': m.bMF = "α',γ',β'";		m.bAriQ = "X - Y"; 		m.bAriK = "-X";			break;
+					case 'bac': m.bMF = "β',α',γ'";		m.bAriQ = "-X"; 		m.bAriK = "Y - r";		break;
+					case 'bca': m.bMF = "β',γ',α'";		m.bAriQ = "X - Y"; 		m.bAriK = "Y - r";		break;
+					case 'cab': m.bMF = "γ',α',β'";		m.bAriQ = "Y - r"; 		m.bAriK = "-X";			break;
+					case 'cba': m.bMF = "γ',β',α'";		m.bAriQ = "Y - r"; 		m.bAriK = "X - Y";		}}
 	else{
 		m.badForm.forEach(  function(s){ h=h+s});
 		m.goodForm.forEach( function(s){ v=v+s});
-		switch( v){ case 'abc': m.gMF = "α, β, γ"; 			m.gAriQ = "X"; 			m.gAriK = "Y - X"; 		break;
-					case 'acb': m.gMF = "α, γ, β"; 			m.gAriQ = "Y - X"; 		m.gAriK = "X"; 			break;
-					case 'bac': m.gMF = "β, α, γ";			m.gAriQ = "X"; 			m.gAriK = "R - Y";		break;
-					case 'bca': m.gMF = "β, γ, α";			m.gAriQ = "Y - X"; 		m.gAriK = "R - Y";		break;
-					case 'cab': m.gMF = "γ, α, β";			m.gAriQ = "R - Y"; 		m.gAriK = "X";			break;
-					case 'cba': m.gMF = "γ, β, α";			m.gAriQ = "R - Y"; 		m.gAriK = "Y - X";		}
-		switch( h){ case 'abc': m.bMF = "α', β', γ'";		m.bAriQ = "-Y"; 		m.bAriK = "Y - X";		break;
-					case 'acb': m.bMF = "α', γ', β'";		m.bAriQ = "Y - X"; 		m.bAriK = "-Y";			break;
-					case 'bac': m.bMF = "β', α', γ'";		m.bAriQ = "-Y"; 		m.bAriK = "X - R";		break;
-					case 'bca': m.bMF = "β', γ', α'";		m.bAriQ = "Y - X"; 		m.bAriK = "X - R";		break;
-					case 'cab': m.bMF = "γ', α', β'";		m.bAriQ = "X - R"; 		m.bAriK = "-Y";			break;
-					case 'cba': m.bMF = "γ', β', α'";		m.bAriQ = "X - R"; 		m.bAriK = "Y - X";		}}
+		switch( v){ case 'abc': m.gMF = "α,β,γ"; 			m.gAriQ = "X"; 			m.gAriK = "Y - X"; 		break;
+					case 'acb': m.gMF = "α,γ,β"; 			m.gAriQ = "Y - X"; 		m.gAriK = "X"; 			break;
+					case 'bac': m.gMF = "β,α,γ";			m.gAriQ = "X"; 			m.gAriK = "r - Y";		break;
+					case 'bca': m.gMF = "β,γ,α";			m.gAriQ = "Y - X"; 		m.gAriK = "r - Y";		break;
+					case 'cab': m.gMF = "γ,α,β";			m.gAriQ = "r - Y"; 		m.gAriK = "X";			break;
+					case 'cba': m.gMF = "γ,β,α";			m.gAriQ = "r - Y"; 		m.gAriK = "Y - X";		}
+		switch( h){ case 'abc': m.bMF = "α',β',γ'";		m.bAriQ = "-Y"; 		m.bAriK = "Y - X";		break;
+					case 'acb': m.bMF = "α',γ',β'";		m.bAriQ = "Y - X"; 		m.bAriK = "-Y";			break;
+					case 'bac': m.bMF = "β',α',γ'";		m.bAriQ = "-Y"; 		m.bAriK = "X - r";		break;
+					case 'bca': m.bMF = "β',γ',α'";		m.bAriQ = "Y - X"; 		m.bAriK = "X - r";		break;
+					case 'cab': m.bMF = "γ',α',β'";		m.bAriQ = "X - r"; 		m.bAriK = "-Y";			break;
+					case 'cba': m.bMF = "γ',β',α'";		m.bAriQ = "X - r"; 		m.bAriK = "Y - X";		}}
 	if(h==v){ m.symm=true} else{ m.symm=false}}
 function modalFlip(mf,f){ var ret=[];
 	mf.forEach( function(mf){ ret.push(mf)});
@@ -1587,7 +1499,6 @@ function modalFlip(mf,f){ var ret=[];
 				case 2: ret[1]=mf[2]; ret[2]=mf[1]; break;
 				case 3: ret[0]=mf[2]; ret[2]=mf[0]} return(ret)}
 function getModalFormByPrimalMood(m){
-	//console.log(m);
 	if(!m.pM.head){ m.goodForm =modalFlip(m.goodForm,2)}
 	for(let n=0; n < m.pM.tail.length; n++){
 		switch(m.pM.tail[n]){  	case "-": 	m.badForm =modalFlip(m.badForm,1); break;
@@ -1612,7 +1523,7 @@ function mkMood2(mo){
 	getModalFormByBeing(mo, mo.bE.ni);
 	getModalFormByPrimalMood(mo);
 	parseModalForm(mo);
-	mkXYPlane(mo);
+	mo.qU =mkXYPlane(mo);
 	mapXYPlane(mo.qU, mo.bE.reso);
 	evalXYPlane(mo)}
 OM.AL.Moods={ seed : [
@@ -1782,7 +1693,7 @@ OM.AL.Sociotypes={ seed:["ISFR","ISFC","ISTR","ISTC","INFR","INFC","INTR","INTC"
 	ESFC:function( ni){ this.ni=ni; this.ie=true; this.sn=false;this.ft=false;this.cr=false;this.zo="Zebra"},
 	ESFR:function( ni){ this.ni=ni; this.ie=true; this.sn=false;this.ft=false;this.cr=true; this.zo="Turtle"},
 	ESTC:function( ni){ this.ni=ni; this.ie=true; this.sn=false;this.ft=true; this.cr=false;this.zo="Hippo"},
-	ESTR:function( ni){ this.ni=ni; this.ie=true; this.sn=false;this.ft=true; this.cr=true; this.zo="Tiger"},
+	ESTR:function( ni){ this.ni=ni; this.ie=true; this.sn=false;this.ft=true; this.cr=true; this.zo="Monkey"},
 	ENFC:function( ni){ this.ni=ni; this.ie=true; this.sn=true; this.ft=false;this.cr=false;this.zo="Nightingale"},
 	ENFR:function( ni){ this.ni=ni; this.ie=true; this.sn=true; this.ft=false;this.cr=true; this.zo="Swan"},
 	ENTC:function( ni){ this.ni=ni; this.ie=true; this.sn=true; this.ft=true; this.cr=false;this.zo="Piranha"},
@@ -2036,41 +1947,46 @@ function shuffle(a) {
 }
 
 
+function getAvailableMoves(pe){
+	var moves=mkBoolMatrix( 4*pe.ni.bE.reso+2);
+	console.log(pe);
+}
 function initTurn(sim){
-	sim.personInTurn.mCppl = mkNullMatrix( 4*sim.personInTurn.ni.bE.reso+2);
-	for(var n=0; n<sim.personInTurn.ppl.length; n++){ populateMosaic(sim.personInTurn, sim.personInTurn.ppl[n])}}
+	sim.keySubj.agentMc = mkNullMatrix( 4*sim.keySubj.ni.bE.reso+2);
+	sim.availableMoves = getAvailableMoves(sim.keySubj);
+	for(var n=0; n<sim.keySubj.agents.length; n++){ populateMosaic(sim.keySubj, sim.keySubj.agents[n])}}
 function attemptMove( mX, mY, preview){
-	if(AL.personInTurn.mo.bE.male&&mX<2*AL.personInTurn.mo.bE.reso+1&&mY<2*AL.personInTurn.mo.bE.reso+1) {
-		var mvX= mX -AL.personInTurn.mo.bE.reso;
-		var mvY= mY -AL.personInTurn.mo.bE.reso;
+	if(AL.keySubj.mo.bE.male&&mX<2*AL.keySubj.mo.bE.reso+1&&mY<2*AL.keySubj.mo.bE.reso+1) {
+		var mvX= mX -AL.keySubj.mo.bE.reso;
+		var mvY= mY -AL.keySubj.mo.bE.reso;
 		if( preview){ previewMove( AL.sim, mX, mY, mvX, mvY);return false}
-		else 		{ movePeople ( AL.sim, mX, mY, mvX, mvY);return true }}
-	else if(!AL.personInTurn.mo.bE.male&& mX<2*AL.personInTurn.mo.bE.reso+1&&mY>2*AL.personInTurn.mo.bE.reso){
-		var mvX=mX -AL.personInTurn.mo.bE.reso;
-		var mvY=mY -((AL.personInTurn.mo.bE.reso*3)+1);
+		else 		{ moveAgents ( AL.sim, mX, mY, mvX, mvY);return true }}
+	else if(!AL.keySubj.mo.bE.male&& mX<2*AL.keySubj.mo.bE.reso+1&&mY>2*AL.keySubj.mo.bE.reso){
+		var mvX=mX -AL.keySubj.mo.bE.reso;
+		var mvY=mY -((AL.keySubj.mo.bE.reso*3)+1);
 		if( preview){ previewMove( AL.sim, mX, mY, mvX, mvY);return false}
-		else 		{ movePeople ( AL.sim, mX, mY, mvX, mvY);return true }}
+		else 		{ moveAgents ( AL.sim, mX, mY, mvX, mvY);return true }}
 	return false}
 function previewMove( sim, mX, mY, mvX, mvY){
 	/*sim.personInTurn.mCpreview = sim.personInTurn.mCppl;*/
 }
-function movePeople ( sim, mX, mY, mvX, mvY){
+function moveAgents( sim, mX, mY, mvX, mvY){
 	console.log("BREAK");
-	sim.personInTurn.ppl.forEach(function(p){
-		if(p.ni.in == sim.personInTurn.ni.in){ p.ni.mX =mX; p.ni.mY =mY}
+	sim.keySubj.agents.forEach(function(p){
+		if(p.ni.in == sim.keySubj.ni.in){ p.ni.mX =mX; p.ni.mY =mY}
 		else{
-			p.ni.mX+=mvX; while( p.ni.mX < 0){ p.ni.mX += 4*AL.personInTurn.ni.bE.reso+2}
-			while( p.ni.mX>= 4*AL.personInTurn.ni.bE.reso+2){ p.ni.mX -= 4*AL.personInTurn.ni.bE.reso+2}
-			p.ni.mY+=mvY; while( p.ni.mY < 0){ p.ni.mY += 4*AL.personInTurn.ni.bE.reso+2}
-			while( p.ni.mY >= 4*AL.personInTurn.ni.bE.reso+2){ p.ni.mY -= 4*AL.personInTurn.ni.bE.reso+2}}});
-	sim.people.forEach(function(p){
-		console.log(p.ppl);
-		if(p.ni.in == sim.personInTurn.ni.in){ p.ni.mX =mX; p.ni.mY =mY}
+			p.ni.mX+=mvX; while( p.ni.mX < 0){ p.ni.mX += 4*AL.keySubj.ni.bE.reso+2}
+			while( p.ni.mX>= 4*AL.keySubj.ni.bE.reso+2){ p.ni.mX -= 4*AL.keySubj.ni.bE.reso+2}
+			p.ni.mY+=mvY; while( p.ni.mY < 0){ p.ni.mY += 4*AL.keySubj.ni.bE.reso+2}
+			while( p.ni.mY >= 4*AL.keySubj.ni.bE.reso+2){ p.ni.mY -= 4*AL.keySubj.ni.bE.reso+2}}});
+	sim.subjs.forEach(function(p){
+		console.log(p.agents);
+		if(p.ni.in == sim.keySubj.ni.in){ p.ni.mX =mX; p.ni.mY =mY}
 		else{
-			p.ni.mX+=mvX; while( p.ni.mX < 0){ p.ni.mX += 4*AL.personInTurn.ni.bE.reso+2}
-			while( p.ni.mX>= 4*AL.personInTurn.ni.bE.reso+2){ p.ni.mX -= 4*AL.personInTurn.ni.bE.reso+2}
-			p.ni.mY+=mvY; while( p.ni.mY < 0){ p.ni.mY += 4*AL.personInTurn.ni.bE.reso+2}
-			while( p.ni.mY >= 4*AL.personInTurn.ni.bE.reso+2){ p.ni.mY -= 4*AL.personInTurn.ni.bE.reso+2}}
+			p.ni.mX+=mvX; while( p.ni.mX < 0){ p.ni.mX += 4*AL.keySubj.ni.bE.reso+2}
+			while( p.ni.mX>= 4*AL.keySubj.ni.bE.reso+2){ p.ni.mX -= 4*AL.keySubj.ni.bE.reso+2}
+			p.ni.mY+=mvY; while( p.ni.mY < 0){ p.ni.mY += 4*AL.keySubj.ni.bE.reso+2}
+			while( p.ni.mY >= 4*AL.keySubj.ni.bE.reso+2){ p.ni.mY -= 4*AL.keySubj.ni.bE.reso+2}}
 		//precalcOthers(sim.people);
 		/*p.ppl.forEach(function(P){
 			if(P.ni.in == sim.personInTurn.ni.in){ P.ni.mX =mX; P.ni.mY =mY}
@@ -2085,46 +2001,45 @@ function movePeople ( sim, mX, mY, mvX, mvY){
 	clearScreen();
 	draw();}
 
-function populateMosaic(person,other){
-	//console.log(person);
-	if(!Array.isArray(person.mCppl[ other.ni.mY][other.ni.mX])) { person.mCppl[ other.ni.mY][other.ni.mX]=[]}
-	person.mCppl[ other.ni.mY][other.ni.mX].push(other)}
+function populateMosaic(subj,obj){
+	if(!Array.isArray(subj.agentMc[ obj.ni.mY][obj.ni.mX])) { subj.agentMc[ obj.ni.mY][obj.ni.mX]=[]}
+	subj.agentMc[ obj.ni.mY][obj.ni.mX].push(obj)}
 function processSubTurn(sim,mX,mY){
-	if(sim.subTurn<sim.people.length-1){
+	if(sim.subTurn<sim.subjs.length-1){
 		sim.subTurn++;
-		sim.personInTurn =sim.people[sim.subTurn]}
+		sim.keySubj =sim.subjs[sim.subTurn]}
 	else{
 		sim.subTurn=0;
 		sim.turn++;
-		sim.personInTurn =sim.people[sim.subTurn]}
+		sim.keySubj =sim.subjs[sim.subTurn]}
 	//console.log(sim.personInTurn);
-	AL.personInTurn = sim.personInTurn;
-	precalcOthers( AL.sim);
+	AL.keySubj = sim.keySubj;
+	precalcObjs( AL.sim);
 
 	//console.log(AL.personInTurn);
 	initTurn( AL.sim);
 	clearScreen();
 	draw();}
 	
-function orderPeople(sim){
+function orderSubjs(sim){
 	var arr=[];
-	sim.people.forEach( function(p){ arr.push(p)});
+	sim.subjs.forEach( function(p){ arr.push(p)});
 	arr =shuffle(arr);
-	sim.personInTurn =arr[0];
+	sim.keySubj =arr[0];
 	return arr}
-function Simulation(ppl){
-	this.people=ppl; this.events=[]; this.turn=0; this.subTurn=0;
-	orderPeople(this); OM.re.sims.push(this); this.in=OM.re.sims.length-1;}
+function Simulation(agents){
+	this.subjs=agents; this.events=[]; this.turn=0; this.subTurn=0;
+	orderSubjs(this); OM.re.sims.push(this); this.in=OM.re.sims.length-1;}
 /*function precalcSims(ppl){
 	OM.re.sims =[];
 	var buf = new Simulation(ppl)}*/
-function Simulation2(){ this.people=[]; this.events=[]; this.turn=0; this.subTurn=0;
+function Simulation2(){ this.subjs=[]; this.events=[]; this.turn=0; this.subTurn=0;
 	OM.re.sims.push(this); this.in=OM.re.sims.length-1;}
 function precalcSims(){ var b=null; var a=[];
 	b= new Simulation2();
-	precalcPeople(b);
+	precalcSubjs(b);
 	//b.personInTurn = b.people[0];
-	b.queue = orderPeople(b)}
+	b.queue = orderSubjs(b)}
 
 function precalc() {	OM.ab.IEs 		=precalcInformationElements( OM.AL.IEs.seed);
 						OM.ab.absSpace 	=precalcSocionicsMetaphysics( OM.ab.IEs);
@@ -2142,31 +2057,31 @@ function precalc() {	OM.ab.IEs 		=precalcInformationElements( OM.AL.IEs.seed);
 
 						precalcSims();
 						AL.sim 			=OM.re.sims[0];
-						AL.personInTurn =AL.sim.personInTurn;
+						AL.keySubj 		=AL.sim.keySubj;
 						
-						//precalcPeople();
-						AL.pE = AL.sim.people[0];
-						AL.ni = AL.sim.people[0].ni;
-						AL.tY = AL.sim.people[0].ty;
-						AL.mO = AL.sim.people[0].mo;
-						AL.bE = AL.sim.people[0].mo.bE;
-						AL.pM = AL.sim.people[0].mo.pM;
-						AL.pMo= AL.sim.people[0].mo;
-						AL.pBe= AL.sim.people[0].mo.bE;
-						AL.pPm= AL.sim.people[0].mo.pM;
-						AL.sMo= AL.sim.people[0].sMo;
-						AL.sBe= AL.sim.people[0].sMo.bE;
-						AL.sPm= AL.sim.people[0].sMo.pM;
-						AL.mC = AL.sim.people[0].ni.mC;
+						AL.pE = AL.sim.subjs[0];
+						AL.ni = AL.sim.subjs[0].ni;
+						AL.tY = AL.sim.subjs[0].ty;
+						AL.mO = AL.sim.subjs[0].mo;
+						AL.bE = AL.sim.subjs[0].mo.bE;
+						AL.pM = AL.sim.subjs[0].mo.pM;
+						AL.pMo= AL.sim.subjs[0].mo;
+						AL.pBe= AL.sim.subjs[0].mo.bE;
+						AL.pPm= AL.sim.subjs[0].mo.pM;
+						AL.sMo= AL.sim.subjs[0].sMo;
+						AL.sBe= AL.sim.subjs[0].sMo.bE;
+						AL.sPm= AL.sim.subjs[0].sMo.pM;
+						AL.mC = AL.sim.subjs[0].ni.mC;
 
 						//precalcSims( OM.re.people);
 						
 						
 
-						precalcOthers( OM.re.sims[0]);
+						precalcObjs( OM.re.sims[0]);
 						initTurn( AL.sim);
 
 						console.log(OM);
+						console.log(AL.keySubj);
 
 						}
 
