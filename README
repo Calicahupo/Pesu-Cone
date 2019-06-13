@@ -1,67 +1,7 @@
-SOCIONICS MODEL M
+This program is meant to facilitate hundreds of parallel simulations of several subjects which are controlled by an artificial intelligence. The artificial intelligence is based on an unprecedented metaphysical theory which incorporates Jungian psychology, Leary's Eight-Circuit Model of Consciousness and the Analytic Metaphysics Of Quality. This theory is so complex that it can hardly be verified by any other means.
 
-This application is supposed to introduce Socionics Model M to the user.
-It is far from complete. However, Model M itself appears to be complete.
+If the underlying theory can be verified by using this program it will also become possible to use the program to predict the outcomes of specific social situations. After this stage has been reached the program can be developed to simulate the spontaneous behavior of humans or animals in a virtual reality. Only then will a normal person become able to understand the relevance of the program. Before that, it is of interest only to those who have a knack for theoretical science.
 
-***
+The author began this project in 2003, at the age of sixteen, upon reading "Zen and the Art of Motorcycle Maintenance" by Robert Pirsig. Thereafter the author has proved Pirsig's original metaphysics to be inconsistent and presented an improvement. The author has also presented a provably consistent, complete and decidable arithmetic which includes negative numbers and subtraction, and a solution to the problem of induction, which is currently in peer-review.
 
-Types of MODEL M
-
-Some types of Model A have been renamed. Specifically, each perceiving
-extrovert of Model A has been renamed as an introvert, and each perceiving
-introvert of Model A has been renamed as an extrovert. This modification
-is necessary because the Information Elements have been modified. A list
-of renamed types:
-
- MODEL A    MODEL M
-ENTp    -> INTp
-ISFp    -> ESFp
-INFp    -> ENFp
-ESTp    -> ISTp
-INTp    -> ENTp
-ESFp    -> ISFp
-ISTp    -> ESTp
-ENFp    -> INFp
-
-***
-
-Information Elements
-
- MODEL A        MODEL M
-Se             Si !
-Si             Se !
-Fi             Fi
-Fe             Fe
-Ti             Ti
-Te             Te
-Ne             Ni !
-Ni             Ne !
-
-***
-
-Logical Progression Chart MODEL M
-
-This chart defines relations between types.
-Deviations from Model A are marked by !
-
- ALTERED VARIABLES         RELATIONSHIP          EXAMPLE
-NONE                      IDENTICAL             ENTp - ENTp
-1st                       CONTRARY              ENTp - INTp
-1st, 2nd          IF -p,  SEMI-DUAL             ENTp - ISTp
-                  IF -j,  ILLUSIONARY           ENTj - ISTj
-1st, 3rd          IF –p,  ILLUSIONARY           ENTp - INFp
-                  IF –j,  SEMI-DUAL             ENTj - INFj
-1st, 4th                  QUASI-IDENTICAL       ENTp - INTj !
-1st, 2nd, 3rd             DUAL                  ENTp - ISFp
-1st, 2nd, 4th             -j BENEFACTOR TO –p   ENTp < ISTj !
-1st, 3rd, 4th             -p BENEFACTOR TO –j   ENTp > INFj !
-1st, 2nd, 3rd, 4th        ACTIVE                ENTp - ISFj !
-2nd               IF –p,  LOOK-A-LIKE           ENTp - ESTp
-                  IF -j,  COMPARATIVE           ENTj - ESTj
-2nd, 3rd                  SUPER-EGO             ENTp - ESFp
-2nd, 4th                  -p SUPERVISOR TO –j   ENTp > ESTj !
-2nd, 3rd, 4th             CONFLICTING           ENTp - ESFj !
-3rd               IF –p,  COMPARATIVE           ENTp - ENFp
-                  IF –j,  LOOK-A-LIKE           ENTj - ENFj
-3rd, 4th                  -j SUPERVISOR TO –p   ENTp < ENFj !
-4th                       MIRROR                ENTp - ENTj !
+For more information, please see the PDF.
