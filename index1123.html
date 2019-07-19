@@ -9,7 +9,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NXVWFS2');</script>
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v1121</title>
+<title>Floresta v1123</title>
 <link rel="icon" href="diodi/favicon.ico">
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
@@ -34,7 +34,7 @@ var YH ={};
 <script src="diodi/diodi.js"></script>
 <script src="diodi/lodash.js"></script>
 <script>
-// This application has been developed on MacBook Pro and Chrome. It is meant to be used with the touchpad – please do not plug an external mouse on OS X. The application does not work on Safari. The back button of the browser has been disabled to prevent two-finger swipe left from unloading the page. This gesture is needed for horizonal scrolling.
+// This application has been developed on MacBook Pro and Chrome. It is meant to be used with the touchpad – please do not plug an external mouse on OS X. The application does not work on Safari. The back button of the browser has been disabled to prevent two-finger left swipe from unloading the page. This gesture is needed for horizonal scrolling.
 var AL={ 
 	fe: "type",
 	fes: ["quiz",/*"object",*/"type","mood","mosaic"],
@@ -511,12 +511,13 @@ function subjListKey( e){let s =e.split("-").pop(); s =AL.sim.subjs.find(o => o.
  					AL.pGn 	=YH.gNs.find(o =>o.ni ==AL.subj.pGn.ni);
  					AL.sGn 	=YH.gNs.find(o =>o.ni ==AL.subj.sGn.ni);
  					AL.sex 	=YH.sXs.find(o =>o.ni ==AL.subj.sex.ni);
- 					AL.subj =null}
+ 					AL.subj =null; AL.tYl =null;}
  	else{			AL.tY  	=s.tY;
 					AL.mD  	=s.mD;
 					AL.gnd 	=s.mD.gnd;
 					AL.pM 	=s.mD.pM;
-					AL.subj =s} draw()}
+					AL.subj =s;
+					AL.tYl 	=AL.subj.tYl} draw()}
 
 function clearScreen(){
 	var e=Array.from(document.querySelectorAll('div, svg, rect, text, polygon, line, circle, ellipse'));
@@ -787,17 +788,17 @@ function drTypeCage(cX,cY,cl){
 	function drAr(x,y,X,Y,lx,ly,lz){
 
 		function drCr(cx,cy,x,y,X,Y){ var crR;
-			if(AL.tYl.ni ==o.ni){
-				crR=Math.round((w/13));
-				e=drC(cx,cy,(w/13)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e); 
-				crR=Math.round((w/13)/1.618);
-				e=drC(cx,cy,(w/13)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.381"); F.push(e);
-				e=mkI(x,y,X,Y,undefined,"#ffffff",1,0.236,dash); F.push(e);}
-			else if(AL.subj.opts.includes(o)){
-				crR=Math.round((w/13)/1.618/1.618);
-				e=drC(cx,cy,(w/13)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e);
-				e=mkI(x,y,X,Y,undefined,"#ffffff",1,0.236,dash); F.push(e);}
-				}
+			if(AL.subj){
+				if(AL.subj.tYl.ni ==o.ni){
+					crR=Math.round((w/13));
+					e=drC(cx,cy,(w/13)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e); 
+					crR=Math.round((w/13)/1.618);
+					e=drC(cx,cy,(w/13)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.381"); F.push(e);
+					e=mkI(x,y,X,Y,undefined,"#ffffff",1,0.236,dash); F.push(e);}
+				else if(AL.subj.opts.includes(o)){
+					crR=Math.round((w/13)/1.618/1.618);
+					e=drC(cx,cy,(w/13)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e);
+					e=mkI(x,y,X,Y,undefined,"#ffffff",1,0.236,dash); F.push(e);}}}
 
 		var o =AL.tY.reSpace[lx][ly][lz];
 		var cNi=o.ni; var col,stC,tCo; var cSD, cVD, cMD; var dash; var stW=w/65;
@@ -899,16 +900,17 @@ function drTypeCage(cX,cY,cl){
 		if(ly==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
 		if(lz==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
 		//function drC(x,y,r,c,id,cl,sW,sC,d,fO,sO)
-		if(AL.tYl.ni ==o.ni){
-			e=drC(cx,cy,fr,fCo); e.setAttribute("filter",fil); 					E.push(e);
-			crR=Math.round((w/10));
-			e=drC(cx,cy,(w/10)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e); 
-			crR=Math.round((w/10)/1.618/1.618);
-			e=drC(cx,cy,(w/10)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.381"); F.push(e);}
-		else if(AL.subj.opts.includes(o)){
-			e=drC(cx,cy,fr,fCo); e.setAttribute("filter",fil); 					E.push(e);
-			crR=Math.round((w/10)/1.618/1.618);
-			e=drC(cx,cy,(w/10)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e)}	 
+		if(AL.subj){
+			if(AL.subj.tYl.ni ==o.ni){
+				e=drC(cx,cy,fr,fCo); e.setAttribute("filter",fil); 					E.push(e);
+				crR=Math.round((w/10));
+				e=drC(cx,cy,(w/10)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e); 
+				crR=Math.round((w/10)/1.618/1.618);
+				e=drC(cx,cy,(w/10)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.381"); F.push(e);}
+			else if(AL.subj.opts.includes(o)){
+				e=drC(cx,cy,fr,fCo); e.setAttribute("filter",fil); 					E.push(e);
+				crR=Math.round((w/10)/1.618/1.618);
+				e=drC(cx,cy,(w/10)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e)}}	 
 		e=drC(cx,cy,w/10,col,cl1,id1,st,stC,dash); 									E.push(e);
 		e=mkT(cx+1,cy-(w/11),id2,tCo,cl2,w/11,o.ni2,"PF","middle"); 		E.push(e);
 		e=mkT(cx+1,cy-(w/60),id3,tCo,cl3,w/17,cVD+cSD+cMD,"PF","middle");E.push(e); return E}
