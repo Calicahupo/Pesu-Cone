@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+<!--<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-NXVWFS2');</script>
+})(window,document,'script','dataLayer','GTM-NXVWFS2');</script>-->
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v1123</title>
+<title>Floresta v1141</title>
 <link rel="icon" href="diodi/favicon.ico">
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
@@ -26,10 +26,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	body{height:100%;padding:0px;margin:0px;background-color:transparent; overflow:auto; overflow-x:auto;}
 </style>
 <script>
-var OM ={ tYs:[], nMs:[], mDs:[], pMs:[], gNs:[], sXs:[], subjs:[], sims:[],
+var RT ={ tYs:[], nMs:[], mDs:[], pMs:[], gNs:[], sXs:[], subjs:[], sims:[],
 	pcReso:4, pcFem:0.5, pcKid:0.5, pcTys:[], pcPms:[], pcFin:0.5,
 	pcPureBad:0.2, pcInvMor:0.22, pcPureGood:0.25, pcObj:0.5};
-var YH ={};
+var AT ={};
 </script>
 <script src="diodi/diodi.js"></script>
 <script src="diodi/lodash.js"></script>
@@ -72,7 +72,7 @@ var AL={
 	lIObjTools: ["delObj","makeObj","pcReso","pcSafe","pcPeaceful","pcSensitive","pcToy","pcHostile","pcDangerous","pcOverwhelming"],
 	lISimTools: ["pcSubjs"],
 	pcSubjs: 8};
-var svgFe =null; var divFe =null; var nS ="";
+var svgFe =null; var divFe =null; var nS ="http://www.w3.org/2000/svg";
 var svgQz =null; var divQz =null;
 var svgTb =null; var divTb =null;
 var svgLi =null; var divLi =null;
@@ -141,7 +141,7 @@ function predraw(){
 	ui.tB.reTabG=Math.floor((ui.tB.reTabW-3)/1.618);
 	//console.log(((ui.tB.reTabW+1)-ui.tB.reTabG)/2);
 	ui.tB.disHrz=ui.tB.abTabH+ui.tB.abTabsW+ui.tB.tabSep;
-	ui.tB.disWid=Math.max(ui.winWid-ui.sB.disWid-ui.tB.disHrz, (OM.simsL*ui.tB.reTabG)+30);
+	ui.tB.disWid=Math.max(ui.winWid-ui.sB.disWid-ui.tB.disHrz, (RT.simsL*ui.tB.reTabG)+30);
 	ui.tB.skrHei=Math.floor(ui.tB.disHei/3.236);//3.236
 	ui.tB.skrVrt=ui.tB.disHei-ui.tB.skrHei;
 
@@ -205,8 +205,8 @@ function predraw(){
 }
 
 function initDraw(){
-	svgFe =document.createElementNS( "http://www.w3.org/2000/svg","svg");
-	nS =svgFe.namespaceURI; svgFe.appendChild( defs);
+	svgFe =document.createElementNS( nS,"svg");
+	/*nS =svgFe.namespaceURI;*/ svgFe.appendChild( defs);
 	divFe =document.createElement( 'div');divFe.setAttribute( 'id','fE');
 	svgFe.setAttribute( 'width', ui.winWid);
 	if(ui.winHei <ui.feMinHei){ svgFe.setAttribute( 'height',ui.feMinHei);
@@ -220,7 +220,7 @@ function initDraw(){
 	switch( AL.fe){
 		case "quiz" 	: 
 			ui.sB.disHei=ui.winHei;	
-			svgQz =document.createElementNS( "http://www.w3.org/2000/svg","svg");
+			svgQz =document.createElementNS( nS,"svg");
 			divQz =document.createElement( 'div');divQz.setAttribute( 'id','qZ');
 			divQz.appendChild( svgQz);
 			svgQz.setAttribute( 'width', ui.winWid-ui.sB.disWid);
@@ -228,9 +228,9 @@ function initDraw(){
 			break;
 		case "type" : case "mood" : case "mosaic" :
 			ui.sB.disHei=ui.midMinHei;
-			svgTb =document.createElementNS( "http://www.w3.org/2000/svg","svg");
-			svgLi =document.createElementNS( "http://www.w3.org/2000/svg","svg");
-			svgSq =document.createElementNS( "http://www.w3.org/2000/svg","svg");
+			svgTb =document.createElementNS( nS,"svg");
+			svgLi =document.createElementNS( nS,"svg");
+			svgSq =document.createElementNS( nS,"svg");
 			divTb =document.createElement( 'div');divTb.setAttribute( 'id','tB');
 			divLi =document.createElement( 'div');divLi.setAttribute( 'id','lI');
 			divSq =document.createElement( 'div');divSq.setAttribute( 'id','sQ');
@@ -260,25 +260,85 @@ function initDraw(){
 			divSq.appendChild( svgSq);	
 }}
 
-var defs 	=document.createElementNS( "http://www.w3.org/2000/svg", "defs");
-var filter  =document.createElementNS( "http://www.w3.org/2000/svg", "filter");
+
+var defs 	=document.createElementNS( nS, "defs");
+
+//How the hell does one use markers?
+
+/*var marker = document.createElementNS(nS, "marker");
+marker.setAttribute( "id","triangle");
+marker.setAttribute( "viewBox","0 0 10 10");
+marker.setAttribute( "refX",0);
+marker.setAttribute( "refY",5);
+marker.setAttribute( "markerUnits","strokeWidth");
+marker.setAttribute( "markerWidth",4);
+marker.setAttribute( "markerHeight",3);
+marker.setAttribute( "orient","auto");
+var path = document.createElementNS(nS, "path");
+path.setAttribute( "d","M 0 0 L 10 5 L 0 10 z");
+marker.appendChild(path);
+defs.appendChild(marker);*/
+
+
+
+//var marker 	=mkM("triangle","#ff0000","0 0 10 10","0","5","strokeWidth","4","3","auto"); console.log(marker);
+/*
+var marker = document.createElementNS(nS, "marker");
+    //var id = "arrow-" + arrowID++;
+    //marker.setAttribute("id", id);
+    marker.setAttribute( "id","marker");
+    marker.setAttribute( "stroke","#000000");
+    marker.setAttribute( "fill", "#ff0000");
+    marker.setAttribute( "stroke-width", 2);
+    marker.setAttribute("markerWidth", 20);
+    marker.setAttribute("markerHeight", 20);
+    marker.setAttribute("markerUnits", "strokeWidth");
+    marker.setAttribute("refX", 20);
+    marker.setAttribute("refY", 20);
+    //marker.setAttribute("viewBox", "0 0 10 10");
+    //marker.setAttribute("orient", "auto");
+    marker.setAttribute("orient", "auto");
+var path = document.createElementNS(nS, "path");
+    path.setAttribute("d","M 0 0 L 10 5 L 0 10 z");
+    path.setAttribute("fill","context-stroke");
+
+    marker.appendChild(path);
+
+defs.appendChild(marker);
+
+
+var marker = document.createElementNS(nS, "marker");
+marker.setAttribute( "id","arrow");
+marker.setAttribute( "markerWidth", 2);
+marker.setAttribute( "markerHeight",2);
+marker.setAttribute( "viewBox","-1 -1 2 2");
+marker.setAttribute( "orient","auto");
+var path = document.createElementNS(nS, "path");
+path.setAttribute( "fill", "#00ffff");
+path.setAttribute("d", "M-1,-1 L1,0 -1,1 z");
+marker.appendChild(path);
+defs.appendChild(marker);
+
+console.log(defs);*/
+
+var filter  =document.createElementNS( nS, "filter");
 filter.setAttribute( "id", "f1");		filter.setAttribute( "x", "-40%"); filter.setAttribute( "y", "0");
 filter.setAttribute( "width", "180%");
-var gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGaussianBlur");
+var gaussianFilter =document.createElementNS( nS, "feGaussianBlur");
 gaussianFilter.setAttribute( "in","SourceGraphic");	gaussianFilter.setAttribute( "stdDeviation","6");
 filter.appendChild(gaussianFilter);		defs.appendChild(filter);
 
-filter 		=document.createElementNS("http://www.w3.org/2000/svg", "filter");
+filter 		=document.createElementNS(nS, "filter");
 filter.setAttribute( 'id', 'f2'); 		filter.setAttribute( "x", "-64%"); filter.setAttribute( "y", "-31%"); 	
 filter.setAttribute( "width", "291%"); 	filter.setAttribute( "height", "162%");
-gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGaussianBlur");
+gaussianFilter =document.createElementNS( nS, "feGaussianBlur");
 gaussianFilter.setAttribute( "in","SourceGraphic"); gaussianFilter.setAttribute( "stdDeviation","16");
 filter.appendChild(gaussianFilter); 	defs.appendChild(filter);
 
-filter 		=document.createElementNS("http://www.w3.org/2000/svg", "filter");
+filter 		=document.createElementNS(nS, "filter");
 filter.setAttribute( 'id', 'f3'); 		filter.setAttribute( "x", "-100%"); filter.setAttribute( "y", "-100%"); 	
 filter.setAttribute( "width", "300%"); 	filter.setAttribute( "height", "300%");
-gaussianFilter =document.createElementNS( "http://www.w3.org/2000/svg", "feGaussianBlur");
+gaussianFilter =document.createElementNS( nS, "feGaussianBlur");
 gaussianFilter.setAttribute( "in","SourceGraphic"); gaussianFilter.setAttribute( "stdDeviation","8");
 filter.appendChild(gaussianFilter); 	defs.appendChild(filter);
 
@@ -316,11 +376,39 @@ function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op){ var t =document.createEleme
 					if( anc){ 		t.setAttribute( 'text-anchor',anc)}
 					if( op){	 	t.setAttribute( 'opacity',op)}
 									t.textContent =txt; return t}
-function mkS(pt,id,co,cl,op) { var p=document.createElementNS( nS,'polygon'); p.setAttribute("points", pt);
-	p.setAttribute( 'fill',co); if(id!=false){p.setAttribute( 'id',id)} p.setAttribute( 'class',cl); if(op!=false){ p.setAttribute( 'opacity',op)} p.setAttribute( 'pointer-events', 'none');return p}
-function mkE(x,y,w,h,c){ var e=document.createElementNS( nS,'ellipse');e.setAttribute('cx',x);e.setAttribute('cy',y);
-	e.setAttribute( 'width',2*w);e.setAttribute( 'height',2*h);e.setAttribute( 'rx',w);e.setAttribute( 'ry',h);
-	e.setAttribute( 'fill',c); return e}
+function mkS(pt,id,co,cl,op) { var p=document.createElementNS( nS,'polygon');
+									p.setAttribute("points", pt);
+									p.setAttribute( 'fill',co);
+					if(id){ 		p.setAttribute( 'id',id)}
+					if(cl){ 		p.setAttribute( 'class',cl)}
+					if(op){ 		p.setAttribute( 'opacity',op)}
+									p.setAttribute( 'pointer-events', 'none');return p}
+function mkE(x,y,w,h,c){ var e=document.createElementNS( nS,'ellipse');
+									e.setAttribute('cx',x);e.setAttribute('cy',y);
+									e.setAttribute( 'width',2*w);e.setAttribute( 'height',2*h);
+									e.setAttribute( 'rx',w);e.setAttribute( 'ry',h);
+									e.setAttribute( 'fill',c); return e}
+/*function mkM(id,c,vB,rX,rY,mU,mW,mH,or){ var m=document.createElementNS( nS,'marker');
+									m.setAttributeNS( null,'id', id);
+									m.setAttribute( 'fill',c);
+									m.setAttributeNS( null,'viewBox', vB);
+									m.setAttributeNS( null,'refX', rX);
+									m.setAttributeNS( null,'refY', rY);
+									m.setAttributeNS( null,'markerUnits', mU);
+									m.setAttributeNS( null,'markerWidth', mW);
+									m.setAttributeNS( null,'markerHeight', mH);
+									m.setAttributeNS( null,'orient', or); return m}*/
+/*marker.setAttribute('id', 'Triangle');
+    marker.setAttribute('viewBox', '0 0 10 10');
+    marker.setAttribute('refX', '0');
+    marker.setAttribute('refY', '5');
+    marker.setAttribute('markerUnits', 'strokeWidth');
+    marker.setAttribute('markerWidth', '4');
+    marker.setAttribute('markerHeight', '3');
+    marker.setAttribute('orient', 'auto');
+    var path = document.createElementNS('http;//www.w3.org/2000/svg', 'path');
+    marker.appendChild(path);
+*/
 function drS(v,l,id,cl,op){ var e=document.createElementNS( nS,'polygon'); e.setAttribute("points",v);
 	e.setAttribute( 'fill',l); e.setAttribute('id',id); e.setAttribute('class',cl);
 	if(op!=undefined){ e.setAttribute( 'opacity',op)} return e}
@@ -500,17 +588,17 @@ function drSidebar(){ var obs=[];  var buf =null;
 function sidebarKey( e){ var tab= parseInt(e.split("-").pop()); AL.fe=AL.fes[tab]; draw();}
 
 function subjListKey( e){let s =e.split("-").pop(); s =AL.sim.subjs.find(o => o.nI ==s); 
- 	if(AL.subj ==s){AL.tY 	=YH.tYs.find(o =>o.ni ==AL.subj.tY.ni);
- 					AL.mD 	=YH.mDs.find(o =>o.ni ==AL.subj.mD.ni);
- 					AL.pMd 	=YH.mDs.find(o =>o.ni ==AL.subj.pMd.ni);
- 					AL.sMd 	=YH.tYs.find(o =>o.ni ==AL.subj.sMd.ni);
- 					AL.pM 	=YH.pMs.find(o =>o.ni ==AL.subj.pM.ni);
- 					AL.pPm 	=YH.pMs.find(o =>o.ni ==AL.subj.pPm.ni);
- 					AL.sPm 	=YH.pMs.find(o =>o.ni ==AL.subj.sPm.ni);
- 					AL.gnd 	=YH.gNs.find(o =>o.ni ==AL.subj.gnd.ni);
- 					AL.pGn 	=YH.gNs.find(o =>o.ni ==AL.subj.pGn.ni);
- 					AL.sGn 	=YH.gNs.find(o =>o.ni ==AL.subj.sGn.ni);
- 					AL.sex 	=YH.sXs.find(o =>o.ni ==AL.subj.sex.ni);
+ 	if(AL.subj ==s){AL.tY 	=AT.tYs.find(o =>o.ni ==AL.subj.tY.ni);
+ 					AL.mD 	=AT.mDs.find(o =>o.ni ==AL.subj.mD.ni);
+ 					AL.pMd 	=AT.mDs.find(o =>o.ni ==AL.subj.pMd.ni);
+ 					AL.sMd 	=AT.tYs.find(o =>o.ni ==AL.subj.sMd.ni);
+ 					AL.pM 	=AT.pMs.find(o =>o.ni ==AL.subj.pM.ni);
+ 					AL.pPm 	=AT.pMs.find(o =>o.ni ==AL.subj.pPm.ni);
+ 					AL.sPm 	=AT.pMs.find(o =>o.ni ==AL.subj.sPm.ni);
+ 					AL.gnd 	=AT.gNs.find(o =>o.ni ==AL.subj.gnd.ni);
+ 					AL.pGn 	=AT.gNs.find(o =>o.ni ==AL.subj.pGn.ni);
+ 					AL.sGn 	=AT.gNs.find(o =>o.ni ==AL.subj.sGn.ni);
+ 					AL.sex 	=AT.sXs.find(o =>o.ni ==AL.subj.sex.ni);
  					AL.subj =null; AL.tYl =null;}
  	else{			AL.tY  	=s.tY;
 					AL.mD  	=s.mD;
@@ -628,9 +716,9 @@ function tBToolMouseUp( n){ switch( AL.tBTools[n]){
 							if(v){ 			tBToolClearSubjs()}}break;
 	case "copySim" : 	var N =prompt("How many copies of simulation "+AL.sim.nI+"?", "20");
 							copySimulation(AL.sim,n);break;
-	case "delSim" : 	if( OM.simsL >1){ var v =confirm("Delete this simulation?");
+	case "delSim" : 	if( RT.simsL >1){ var v =confirm("Delete this simulation?");
 							if(v){ 			tBToolDelSim( AL.sim)}}break;
-	case "delSims" : 	if( OM.simsL >1){ var v =confirm("Delete all untagged simulations?");
+	case "delSims" : 	if( RT.simsL >1){ var v =confirm("Delete all untagged simulations?");
  							if(v){ 			tBToolDelSim( AL.sim)}}}
 	tBToolMouseLeave( n)}
 function mkTbTool( n){ var E =[]; var e =null; var t,f,T,F,y,Y; var p =0; var P=4;
@@ -660,7 +748,12 @@ function refreshTbTool( n){ var t ="tBTool-"+n; var e =document.getElementsByCla
 							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
 							t =mkTbTool( n); t.forEach( function( e){ svgFe.appendChild( e)})} //xxx sVfE->sVtB
 
-function mkReTab(n){ var E=[]; var e=null;	
+function mkReTab(n){ var E=[]; var e=null; var c="";
+	//console.log(RT.sims)
+	console.log(AL.sim);
+	console.log(AT.sims);
+	console.log(AL.abTabs);
+	if( RT.sims[n] == AL.sim){ c == "#ffffff"} else{ c = "#888"}	
 	e = mkL( 3+(n*ui.tB.reTabG), 0,	ui.tB.reTabW, ui.tB.reTabH,
 		undefined, ui.sB.bG, undefined, "#3c3c3c"/*ui.tB.strCol*/, 1);	E.push(e);
 	var t = (3+(n*ui.tB.reTabG)+(ui.tB.reTabW)-1)+"px "+(0+(ui.tB.reTabH)-1)+"px";
@@ -671,11 +764,12 @@ function mkReTab(n){ var E=[]; var e=null;
 	return E}
 // function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
 function mkAbTab(i){ var E=[]; var e=null; var t;
+	if( AL.abTabs[i] == AL.sim){ c == "#ffffff"} else{ c = "#888"}
 	switch( AL.abTabs[i]){ 	case "tot" : t = "Σ"; break; case "avg" : t = "x̄"; break; case "med" : t = "µ"}
 	e = mkL( ui.tB.tabGap+ui.tB.abTabH+(i*ui.tB.tabGap)+(i*ui.tB.abTabW), 3, ui.tB.abTabW, ui.tB.tabHei,
 		undefined, ui.sB.bG, undefined, ui.tB.strCol, 1,undefined,6,6); E.push(e);
 	e = mkT( ui.tB.tabGap+ui.tB.abTabH+(i*ui.tB.tabGap)+(i*ui.tB.abTabW)+Math.floor(ui.tB.abTabW/2), 3,
-		undefined, "#888", undefined, 20, t, "TR","middle"); E.push(e);
+		undefined, c, undefined, 20, t, "TR","middle"); E.push(e);
 	return E}
 function drTopBar(){ var E=[]; var e=null; var T=[]; var t=null;
 	e=mkL(0,0,ui.tB.disHrz,ui.tB.disHei,undefined,ui.sB.bG); E.push(e);
@@ -691,8 +785,8 @@ function drTopBar(){ var E=[]; var e=null; var T=[]; var t=null;
 	t=mkL(0, -ui.tB.skrHei, 20, ui.tB.disHei, undefined, ui.tB.bG, undefined,undefined,undefined,undefined,10,10); T.push(t);
 
 	t=mkI(10, ui.tB.skrVrt, ui.tB.disWid, ui.tB.skrVrt,undefined,"#3c3c3c",1); T.push(t);
-	for(var n=0; n<OM.simsL; n++){ t =mkReTab(n); T=T.concat(t);}
-	//if(OM.simsL > 1){ t =mkTab(-1); T=T.concat(t); }
+	for(var n=0; n<RT.simsL; n++){ t =mkReTab(n); T=T.concat(t);}
+	//if(RT.simsL > 1){ t =mkTab(-1); T=T.concat(t); }
 	t=mkL(0, ui.tB.skrVrt, ui.tB.disWid, ui.tB.skrHei,undefined,ui.sB.bG); T.push(t);
 	T.forEach( function(t){svgTb.appendChild(t)})}
 
@@ -700,6 +794,7 @@ function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.
 	v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+			(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
 		(x+w+(w/d)+","+(y+(h/2)-(h/d)))+" "+			(x+w-(w/d)+","+(y+(h/2)+(h/d)));
 	e =drS(v, ui.tY.cShade, id+"-cU-hrz", cl, op); 		E.push(e);
+
 	v =  x - (w/d)+","+(y+(h/2)+(h/d)-(h/2)) +" "+		(x + (w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+
 		(x+w+(w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+		(x+w-(w/d)+","+(y+(h/2)+(h/d)-(h/2)));
 	e =drS(v, ui.tY.cShade, id+"-cU-top", cl, op);		E.push(e);
@@ -709,6 +804,10 @@ function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.
 	v =  x + (w/2)-(w/d)+","+(y + (h/d)) +" "+			(x + (w/2)+(w/d)+","+(y - (h/d)))+" "+
 		(x + (w/2)+(w/d)+","+(y+h-(h/d)))+" "+			(x + (w/2)-(w/d)+","+(y+h+(h/d)));		
 	e =drS(v, ui.tY.cShade, id+"-cU-vrt", cl, op); 		E.push(e);
+	/*v =  x + (w/2)+(w/d)+","+(y + (h/d)) +" "+			(x + w+(w/d)+","+(y - (h/d)))+" "+
+		(x + w+(w/d)+","+(y+h-(h/d)))+" "+				(x + w-(w/d)+","+(y+h+(h/d)));		
+	e =drS(v, ui.tY.cShade, id+"-cU-vrtR", cl, op); 		E.push(e);*/
+
 	e =drA(x+(w/d),	y-(h/d),w,h,co,id+"-btm",cl+"-btm pAIU",0,undefined,op); 		E.push(e);
 
 	v = x+(w/4)+","+(y+(h/8)+(h/4)-(h/4))+" "+ 		(x+(w/8)+(w/4))+","+(y+(w/4)-(h/4))+" "+
@@ -724,7 +823,38 @@ function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.
 		(x+(w/2))+","+(y+(h/8)+(h/2))+" "+ 				(x+(w/8)+(w/4))+","+(y+(w/2)-(h/4)+(h/2));
 	e =drS(v, ui.tY.cIE, cl+"_IE-nnp", cl); E.push(e);
 
+/*a*/e=mkI(x+(w/2),			y+(h/2),		x+(w/2)+(w/d),	y+(h/2)-(h/d),	undefined,"#ccff66",1,"0.382");E.push(e);  
+	//e.setAttribute("marker-end","url(#triangle)");
+	//marker.appendChild(e); E.push(e);
+	/*e.marker('start', 10, 10, function(add) {
+  add.circle(10).fill('#f06')
+})*/
+//	var f = mkM("triangle","0 0 10 10",x,y,"strokeWidth","4","3","auto"); 
+	//e.markerEnd ="url(#marker)";
+	//e.setAttribute("class","path");
+	//E.push(f);
+	//f.appendChild(e); E.push(f);
+	e =mkI(x+(w/2),			y+h,			x+(w/2)+(w/d),	y+h-(w/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+(w/d),			y+h-(h/d),		x,				y+h,			undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+(w/d),			y+(h/d),		x,				y+(h/2),		undefined,"#ffffff",1,"0.236"); E.push(e);
 	e =drA(x, 		y, 		w,h,co,id+"-mid",cl+"-mid pAIU",0,undefined,op/1.618);	E.push(e);
+	e =mkI(x-(w/d),			y+(h/2)+(h/d),	x,				y+(h/2),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x,				y+h,			x-(w/d),		y+h+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x,				y,				x,				y+h,			undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+(w/2),			y+h,			x+(w/2)-(w/d),	y+h+(w/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+/*a*/e=mkI(x+(w/2),			y+(h/2),		x+(w/2)-(w/d),	y+(h/2)+(h/d),	undefined,"#ccff66",1,"0.382"); E.push(e);
+/*a*/e=mkI(x+(w/2),			y+(h/2),		x+(w/2),		y+(h/d),		undefined,"#ccff66",1,"0.382"); E.push(e);
+/*a*/e=mkI(x+(w/2),			y,				x+(w/2),		y+(h/d),		undefined,"#ccff66",1,"0.236"); E.push(e);
+/*a*/e=mkI(x+(w/2),			y+(h/2),		x+(w/2),		y+h,			undefined,"#ccff66",1,"0.382"); E.push(e);
+/*a*/e=mkI(x,				y+(h/2),		x+w-(w/d),		y+(h/2),		undefined,"#ccff66",1,"0.382"); E.push(e);
+/*a*/e=mkI(x+w,				y+(h/2),		x+w-(w/d),		y+(h/2),		undefined,"#ccff66",1,"0.236"); E.push(e);
+
+
+	e =mkI(x+w+(w/d),		y+(h/d),		x+w-(w/d),		y+(h/d),		undefined,"#ffffff",1,"0.146"); E.push(e);
+	e =mkI(x+w+(w/d),		y+h-(h/d),		x+w-(w/d),		y+h-(h/d),		undefined,"#ffffff",1,"0.146"); E.push(e);
+
+	e =mkI(x,				y+h,			x+w-(w/d),		y+h,			undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+w,				y+h,			x+w-(w/d),		y+h,			undefined,"#ffffff",1,"0.146"); E.push(e);
 
 	v = x+	","+(y+(h/8)+(h/4))+" "+ 			(x+(w/8))+","+(y+(w/4))+" "+
 		(x+(w/4))+","+(y+(h/4)+(h/8))+" "+ 		(x+(w/8))+","+(y+(w/2));
@@ -741,47 +871,65 @@ function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.
 
 	e =drA(x-(w/d),	y+(h/d),w,h,co,id+"-top",cl+"-top pAIU",0,undefined,op/1.618);		E.push(e);
 
+	e =mkI(x+(w/d), 		y-(h/d), 		(x+w)+(w/d), 	y-(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x, 				y, 				(x+w), 			y, 				undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x-(w/d), 		y+(h/d), 		(x+w)-(w/d), 	y+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x-(w/d), 		y+(h/2)+(h/d),	(x+w)-(w/d), 	y+(h/2)+(h/d),	undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x-(w/d), 		y+h+(h/d),		(x+w)-(w/d), 	y+h+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+
+	e =mkI(x-(w/d), 		y+(h/d), 		x+(w/d), 		y-(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+(w/d), 		y+(h/d), 		x+(w/2)+(w/d), 	y-(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+w-(w/d), 		y+(h/d), 		x+w+(w/d), 		y-(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+w-(w/d), 		y+(w/2)+(h/d), 	x+w+(w/d), 		y+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+w-(w/d), 		y+w+(h/d), 		x+w+(w/d), 		y+w-(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+
+	e =mkI(x+w+(w/d), 		y-(h/d), 		x+w+(w/d), 		y+w-(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+w, 			y, 				x+w, 			y+h,			undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+w-(w/d),		y+(h/d),		x+w-(w/d),		y+h+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x+(w/d),			y+(h/d),		x+(w/d),		y+h+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+	e =mkI(x-(w/d),			y+(h/d),		x-(w/d),		y+h+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
+
 	e=mkT(x+(w/8)+1,(y+(h/32)+(h/4)+(h/2)),cl+"_IET-nnn","#ffffff",cl+"_IET",
-		w/11,YH.abSpace[0][0][0].ni,"PF","middle"); E.push(e);
+		w/11,AT.abSpace[0][0][0].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/8),(y+(h/8)+(h/4)+(h/2)),cl+"_IEN-nnn","#ffffff",cl+"_IEN",
-		w/22,YH.abSpace[0][0][0].val,"tahoma","middle"); E.push(e);*/
+		w/22,AT.abSpace[0][0][0].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/8)+1+(w/2),(y+(h/32)+(h/4)+(h/2)),cl+"_IET-pnn","#ffffff",cl+"_IET",
-		w/11,YH.abSpace[2][0][0].ni,"PF","middle");E.push(e);
+		w/11,AT.abSpace[2][0][0].ni,"PF","middle");E.push(e);
 	/*e=mkT(x+(w/8)+(w/2),(y+(h/8)+(h/4)+(h/2)),cl+"_IEN-pnn","#ffffff",cl+"_IEN",
-		w/22,YH.abSpace[2][0][0].val,"tahoma","middle");E.push(e);*/
+		w/22,AT.abSpace[2][0][0].val,"tahoma","middle");E.push(e);*/
 
 	e=mkT(x+(w/8)+1+(w/2),(y+(h/32)+(h/4)),cl+"_IET-ppn","#ffffff",cl+"_IET",
-		w/11,YH.abSpace[2][2][0].ni,"PF","middle"); E.push(e);
+		w/11,AT.abSpace[2][2][0].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/8)+(w/2),(y+(h/8)+(h/4)),cl+"_IEN-ppn","#ffffff",cl+"_IEN",
-		w/22,YH.abSpace[2][2][0].val,"tahoma","middle"); E.push(e);*/
+		w/22,AT.abSpace[2][2][0].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/8)+1,(y+(h/32)+(h/4)),cl+"_IET-npn","#ffffff",cl+"_IET",
-		w/11,YH.abSpace[0][2][0].ni,"PF","middle"); E.push(e);
+		w/11,AT.abSpace[0][2][0].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/8),(y+(h/8)+(h/4)),cl+"_IEN-npn","#ffffff",cl+"_IEN",
-		w/22,YH.abSpace[0][2][0].val,"tahoma","middle"); E.push(e);*/
+		w/22,AT.abSpace[0][2][0].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/4)+1+(w/8),(y+(h/32)+(h/2)),cl+"_IET-nnp","#ffffff",cl+"_IET",
-		w/11,YH.abSpace[0][0][2].ni,"PF","middle"); E.push(e);
+		w/11,AT.abSpace[0][0][2].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/4)+(w/8),(y+(h/2)+(h/8)),cl+"_IEN-nnp","#ffffff",cl+"_IEN",
-		w/22,YH.abSpace[0][0][2].val,"tahoma","middle"); E.push(e);*/
+		w/22,AT.abSpace[0][0][2].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/4)+1+(w/8),(y+(h/32)),cl+"_IET-npp","#ffffff",cl+"_IET",
-		w/11,YH.abSpace[0][2][2].ni,"PF","middle"); E.push(e);
+		w/11,AT.abSpace[0][2][2].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/4)+(w/8),(y+(h/8)),cl+"_IEN-nnp","#ffffff",cl+"_IEN",
-		w/22,YH.abSpace[0][2][2].val,"tahoma","middle"); E.push(e);*/
+		w/22,AT.abSpace[0][2][2].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/4)+1+(w/8)+(w/2),(y+(h/32)),cl+"_IET-ppp","#ffffff",cl+"_IET",
-		w/11,YH.abSpace[2][2][2].ni,"PF","middle"); E.push(e);
+		w/11,AT.abSpace[2][2][2].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/4)+(w/8)+(w/2),(y+(h/8)),cl+"_IEN-ppp","#ffffff",cl+"_IEN",
-		w/22,YH.abSpace[2][2][2].val,"tahoma","middle"); E.push(e);*/
+		w/22,AT.abSpace[2][2][2].val,"tahoma","middle"); E.push(e);*/
 
 	e=mkT(x+(w/4)+1+(w/8)+(w/2),(y+(h/32)+(h/2)),cl+"_IET-pnp","#ffffff",cl+"_IET",
-		w/11,YH.abSpace[2][0][2].ni,"PF","middle");E.push(e);
+		w/11,AT.abSpace[2][0][2].ni,"PF","middle");E.push(e);
 	/*e=mkT(x+(w/4)+(w/8)+(w/2),(y+(h/2)+(h/8)),cl+"_IEN-pnp","#ffffff",cl+"_IEN",
-		w/22,YH.abSpace[2][0][2].val,"tahoma","middle");E.push(e);*/
+		w/22,AT.abSpace[2][0][2].val,"tahoma","middle");E.push(e);*/
 
-	E.forEach( function(E){svgFe.appendChild(E)})}
+	E.forEach( function(E){svgFe.appendChild(E)}); }
 
 function drTypeCage(cX,cY,cl){
 
@@ -984,7 +1132,7 @@ function drSubjList(){ var E=null; var e=null; var liI="";liT="";liB=""; var off
 		e =mkT(ui.lI.nMx,(ui.lI.iHe*n)-1+ctrHei+1,"tY_LiT-"+n,liT,"tY_LiT",ui.lI.tSF,AL.sim.subjs[n].nM.full,"SF"); 			E.push(e)}
 	E=F.concat(G);	E.forEach( function(E){svgLi.appendChild(E)})}
 
-function typeKeyMouseDown( e){ var tY= parseInt(e.split("-").pop()); tY=AL.Sociotypes.seed[tY]; tY=mkType( tY,YH);
+function typeKeyMouseDown( e){ var tY= parseInt(e.split("-").pop()); tY=AL.Sociotypes.seed[tY]; tY=mkType( tY,AT);
 	if( AL.subj){ 	AL.subj.tY=tY; AL.tY=tY; /*mkSignal( o,"f5",0,0); mkOptions( o);*/}
 	else if( AL.tY!=tY){ AL.tY=tY;} else { AL.tY =null}draw()}
 function typeKeyMouseOver( e){ var tY =parseInt(e.split("-").pop()); var src=null;
@@ -993,7 +1141,7 @@ function typeKeyMouseOver( e){ var tY =parseInt(e.split("-").pop()); var src=nul
 }
 function drTypeKeys(){ var E=[]; var e=null; var area, areaB, areaT;
 	for(var n=0; n<16; n++){
-		if((AL.tY==null)||(YH.tYs[n].ni != AL.tY.ni)){ area=ui.tY.area; areaB=ui.tY.areaB; areaT=ui.tY.areaT; }
+		if((AL.tY==null)||(AT.tYs[n].ni != AL.tY.ni)){ area=ui.tY.area; areaB=ui.tY.areaB; areaT=ui.tY.areaT; }
 		else 							{ area=ui.tY.selArea; areaB=ui.tY.selAreaB; areaT=ui.tY.selAreaT; }
 		e =mkL(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))-ui.sB.disWid,ui.tY.keY,ui.tY.keyWid-1,ui.tY.keyWid-1,"tY_Keys-"+n,area,"tY_Keys",areaB,2);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : typeKeyMouseDown( e.id);break;
@@ -1043,19 +1191,19 @@ function drMoodPlane(){ var e; var E=[];
 function moodKey( e,prim){
 	if(AL.subj){
 		var pM= parseInt(e.split("-").pop()); pM=AL.PrimalMoods.seed[pM];
-		var b = AL.subj.pMs.find(function(e){ return e.ni =pM}); b ? pM =b : pM =mkPm( pM,YH,AL.subj.pMs);
+		var b = AL.subj.pMs.find(function(e){ return e.ni =pM}); b ? pM =b : pM =mkPm( pM,AT,AL.subj.pMs);
 		if(prim){ 	//var gnd= mkBeing(AL.pE.pGn.ni);
 				//AL.subj.pMd =combineMoodAndBeing(pM, bE);
 				//function getMood( sex,gnd,pM,from)
 				//åöä
 				//if( o.mDs)
-				AL.subj.pMd =copyMood( AL.subj.sex, AL.subj.pGn, AL.subj.pPm, AL.ab.mDs, YH);
+				AL.subj.pMd =copyMood( AL.subj.sex, AL.subj.pGn, AL.subj.pPm, AL.ab.mDs, AT);
 				AL.mD = AL.subj.pMd;  	AL.pMd =AL.subj.pMd; 		
 				AL.pGn= AL.subj.pGn;		AL.gnd =AL.subj.pGn; 		
 				AL.pPm= AL.subj.pMd.pM;	AL.pM  =AL.subj.pMd.pM}
 		else { 	//var bE= mkBeing(AL.subj.sGn.ni);
 				//AL.subj.sMd=combineMoodAndBeing( pM, bE);
-				AL.subj.sMd =copyMood( AL.subj.sex, AL.subj.sGn, AL.subj.sPm, AL.ab.mDs, YH);
+				AL.subj.sMd =copyMood( AL.subj.sex, AL.subj.sGn, AL.subj.sPm, AL.ab.mDs, AT);
 				AL.mD = AL.subj.sMd; 		AL.sMd= AL.subj.sMd;	
 				AL.sGn= AL.subj.sGn; 		AL.gnd= AL.subj.sGn;
 				AL.sPm= AL.subj.sMd.pM; 	AL.pM = AL.subj.sMd.pM}
@@ -1086,7 +1234,7 @@ function sexKey( e){
 		AL.subj.sex =sex;
 		draw()}
 	else{
-		sex =getObjByNi( sex,YH.sXs);
+		sex =getObjByNi( sex,AT.sXs);
 		if(AL.sex==sex){AL.sex =null}
 		else{ 			AL.sex =sex }
 		draw()}}
@@ -1109,35 +1257,35 @@ function genderKey( e){
 		draw(); }
 	else if( AL.bE==null){ AL.bE=bE;} else if(AL.bE!=bE){AL.bE=bE} else { AL.bE=null}}
 function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
-	for(let n=0; n<YH.sXsL; n++){
-		if(( AL.sex ==null)||( YH.sXs[n].ni != AL.subj.sex.ni)){
+	for(let n=0; n<AT.sXsL; n++){
+		if(( AL.sex ==null)||( AT.sXs[n].ni != AL.subj.sex.ni)){
 			keyC =ui.mD.key2; keyS =ui.mD.stroke2; keyF =ui.mD.selTxt}
-		//else if(YH.sXs[n].ni == AL.sBe.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
-		else if(YH.sXs[n].ni ==AL.subj.sex.ni) 	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
+		//else if(AT.sXs[n].ni == AL.sBe.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
+		else if(AT.sXs[n].ni ==AL.subj.sex.ni) 	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
 		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-(ui.mD.keH*2)-ui.tY.keyGap,ui.mD.keW-1,ui.mD.keH-4,
 			"mD_sexKey-"+n,keyC,"mD_sexKeys",keyS,2);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : sexKey( e.id);break}});E.push(e);
 		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-(ui.mD.keH*2)-ui.tY.keyGap,
-			"mD_sexKeyTxt",keyF,"mD_sexKeyTxt-",0.55*ui.tY.keyWid,YH.sXs[n].nI+"( )","TR","middle"); E.push(e); }
+			"mD_sexKeyTxt",keyF,"mD_sexKeyTxt-",0.55*ui.tY.keyWid,AT.sXs[n].nI+"( )","TR","middle"); E.push(e); }
 
-	for(let n=0; n<YH.gNsL; n++){
-		if((AL.gnd==null)||((YH.gNs[n].ni != AL.subj.pGn.ni)&&(YH.gNs[n].ni != AL.subj.sGn.ni)))
+	for(let n=0; n<AT.gNsL; n++){
+		if((AL.gnd==null)||((AT.gNs[n].ni != AL.subj.pGn.ni)&&(AT.gNs[n].ni != AL.subj.sGn.ni)))
 												{ keyC=ui.mD.key2; 		keyS=ui.mD.stroke2; keyF=ui.mD.selTxt; }
-		else if(YH.gNs[n].ni ==AL.subj.sGn.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
-		else if(YH.gNs[n].ni ==AL.subj.pGn.ni)	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
+		else if(AT.gNs[n].ni ==AL.subj.sGn.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
+		else if(AT.gNs[n].ni ==AL.subj.pGn.ni)	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
 		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-ui.mD.keH-ui.tY.keyGap, ui.mD.keW-1, ui.mD.keH-4,
 			"mD_gndKey-"+n,keyC,"mD_gndKeys",keyS,2);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : genderKey( e.id);break}});E.push(e);
 		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-ui.mD.keH-ui.tY.keyGap,
-			"mD_gndKeyTxt",keyF,"mD_gndKeyTxt-",0.55*ui.tY.keyWid,YH.gNs[n].nI,"TR","middle");E.push(e);}
+			"mD_gndKeyTxt",keyF,"mD_gndKeyTxt-",0.55*ui.tY.keyWid,AT.gNs[n].nI,"TR","middle");E.push(e);}
 
-	for(let n=0; n <YH.pMsL; n++){
-		//var m=combineMoodAndBeing(YH.pMs[n], AL.pE.pGn );
-		var m =getMood( AL.sex, AL.gnd, AL.obj, AL.pM, YH.mDs);
-		if((AL.pM==null)||(YH.pMs[n].ni != AL.subj.pPm.ni)){ keyC=ui.mD.key2; keyS=ui.mD.stroke2; symC=ui.mD.selTxt }
-		else if(AL.pM.ni ==YH.pMs[n].ni && AL.gnd.ni == AL.subj.pGn.ni)
+	for(let n=0; n <AT.pMsL; n++){
+		//var m=combineMoodAndBeing(AT.pMs[n], AL.pE.pGn );
+		var m =getMood( AL.sex, AL.gnd, AL.obj, AL.pM, AT.mDs);
+		if((AL.pM==null)||(AT.pMs[n].ni != AL.subj.pPm.ni)){ keyC=ui.mD.key2; keyS=ui.mD.stroke2; symC=ui.mD.selTxt }
+		else if(AL.pM.ni ==AT.pMs[n].ni && AL.gnd.ni == AL.subj.pGn.ni)
 														{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2; }
-		else /*if(AL.pE.sMo.pM.ni == YH.pMs[n].ni)*/		{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	symC=ui.mD.selTxt}
+		else /*if(AL.pE.sMo.pM.ni == AT.pMs[n].ni)*/		{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	symC=ui.mD.selTxt}
 		if(m.sSym){ symC = "#ffff00"; } else if(m.cSym){ symC = "#ff00ff"}
 		//if(AL.mD.symm){ keyS="#ffff00"}
 		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY, ui.mD.keW-1,ui.mD.keH-4,
@@ -1145,22 +1293,22 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : moodKey( e.id,true);break}});E.push(e);
 		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY+ui.mD.keH/12,
 			"mD_pMdKeyTxt",symC,"mD_pMdKeyTxt-",0.45*ui.tY.keyWid,
-			YH.pMs[n].niH+AL.subj.pGn.nI+YH.pMs[n].niT,"TR","middle"); E.push(e);}
+			AT.pMs[n].niH+AL.subj.pGn.nI+AT.pMs[n].niT,"TR","middle"); E.push(e);}
 
-	for(let n=0; n<YH.pMsL; n++){
-		//var m=combineMoodAndBeing(YH.pMs[n], AL.pE.sGn );
-		if((AL.pM==null)||(YH.pMs[n].ni != AL.subj.sPm.ni))
+	for(let n=0; n<AT.pMsL; n++){
+		//var m=combineMoodAndBeing(AT.pMs[n], AL.pE.sGn );
+		if((AL.pM==null)||(AT.pMs[n].ni != AL.subj.sPm.ni))
 													{ keyC=ui.mD.key2; 		keyS=ui.mD.stroke2; symC=ui.mD.selTxt;}
-		else if(AL.pM.ni ==YH.pMs[n].ni && AL.gnd.ni == AL.subj.sGn.ni)	
+		else if(AL.pM.ni ==AT.pMs[n].ni && AL.gnd.ni == AL.subj.sGn.ni)	
 													{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2; }
-		else /*if(AL.pE.sMo.pM.ni == YH.pMs[n].ni)*/	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt;  symC=ui.mD.selTxt;}
+		else /*if(AL.pE.sMo.pM.ni == AT.pMs[n].ni)*/	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt;  symC=ui.mD.selTxt;}
 		if(m.symm){ symC = "#ffff00"; }
 		//if(AL.mD.symm){ keyS="#ffff00"}
 		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY+ui.mD.keH, ui.mD.keW-1,ui.mD.keH-4,
 			"mD_sMdKey-"+n,keyC,"mD_sMdKeys",keyS,2);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : moodKey( e.id,false);break}});E.push(e);
 		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY+ui.mD.keH+ui.mD.keH/12,
-			"mD_mKeyTxt",symC,"mD_sMdKeyTxt-",0.45*ui.tY.keyWid,YH.pMs[n].niH+AL.subj.sGn.nI+YH.pMs[n].niT,"TR","middle"); E.push(e);}
+			"mD_mKeyTxt",symC,"mD_sMdKeyTxt-",0.45*ui.tY.keyWid,AT.pMs[n].niH+AL.subj.sGn.nI+AT.pMs[n].niT,"TR","middle"); E.push(e);}
 
 	if( AL.mD.obj){ keyC=ui.mD.key2; keyS=ui.mD.stroke2; symC=ui.mD.selTxt;}
 	else { keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2;}
@@ -1391,7 +1539,7 @@ function mkSubj2(s,ni,sim,reso,  fem,  kid,  fin,  tY ,pM,   pureBad,  invMor,  
 	console.log(sim);
 	s.tY =mkType( 	tY, sim.ab, sim, s); 	s.fAs =s.tY.fAs;
 
-	s.pMd =YH.mDs.filter( mD => mD.sex.fem ==s.fem)
+	s.pMd =AT.mDs.filter( mD => mD.sex.fem ==s.fem)
 						.filter( mD => mD.sex.kid ==s.kid)
 							.filter( mD => mD.obj ==s.obj);
 	s.pMd =rmMoods( s.pMd, pM, fin, pureBad, invMor, pureGood); 
@@ -1418,7 +1566,7 @@ function mkSubj2(s,ni,sim,reso,  fem,  kid,  fin,  tY ,pM,   pureBad,  invMor,  
 	s.pPm =mkPm( 	s.pMd.pM.ni,  sim, s); s.pM =s.pPm;
 	if( !s.pMd.sex.fem){ s.mMd=s.pMd; s.mPm=s.pPm} else { s.fMd=s.pMd; s.fPm=s.pPm}
 
-	s.sMd =YH.mDs.filter(mD=>mD.sex.fem!=s.fem);
+	s.sMd =AT.mDs.filter(mD=>mD.sex.fem!=s.fem);
 	s.sMd =rmMoods( s.sMd, pM, fin, pureBad, invMor, pureGood);
 	s.sMd =mkMood( 	s.sMd[Math.floor(Math.random()*s.sMd.length)].ni, sim, s.mDs);
 
@@ -1444,13 +1592,13 @@ function mkSubj2(s,ni,sim,reso,  fem,  kid,  fin,  tY ,pM,   pureBad,  invMor,  
 	s.mP =mkMp( s);
 	
 //mkSq( ni,iEs,parent)
-	OM.subjs.push( s); OM.subjsL++;
+	RT.subjs.push( s); RT.subjsL++;
 }
 function rmMoods( a, pM, fin, pureBad, invMor, pureGood){ var b =[]; var B =false;
 	for( var i =0; i <a.length; i++){ B =pM.includes( a[i].pM.ni); if(B){ b.push( a[i])}}
 	if( fin){ 	b =b.filter( o => !o.pureBad && !o.invMor)}return b}
 function mkInputs( s){
-	o.PHEN_4_1 = mkSq("PHEN_4_1", YH, )//ååå
+	o.PHEN_4_1 = mkSq("PHEN_4_1", AT, )//ååå
 }
 function mkSignal(s,fac){ s.tYl =s.fAs.find( f =>f.ni==fac);
 	s.tAx=s.tYl.tAx;s.tAy=s.tYl.tAy;s.tAz=s.tYl.tAz;s.tRx=s.tYl.tRx;s.tRy=s.tYl.tRy;s.tRz=s.tYl.tRz;
@@ -1533,7 +1681,7 @@ function getMood( sex,gnd,obj,pM,from){
 		switch(pm.tail[n]){ case "+" : mood = mood + "p"; break;
 							case "-" : mood = mood + "n"; break;
 							case "x" : mood = mood + "b"; break;}}
-	var mo = mkMood(mood, YH); return mo}*/
+	var mo = mkMood(mood, AT); return mo}*/
 
 function interleaveDomains(R,lM,rM) { var r = (2*R)+1; var X = 2*r; var Y = r; var m = mkNullMatrix(Y,X);
 	for(var y=0; y<Y; y++){	for(var x=0; x<X; x++) { if(x<r) { m[y][x] = lM[y][x] }
@@ -1620,10 +1768,10 @@ function mapXYPlane(q,r,R){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){
 	q[y][x].x =x-r; q[y][x].y =y-r; q[y][x].X=Math.abs(q[y][x].x); q[y][x].Y=Math.abs(q[y][x].y);}}}
 //lane( 	m, 	xY, AL.sQr, m.gnd.fem, obj);
 function idnXYPlane(m,xY,r,R,fem,obj){
-	if 		( fem &&  obj){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){ xY[y][x].vQ =getVq( m.vQs, YH.vQsL, y-r, x-r)   }}}
-	else if ( fem && !obj){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){ xY[y][x].vQ =getVq( m.vQs, YH.vQsL, y-r,-(x-r)) }}}
-	else if (!fem &&  obj){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){ xY[y][x].vQ =getVq( m.vQs, YH.vQsL, x-r, y-r)   }}}
-	else if (!fem && !obj){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){ xY[y][x].vQ =getVq( m.vQs, YH.vQsL, x-r,-(y-r)) }}}}
+	if 		( fem &&  obj){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){ xY[y][x].vQ =getVq( m.vQs, AT.vQsL, y-r, x-r)   }}}
+	else if ( fem && !obj){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){ xY[y][x].vQ =getVq( m.vQs, AT.vQsL, y-r,-(x-r)) }}}
+	else if (!fem &&  obj){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){ xY[y][x].vQ =getVq( m.vQs, AT.vQsL, x-r, y-r)   }}}
+	else if (!fem && !obj){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){ xY[y][x].vQ =getVq( m.vQs, AT.vQsL, x-r,-(y-r)) }}}}
 
 function hsvToRgb(h, s, v) {
 	var r, g, b;	var i;	var f, p, q, t;
@@ -2061,15 +2209,15 @@ function combineMoodAndBeing(pM,bE){
 	var mD = pM.ni.substr(0, pM.ni.indexOf('B'));
 	mD = mD + "_" + bE.ni + "_";
 	mD = mD + pM.ni.split("B").pop();
-	mD = mkMood(mD, YH);
+	mD = mkMood(mD, AT);
 	return mD}
 function mkMoodOld(mo){
 	var primalMood= mo.ni.substr(0, mo.ni.indexOf('_'));
 	var being= mo.ni.split('_')[1]; 					
 	var tail= mo.ni.split("_").pop(); 					
 	primalMood = primalMood+"B"+tail;
-	mo.bE = mkBeing(being, YH.gender);
-	mo.pM = mkPrimalMood(primalMood, YH);
+	mo.bE = mkBeing(being, AT.gender);
+	mo.pM = mkPrimalMood(primalMood, AT);
 	getModalFormByBeing(mo, mo.bE.ni);
 	getModalFormByPrimalMood(mo);
 	parseModalForm(mo);
@@ -2194,7 +2342,7 @@ function mkVqByScalars( rom,cla,parent,s){ var q=null; switch(rom.ni){
  
  /*
  function precalcScalarQualities( seed,iEs,parent,s){ var b =null;
-	for(let n=0; n <YH.sQsL; n++){
+	for(let n=0; n <AT.sQsL; n++){
 		if( s){ if(s.sQs.length >0){ return s.sQs}}
 		else{ 	var sQs =[]; b =mkSq( seed[n],iEs,parent); sQs.push( b);
 				if(s){ switch(seed[n]){ case "FEEL_0i" 	: s.FEEL_0i =b; break; case "THINK_0e" : s.THINK_0e =b; break;
@@ -2210,9 +2358,9 @@ function mkVqByScalars( rom,cla,parent,s){ var q=null; switch(rom.ni){
 										*/
 function precalcVectorQualities( seed,sQs,parent,s){ //if( s){ if(s.vQs.length >0){ return s.vQs}}
  	var b =null; var vQs =[];
- 	for(let n=0; n <YH.vQsL; n++){ b =mkVq( seed[n],sQs,parent); vQs.push( b);} return vQs}
+ 	for(let n=0; n <AT.vQsL; n++){ b =mkVq( seed[n],sQs,parent); vQs.push( b);} return vQs}
 				/*if(s){ switch(seed[n]){ case "U_origin_i" 	: s.FEEL_0i =b; break; case "THINK_0e" : s.THINK_0e =b; break;*/
-	//for(let n=0; n <YH.vQsL; n++){ b =mkVq( seed[n],sQs,parent,s); a.push( b)}return a}
+	//for(let n=0; n <AT.vQsL; n++){ b =mkVq( seed[n],sQs,parent,s); a.push( b)}return a}
 
  function mkVq( ni,sQs,parent,s){ var q=null; switch(ni){
 	case "Origin"  		: q = new AL.VectorQualities.Origin 		("Origin", 		undefined,undefined,sQs); inhVq( q,parent,s);return q;
@@ -2308,8 +2456,8 @@ function inhVq( v,parent,s){ if(parent){ v.parent=parent.vQs.find(o => o.ni ==v.
 /*							 if()
 
 	if(!parent){ var q=v.ni.charAt(0); switch(q){
-		case "M" : YH.vQsM.push( v);break; 	case "L" : YH.vQsL.push( v);break;
-		case "U" : YH.vQsU.push( v);break; 	case "O" : YH.vQsO.push( v)}}}*/
+		case "M" : AT.vQsM.push( v);break; 	case "L" : AT.vQsL.push( v);break;
+		case "U" : AT.vQsU.push( v);break; 	case "O" : AT.vQsO.push( v)}}}*/
 
 AL.VectorQualities = { seed:[ "Origin",
 	"Feel_1e", "Feel_2i", "Feel_3e", "Feel_4i", "Think_1i","Think_2e","Think_3i","Think_4e",
@@ -2419,10 +2567,10 @@ function mkVq2(o,ni,rQs,cQs,sQs,r,c,i,e,desc){ o.ni=ni; o.r=r; o.c=c; o.i=i; o.e
 	var v=ni.charAt(0); switch(v){
 		case "M" : o.lPI=true; o.lPU=true; break; case "L" : o.lPI=true; o.lPU=false;break;
 		case "U" : o.lPI=false;o.lPU=false;break; case "O" : o.lPI=false;o.lPU=true}
-	o.rQs=null; if(rQs){ o.rQs=rQs} else{ o.rQs=getRomanticQualities( ni, sQs, YH.sQsL)}
-	o.cQs=null; if(cQs){ o.cQs=cQs} else{ o.cQs=getClassicalQualities(ni, sQs, YH.sQsL)}}
+	o.rQs=null; if(rQs){ o.rQs=rQs} else{ o.rQs=getRomanticQualities( ni, sQs, AT.sQsL)}
+	o.cQs=null; if(cQs){ o.cQs=cQs} else{ o.cQs=getClassicalQualities(ni, sQs, AT.sQsL)}}
 function getRomanticQualities(ni,sQs,l){ var q=null; switch( ni){
-case "Origin"  :q=getByNis(sQs,l,["ROMANTIC_0"] 																					,1);return q;
+case "Origin"  :q=getByNis(sQs,l,["RRTANTIC_0"] 																					,1);return q;
 case "Feel_1e" :q=getByNis(sQs,l,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DLBR_1_4", "HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);return q;
 case "Feel_2i" :q=getByNis(sQs,l,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DLBR_1_4", "HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);return q;
 case "Feel_3e" :q=getByNis(sQs,l,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DLBR_1_4", "HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);return q;
@@ -2591,7 +2739,7 @@ function getClassicalQualities(ni,sQs,l){ var q=null; switch( ni){
 
 
 function precalcScalarQualities( seed,parent){ var b =null; var sQs =[];
-	for(let n=0; n <YH.sQsL; n++){
+	for(let n=0; n <AT.sQsL; n++){
 		/*if( s){ if(s.sQs.length >0){ return s.sQs}}
 		else{ */ b =mkSq( seed[n],parent); sQs.push( b);}/*
 				if(s){ switch(seed[n]){ case "FEEL_0i" 	: s.FEEL_0i =b; break; case "THINK_0e" : s.THINK_0e =b; break;
@@ -2605,7 +2753,7 @@ function precalcScalarQualities( seed,parent){ var b =null; var sQs =[];
 										case "HIGH_2_3" : s.HIGH_2_3=b; break; case "AWARE_2_3": s.AWARE_2_3=b; break;
 										case "DLBR_1_4"	: s.DLBR_1_4=b; break; case "UNITY_1_4": s.UNITY_1_4=b; break}}}}*/return sQs}
 function mkSq( ni,parent){ var q=null; switch(ni){
-	case "ROMANTIC_0" 	:q=new AL.ScalarQualities.ROMANTIC_0 	(ni); inhSq( q,parent);return q;
+	case "RRTANTIC_0" 	:q=new AL.ScalarQualities.RRTANTIC_0 	(ni); inhSq( q,parent);return q;
 	case "4_PHEN_1"  	:q=new AL.ScalarQualities.PHEN_4_1		(ni); inhSq( q,parent);return q;
 	case "3_LOWN_2"  	:q=new AL.ScalarQualities.LOWN_3_2 		(ni); inhSq( q,parent);return q;
 	case "2_HIGH_3"  	:q=new AL.ScalarQualities.HIGH_2_3 		(ni); inhSq( q,parent);return q;
@@ -2626,9 +2774,9 @@ function mkSq( ni,parent){ var q=null; switch(ni){
 	case "THINK_4e" 	:q=new AL.ScalarQualities.THINK_4e 		(ni); inhSq( q,parent);return q}}
 function inhSq( q,parent){ if( parent){ q.parent=parent.sQs.find(o => o.ni == q.ni)}}
 AL.ScalarQualities={ seed : [
-	"ROMANTIC_0", "4_PHEN_1", "3_LOWN_2", "2_HIGH_3", "1_DLBR_4",	"4_HRMNY_1","3_SIGNI_2","2_AWARE_3","1_UNITY_4",
+	"RRTANTIC_0", "4_PHEN_1", "3_LOWN_2", "2_HIGH_3", "1_DLBR_4",	"4_HRMNY_1","3_SIGNI_2","2_AWARE_3","1_UNITY_4",
 	"FEEL_0i", 	"FEEL_1e", 	"FEEL_2i", 	"FEEL_3e", 	"FEEL_4i",	"THINK_0e", "THINK_1i", "THINK_2e", "THINK_3i", "THINK_4e"],
-ROMANTIC_0 	: function(ni){mkSq2(this,ni,0,0,true, true, false,false,"0R0","Empty \n romantic \n quality")},
+RRTANTIC_0 	: function(ni){mkSq2(this,ni,0,0,true, true, false,false,"0R0","Empty \n romantic \n quality")},
 PHEN_4_1 	: function(ni){mkSq2(this,ni,4,1,true, true, false,false,"4S1","Sensory \n introverted \n phenomena")},
 LOWN_3_2 	: function(ni){mkSq2(this,ni,3,2,true, true, false,false,"3S2","Sensory \n extroverted \n lower needs")},
 HIGH_2_3 	: function(ni){mkSq2(this,ni,2,3,true, true, false,true, "2S3","Sensory \n introverted \n higher needs")},
@@ -2683,7 +2831,7 @@ function initXtn(iE,ntn){ var b=null; switch(ntn.ni){
 
 
 function precalcMoods(seed,qua,parent){ var ms=[]; var m=null;
-	for(let n=0; n<YH.mDsL; n++){ m=mkMood(seed[n],qua,parent); ms.push(m);} return ms}
+	for(let n=0; n<AT.mDsL; n++){ m=mkMood(seed[n],qua,parent); ms.push(m);} return ms}
 function mkMood( ni,qua,parent,arr){ var m=null; switch(ni){
 	case "MAS_MAS_obj_p_"   : m= new AL.Moods.MAS_MAS_obj_p_  ( ni,qua); inhMd( m,parent,arr); return m;
 	case "MAS_MAS_obj_p_m" 	: m= new AL.Moods.MAS_MAS_obj_p_m ( ni,qua); inhMd( m,parent,arr); return m;
@@ -3600,11 +3748,11 @@ function mkMood2(o,ni,qua,FEM,KID,fem,kid,obj,nI){
 	if( FEM!=fem &&  KID==kid) 		{ o.pureBad =true} 	else{ o.pureBad =false}
 	if( FEM!=fem &&  KID!=kid) 		{ o.invMor  =true} 	else{ o.invMor  =false}
 	if( FEM==fem &&  KID && !kid) 	{ o.pureGood=true} 	else{ o.pureGood=false}
-	o.sex= ni.substr( 0,ni.indexOf( '_')); 					o.sex= getObjByNi( o.sex,YH.sXs);
-	o.gnd= ni.split( '_')[1].substr( 0,ni.indexOf( '_'));	o.gnd= getObjByNi( o.gnd,YH.gNs);
+	o.sex= ni.substr( 0,ni.indexOf( '_')); 					o.sex= getObjByNi( o.sex,AT.sXs);
+	o.gnd= ni.split( '_')[1].substr( 0,ni.indexOf( '_'));	o.gnd= getObjByNi( o.gnd,AT.gNs);
 	o.pM = ni.substr( ni.indexOf( '_') +1)
 		.substr( ni.indexOf( '_') +1)
-			.substr( ni.indexOf( '_')); o.pM ="G"+o.pM;		o.pM = getObjByNi( o.pM, YH.pMs);
+			.substr( ni.indexOf( '_')); o.pM ="G"+o.pM;		o.pM = getObjByNi( o.pM, AT.pMs);
 	o =initModalForm( 		o, o.gnd.ni);
 	o =manipulateModalForm( o);
 	o =interpretModalForm( 	o);
@@ -3735,7 +3883,7 @@ function interpretMosaicForm(m){
 
 
 function precalcPrimalMoods(seed,parent){ var pMs =[]; var pM =null;
-	for(let n=0; n <YH.pMsL; n++){ pM=mkPm( seed[n],parent); pMs.push(pM)}return pMs}
+	for(let n=0; n <AT.pMsL; n++){ pM=mkPm( seed[n],parent); pMs.push(pM)}return pMs}
 function mkPm( ni,parent,subj){ var pM=null; switch(ni){
 	case "G_p_"  : pM= new AL.PrimalMoods.G_p_( ni);   inhPm( pM,parent,subj); return pM;
 	case "G_p_m" : pM= new AL.PrimalMoods.G_p_m( ni);  inhPm( pM,parent,subj); return pM;
@@ -3770,7 +3918,7 @@ function mkPm2(  				 o,   head, tail, 		ni,niH,niG, niT){
 
 
 function precalcGenders(seed,parent){ var r =[]; var b =null;
-	for(let n=0; n<YH.gNsL; n++){ b=mkGender( seed[n],parent);r.push(b)}return r}
+	for(let n=0; n<AT.gNsL; n++){ b=mkGender( seed[n],parent);r.push(b)}return r}
 function mkGender( ni,parent,subj){ var g=null; switch(ni){
 	case "MAS": g= new AL.Genders.MAS( ni,subj); inhGender( g,parent);return g;
 	case "mas": g= new AL.Genders.mas( ni,subj); inhGender( g,parent);return g;
@@ -3789,7 +3937,7 @@ function mkGender2( o,ni,fem,kid,nI,subj){ var b=[];
 	if(b !=[]){ o.name =b[0]} else{ b =mkName(fem,kid,subj.fin,subj.weird,subj.nM.last); o.name =b}}
 
 function precalcSexes(seed,parent){ var r =[]; var b =null;
-	for(let n=0; n<YH.sXsL; n++){ b=mkSex( seed[n],parent);r.push(b)}return r}
+	for(let n=0; n<AT.sXsL; n++){ b=mkSex( seed[n],parent);r.push(b)}return r}
 function mkSex( ni,parent,subj){ var s =null; switch( ni){
 	case "MAS": s= new AL.Sexes.MAS( ni); inhSex( s,parent,subj);return s;
 	case "mas": s= new AL.Sexes.mas( ni); inhSex( s,parent,subj);return s;
@@ -3807,7 +3955,7 @@ function mkSex2( o,ni,fem,kid,nI){ o.ni=ni;o.kid=kid;o.fem=fem;o.nI=nI; o.V =0; 
 
 
 function precalcSociotypes( seed,ab,parent,subj){ var tYs =[]; var b =null;
-	for(let n=0; n <YH.tYsL; n++){ b =mkType( seed[n],ab,parent,subj); tYs.push( b)}return tYs}
+	for(let n=0; n <AT.tYsL; n++){ b =mkType( seed[n],ab,parent,subj); tYs.push( b)}return tYs}
 function mkType(ni,ab,parent,subj){
 	if( subj){ var t =subj.tYs.find( o => o.ni ==ni); if( t){ return t}}
 	var t =null; switch( ni){
@@ -3869,11 +4017,11 @@ function mkSociotype( o,ni,ab,parent,s,ie,sn,ft,rc,zo,desc,call,modA4,modA3,mbti
 							o.ni=ni; o.ie=ie; o.sn=sn; o.ft=ft; o.rc=rc;
 							o.zo=zo; o.desc=desc; o.call=call; o.modA4=modA4; o.modA3=modA3; o.mbti=mbti;
 							//inhTy( 		o, parent);
-							o.iEs 		= YH.iEs;
-							o.fNs 		= precalcFunctions( 			AL.Functions.seed, 						YH);
-							o.cRs 		= precalcCircuits( 				AL.Circuits.seed, 						YH);
+							o.iEs 		= AT.iEs;
+							o.fNs 		= precalcFunctions( 			AL.Functions.seed, 						AT);
+							o.cRs 		= precalcCircuits( 				AL.Circuits.seed, 						AT);
 							o.fAs 		= o.fNs.concat( 				o.cRs);
-							o.abSpace 	= YH.abSpace;
+							o.abSpace 	= AT.abSpace;
 							o.reSpace 	= orientRelSpace( o, precalcSocionicsEssence( o.fNs, o.cRs));
 							o.cRs 		= orientCircuitsAbsolutely( o);
 
@@ -4001,7 +4149,7 @@ function mkSignal(o,subj,presentSubjs,awaySubjs,presentObjs,awayObjs){
 
 
 function precalcCircuits( seed,parent){ cRs =[]; var b =null;
-	for(let n=0; n <YH.cRsL; n++){ b =mkCircuit( seed[n],parent);cRs.push( b)}return cRs}
+	for(let n=0; n <AT.cRsL; n++){ b =mkCircuit( seed[n],parent);cRs.push( b)}return cRs}
 function mkCircuit( ni,parent){ var c =null; switch( ni){
 	case "a" : c =new AL.Circuits.a( ni); inhCircuit( c,parent);return c;
 	case "b" : c =new AL.Circuits.b( ni); inhCircuit( c,parent);return c;
@@ -4034,7 +4182,7 @@ function mkCircuit2( 			 c,   ni,lon,  lat,  ver, rDi,str,  val,  mnt,  nI){
 	c.count=0; c.K=0; c.V=0; c.spd={lon:0,lat:0,ver:0}}
 
 function precalcFunctions(seed,parent){ fNs =[]; var b =null;
-	for(let n=0; n <YH.fNsL; n++){ b =mkFunc( seed[n],parent);fNs.push( b)}return fNs}
+	for(let n=0; n <AT.fNsL; n++){ b =mkFunc( seed[n],parent);fNs.push( b)}return fNs}
 function mkFunc(ni,parent){ var f=null; switch( ni){
 	case "f1" : f =new AL.Functions.f1( ni); inhFunc( f,parent);return f;
 	case "f2" : f =new AL.Functions.f2( ni); inhFunc( f,parent);return f;
@@ -4071,7 +4219,7 @@ function mk3Space(){ var space=[]; for(var z=0; z<=2;z++){space[z]=[];
 
 
 function precalcInformationElements( seed,parent){ var b =null; var iEs =[];
-	for(let n=0; n <YH.iEsL; n++){
+	for(let n=0; n <AT.iEsL; n++){
 		/*if( s){ if(s.tY.iEs.length >0){ return s.tY.iEs}}
 		else{*/ 	 b =mkIe( seed[n],parent); iEs.push( b)}
 				/*if(s){ switch(seed[n]){ case "Fi" : s.Fi =b; break; case "Fe" : s.Fe =b; break;
@@ -4110,37 +4258,37 @@ AL.InformationElements={ seed: ["Fi","Fe","Si","Se","Ti","Te","Ni","Ne"],
 function mkIe2( o,ni,mo,ul,ie){ o.mo=mo;o.ul=ul;o.ie=ie;o.ni=ni;
 	/*console.log(qua);
 	switch(ni){ case "Fi" :
-			o.rQs =getByNis(qua.sQs,YH.sQsL,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DELI_1_4"],4);
-			o.cQs =getByNis(qua.sQs,YH.sQsL,["FEEL_0i","FEEL_2i","FEEL_4i"],3);
-			o.vQs =getByNi1st(qua.vQs,YH.vQsL,"U").filter( v => v.i); break; 
+			o.rQs =getByNis(qua.sQs,AT.sQsL,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DELI_1_4"],4);
+			o.cQs =getByNis(qua.sQs,AT.sQsL,["FEEL_0i","FEEL_2i","FEEL_4i"],3);
+			o.vQs =getByNi1st(qua.vQs,AT.vQsL,"U").filter( v => v.i); break; 
 		case "Fe" :
-			o.rQs =getByNis(qua.sQs,YH.sQsL,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DELI_1_4"],4);
-			o.cQs =getByNis(qua.sQs,YH.sQsL,["FEEL_1e","FEEL_3e"],2);
-			o.vQs =getByNi1st(qua.vQs,YH.vQsL,"U").filter( v => v.e); break;
+			o.rQs =getByNis(qua.sQs,AT.sQsL,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DELI_1_4"],4);
+			o.cQs =getByNis(qua.sQs,AT.sQsL,["FEEL_1e","FEEL_3e"],2);
+			o.vQs =getByNi1st(qua.vQs,AT.vQsL,"U").filter( v => v.e); break;
 		case "Si" : 
-			o.rQs =getByNis(qua.sQs,YH.sQsL,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DELI_1_4"],4);
-			o.cQs =getByNis(qua.sQs,YH.sQsL,["THINK_1i","THINK_3i"],2);
-			o.vQs =getByNi1st(qua.vQs,YH.vQsL,"O").filter( v => v.i); break;
+			o.rQs =getByNis(qua.sQs,AT.sQsL,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DELI_1_4"],4);
+			o.cQs =getByNis(qua.sQs,AT.sQsL,["THINK_1i","THINK_3i"],2);
+			o.vQs =getByNi1st(qua.vQs,AT.vQsL,"O").filter( v => v.i); break;
 		case "Se" :
-			o.rQs =getByNis(qua.sQs,YH.sQsL,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DELI_1_4"],4);
-			o.cQs =getByNis(qua.sQs,YH.sQsL,["THINK_0e","THINK_2e","THINK_4e"],3);
-			o.vQs =getByNi1st(qua.vQs,YH.vQsL,"O").filter( v => v.i); break;
+			o.rQs =getByNis(qua.sQs,AT.sQsL,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DELI_1_4"],4);
+			o.cQs =getByNis(qua.sQs,AT.sQsL,["THINK_0e","THINK_2e","THINK_4e"],3);
+			o.vQs =getByNi1st(qua.vQs,AT.vQsL,"O").filter( v => v.i); break;
 		case "Ni" :
-			o.rQs =getByNis(qua.sQs,YH.sQsL,["HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);
-			o.cQs =getByNis(qua.sQs,YH.sQsL,["FEEL_0i","FEEL_2i","FEEL_4i"],3);
-			o.vQs =getByNi1st(qua.vQs,YH.vQsL,"M").filter( v => v.i); break;
+			o.rQs =getByNis(qua.sQs,AT.sQsL,["HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);
+			o.cQs =getByNis(qua.sQs,AT.sQsL,["FEEL_0i","FEEL_2i","FEEL_4i"],3);
+			o.vQs =getByNi1st(qua.vQs,AT.vQsL,"M").filter( v => v.i); break;
 		case "Ne" :
-			o.rQs =getByNis(qua.sQs,YH.sQsL,["HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);
-			o.cQs =getByNis(qua.sQs,YH.sQsL,["FEEL_1e","FEEL_3e"],2);
-			o.vQs =getByNi1st(qua.vQs,YH.vQsL,"M").filter( v => v.e); break;
+			o.rQs =getByNis(qua.sQs,AT.sQsL,["HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);
+			o.cQs =getByNis(qua.sQs,AT.sQsL,["FEEL_1e","FEEL_3e"],2);
+			o.vQs =getByNi1st(qua.vQs,AT.vQsL,"M").filter( v => v.e); break;
 		case "Ti" :
-			o.rQs =getByNis(qua.sQs,YH.sQsL,["HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);
-			o.cQs =getByNis(qua.sQs,YH.sQsL,["THINK_1i","THINK_3i"],2);
-			o.vQs =getByNi1st(qua.vQs,YH.vQsL,"L").filter( v => v.i); break;
+			o.rQs =getByNis(qua.sQs,AT.sQsL,["HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);
+			o.cQs =getByNis(qua.sQs,AT.sQsL,["THINK_1i","THINK_3i"],2);
+			o.vQs =getByNi1st(qua.vQs,AT.vQsL,"L").filter( v => v.i); break;
 		case "Te" :
-			o.rQs =getByNis(qua.sQs,YH.sQsL,["HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);
-			o.cQs =getByNis(qua.sQs,YH.sQsL,["THINK_0e","THINK_2e","THINK_4e"],3);
-			o.vQs =getByNi1st(qua.vQs,YH.vQsL,"U").filter( v => v.e);}
+			o.rQs =getByNis(qua.sQs,AT.sQsL,["HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);
+			o.cQs =getByNis(qua.sQs,AT.sQsL,["THINK_0e","THINK_2e","THINK_4e"],3);
+			o.vQs =getByNi1st(qua.vQs,AT.vQsL,"U").filter( v => v.e);}
 	o.sQs =o.rQs.concat( o.cQs)*/}
 
 /*
@@ -4224,7 +4372,7 @@ function mkOrigin2(o,ni,subj,definable,sex,gnd){
 	if( definable){ o.tYs =[]; o.mDs =[]; o.pMs =[]; o.gNs =[]; o.sXs =[]}
 	else{ 			o.tYs=null;o.mDs=null;o.pMs=null;o.gNs=null;o.sXs=null}}
 function precalcOrigins( seed,parent){ a =[]; var b =null;
-	for(let n=0; n <YH.originsL; n++){ b =mkOrigin( seed[n],parent); a.push( b)}return a}
+	for(let n=0; n <AT.originsL; n++){ b =mkOrigin( seed[n],parent); a.push( b)}return a}
 function inhOrigin(O,parent){ if(parent){ O.parent = parent.origins.find(o => o.ni ==O.ni)}}
 
 AL.BinaryGenders ={ seed:["Feminine","Neutral","Masculine"],
@@ -4348,8 +4496,8 @@ function queueNext( sim){ var b=null;
 			for( var n =0; n <sim.subjsL; n++){ if( sim.queue[n] ==b){ sim.subTurn =n}}}}}
 function mkSim2(init, o,   subjs, 	 	subjsL, 	 evs, 	   evsL, 	  turn, 	 subTurn){
 	if( init === true) {
-						OM.simsL++;
-						o.nI 		=OM.simsL;
+						RT.simsL++;
+						o.nI 		=RT.simsL;
 						o.subjsL 	=0;
 						o.subjs 	=[];
 						o.queue 	=mkQueue( o.subjs);
@@ -4363,8 +4511,8 @@ function mkSim2(init, o,   subjs, 	 	subjsL, 	 evs, 	   evsL, 	  turn, 	 subTurn
 						o.sec 		=0;
 	}
 	else{ 				
-						OM.simsL++;
-						o.nI 		=OM.simsL;
+						RT.simsL++;
+						o.nI 		=RT.simsL;
 						o.subjsL 	=0;
 						o.subjs 	=subjs.slice(0);
 						o.queue 	=mkQueue( o.subjs, subTurn);
@@ -4372,7 +4520,7 @@ function mkSim2(init, o,   subjs, 	 	subjsL, 	 evs, 	   evsL, 	  turn, 	 subTurn
 						o.turn  	=turn;
 						o.subTurn 	=subTurn;
 	}
-	OM.sims.push( o)}
+	RT.sims.push( o)}
 
 
 function initVariables(){
@@ -4443,101 +4591,101 @@ function initSubjs(sim){
 }
 
 function initSims(){ var sim =null; var places =null; var patts =[];
-				/*AL.sims =[];*/			YH.sims =[];
-				for(var i=0; i<AL.abTabsL; i++){ mkSim( AL.abTabsL[i], YH)}
-				YH.simsL =YH.sims.length;	
-				OM.sims =[];
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
-				sim =new Sim( undefined, OM); OM.sims.push( sim);
+				/*AL.sims =[];*/			AT.sims =[];
+				for(var i=0; i<AL.abTabsL; i++){ mkSim( AL.abTabsL[i], AT)}
+				AT.simsL =AT.sims.length;	
+				RT.sims =[];
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
+				sim =new Sim( undefined, RT); RT.sims.push( sim);
 				
 				//AL.sims.push( sim);		AL.simsL=1;
 				AL.sim =sim;
-				 	OM.simsL=OM.sims.length;
-				sim.places 	=precalcDefaultPlaces( OM.Places.seed);
+				 	RT.simsL=RT.sims.length;
+				sim.places 	=precalcDefaultPlaces( RT.Places.seed);
 				AL.sim = sim;
 }
 /*
 function initSims(){ var sim =null; var places =null; var patts =[];
 				//AL.sims =[];
-				YH.sims =[];
-				for(var i=0; i<AL.abTabsL; i++){ mkSim( AL.abTabsL[i], YH)}
-				YH.simsL =YH.sims.length;	
-				OM.sims =[];
-				mkSim( undefined, OM); 	AL.sim =OM.sims[0];
+				AT.sims =[];
+				for(var i=0; i<AL.abTabsL; i++){ mkSim( AL.abTabsL[i], AT)}
+				AT.simsL =AT.sims.length;	
+				RT.sims =[];
+				mkSim( undefined, RT); 	AL.sim =RT.sims[0];
 				//AL.sims.push( sim);		AL.simsL=1;
-				//OM.sims.push( sim); 	
-				OM.simsL=1;
-				AL.sim.places 	=precalcDefaultPlaces( OM.Places.seed);
+				//RT.sims.push( sim); 	
+				RT.simsL=1;
+				AL.sim.places 	=precalcDefaultPlaces( RT.Places.seed);
 				AL.sim = sim;*/
 function mkSim( ni,to){ var s =new Sim( ni,to.sQr); to.sims.push(s)}
 function Sim( ni,r){ mkSim2( this,ni,r)}
@@ -4549,35 +4697,46 @@ function mkSim2( o,ni,r){
 	o.evs =[]; 		o.evsL =0;
 	o.turn =0; 		o.subTurn =0;
 	o.queue =[]; 	o.keySubj =null;
-	mkQualities(o.ab, YH);
-//	mkForms( 	o.ab, o.ab, YH);
-// 	mkEssences( o.ab, YH);
-// 	mkTypes( 	o.ab, YH);
+	initQualities(o.ab, AT);
+//	mkForms( 	o.ab, o.ab, AT);
+// 	mkEssences( o.ab, AT);
+// 	mkTypes( 	o.ab, AT);
 
 }
 
 // resolution is neither absolute nor relative.
 function measureOntology(){
-				YH.sQsL 		=AL.ScalarQualities.seed.length;
-				YH.vQsL 		=AL.VectorQualities.seed.length;
-				YH.sXsL 		=AL.Genders.seed.length;
-				YH.pMsL 		=AL.PrimalMoods.seed.length;
-				YH.iEsL 		=AL.InformationElements.seed.length;
-				YH.fNsL 		=AL.Functions.seed.length;
-				YH.cRsL 		=AL.Circuits.seed.length;
+				AT.sQsL 		=AL.ScalarQualities.seed.length;
+				AT.vQsL 		=AL.VectorQualities.seed.length;
+				AT.sXsL 		=AL.Genders.seed.length;
+				AT.pMsL 		=AL.PrimalMoods.seed.length;
+				AT.iEsL 		=AL.InformationElements.seed.length;
+				AT.fNsL 		=AL.Functions.seed.length;
+				AT.cRsL 		=AL.Circuits.seed.length;
 	
-				YH.tYsL 		=AL.Sociotypes.seed.length;
-				YH.gNsL 		=AL.Sexes.seed.length;			
-				YH.mDsL 		=AL.Moods.seed.length;
-				YH.originsL  =AL.Origins.seed.length;
+				AT.tYsL 		=AL.Sociotypes.seed.length;
+				AT.gNsL 		=AL.Sexes.seed.length;			
+				AT.mDsL 		=AL.Moods.seed.length;
+				AT.originsL  =AL.Origins.seed.length;
 
-				OM.PlacesL 	=OM.Places.seed.length;
+				RT.PlacesL 	=RT.Places.seed.length;
 }
 
 
 
+function initQualities(to){
+	to.sXs 		= []; 
+	to.gNs 		= [];
+	to.sQs 		= [];
+	to.vQs 		= [];
+	to.pMs 		= [];
+	to.mDs 		= [];
+	to.iEs 		= [];
+	to.fNs 		= [];
+	to.cRs 		= [];
+	to.tYs 		= [];
+}
 function mkQualities(to,parent){
-	to.origins 	= precalcOrigins( 				AL.Origins.seed, 						parent);
 	to.sXs 		= precalcSexes( 				AL.Sexes.seed, 							parent); 
 	to.gNs 		= precalcGenders( 				AL.Genders.seed, 				 		parent);
 	to.sQs 		= precalcScalarQualities( 		AL.ScalarQualities.seed, 				parent);
@@ -4600,11 +4759,11 @@ function mkResolution( to, rXp){
 
 function precalc() { 
 						mkResolution( 	AL, 	1);
-						mkResolution( 	YH, 	AL.sQrXp);
-						mkResolution( 	OM, 	AL.sQrXp);
+						mkResolution( 	AT, 	AL.rXp);
+						mkResolution( 	RT, 	AL.rXp);
 						measureOntology();	
 						
-						mkQualities( 	YH);
+						mkQualities( 	AT);
 					
 						initSims();
 						initSubjs( AL.sim);
@@ -4613,8 +4772,8 @@ function precalc() {
 						initVariables();
 						initTurn( AL.sim);
 
-						console.log( OM);
-						console.log( YH);
+						console.log( RT);
+						console.log( AT);
 						console.log( AL);
 }
 precalc();
@@ -4639,37 +4798,37 @@ precalc();
 
 // Notes 1:
 
-//OM.sims should contain all true (not derived) simulations
+//RT.sims should contain all true (not derived) simulations
 //AL.sims should contain selected simulations
 //AL.sim should contain the active simulation
-//derived simulations are contained by YH.sims and cannot be selected but can be active (can be AL.sim)
-//Apart from this, OM contains precalc settings of relative subjects and objects, and raw data collected from all simulations.
+//derived simulations are contained by AT.sims and cannot be selected but can be active (can be AL.sim)
+//Apart from this, RT contains precalc settings of relative subjects and objects, and raw data collected from all simulations.
 //It should be possible to copy the initial simulation and to create new simulations in which there are random factors within bounds specified by precalc values
 //comparable subjects produced by precalc should associate to each other by ni
 //This data is necessary for searching for objects.
-//Data compiled from data collected from all simulations, such as averages or medians, belong to some simulation in YH.
-//if there are both cloned and generated simulations, their averages or medians should be modeled both separately and together, meaning three instances of each tab defined in YH
+//Data compiled from data collected from all simulations, such as averages or medians, belong to some simulation in AT.
+//if there are both cloned and generated simulations, their averages or medians should be modeled both separately and together, meaning three instances of each tab defined in AT
 //ni discrepancy makes it impossible to combine all aspects of cloned and generated simulations
 //Data of absolute simulations is not updated at runtime unless that is specifically asked for (meaning the tab of the simulation is open or the data is used to search for an object)
 //This data can be used for searching for objects but isn't necessary for that.
-//YH contains also all archetypes. Archetypes can also be relevant for making statistics
+//AT contains also all archetypes. Archetypes can also be relevant for making statistics
 
-//for brevity, resolution could perhaps be expressed as an attribute of the OM object even though it would technically belong to YH
-//If resolution of the OM object were greater than the resolution of any simulation in OM then the program would need to break some tie in YH that wasn't actually broken, but this only makes sense if there is some a deterministic method for that.
-//There would be a need to separate the resolution of OM and YH to improve performance if the simulation is continued after deriving data from it to YH
-//It would be better to designate greatest resolution exponent of a relative simulation an attribute of the OM object even though the need to differentiate resolution in OM and YH is quite remote for now.
-//The resolution that is currently relevant (resolution of the AL object) can be obtained from OM, YH or any individual simulation
+//for brevity, resolution could perhaps be expressed as an attribute of the RT object even though it would technically belong to AT
+//If resolution of the RT object were greater than the resolution of any simulation in RT then the program would need to break some tie in AT that wasn't actually broken, but this only makes sense if there is some a deterministic method for that.
+//There would be a need to separate the resolution of RT and AT to improve performance if the simulation is continued after deriving data from it to AT
+//It would be better to designate greatest resolution exponent of a relative simulation an attribute of the RT object even though the need to differentiate resolution in RT and AT is quite remote for now.
+//The resolution that is currently relevant (resolution of the AL object) can be obtained from RT, AT or any individual simulation
 //The resolution of the AL object would need to be changed whenever active simulation or active subject is changed
 //There is always an active simulation but not always an active subject
 //There is no need to precalc colours of quality vectors for resolution exponents greater than 1
 
-//chains of scalar qualities are evaluated so that V(1) * V(2) * V(3) * ... * V(4ˆAL.sQrXp).
-//only scalar qualities of the same type (ie THINK or FEEL or "SENSE" or "INTUIT" or ROMANTIC_0) may be chained
-//qualities which have both intension and extension, and include ROMANTIC_0, can have an age but cannot have a gender
+//chains of scalar qualities are evaluated so that V(1) * V(2) * V(3) * ... * V(4ˆAL.rXp).
+//only scalar qualities of the same type (ie THINK or FEEL or "SENSE" or "INTUIT" or RRTANTIC_0) may be chained
+//qualities which have both intension and extension, and include RRTANTIC_0, can have an age but cannot have a gender
 //because they cannot have a gender they cannot be feminine
 //therefore the masculine origins are actually equivalent to the non-feminine origins.
 //if the resolution of a value (length of the chain) is less than V(4ˆrXp) then it is evaluated so that
-//f.ex AL.sQrXp = 4 and resolution of a particular value is 2 
+//f.ex AL.rXp = 4 and resolution of a particular value is 2 
 // V(1) * V(2)
 // so that V(x) returns a value from 0 to 4 (and 0 only when this is the first value of the chain or the chain is intuition)
 // when the maximum is:
@@ -4712,7 +4871,7 @@ precalc();
 // information elements are generalizations of vector qualities.
 // the sex of an information element can be determined according to constituent romantic qualities
 // information elements may have chirality?
-// romantic scalar qualities, including ROMANTIC_0, have a sex. classical scalar qualities don't.
+// romantic scalar qualities, including RRTANTIC_0, have a sex. classical scalar qualities don't.
 // scalar qualities whose sex is different need to be modeled as different objects
 // f.ex. needing attention for its own sake is a feminine scalar quality. it obviously is easier to define as a scalar quality than as an information element.
 // associating scalar qualities to the self is to objectify the self
@@ -4812,8 +4971,8 @@ precalc();
 // scalar qualities are attributes of objects
 // on the mosaic plane, scalar qualities are accumulated in domains of object and information elements in domains of subject?
 
-// technically, in chains of scalar qualities the null value of JavaScript would mean "undefined/arbitrary" and ROMANTIC_0 specifically zero.
-// orgasm only happens when ROMANTIC_0 is the most valuable scalar quality of the model
+// technically, in chains of scalar qualities the null value of JavaScript would mean "undefined/arbitrary" and RRTANTIC_0 specifically zero.
+// orgasm only happens when RRTANTIC_0 is the most valuable scalar quality of the model
 // orgasm lasts only until some other scalar quality accumulates more value
 // time could perhaps be defined in relation to the length of an orgasm
 // the default unit of measuring time would be in relation to the length of arousal? explaining why longer intercourses could make people more patient
@@ -4824,17 +4983,17 @@ precalc();
 // the value of an information element is determined on the subject domains of the mosaic plane
 // orgasm is an Information Element of its own
 // it represents the 0 value of the Information Element model
-// ROMANTIC_0 with an intension means the orgasm of a subject's object
+// RRTANTIC_0 with an intension means the orgasm of a subject's object
 // the subject's object can also be the self if one refers to his own orgasm while not having it
 // abstract (iNtuitive) scalar qualities and Information Elements are inherently weaker than Sensing scalar qualities.
 // because strength means the ability to sustain itself, Thinking is inherently stronger than Feeling
 // if objectivity were the ultimate ground of relevance reality would obviously contain too much information for making a complete model.
 // there are two null Information Elements without orgasm:
-// * ROMANTIC_0,FEEL_0i would be vector M_iNtuit_0i because Mysticality is the ultimate ground of relevance of this model.
-// * a subject cannot notice ROMANTIC_0,THINK_0e = L_Think_0e in himself unless he is an object (in object domain of mosaic plane).
+// * RRTANTIC_0,FEEL_0i would be vector M_iNtuit_0i because Mysticality is the ultimate ground of relevance of this model.
+// * a subject cannot notice RRTANTIC_0,THINK_0e = L_Think_0e in himself unless he is an object (in object domain of mosaic plane).
 // to become an object of Buddhism so that Buddhism is a subject makes it possible to meditate indefinitely because Buddhism tells one to produce L_Think_0e
 // M_iNtuit_0 is the weak zero and L_Think_0e is the strong zero
-// "SENSE_0" could as well be called ROMANTIC_0 without an intension, which is orgasm
+// "SENSE_0" could as well be called RRTANTIC_0 without an intension, which is orgasm
 // Perhaps iNtuitions are echoes of Sensations anyway
 // sensory deprivation creates hallucinations and hallucinations must be produced by intuition
 // prolonged sensory deprivation is torture
@@ -4856,13 +5015,13 @@ precalc();
 // the size of the domain of sensing is smaller than the domain of intuition because intuition includes the c axis.
 // sensory 0 is orgasm
 // in order to attain sensory 0 it is necessary that FEEL_0i and THINK_0e are absent
-// arousal means ROMANTIC_0 as intension
-// orgasm means ROMANTIC_0 as extension and no intension
-// attempting to overwrite ROMANTIC_0 as extension does not ruin an orgasm if it is began before the orgasm starts but after the orgasm has become inevitable. it it is began before the orgasm has become inevitable there will be no orgasm.
+// arousal means RRTANTIC_0 as intension
+// orgasm means RRTANTIC_0 as extension and no intension
+// attempting to overwrite RRTANTIC_0 as extension does not ruin an orgasm if it is began before the orgasm starts but after the orgasm has become inevitable. it it is began before the orgasm has become inevitable there will be no orgasm.
 // feminine subjects and objects affect the location of masculine subjects on the multipolar plane
 // if the domains weren't mirrored it would look like feminine subjects pull masculine subjects towards themselves
 // masculine objects and subjects do not pull feminine objects towards themselves
-// this way, in order to have sex the masculine subject needs to do (x,y) so that |x| = 4 and |y| = 4 while feminine subject does (-x,-y). when the masculine subject does (x,y) again he reaches the origin of the feminine subject.
+// this way, in order to have sex the masculine subject needs to do (x,y) so that |x| = 4 and |y| = 4 while feminine subject does (-x,-y) so that |x| = 1 and |y| = 1. when the masculine subject does (x,y) again he reaches the origin of the feminine subject.
 // arousal is created within subjective and logical domain
 // orgasm is created within objective and mystical domain?
 // only an aroused (symmetrical) mood lets the subjects do (x,y) or (-x,-y) again without creating an intension
@@ -4892,14 +5051,14 @@ precalc();
 // ie. she does not perceive the masculine aspect of the man regardless of what it is
 // classical scalar quality has a gender only on the multipolar plane
 // true gender neutrality on the multipolar plane is accomplished only by pairing romantic and classical qualities of mixed gender.
-// which prevents arousal by creating an intension which is not ROMANTIC_0
+// which prevents arousal by creating an intension which is not RRTANTIC_0
 
 
 </script></head>
 <body>
 	<!-- Google Tag Manager (noscript) -->
-	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXVWFS2"
-	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	<!--<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NXVWFS2"
+	height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>-->
 	<!-- End Google Tag Manager (noscript) -->
 	<script>(function() { predraw(); draw();})();</script>
 	<script type="text/javascript">var sc_project=863932;var sc_invisible=1;var sc_security="0ed0c038";</script>
