@@ -4,12 +4,12 @@
 <!-- Google Tag Manager -->
 <!--<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-NXVWFS2');</script>-->
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v1141</title>
+<title>Floresta v1235</title>
 <link rel="icon" href="diodi/favicon.ico">
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
@@ -26,34 +26,29 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	body{height:100%;padding:0px;margin:0px;background-color:transparent; overflow:auto; overflow-x:auto;}
 </style>
 <script>
-var RT ={ tYs:[], nMs:[], mDs:[], pMs:[], gNs:[], sXs:[], subjs:[], sims:[],
-	pcReso:4, pcFem:0.5, pcKid:0.5, pcTys:[], pcPms:[], pcFin:0.5,
-	pcPureBad:0.2, pcInvMor:0.22, pcPureGood:0.25, pcObj:0.5};
-var AT ={};
-</script>
-<script src="diodi/diodi.js"></script>
-<script src="diodi/lodash.js"></script>
-<script>
-// This application has been developed on MacBook Pro and Chrome. It is meant to be used with the touchpad – please do not plug an external mouse on OS X. The application does not work on Safari. The back button of the browser has been disabled to prevent two-finger left swipe from unloading the page. This gesture is needed for horizonal scrolling.
+var RT =null; var AT =null;
+function initTheRelative(){ RT ={ subjs:[], sims:[],simsL:0, simsSrc:[],simsSrcL:0, simsSrcRand:[],simsSrcRandL:0, simsSrcDef:[],simsSrcDefL:0}}
+function initTheAbsolute(){ AT ={ sims:[], simsL:0}}
+initTheRelative(); initTheAbsolute();
 var AL={ 
 	fe: "type",
 	fes: ["quiz",/*"object",*/"type","mood","mosaic"],
-	feTools:[["type","simTotal","simAverage","bigSq","bigLi","subjLi"],
-			[ "mood","mosaicForm","simTotal","simAverage","bigSq","bigLi","subjLi"],
-			[ "mosaic","bigSq","compactList","bigLi","subjLi"]],
-	feTunes:[["type",false,false,false,false,true,false],
-			[ "mood",false]],
-	abTabs:["tot","avg","med"],
+	statTabs:["tot","avg","med"],
 	rXp: 1, bB:false, liNarrowInMosaic:true, liNarrow:false, liSize:0, wideSq:false, mosaicForm :false,
+	lockSubj:false, lockSim:true,
 	sBTools: ["play","fastForward","skip","skipForward"],
 	sBTunes: [100, 	 100, 		   1, 	  1],
 	sBMoved: false, sBPlay: false, 	sBSkipSims: true, 	sBFastForward:false,
 	sBMoodTools: ["mosaicForm"],
 	sBMoodTunes: [true], // before start away asks for delete?
-	tBTools: ["listContent","away","hide","copy","rand","make","tabContent","tabSort","tabHide"],
-	tBTunes: ["subjs", 	undefined,undefined,undefined,undefined,undefined,"sims",false,false],
-	tBSimTools: [undefined,"simAway","simHide","simCopy","simRand","simMake"],
-	tBSimTunes: [undefined,false, 		false, 		100, 	false, 	100],
+//	tBTools: ["listContent","away","hide","copy","rand","make","tabContent","tabSort","tabHide"],
+//	tBTunes: ["subjs", 	undefined,undefined,undefined,undefined,undefined,"sims",false,false],
+	tBTools: ["cleanSlate","makeSim","randSim","copySim","lockSim"],
+	tBTunes: [undefined, 	100, 		100,	100, 		true],
+	lF:"subjects",
+	lIFes: ["subjects","objects","places","contexts","people","family","goals","models"],
+	sQTools: ["sizeList","wideList","wideSeq"],
+
 	tBRoomTools:[undefined,"roomAway","roomHide","roomCopy","roomRand","roomMake"],
 	tBRoomTunes:[undefined,false, 		false, 		10, 	false, 		10],
 	tBSubjTools: [undefined,"subjAway","subjHide","subjCopy","subjRand","subjMake"],
@@ -62,8 +57,8 @@ var AL={
 	tBObjTunes: [undefined,false, 		false, 		10, 	false, 	10],
 // objs Cloth Key Money
 // room Spot Seat Way
-	lITools: ["listSort"],
-	lITunes: [false],
+//	lITools: ["listSort"],
+//	lITunes: [false],
 	lISimTools: ["simResos","simRooms","simSpots","simSeats","simWays","simSubjs","simFins","simMascs","simKids","simObjs","simCloths","simKeys","simMoneys","simConts"],
 	liSimTunes: [ [2,0], [10,0], [10,0], [10,0]],
 	liRoomTools:["roomResos","roomSizes","roomPlaces"],
@@ -71,7 +66,16 @@ var AL={
 	rePreset: "default", abPreset: "default",
 	lIObjTools: ["delObj","makeObj","pcReso","pcSafe","pcPeaceful","pcSensitive","pcToy","pcHostile","pcDangerous","pcOverwhelming"],
 	lISimTools: ["pcSubjs"],
-	pcSubjs: 8};
+	pcSubjs: 8, pcReso:4, pcFem:0.5, pcKid:0.5, pcTys:[], pcPms:[], pcFin:0.5,
+	pcPureBad:0.2, pcInvMor:0.22, pcPureGood:0.25, pcObj:0.5};
+</script>
+<script src="diodi/diodi.js"></script>
+<script src="diodi/lodash.js"></script>
+<script>
+//IEs should be bigger. V and K should be displayed on circs and funcs because IEs do not accommodate for circs. But there's not enough room. It should be possible to replace the stage with some other, more informative kind of display.
+//It could be wrong to say IEs are an input to the model. It's possibly more right to say funcs and circs are an input to the model.
+
+// This application has been developed on MacBook Pro and Chrome. It is meant to be used with the touchpad – please do not plug an external mouse on OS X. The application does not work on Safari. The back button of the browser has been disabled to prevent two-finger left swipe from unloading the page. This gesture is needed for horizonal scrolling.
 var svgFe =null; var divFe =null; var nS ="http://www.w3.org/2000/svg";
 var svgQz =null; var divQz =null;
 var svgTb =null; var divTb =null;
@@ -86,6 +90,7 @@ var ui ={winWid:0, winHei:0,
 		abTabW:25, abTabsW:0, reTabW:40, reTabH:16,reTabV:45,reTabsW:0, tabHei:30,  
 		bG:"#000000", strCol:"#444444"},
 	qZ:{bG:"#cccc88"},
+	lF:{kH:20,kW:80},
 	lI:{iteHei:0, fonSiz:0, svgHei:0,
 		iHe: 0 ,tPF: 0 ,tTR: 0 ,tSF: 0 ,mDx:   0,kix: 0,mPx:   0,obx: 0,vQx:   0,nMx:   0,miW: 0,
 		iHe0:16,tPF0:15,tTR0:14,tSF0:14,mDx0:100,kix0:7,mPx0:180,obx0:3,vQx0:240,nMx0:260,miW0:550,
@@ -115,7 +120,7 @@ var ui ={winWid:0, winHei:0,
 function predraw(){
 	ui.winWid =window.innerWidth; ui.winHei =window.innerHeight; //ui.scrWid =screen.width; ui.scrHei =screen.height;
 
-	if( AL.liSize==2){
+	if( AL.liSize===2){
 		ui.lI.iHeL=Math.floor( (ui.winHei-ui.tB.disHei)/ 8);
 		ui.lI.tPFL=Math.floor( (ui.winHei-ui.tB.disHei)/ 8);
 		ui.lI.tTRL=Math.floor( (ui.winHei-ui.tB.disHei)/ 8);
@@ -135,7 +140,7 @@ function predraw(){
 	ui.qZ.disHei =ui.qZ.disVrt+(ui.qZ.capVrt*2)+ui.qZ.capFnt+(AL.quizLen * ui.qZ.rowHei);
 
 	ui.tB.abTabH=(ui.tB.tooWid*AL.tBToolsL)+3;
-	ui.tB.abTabsW=ui.tB.tabGap+(AL.abTabsL*(ui.tB.abTabW+ui.tB.tabGap));
+	ui.tB.abTabsW=ui.tB.tabGap+(AL.statTabsL*(ui.tB.abTabW+ui.tB.tabGap));
 	//ui.tB.reTabG=((ui.tB.reTabW-9.425)/Math.sqrt(2));
 	//ui.tB.reTabG=((ui.tB.reTabW-9.433)/Math.sqrt(2));
 	ui.tB.reTabG=Math.floor((ui.tB.reTabW-3)/1.618);
@@ -144,6 +149,8 @@ function predraw(){
 	ui.tB.disWid=Math.max(ui.winWid-ui.sB.disWid-ui.tB.disHrz, (RT.simsL*ui.tB.reTabG)+30);
 	ui.tB.skrHei=Math.floor(ui.tB.disHei/3.236);//3.236
 	ui.tB.skrVrt=ui.tB.disHei-ui.tB.skrHei;
+
+	ui.sQ.narVrt=ui.tB.disHei*4; 		ui.sQ.widVrt=ui.tB.disHei*2;
 
 	ui.bB.disWid=ui.winWid-ui.sB.disWid;
 	ui.bB.disHrz=0;
@@ -157,16 +164,21 @@ function predraw(){
 	ui.tY.liX2=ui.sQ.disWid; ui.tY.liHe=ui.winHei-ui.tB.disHei; ui.tY.liY=ui.tB.disHei;
 	ui.tY.keX=ui.sB.disWid+ui.tY.liW+ui.tY.cMarg;*/
 
+// 8 basic object types: place, context, goal, model, family, people, object, subject
+
 	ui.tY.disWid =ui.winWid-ui.sB.disWid;
 	//ui.tY.disHei =ui.winHei;
-	ui.tY.cE =Math.round(Math.min(ui.winWid,ui.winHei)/3);
+	if( AL.wideSq){ ui.tY.cE =Math.round(Math.min(ui.winWid,ui.winHei)/4);
+					ui.sQ.disWid = ui.tY.cE;// - Math.round(Math.min(ui.winWid,ui.winHei)/3);
+					console.log( ui.sQ.disWid)}
+	else{ 			ui.tY.cE =Math.round(Math.min(ui.winWid,ui.winHei)/3);}
 	ui.tY.cuHrz =Math.round(ui.winWid-ui.sB.disWid-(2*(ui.tY.cE/ui.tY.cuD))-ui.tY.cE-ui.tY.cMarg);
 	ui.tY.c2x= Math.round(-(1.5 * ui.tY.cE)-ui.tY.cMarg);
 	ui.tY.liW= Math.round(ui.winWid-(1*ui.sB.disWid)-(4*(ui.tY.cE/ui.tY.cuD))-(2*ui.tY.cE)-(3*ui.tY.cMarg));
-	if( AL.wideSq){
+	/*if( AL.wideSq){
 		ui.sQ.disWid =2*ui.sB.disWid}
 	else{
-		ui.sQ.disWid =ui.sB.disWid}
+		ui.sQ.disWid =ui.sB.disWid}*/
 	ui.tY.lIW= ui.tY.liW-ui.sQ.disWid;
 	ui.tY.liY=ui.tB.disHei;
 	ui.tY.keX=ui.sB.disWid+ui.tY.liW+ui.tY.cMarg;
@@ -409,9 +421,9 @@ function mkE(x,y,w,h,c){ var e=document.createElementNS( nS,'ellipse');
     var path = document.createElementNS('http;//www.w3.org/2000/svg', 'path');
     marker.appendChild(path);
 */
-function drS(v,l,id,cl,op){ var e=document.createElementNS( nS,'polygon'); e.setAttribute("points",v);
+function drS(v,l,id,cl,op,sC,sW){ var e=document.createElementNS( nS,'polygon'); e.setAttribute("points",v);
 	e.setAttribute( 'fill',l); e.setAttribute('id',id); e.setAttribute('class',cl);
-	if(op!=undefined){ e.setAttribute( 'opacity',op)} return e}
+	if(op){ e.setAttribute( 'opacity',op);} if(sC){ e.setAttribute('stroke',sC)}if(sW){ e.setAttribute('stroke-width',sW)} return e}
 function drA(x,y,w,h,l,id,cl,b,L,op){ var e=document.createElementNS( nS,'rect'); e.setAttribute( 'fill',l);
 	e.setAttribute('x',x);e.setAttribute('y',y); e.setAttribute( 'width',w); e.setAttribute( 'height',h); 
 	if(b > 0){ e.setAttribute( 'stroke',L); e.setAttribute( 'stroke-width',b)}
@@ -422,15 +434,17 @@ function drC(x,y,r,c,id,cl,sW,sC,d,fO,sO){var e=document.createElementNS( nS,'ci
 	if(d){e.setAttribute('stroke-dasharray',d)} if(fO){ e.setAttribute( 'fill-opacity',fO)}
 	if(sO){ e.setAttribute( 'stroke-opacity',sO)} return e}
 
+// N and F are vital IEs, S and T are mental IEs
 
 function mkFb( n,sB,ni){ var id="sB_btn-"+n; n = n * sB.rowHei;
-	if( AL.fe != ni){ var e =mkL( ui.sB.disHrz, n+ui.sB.disVrt, sB.disWid, sB.rowHei,	id, sB.btn,"sB_btn")}
+	if( AL.fe !== ni){ var e =mkL( ui.sB.disHrz, n+ui.sB.disVrt, sB.disWid, sB.rowHei,	id, sB.btn,"sB_btn")}
 	else 			{ var e =mkL( ui.sB.disHrz, n+ui.sB.disVrt, sB.disWid, sB.rowHei,	id, sB.sel,"sB_btn")}
 	bindK( e, function(ev,e) { switch( ev){ case "mousedown" : sidebarKey( e.id);break}}); return e }
+//function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op)
 function mkFt( n,sB,ni){ var id="sB_btT-"+n; n = n * sB.rowHei;
-	if( AL.fe != ni){ var e =mkT( ui.sB.disHrz+sB.bTOX, n+sB.bTOY+ui.sB.disVrt,	id, sB.btnTxt, "sB_btT",sB.fnt,ni,'PF')}
+	if( AL.fe !== ni){ var e =mkT( ui.sB.disHrz+sB.bTOX+50, n+sB.bTOY+ui.sB.disVrt,	id, sB.btnTxt, "sB_btT",sB.fnt,ni,'PF',"end")}
 	else 			{ var e =mkT( ui.sB.disHrz+sB.bTOX, n+sB.bTOY+ui.sB.disVrt,	id, sB.selTxt, "sB_btT",sB.fnt,ni,'PF')}return e }
-function mkFr( n,sB,ni){ var et=[]; var yi=(n * sB.rowHei)+sB.disVrt; if( AL.fe != ni) //mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
+function mkFr( n,sB,ni){ var et=[]; var yi=(n * sB.rowHei)+sB.disVrt; if( AL.fe !== ni) //mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
 		{var e=mkL( ui.sB.disHrz, yi,sB.disWid, sB.btnBrd, "sB_btnBrd-"+n, sB.btnU, "sB_btnBrd"); et.push( e);
 		e=mkL(ui.sB.disHrz, yi+sB.rowHei-sB.btnBrd,sB.disWid, sB.btnBrd, "sB_btnBrd-"+n, sB.btnD, "sB_btnBrd");
 		et.push( e); var v = ui.sB.disHrz+","+yi+" "+ 				(ui.sB.disHrz+sB.btnBrd)+","+(yi+sB.btnBrd)+" "+
@@ -570,7 +584,12 @@ function mkSbTool( n, sB){ var r=[]; var b; var l; var s; var y; var x=sB.disWid
 	return r}
 function mkTurnCounter(sim){ var E=[]; var e=null;
 	e=mkL(ui.sB.disHrz,ui.sB.fesHei+3, ui.sB.disWid, ui.sB.HUDhei-6,undefined,ui.sB.HUDbg,undefined); E.push(e);
-	e=mkT(ui.sB.disHrz+ui.sB.disWid-3,ui.sB.fesHei+2, undefined, "#ffffff", undefined, ui.sB.fnt,AL.sim.nI+":"+AL.sim.turn+AL.sim.keySubj.nI, "PF","end"); E.push(e); return E}
+	if(AL.sim){ if(AL.subjsL>0){
+			e=mkT(ui.sB.disHrz+ui.sB.disWid-3,ui.sB.fesHei+2, undefined, "#ffffff", undefined,
+			ui.sB.fnt,AL.sim.nI+":"+AL.sim.turn+AL.sim.keySubj.nI, "PF","end"); E.push(e)}
+		else{
+			e=mkT(ui.sB.disHrz+ui.sB.disWid-3,ui.sB.fesHei+2, undefined, "#ffffff", undefined,
+			ui.sB.fnt,AL.sim.nI+":"+AL.sim.turn, "PF","end"); E.push(e)}} return E}
 function mkResoTool(sim){ var E=[]; var e=null;
 	e=mkL(ui.sB.disHrz,ui.sB.fesHei+3+ui.sB.HUDhei+ui.sB.tooHei, Math.round(ui.sB.disWid/1.618), ui.sB.HUDhei-6,undefined,ui.sB.HUDbg,undefined); E.push(e);
 	e=mkT(ui.sB.disHrz+ui.sB.disWid-3,ui.sB.fesHei+2, undefined, "#ffffff", undefined, ui.sB.fnt,"reso", "PF"); E.push(e); return E}
@@ -580,38 +599,176 @@ function drSidebar(){ var obs=[];  var buf =null;
 	for( var i=0; i < AL.fesL; i++){ 	buf =mkFb( i,ui.sB, AL.fes[i]); obs.push(buf);
 										buf =mkFt( i,ui.sB, AL.fes[i]); obs.push(buf);
 										buf =mkFr( i,ui.sB, AL.fes[i]); obs =obs.concat(buf)}
-	if(AL.fe != "quiz"){ 	buf=mkTurnCounter( AL.sim); obs =obs.concat(buf);
+	if(AL.fe !== "quiz"){ 	buf=mkTurnCounter( AL.sim); obs =obs.concat(buf);
 							for( var n=0; n < AL.sBToolsL;n++){ buf =mkSbTool( n, ui.sB); obs=obs.concat(buf);
 							/*buf=mkResoTool( AL.sim);*/ obs =obs.concat(buf)}}
 	obs.forEach( function(obs){ svgFe.appendChild( obs)});
 }
 function sidebarKey( e){ var tab= parseInt(e.split("-").pop()); AL.fe=AL.fes[tab]; draw();}
 
-function subjListKey( e){let s =e.split("-").pop(); s =AL.sim.subjs.find(o => o.nI ==s); 
- 	if(AL.subj ==s){AL.tY 	=AT.tYs.find(o =>o.ni ==AL.subj.tY.ni);
- 					AL.mD 	=AT.mDs.find(o =>o.ni ==AL.subj.mD.ni);
- 					AL.pMd 	=AT.mDs.find(o =>o.ni ==AL.subj.pMd.ni);
- 					AL.sMd 	=AT.tYs.find(o =>o.ni ==AL.subj.sMd.ni);
- 					AL.pM 	=AT.pMs.find(o =>o.ni ==AL.subj.pM.ni);
- 					AL.pPm 	=AT.pMs.find(o =>o.ni ==AL.subj.pPm.ni);
- 					AL.sPm 	=AT.pMs.find(o =>o.ni ==AL.subj.sPm.ni);
- 					AL.gnd 	=AT.gNs.find(o =>o.ni ==AL.subj.gnd.ni);
- 					AL.pGn 	=AT.gNs.find(o =>o.ni ==AL.subj.pGn.ni);
- 					AL.sGn 	=AT.gNs.find(o =>o.ni ==AL.subj.sGn.ni);
- 					AL.sex 	=AT.sXs.find(o =>o.ni ==AL.subj.sex.ni);
- 					AL.subj =null; AL.tYl =null;}
- 	else{			AL.tY  	=s.tY;
-					AL.mD  	=s.mD;
-					AL.gnd 	=s.mD.gnd;
-					AL.pM 	=s.mD.pM;
-					AL.subj =s;
-					AL.tYl 	=AL.subj.tYl} draw()}
+
+function selectSubj(s){
+	AL.subj =s;
+	AL.tY 	=s.tY;
+	AL.tYl 	=s.tYl;
+	AL.opts =s.opts; // this only tY opts?
+	AL.mD 	=s.mD;
+	AL.pMd 	=s.pMd;
+	AL.sMd 	=s.sMd;
+	AL.fMd 	=s.fMd;
+	AL.mMd 	=s.mMd;
+	AL.sex 	=s.sex;
+	AL.nM 	=s.nM;
+	AL.gnd 	=s.gnd;
+	AL.pGn 	=s.pGn;
+	AL.sGn 	=s.fGn;
+	AL.mGn 	=s.mGn;
+	AL.fGn 	=s.fGn;
+	AL.pM 	=s.pM;
+	AL.pPm 	=s.pPm;
+	AL.sPm 	=s.sPm;
+	AL.mPm 	=s.mPm;
+	AL.fPm 	=s.fPm;
+	AL.mSb 	=s.mSb;
+	AL.fSb 	=s.fSb;
+	AL.mOb 	=s.mOb;
+	AL.fOb 	=s.fOb;
+
+	AL.ntR 	=s.ntR;
+	AL.ntC 	=s.ntC;
+	AL.ntn 	=s.ntn;
+	AL.xtR 	=s.xtR;
+	AL.xtC 	=s.xtC;
+	AL.xtn 	=s.xtn;
+}
+
+function deselectSubj(s){
+	AL.tY 	=AT.tYs.find(o =>o.ni ===s.tY.ni);
+	AL.tYl 	=null;
+	AL.opts =null;
+	AL.mD 	=AT.mDs.find(o =>o.ni ===s.mD.ni);
+	AL.pMd 	=AT.mDs.find(o =>o.ni ===s.pMd.ni);
+	AL.sMd 	=AT.mDs.find(o =>o.ni ===s.sMd.ni);
+	AL.fMd 	=AT.mDs.find(o =>o.ni ===s.fMd.ni);
+	AL.mMd 	=AT.mDs.find(o =>o.ni ===s.mMd.ni);
+	AL.sex 	=AT.sXs.find(o =>o.ni ===s.sex.ni);
+	AL.nM 	=null;
+	AL.gnd 	=AT.gNs.find(o =>o.ni ===s.gnd.ni);
+	AL.pGn 	=AT.gNs.find(o =>o.ni ===s.pGn.ni);
+	AL.sGn 	=AT.gNs.find(o =>o.ni ===s.sGn.ni);
+	AL.mGn 	=AT.gNs.find(o =>o.ni ===s.mGn.ni);
+	AL.fGn 	=AT.gNs.find(o =>o.ni ===s.fGn.ni);
+	AL.pM 	=AT.pMs.find(o =>o.ni ===s.pM.ni);
+	AL.pPm 	=AT.pMs.find(o =>o.ni ===s.pPm.ni);
+	AL.sPm 	=AT.pMs.find(o =>o.ni ===s.sPm.ni);
+	AL.mPm 	=AT.pMs.find(o =>o.ni ===s.mPm.ni);
+	AL.fPm 	=AT.pMs.find(o =>o.ni ===s.fPm.ni);
+	AL.mSb 	=AT.mDs.find(o =>o.ni ===s.mSb.ni);
+	AL.fSb 	=AT.mDs.find(o =>o.ni ===s.fSb.ni);
+	AL.mOb 	=AT.mDs.find(o =>o.ni ===s.mOb.ni);
+	AL.fOb 	=AT.mDs.find(o =>o.ni ===s.fOb.ni);
+
+	AL.ntR 	=null;//to-do
+	AL.ntC 	=null;//to-do
+	AL.ntn 	=null;//to-do
+	AL.xtR 	=null;//to-do
+	AL.xtC 	=null;//to-do
+	AL.xtn 	=null;//to-do
+
+	AL.subj =null;
+	AL.tYl  =null;
+	AL.opts =null;
+}
+
+function deselectSim(s){
+	AL.tY 	=AT.tY;
+	AL.tYl 	=null;
+	AL.opts =null;
+	AL.mD 	=AT.mD;
+	AL.pMd 	=AT.fOb;
+	AL.sMd 	=AT.mSb;
+	AL.fMd 	=AT.fOb;
+	AL.mMd 	=AT.mSb;
+	AL.sex 	=AT.sex;
+	AL.nM 	=null;
+	AL.gnd 	=AT.gN;
+	AL.pGn 	=AT.fGn;
+	AL.sGn 	=AT.mGn;
+	AL.mGn 	=AT.mGn;
+	AL.fGn 	=AT.fGn;
+	AL.pM 	=AT.pM;
+	AL.pPm 	=AT.fPm;
+	AL.sPm 	=AT.mPm;
+	AL.mPm 	=AT.mPm;
+	AL.fPm 	=AT.fPm;
+	AL.mSb 	=AT.mSb;
+	AL.fSb 	=AT.fSb;
+	AL.mOb 	=AT.mOb;
+	AL.fOb 	=AT.fOb;
+
+	AL.ntR 	=null;//to-do
+	AL.ntC 	=null;//to-do
+	AL.ntn 	=null;//to-do
+	AL.xtR 	=null;//to-do
+	AL.xtC 	=null;//to-do
+	AL.xtn 	=null;//to-do
+
+	AL.subj =null;
+	AL.tYl  =null;
+	AL.opts =null;
+
+	AL.sim 	=AT.sim;
+}
+
+function selectSim(sim){
+	if(AL.lockSubj){ AL.subj =sim.subjs.find(s => s.ni===AL.subj.ni); if(!AL.subj){ AL.subj =sim.keySubj}}
+	else{ AL.subj =sim.keySubj}
+
+	AL.sim 	=s;
+	AL.subj =AL.subj;
+	AL.tYl 	=AL.subj.tYl;
+	AL.opts =AL.subj.opts;
+
+	AL.tY 	=AL.subj.tY;
+	AL.mD 	=AL.subj.mD;
+	AL.pMd 	=AL.subj.pMd;
+	AL.sMd 	=AL.subj.sMd;
+	AL.fMd 	=AL.subj.fMd;
+	AL.mMd 	=AL.subj.mMd;
+	AL.sex 	=AL.subj.sex;
+	AL.nM 	=AL.subj.nM;
+	AL.gnd 	=AL.subj.gnd;
+	AL.pGn 	=AL.subj.pGn;
+	AL.sGn 	=AL.subj.sGn;
+	AL.mGn 	=AL.subj.mGn;
+	AL.fGn 	=AL.subj.fGn;
+	AL.pM 	=AL.subj.pM;
+	AL.pPm 	=AL.subj.pPm;
+	AL.sPm 	=AL.subj.sPm;
+	AL.mPm 	=AL.subj.mPm;
+	AL.fPm 	=AL.subj.fPm;
+	AL.mSb 	=AL.subj.mSb;
+	AL.fSb 	=AL.subj.fSb;
+	AL.mOb 	=AL.subj.mOb;
+	AL.fOb 	=AL.subj.fOb;
+
+	AL.ntR 	=AL.subj.ntR;
+	AL.ntC 	=AL.subj.ntC;
+	AL.ntn 	=AL.subj.ntn;
+	AL.xtR 	=AL.subj.xtR;
+	AL.xtC 	=AL.subj.xtC;
+	AL.xtn 	=AL.subj.xtn;	
+}
+
+
+function subjListKey( e){var s =e.split("-").pop(); s =AL.sim.subjs.find(o => o.nI ===s); 
+ 	if(AL.subj ===s){ deselectSubj(s)} else{ selectSubj(s)}	draw()}
 
 function clearScreen(){
 	var e=Array.from(document.querySelectorAll('div, svg, rect, text, polygon, line, circle, ellipse'));
  	e.forEach( function(e){ e.remove()})}
 function draw(){
-	if( AL.fe=='mosaic'){ AL.liNarrow =AL.liNarrowInMosaic}else{ AL.liNarrow =false}
+	if( AL.fe==='mosaic'){ AL.liNarrow =AL.liNarrowInMosaic}else{ AL.liNarrow =false}
 	clearScreen(); initDraw(); drSidebar(); 
 	switch( AL.fe){ 
 		case "quiz": 	drawQuiz(); 	break;
@@ -681,7 +838,7 @@ function drawType(){ var b =null;
 	drTopBar();
 	drTypeCube(ui.tY.c1x, ui.tY.c1y, "tYC1"); 	
 	drTypeCage(ui.tY.c2x, ui.tY.c2y, "tYC2"); 	
-	drSubjList();
+	drList();
 	drSequencer( );						
 	drTypeKeys();
 	drTypeStage();					
@@ -707,21 +864,43 @@ function drBottomBar(){ var E=[]; var e=null; var t="";
 	//e=mkT(75,Math.round(ui.midMinHei+ui.bB.tipHei/2+ui.bB.skrHei),undefined,"#fff",undefined,25,,"AI"); E.push(e);
 	E.forEach( function(e){ svgFe.appendChild(e)})}
 
-function copySimulation(sim,n){ console.log("copy")}
-function tBToolMouseDown( n){ 	 						AL.tBToolsP[n] 	=true; 	refreshTbTool( n)}
+// it is not so that abstract karma would be more valuable than abstract value
+// it is so that abstract value is in the axial position whereas abstract karma is in the diagonal position
+// what does this mean?
+// probably need to rewrite mood system. modal and mosaic forms are different for abstract value.
+// maybe should scrap this hypothesis anyway
+
+/*I got a solution to the problem of induction as Part III of this book. I should try to publish this on arXiv math.LO because it's so easy. Can someone recommend me? If you can, please visit: https://arxiv.org/auth/endorse?x=CUAERM*/
+
+function cleanSlate(){ initTheRelative(); initTheAbsolute(); initOntology(); initCleanSlate(); predraw(); draw(); }
+function tBToolMouseDown( n){ if(!(!AL.sim && AL.tBTools[n]==="copySim")){	AL.tBToolsP[n] 	=true; 	refreshTbTool( n)}}
 function tBToolMouseLeave( n){ if( AL.tBToolsP[n]){ 	AL.tBToolsP[n] 	=false; refreshTbTool( n)}}
 function tBToolMouseUp( n){ switch( AL.tBTools[n]){
-	case "clearSubjs" : if( !AL.touched){ 	tBToolClearSubjs()}
-						else{ var v =confirm("Delete all subjects in all simulations?");
-							if(v){ 			tBToolClearSubjs()}}break;
-	case "copySim" : 	var N =prompt("How many copies of simulation "+AL.sim.nI+"?", "20");
-							copySimulation(AL.sim,n);break;
-	case "delSim" : 	if( RT.simsL >1){ var v =confirm("Delete this simulation?");
+	case "cleanSlate" : if( !AL.touched){ 	cleanSlate()}
+						else{ var v =confirm("Delete all data?"); if(v){ cleanSlate()}}break;
+	case "copySim" : 	if( AL.sim){ var N =prompt("How many copies of Simulation "+AL.sim.nI+"?", AL.tBTunes[n]);
+							if(N){ AL.touched=true; AL.tBTunes[n]=N; copySim(RT,AL.sim,N); predraw(); draw();}} break;
+	case "makeSim" : 	var N =prompt("How many default Simulations shall be made?", AL.tBTunes[n]);
+						if(N){ AL.touched=true; AL.tBTunes[n]=N; for(var i=0; i<N; i++){	mkSim( RT, "sim", false)}
+							if(!AL.sim){ AL.sim=RT.sims[0]; AL.subjs=AL.sim.subjs; AL.subjsL=AL.sim.subjsL;
+								AL.keySubj=AL.sim.keySubj; AL.subj=AL.keySubj; AL.tYl=AL.subj.tYl; AL.tY=AL.subj.tY; }
+							predraw(); draw();} break;
+	case "randSim" : 	var N =prompt("How many randomized Simulations shall be made?", AL.tBTunes[n]);
+						if(N){ AL.touched=true; AL.tBTunes[n]=N; for(var i=0; i<N; i++){	mkSim( RT, "sim", true)}
+							if(!AL.sim){ AL.sim=RT.sims[0]; AL.subjs=AL.sim.subjs; AL.subjsL=AL.sim.subjsL;
+								AL.keySubj=AL.sim.keySubj; AL.subj=AL.keySubj} //expand
+							predraw(); draw();} break;
+	case "lockSim" : 	AL.lockSim= !AL.lockSim; draw(); break;
+	/*case "delSim" : 	if( RT.simsL >1){ var v =confirm("Delete this simulation?");
 							if(v){ 			tBToolDelSim( AL.sim)}}break;
 	case "delSims" : 	if( RT.simsL >1){ var v =confirm("Delete all untagged simulations?");
- 							if(v){ 			tBToolDelSim( AL.sim)}}}
+ 							if(v){ 			tBToolDelSim( AL.sim)}}*/}
 	tBToolMouseLeave( n)}
+// mentality causes a bonus for acc function, vitality bonus for prod function.
+// this explains why neurosoma is so strong as to be overwhelming because the leading function is already strongest.
+// mobi func turns "3-dimensional" (lol?) in metaprogramming circuit
 function mkTbTool( n){ var E =[]; var e =null; var t,f,T,F,y,Y; var p =0; var P=4;
+	if(AL.lockSim && AL.tBTools[n]==="lockSim"){ AL.tBToolsP[n]=true}
 	if(!AL.tBToolsP[n]){
 		e =mkL( ui.tB.tooWid*n+1, 2,  ui.tB.tooWid-2, ui.tB.disHei-4, 	undefined, "#3c3c3c", "tBTool-"+n,
 			undefined,undefined,true, 		ui.tB.disHei/3.236,ui.tB.disHei/3.236);E.push( e);
@@ -737,10 +916,15 @@ function mkTbTool( n){ var E =[]; var e =null; var t,f,T,F,y,Y; var p =0; var P=
 											case "mouseup"   : tBToolMouseUp  ( n);break;
 											case "mousedown" : tBToolMouseDown( n);break}});E.push(e);
 	switch( AL.tBTools[n]){
-		case "clearSubjs":t="clr"; 		T="subjs";	y=0; Y=12; 	f=15; F=15;		break;
+		case "cleanSlate":t="cln";		T="Slate";	y=0; Y=12; 	f=15; F=15;		break;
+//		case "clearSubjs":t="clr"; 		T="subjs";	y=0; Y=12; 	f=15; F=15;		break;
 		case "copySim" 	: t="copy"; 	T="Sim"; 	y=0; Y=12; 	f=15; F=15;		break;
-		case "delSim" 	: t="del"; 		T="Sim";	y=0; Y=12; 	f=15; F=15; 	break;
-		case "delSims" 	: t="del"; 		T="Sims";   y=0; Y=12;  f=15; F=15}
+		case "makeSim" 	: t="make";		T="Sim"; 	y=0; Y=12; 	f=15; F=15;		break;
+		case "randSim" 	: t="rand";		T="Sim"; 	y=0; Y=12; 	f=15; F=15;		break;
+		case "lockSim" 	: t="lock";		T="Sim"; 	y=0; Y=12; 	f=15; F=15;		break;
+//		case "delSim" 	: t="del"; 		T="Sim";	y=0; Y=12; 	f=15; F=15; 	break;
+//		case "delSims" 	: t="del"; 		T="Sims";   y=0; Y=12;  f=15; F=15; 	break;
+		}
 	e 		=mkT( ui.tB.tooWid*n+(ui.tB.tooWid/2), y+p, undefined,"#ccc","tBTool-"+n,f,t,"PF","middle");E.push(e);
 	if(T){e =mkT( ui.tB.tooWid*n+(ui.tB.tooWid/2), Y+p, undefined,"#ccc","tBTool-"+n,F,T,"AI","middle");E.push(e)}
 	return E}
@@ -748,35 +932,41 @@ function refreshTbTool( n){ var t ="tBTool-"+n; var e =document.getElementsByCla
 							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
 							t =mkTbTool( n); t.forEach( function( e){ svgFe.appendChild( e)})} //xxx sVfE->sVtB
 
-function mkReTab(n){ var E=[]; var e=null; var c="";
-	//console.log(RT.sims)
-	console.log(AL.sim);
-	console.log(AT.sims);
-	console.log(AL.abTabs);
-	if( RT.sims[n] == AL.sim){ c == "#ffffff"} else{ c = "#888"}	
+function tabKey(n){
+	if(AL.sim===RT.sims[n]){ AL.sim=null; predraw();draw()}
+	else{ 	AL.sim =RT.sims[n]; AL.subjs =AL.sim.subjs; AL.subjsL=AL.sim.subjsL;
+			if(!AL.lockSubj){
+				if(AL.subjsL>0){ 
+					AL.subj=AL.sim.keySubj; AL.keySubj=AL.subj; AL.tY=AL.subj.tY; AL.tYl=AL.subj.tYl}
+				else{
+					AL.subj=null; AL.keySubj=null; AL.tY=AT.tY; AL.tYl=null}}
+			predraw(); draw()}}
+function mkTab(n){ var E=[]; var e=null;
+	var c="#888"; if( RT.sims[n] === AL.sim){ c = "#fff"}	
 	e = mkL( 3+(n*ui.tB.reTabG), 0,	ui.tB.reTabW, ui.tB.reTabH,
-		undefined, ui.sB.bG, undefined, "#3c3c3c"/*ui.tB.strCol*/, 1);	E.push(e);
+		undefined, ui.sB.bG, undefined, "#3c3c3c"/*ui.tB.strCol*/, 1);
+	bindK( e, function(ev,e) { switch( ev){ case "mousedown" : 		tabKey( n); 	break}});	E.push(e);
 	var t = (3+(n*ui.tB.reTabG)+(ui.tB.reTabW)-1)+"px "+(0+(ui.tB.reTabH)-1)+"px";
 	e.style.transformOrigin = t; e.style.transform = "rotate(-45deg)";	E.push(e);	
 	e = mkT( 3+(n*ui.tB.reTabG)+ui.tB.reTabW-2, 0,
-		undefined, "#888", undefined, 13, n+1, "SF","end");
+		undefined, c, undefined, 13, RT.sims[n].nI, "SF","end");
 	e.style.transformOrigin = t; e.style.transform = "rotate(-45deg)";	E.push(e);
 	return E}
-// function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
-function mkAbTab(i){ var E=[]; var e=null; var t;
-	if( AL.abTabs[i] == AL.sim){ c == "#ffffff"} else{ c = "#888"}
-	switch( AL.abTabs[i]){ 	case "tot" : t = "Σ"; break; case "avg" : t = "x̄"; break; case "med" : t = "µ"}
-	e = mkL( ui.tB.tabGap+ui.tB.abTabH+(i*ui.tB.tabGap)+(i*ui.tB.abTabW), 3, ui.tB.abTabW, ui.tB.tabHei,
-		undefined, ui.sB.bG, undefined, ui.tB.strCol, 1,undefined,6,6); E.push(e);
-	e = mkT( ui.tB.tabGap+ui.tB.abTabH+(i*ui.tB.tabGap)+(i*ui.tB.abTabW)+Math.floor(ui.tB.abTabW/2), 3,
-		undefined, c, undefined, 20, t, "TR","middle"); E.push(e);
+function statTabKey(n){ AL.statSim =AL.statSims[n]; draw();}
+function mkStatTab(n){ var E=[]; var e=null;
+	var c="#888"; if( AL.statSims[n] === AL.statSim){ c = "#fff"}
+		e = mkL( ui.tB.tabGap+ui.tB.abTabH+(n*ui.tB.tabGap)+(n*ui.tB.abTabW), 3, ui.tB.abTabW, ui.tB.tabHei,
+		undefined, ui.sB.bG, undefined, ui.tB.strCol, 1,undefined,6,6);
+	bindK( e, function(ev,e) { switch( ev){ case "mousedown" : 		statTabKey( n); 	break}});	E.push(e);
+	e = mkT( ui.tB.tabGap+ui.tB.abTabH+(n*ui.tB.tabGap)+(n*ui.tB.abTabW)+Math.floor(ui.tB.abTabW/2)+1, 3,
+		undefined, c, undefined, 20, AL.statSims[n].nI, "TR","middle"); E.push(e);
 	return E}
 function drTopBar(){ var E=[]; var e=null; var T=[]; var t=null;
 	e=mkL(0,0,ui.tB.disHrz,ui.tB.disHei,undefined,ui.sB.bG); E.push(e);
 	for(var n=0; n<AL.tBToolsL; n++){ e =mkTbTool(n); E=E.concat(e)}
 	e=mkL(ui.tB.abTabH,-10,ui.tB.abTabsW,ui.tB.disHei,undefined,"#3c3c3c", undefined,
 		ui.tB.strCol,1,undefined,10,10); E.push(e);
-	for(var i=0; i<AL.abTabsL; i++){ e =mkAbTab(i); E=E.concat(e); }
+	for(var i=0; i<AL.statTabsL; i++){ e =mkStatTab(i); E=E.concat(e); }
 	e=mkL(ui.tB.abTabH,ui.tB.skrVrt,ui.tB.abTabsW,ui.tB.skrHei,undefined,ui.sB.bG); E.push(e);
 	E.forEach( function(e){svgFe.appendChild(e)}); 
 
@@ -784,44 +974,150 @@ function drTopBar(){ var E=[]; var e=null; var T=[]; var t=null;
 	t=mkL(0, 0, 10, ui.tB.skrVrt+1, undefined, ui.sB.bG); T.push(t);
 	t=mkL(0, -ui.tB.skrHei, 20, ui.tB.disHei, undefined, ui.tB.bG, undefined,undefined,undefined,undefined,10,10); T.push(t);
 
-	t=mkI(10, ui.tB.skrVrt, ui.tB.disWid, ui.tB.skrVrt,undefined,"#3c3c3c",1); T.push(t);
-	for(var n=0; n<RT.simsL; n++){ t =mkReTab(n); T=T.concat(t);}
+	t=mkI(7, ui.tB.skrVrt, ui.tB.disWid, ui.tB.skrVrt,undefined,"#3c3c3c",1); T.push(t);
+	for(var n=0; n<RT.simsL; n++){ t =mkTab(n); T=T.concat(t);}
 	//if(RT.simsL > 1){ t =mkTab(-1); T=T.concat(t); }
 	t=mkL(0, ui.tB.skrVrt, ui.tB.disWid, ui.tB.skrHei,undefined,ui.sB.bG); T.push(t);
 	T.forEach( function(t){svgTb.appendChild(t)})}
 
-function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.tY.cE; var id=cl; var d=ui.tY.cuD; var op=ui.tY.op2; var co=ui.tY.plane; var x=cX+h/d+ui.tY.cuHrz; var y=cY+h/d+ui.tY.cMarg;
-	v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+			(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
+
+//function sidebarKey( e){ var tab= parseInt(e.split("-").pop()); AL.fe=AL.fes[tab]; draw();}
+function listFeatureKey(e){ var f= parseInt(e.split("-").pop()); AL.lF=AL.lIFes[f]; draw();}
+function mkLiFb( n,ni){ var id="lIFe-"+n;
+	if( AL.lF !== ni){ 	var e =mkL( 0, n*ui.lF.kH, ui.lF.kW, ui.lF.kH, id, ui.sB.btn)}
+	else 			{ 	var e =mkL( 0, n*ui.lF.kH, ui.lF.kW, ui.lF.kH, id, ui.sB.sel)}
+	bindK( e, function(ev,e) { switch( ev){ case "mousedown" : listFeatureKey( e.id);break}}); return e }
+function mkLiFt( n,ni){ 
+	if( AL.lF !== ni){ 	var e =mkT( 8, (n*ui.lF.kH)-2, undefined, ui.sB.btnTxt, undefined, ui.sB.fnt, ni, 'PF')}//mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
+	else 			{ 	var e =mkT( 8, (n*ui.lF.kH)-2, undefined, ui.sB.selTxt, undefined, ui.sB.fnt, ni, 'PF')}return e }
+function mkLiFr( n,sB,ni){ var et=[]; var v; // NO "FORM", NO "SUBSTANCE"!
+	if( AL.lF !== ni) { 
+		var e=mkL( 0, n*ui.lF.kH, 			ui.lF.kW, 3, undefined, ui.sB.btnU); et.push( e);
+		var e=mkL( 0, ((n+1)*ui.lF.kH)-3, 	ui.lF.kW, 3, undefined, ui.sB.btnD); et.push( e);
+		v = "0,"+(n*ui.lF.kH)+" 3,"+((n*ui.lF.kH)+3)+" 3,"+(((n+1)*ui.lF.kH)-3)+" 0,"+((n+1)*ui.lF.kH);
+		e=mkS( v,undefined,ui.sB.btnL,undefined,false); et.push(e);
+		v = ui.lF.kW+","+(n*ui.lF.kH)+" "+(ui.lF.kW-3)+","+((n*ui.lF.kH)+3)+" "+(ui.lF.kW-3)+","+(((n+1)*ui.lF.kH)-3)+" "+ui.lF.kW+","+((n+1)*ui.lF.kH);
+		e=mkS( v,undefined,ui.sB.btnR,undefined,false); et.push(e);}
+	else{
+		var e=mkL( 0, n*ui.lF.kH, 			ui.lF.kW, 3, undefined, ui.sB.selU); et.push( e);
+		var e=mkL( 0, ((n+1)*ui.lF.kH)-3, 	ui.lF.kW, 3, undefined, ui.sB.selD); et.push( e);
+		v = "0,"+(n*ui.lF.kH)+" 3,"+((n*ui.lF.kH)+3)+" 3,"+(((n+1)*ui.lF.kH)-3)+" 0,"+((n+1)*ui.lF.kH);
+		e=mkS( v,undefined,ui.sB.selL,undefined,false); et.push(e);
+		v = ui.lF.kW+","+(n*ui.lF.kH)+" "+(ui.lF.kW-3)+","+((n*ui.lF.kH)+3)+" "+(ui.lF.kW-3)+","+(((n+1)*ui.lF.kH)-3)+" "+ui.lF.kW+","+((n+1)*ui.lF.kH);
+		e=mkS( v,undefined,ui.sB.selR,undefined,false); et.push(e);
+	}
+	/*else{ var e=mkL( ui.sB.disHrz, yi,sB.disWid, sB.btnBrd, "sB_btnBrd-"+n, sB.selU, "sB_btnBrd"); et.push( e);
+		e=mkL( ui.sB.disHrz, yi+sB.rowHei-sB.btnBrd,sB.disWid,sB.btnBrd, "sB_btnBrd-"+n, sB.selD, "sB_btnBrd");
+		et.push( e); var v = ui.sB.disHrz+","+yi+" "+ 				(ui.sB.disHrz+sB.btnBrd)+","+(yi+sB.btnBrd)+" "+
+			(ui.sB.disHrz+sB.btnBrd)+","+(yi+sB.rowHei-sB.btnBrd)+" "+ui.sB.disHrz+","+(yi+sB.rowHei);
+		e=mkS( v,"sB_btnBrd-"+n,sB.selL,"sB_btnBrd",false); et.push( e);
+		var v = ui.sB.disHrz+sB.disWid+","+yi+" "+ 	(ui.sB.disHrz+sB.disWid-sB.btnBrd)+","+(yi+sB.btnBrd)+" "+
+			(ui.sB.disHrz+sB.disWid-sB.btnBrd)+","+(yi+sB.rowHei-sB.btnBrd)+" "+(ui.sB.disHrz+sB.disWid)+","+(yi+sB.rowHei);
+		e=mkS( v,"sB_btnBrd-"+n,sB.selR,"sB_btnBrd",false); et.push( e)}*/ return et}
+function drList(){ var E=[]; var e=null; var liI="";liT="";liB=""; var off; var absB; var F=[];var G=[];
+	// ååå
+	for( var i=0; i < AL.lIFesL; i++){ 	e =mkLiFb( i, AL.lIFes[i]); E.push(e);
+										e =mkLiFt( i, AL.lIFes[i]); E.push(e);
+										e =mkLiFr( i, ui.sB, AL.lIFes[i]); E =E.concat(e)}
+	switch( AL.liSize){
+		case 0: ui.lI.iHe=ui.lI.iHe0; ui.lI.tPF=ui.lI.tPF0; ui.lI.tTR=ui.lI.tTR0; ui.lI.tSF=ui.lI.tSF0;	ui.lI.mDx=ui.lI.mDx0;
+				ui.lI.kix=ui.lI.kix0; ui.lI.mPx=ui.lI.mPx0; ui.lI.obx=ui.lI.obx0; ui.lI.vQx=ui.lI.vQx0; ui.lI.nMx=ui.lI.nMx0;
+				ui.lI.miW=ui.lI.miW0; break;
+		case 1: ui.lI.iHe=ui.lI.iHe1; ui.lI.tPF=ui.lI.tPF1; ui.lI.tTR=ui.lI.tTR1; ui.lI.tSF=ui.lI.tSF1;
+				ui.lI.mDx=ui.lI.mDx1; ui.lI.nMx=ui.lI.nMx1; break;
+		case 2: ui.lI.iHe=ui.lI.iHe2; ui.lI.tPF=ui.lI.tPF2; ui.lI.tTR=ui.lI.tTR2; ui.lI.tSF=ui.lI.tSF2;
+				ui.lI.mDx=ui.lI.mDx2; ui.lI.nMx=ui.lI.nMx2; break;}
+	var ctrHei=ui.tB.disHei*4;
+	ui.lI.svgHei =ctrHei+(AL.subjsL*ui.lI.iHe+2); svgLi.setAttribute( 'height', ui.lI.svgHei);
+	svgLi.setAttribute( 'width', ui.lI.miW);
+	var lisLen=18;
+	var lisHei =ui.winHei-ui.bB.disHei-ctrHei;
+	var lisY =ctrHei;
+	var width = ui.lI.miW;
+	E.forEach( function(E){svgLi.appendChild(E)}); var E=null;
+	e =mkL( 0, ui.tB.disHei, ui.tY.lIW, ui.tY.liHe,"tY_L",ui.sB.bG,"tY_L_bg");											svgFe.appendChild( e);
+	if(AL.sim){for(var n=0; n <AL.sim.subjsL; n++){
+		if( 	AL.sim.subjs[n]===AL.subj)	{ liI="#ffffff"; liT="#000000"; liB="#000000"; 	E=G}
+		else if(AL.sim.subjs[n]===AL.keySubj){ liI=ui.tY.sLiI;liT=ui.tY.sLiT;liB=ui.tY.sLiB; E=G}
+		else 								{ liI=ui.tY.liI; liT=ui.tY.liT; liB=ui.tY.liB; 	E=F}					
+		e =mkL(1, ui.lI.iHe*n+ctrHei+1,width-2,ui.lI.iHe,"tY_Li-"+AL.sim.subjs[n].nI,liI,"tY_Li",liB,1);
+		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : subjListKey( e.id);break}});									E.push(e);
+		e =mkT(4,(ui.lI.iHe*n)-1+ctrHei,"tY_LiT-"+n,liT,"tY_LiT",ui.lI.tPF,
+			AL.sim.subjs[n].nI+" "+AL.sim.subjs[n].tY.nI+"("+AL.sim.subjs[n].tYl.ni2+","+AL.sim.subjs[n].tYl.ab.ni+")","PF"); 	E.push(e);
+		if(AL.sim.subjs[n].pMd.symm){ var liT2="#ffff00"} else{ var liT2=liT}
+		if(!AL.sim.subjs[n].sex.fem){ if(!AL.sim.subjs[n].sex.kid){ off=ui.lI.mDx+ui.lI.kix; absB="♂("} else{ off=ui.lI.mDx; absB="*♂("}}
+		else 						{ if(!AL.sim.subjs[n].sex.kid){ off=ui.lI.mDx+ui.lI.kix; absB="♀("} else{ off=ui.lI.mDx; absB="*♀("}}
+		e =mkT(off, (ui.lI.iHe*n)-1+ctrHei,"tY_LiB-"+n,liT2,"tY_LiB",ui.lI.tTR,
+			absB+AL.sim.subjs[n].pPm.niH+AL.sim.subjs[n].pGn.nI+AL.sim.subjs[n].pPm.niT+")","TR");								E.push(e);
+		if(!AL.sim.subjs[n].gnd.fem){ if(!AL.sim.subjs[n].obj){ off=ui.lI.mPx; absB="♂"} else{ off=ui.lI.mPx-ui.lI.obx; absB="'♂"}}
+		else 						{ if(!AL.sim.subjs[n].obj){ off=ui.lI.mPx; absB="♀"} else{ off=ui.lI.mPx-ui.lI.obx; absB="'♀"}}
+		if(AL.sim.subjs[n].i){ absB+="i"} if(AL.sim.subjs[n].e){ absB+="e"} absB+="(";
+		e =mkT(off, (ui.lI.iHe*n)-1+ctrHei+1,"tY_LiP-"+n,liT2,"tY_LiP",ui.lI.tTR,
+			absB+AL.sim.subjs[n].x+","+AL.sim.subjs[n].y+")","TR");															E.push(e);
+		/*e =mkT(ui.lI.vQx, (ui.lI.iHe*n)-1+ctrHei+1,"tY_LiP-"+n,liT2,"tY_LiP",ui.lI.tTR,
+			"= "+AL.sim.subjs[n].xtn.ni,"AI");*/
+		///*"= ("+*//*AL.sim.subjs[n].ntn.nI+*/"("+/*AL.sim.subjs[n].xtn.nI+*/"))","AI");	
+		E.push(e);
+		e =mkT(ui.lI.nMx,(ui.lI.iHe*n)-1+ctrHei+1,"tY_LiT-"+n,liT,"tY_LiT",ui.lI.tSF,AL.sim.subjs[n].nM.full,"SF"); 			E.push(e)}
+	E=F.concat(G);	E.forEach( function(E){svgLi.appendChild(E)})}}
+
+function drSequencer(){ var E=[]; var e=null;
+	e= mkL(0,0,ui.sQ.disWid,ui.sB.disHei-ui.tB.disHei,"tY_sQ",ui.sQ.bG,"tY_sQ");				E.push(e);
+	E.forEach( function(E){svgSq.appendChild(E)})}
+
+// adjust cube, middle zy 1x2, middle xz 2x1
+function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.tY.cE; var id=cl; var d=ui.tY.cuD; var op=ui.tY.op2; var co=ui.tY.plane; var x=cX+h/d+ui.tY.cuHrz; var y=cY+h/d+ui.tY.cMarg; //"#002d33"
+	v =  x -(w/d)+","+(y + (h/d)) +" "+			(x +(w/d)+","+(y - (h/d)))+" "+
+		(x + (w/d))+","+(y+h-(h/d))+" "+			(x -(w/d)+","+(y+h+(h/d)));		
+	e =drS(v, ui.tY.cShade, id+"-cU-vrt", cl, "0.236"); 		E.push(e);
+	/*v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+			(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
 		(x+w+(w/d)+","+(y+(h/2)-(h/d)))+" "+			(x+w-(w/d)+","+(y+(h/2)+(h/d)));
-	e =drS(v, ui.tY.cShade, id+"-cU-hrz", cl, op); 		E.push(e);
+	e =drS(v, ui.tY.cShade, id+"-cU-hrz", cl, op); 		E.push(e);*/
+	v =  x - (w/d)+","+(y+(h/2)+(h/d)) +" "+			(x + (w/d)+","+(y+(h/2)-(h/d)))+" "+
+		(x+(w/2)+(w/d)+","+(y+(h/2)-(h/d)))+" "+			(x+(w/2)-(w/d)+","+(y+(h/2)+(h/d)));
+	e =drS(v, ui.tY.cShade, id+"-cU-hrzL", cl, "0.382"); 		E.push(e);
+	v =  x+(w/2)-(w/d)+","+(y+(h/2)+(h/d)) +" "+			(x+(w/2)+(w/d)+","+(y+(h/2)-(h/d)))+" "+
+		(x+w+(w/d)+","+(y+(h/2)-(h/d)))+" "+			(x+w-(w/d)+","+(y+(h/2)+(h/d)));
+	e =drS(v, "#002d33", id+"-cU-hrzR", cl, "0.146"); 		E.push(e);
 
 	v =  x - (w/d)+","+(y+(h/2)+(h/d)-(h/2)) +" "+		(x + (w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+
 		(x+w+(w/d)+","+(y+(h/2)-(h/d)-(h/2)))+" "+		(x+w-(w/d)+","+(y+(h/2)+(h/d)-(h/2)));
 	e =drS(v, ui.tY.cShade, id+"-cU-top", cl, op);		E.push(e);
+/*	v =  x+(w/2)+(w/d)+","+(y+(h/2)+(h/d)+(h/2)) +" "+		(x + (w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+
+		(x+(w/2)+(w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+		(x+(w/2)-(w/d)+","+(y+(h/2)+(h/d)+(h/2)));
+	e =drS(v, ui.tY.cShade, id+"-cU-btm", cl, op/1.618);E.push(e);*/
 	v =  x - (w/d)+","+(y+(h/2)+(h/d)+(h/2)) +" "+		(x + (w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+
 		(x+w+(w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+		(x+w-(w/d)+","+(y+(h/2)+(h/d)+(h/2)));
-	e =drS(v, ui.tY.cShade, id+"-cU-btm", cl, op/1.618);E.push(e);
-	v =  x + (w/2)-(w/d)+","+(y + (h/d)) +" "+			(x + (w/2)+(w/d)+","+(y - (h/d)))+" "+
+	e =drS(v, ui.tY.cShade, id+"-cU-btmL", cl, op/1.618);E.push(e);
+	v =  x+(w/2)-(w/d)+","+(y+(h/2)+(h/d)+(h/2)) +" "+		(x+(w/2)+(w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+
+		(x+w+(w/d)+","+(y+(h/2)-(h/d)+(h/2)))+" "+		(x+w-(w/d)+","+(y+(h/2)+(h/d)+(h/2)));
+	e =drS(v, "#002d33", id+"-cU-btmR", cl, "0.382");E.push(e);
+
+/*	v =  x + (w/2)-(w/d)+","+(y + (h/d)) +" "+			(x + (w/2)+(w/d)+","+(y - (h/d)))+" "+
 		(x + (w/2)+(w/d)+","+(y+h-(h/d)))+" "+			(x + (w/2)-(w/d)+","+(y+h+(h/d)));		
-	e =drS(v, ui.tY.cShade, id+"-cU-vrt", cl, op); 		E.push(e);
-	/*v =  x + (w/2)+(w/d)+","+(y + (h/d)) +" "+			(x + w+(w/d)+","+(y - (h/d)))+" "+
-		(x + w+(w/d)+","+(y+h-(h/d)))+" "+				(x + w-(w/d)+","+(y+h+(h/d)));		
-	e =drS(v, ui.tY.cShade, id+"-cU-vrtR", cl, op); 		E.push(e);*/
+	e =drS(v, ui.tY.cShade, id+"-cU-vrt", cl, op); 		E.push(e);*/
+	v =  x + (w/2)-(w/d)+","+(y + (h/d)) +" "+			(x + (w/2)+(w/d)+","+(y - (h/d)))+" "+
+		(x + (w/2)+(w/d)+","+(y+(h/2)-(h/d)))+" "+		(x + (w/2)-(w/d)+","+(y+(h/2)+(h/d)));		
+	e =drS(v, ui.tY.cShade, id+"-cU-zyMT", cl, op); 		E.push(e);
+	v =  x + (w/2)-(w/d)+","+(y+(w/2)+(h/d)) +" "+		(x + (w/2)+(w/d)+","+(y+(w/2)-(h/d)))+" "+
+		(x + (w/2)+(w/d)+","+(y+ h -(h/d)))+" "+		(x + (w/2)-(w/d)+","+(y+ h +(h/d)));		
+	e =drS(v, "#002d33", id+"-cU-zyMB", cl, "0.236"); 		E.push(e);
 
 	e =drA(x+(w/d),	y-(h/d),w,h,co,id+"-btm",cl+"-btm pAIU",0,undefined,op); 		E.push(e);
 
-	v = x+(w/4)+","+(y+(h/8)+(h/4)-(h/4))+" "+ 		(x+(w/8)+(w/4))+","+(y+(w/4)-(h/4))+" "+
-		(x+(w/2))+","+(y+(h/8))+" "+ 				(x+(w/8)+(w/4))+","+(y+(w/2)-(h/4));
-	e =drS(v, ui.tY.cIE, cl+"_IE-npp", cl); E.push(e);
-	v = x+(w/4)+(w/2)+","+(y+(h/8)+(h/4)-(h/4))+" "+ 		(x+(w/8)+(w/4)+(w/2))+","+(y+(w/4)-(h/4))+" "+
-		(x+(w/2)+(w/2))+","+(y+(h/8))+" "+ 				(x+(w/8)+(w/4)+(w/2))+","+(y+(w/2)-(h/4));
-	e =drS(v, ui.tY.cIE, cl+"_IE-ppp", cl); E.push(e);
-	v = x+(w/4)+(w/2)+","+(y+(h/8)+(h/4)-(h/4)+(h/2))+" "+ 		(x+(w/8)+(w/4)+(w/2))+","+(y+(w/4)-(h/4)+(h/2))+" "+
-		(x+(w/2)+(w/2))+","+(y+(h/8)+(h/2))+" "+ 				(x+(w/8)+(w/4)+(w/2))+","+(y+(w/2)-(h/4)+(h/2));
-	e =drS(v, ui.tY.cIE, cl+"_IE-pnp", cl); E.push(e);
-	v = x+(w/4)+","+(y+(h/8)+(h/4)-(h/4)+(h/2))+" "+ 		(x+(w/8)+(w/4))+","+(y+(w/4)-(h/4)+(h/2))+" "+
-		(x+(w/2))+","+(y+(h/8)+(h/2))+" "+ 				(x+(w/8)+(w/4))+","+(y+(w/2)-(h/4)+(h/2));
-	e =drS(v, ui.tY.cIE, cl+"_IE-nnp", cl); E.push(e);
+	var p=(w/32);
+	v = x+(w/4)-p+","+(y+(h/8)+(h/4)-(h/4))+" "+ 		(x+(w/8)+(w/4))+","+(y+(w/4)-(h/4)-p)+" "+
+		(x+(w/2)+p)+","+(y+(h/8))+" "+ 					(x+(w/8)+(w/4))+","+(y+(w/2)-(h/4)+p);
+	e =drS(v, ui.tY.cIE, cl+"_IE-npp", cl, undefined, "#8fc",1); E.push(e);
+	v = x+(w/4)+(w/2)-p+","+(y+(h/8)+(h/4)-(h/4))+" "+ 		(x+(w/8)+(w/4)+(w/2))+","+(y+(w/4)-(h/4)-p)+" "+
+		(x+(w/2)+(w/2)+p)+","+(y+(h/8))+" "+ 				(x+(w/8)+(w/4)+(w/2))+","+(y+(w/2)-(h/4)+p);
+	e =drS(v, ui.tY.cIE, cl+"_IE-ppp", cl, undefined, "#8fc",1); E.push(e);
+	v = x+(w/4)+(w/2)-p+","+(y+(h/8)+(h/4)-(h/4)+(h/2))+" "+ 		(x+(w/8)+(w/4)+(w/2))+","+(y+(w/4)-(h/4)+(h/2)-p)+" "+
+		(x+(w/2)+(w/2)+p)+","+(y+(h/8)+(h/2))+" "+ 				(x+(w/8)+(w/4)+(w/2))+","+(y+(w/2)-(h/4)+(h/2)+p);
+	e =drS(v, ui.tY.cIE, cl+"_IE-pnp", cl, undefined, "#8fc",1); E.push(e);
+	v = x+(w/4)-p+","+(y+(h/8)+(h/4)-(h/4)+(h/2))+" "+ 		(x+(w/8)+(w/4))+","+(y+(w/4)-(h/4)+(h/2)-p)+" "+
+		(x+(w/2)+p)+","+(y+(h/8)+(h/2))+" "+ 				(x+(w/8)+(w/4))+","+(y+(w/2)-(h/4)+(h/2)+p);
+	e =drS(v, ui.tY.cIE, cl+"_IE-nnp", cl, undefined, "#8fc",1); E.push(e);
 
 /*a*/e=mkI(x+(w/2),			y+(h/2),		x+(w/2)+(w/d),	y+(h/2)-(h/d),	undefined,"#ccff66",1,"0.382");E.push(e);  
 	//e.setAttribute("marker-end","url(#triangle)");
@@ -837,7 +1133,7 @@ function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.
 	e =mkI(x+(w/2),			y+h,			x+(w/2)+(w/d),	y+h-(w/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
 	e =mkI(x+(w/d),			y+h-(h/d),		x,				y+h,			undefined,"#ffffff",1,"0.236"); E.push(e);
 	e =mkI(x+(w/d),			y+(h/d),		x,				y+(h/2),		undefined,"#ffffff",1,"0.236"); E.push(e);
-	e =drA(x, 		y, 		w,h,co,id+"-mid",cl+"-mid pAIU",0,undefined,op/1.618);	E.push(e);
+	e =drA(x, 		y, 		w,h,co,id+"-mid",cl+"-mid pAIU",0,undefined,op/1.618/1.618);	E.push(e);
 	e =mkI(x-(w/d),			y+(h/2)+(h/d),	x,				y+(h/2),		undefined,"#ffffff",1,"0.236"); E.push(e);
 	e =mkI(x,				y+h,			x-(w/d),		y+h+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
 	e =mkI(x,				y,				x,				y+h,			undefined,"#ffffff",1,"0.236"); E.push(e);
@@ -856,20 +1152,30 @@ function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.
 	e =mkI(x,				y+h,			x+w-(w/d),		y+h,			undefined,"#ffffff",1,"0.236"); E.push(e);
 	e =mkI(x+w,				y+h,			x+w-(w/d),		y+h,			undefined,"#ffffff",1,"0.146"); E.push(e);
 
-	v = x+	","+(y+(h/8)+(h/4))+" "+ 			(x+(w/8))+","+(y+(w/4))+" "+
-		(x+(w/4))+","+(y+(h/4)+(h/8))+" "+ 		(x+(w/8))+","+(y+(w/2));
-	e =drS(v, ui.tY.cIE, cl+"_IE-npn", cl); E.push(e);
-	v = x+(w/2)+","+(y+(h/8)+(h/4))+" "+ 			(x+(w/8)+(w/2))+","+(y+(w/4))+" "+
-		(x+(w/4)+(w/2))+","+(y+(h/4)+(h/8))+" "+ 	(x+(w/8)+(w/2))+","+(y+(w/2));
-	e =drS(v, ui.tY.cIE, cl+"_IE-ppn", cl); E.push(e);
-	v = x+(w/2)+","+(y+(h/8)+(h/4)+(h/2))+" "+ 			(x+(w/8)+(w/2))+","+(y+(w/4)+(h/2))+" "+
-		(x+(w/4)+(w/2))+","+(y+(h/4)+(h/8)+(h/2))+" "+ 	(x+(w/8)+(w/2))+","+(y+(w/2)+(h/2));
-	e =drS(v, ui.tY.cIE, cl+"_IE-pnn", cl); E.push(e);
-	v = x+	","+(y+(h/8)+(h/4)+(h/2))+" "+ 			(x+(w/8))+","+(y+(w/4)+(h/2))+" "+
-		(x+(w/4))+","+(y+(h/4)+(h/8)+(h/2))+" "+ 		(x+(w/8))+","+(y+(w/2)+(h/2));
-	e =drS(v, ui.tY.cIE, cl+"_IE-nnn", cl); E.push(e);
+	v = x-p+	","+(y+(h/8)+(h/4))+" "+ 			(x+(w/8))+","+(y+(w/4)-p)+" "+
+		(x+(w/4)+p)+","+(y+(h/4)+(h/8))+" "+ 		(x+(w/8))+","+(y+(w/2)+p);
+	e =drS(v, ui.tY.cIE, cl+"_IE-npn", cl, undefined, "#8fc",1); E.push(e);
+	v = x+(w/2)-p+","+(y+(h/8)+(h/4))+" "+ 			(x+(w/8)+(w/2))+","+(y+(w/4)-p)+" "+
+		(x+(w/4)+(w/2)+p)+","+(y+(h/4)+(h/8))+" "+ 	(x+(w/8)+(w/2))+","+(y+(w/2)+p);
+	e =drS(v, ui.tY.cIE, cl+"_IE-ppn", cl, undefined, "#8fc",1); E.push(e);
+	v = x+(w/2)-p+","+(y+(h/8)+(h/4)+(h/2))+" "+ 			(x+(w/8)+(w/2))+","+(y+(w/4)+(h/2)-p)+" "+
+		(x+(w/4)+(w/2)+p)+","+(y+(h/4)+(h/8)+(h/2))+" "+ 	(x+(w/8)+(w/2))+","+(y+(w/2)+(h/2)+p);
+	e =drS(v, ui.tY.cIE, cl+"_IE-pnn", cl, undefined, "#8fc",1); E.push(e);
+	v = x-p+	","+(y+(h/8)+(h/4)+(h/2))+" "+ 			(x+(w/8))+","+(y+(w/4)+(h/2)-p)+" "+
+		(x+(w/4)+p)+","+(y+(h/4)+(h/8)+(h/2))+" "+ 		(x+(w/8))+","+(y+(w/2)+(h/2)+p);
+	e =drS(v, ui.tY.cIE, cl+"_IE-nnn", cl, undefined, "#8fc",1); E.push(e);
 
-	e =drA(x-(w/d),	y+(h/d),w,h,co,id+"-top",cl+"-top pAIU",0,undefined,op/1.618);		E.push(e);
+	/*v =  x + (w/2)+(w/d)+","+(y + (h/d)) +" "+			(x + w+(w/d)+","+(y - (h/d)))+" "+
+		(x + w+(w/d)+","+(y+h-(h/d)))+" "+				(x + w-(w/d)+","+(y+h+(h/d)));		
+	e =drS(v, "#002d33", id+"-cU-vrtR", cl, "0.236"); 		E.push(e); */
+	v =  x + (w/2)+(w/d)+","+(y+(h/d)) +" "+		(x + w+(w/d)+","+(y-(h/d)))+" "+
+		(x + w+(w/d)+","+(y+(h/2)-(h/d)))+" "+		(x + w-(w/d)+","+(y+(h/2)+(h/d)));	
+	e =drS(v, ui.tY.cShade, id+"-cU-zyRT", cl, "0.146"); 		E.push(e);
+	v =  x + (w/2)+(w/d)+","+(y+(w/2)+(h/d)) +" "+		(x + w+(w/d)+","+(y+(w/2)-(h/d)))+" "+
+		(x + w+(w/d)+","+(y+ h -(h/d)))+" "+		(x + w-(w/d)+","+(y+ h +(h/d)));		
+	e =drS(v, "#002d33", id+"-cU-zyRB", cl, "0.146"); 		E.push(e);
+
+	e =drA(x-(w/d),	y+(h/d),w,h,co,id+"-top",cl+"-top pAIU",0,undefined,"0.146");		E.push(e);
 
 	e =mkI(x+(w/d), 		y-(h/d), 		(x+w)+(w/d), 	y-(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
 	e =mkI(x, 				y, 				(x+w), 			y, 				undefined,"#ffffff",1,"0.236"); E.push(e);
@@ -889,42 +1195,42 @@ function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.
 	e =mkI(x+(w/d),			y+(h/d),		x+(w/d),		y+h+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
 	e =mkI(x-(w/d),			y+(h/d),		x-(w/d),		y+h+(h/d),		undefined,"#ffffff",1,"0.236"); E.push(e);
 
-	e=mkT(x+(w/8)+1,(y+(h/32)+(h/4)+(h/2)),cl+"_IET-nnn","#ffffff",cl+"_IET",
+	e=mkT(x+(w/8)+1,(y+(h/32)+(h/4)+(h/2)-p),cl+"_IET-nnn","#ffffff",cl+"_IET",
 		w/11,AT.abSpace[0][0][0].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/8),(y+(h/8)+(h/4)+(h/2)),cl+"_IEN-nnn","#ffffff",cl+"_IEN",
 		w/22,AT.abSpace[0][0][0].val,"tahoma","middle"); E.push(e);*/
 
-	e=mkT(x+(w/8)+1+(w/2),(y+(h/32)+(h/4)+(h/2)),cl+"_IET-pnn","#ffffff",cl+"_IET",
+	e=mkT(x+(w/8)+1+(w/2),(y+(h/32)+(h/4)+(h/2)-p),cl+"_IET-pnn","#ffffff",cl+"_IET",
 		w/11,AT.abSpace[2][0][0].ni,"PF","middle");E.push(e);
 	/*e=mkT(x+(w/8)+(w/2),(y+(h/8)+(h/4)+(h/2)),cl+"_IEN-pnn","#ffffff",cl+"_IEN",
 		w/22,AT.abSpace[2][0][0].val,"tahoma","middle");E.push(e);*/
 
-	e=mkT(x+(w/8)+1+(w/2),(y+(h/32)+(h/4)),cl+"_IET-ppn","#ffffff",cl+"_IET",
+	e=mkT(x+(w/8)+1+(w/2),(y+(h/32)+(h/4)-p),cl+"_IET-ppn","#ffffff",cl+"_IET",
 		w/11,AT.abSpace[2][2][0].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/8)+(w/2),(y+(h/8)+(h/4)),cl+"_IEN-ppn","#ffffff",cl+"_IEN",
 		w/22,AT.abSpace[2][2][0].val,"tahoma","middle"); E.push(e);*/
 
-	e=mkT(x+(w/8)+1,(y+(h/32)+(h/4)),cl+"_IET-npn","#ffffff",cl+"_IET",
+	e=mkT(x+(w/8)+1,(y+(h/32)+(h/4)-p),cl+"_IET-npn","#ffffff",cl+"_IET",
 		w/11,AT.abSpace[0][2][0].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/8),(y+(h/8)+(h/4)),cl+"_IEN-npn","#ffffff",cl+"_IEN",
 		w/22,AT.abSpace[0][2][0].val,"tahoma","middle"); E.push(e);*/
 
-	e=mkT(x+(w/4)+1+(w/8),(y+(h/32)+(h/2)),cl+"_IET-nnp","#ffffff",cl+"_IET",
+	e=mkT(x+(w/4)+1+(w/8),(y+(h/32)+(h/2)-p),cl+"_IET-nnp","#ffffff",cl+"_IET",
 		w/11,AT.abSpace[0][0][2].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/4)+(w/8),(y+(h/2)+(h/8)),cl+"_IEN-nnp","#ffffff",cl+"_IEN",
 		w/22,AT.abSpace[0][0][2].val,"tahoma","middle"); E.push(e);*/
 
-	e=mkT(x+(w/4)+1+(w/8),(y+(h/32)),cl+"_IET-npp","#ffffff",cl+"_IET",
+	e=mkT(x+(w/4)+1+(w/8),(y+(h/32)-p),cl+"_IET-npp","#ffffff",cl+"_IET",
 		w/11,AT.abSpace[0][2][2].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/4)+(w/8),(y+(h/8)),cl+"_IEN-nnp","#ffffff",cl+"_IEN",
 		w/22,AT.abSpace[0][2][2].val,"tahoma","middle"); E.push(e);*/
 
-	e=mkT(x+(w/4)+1+(w/8)+(w/2),(y+(h/32)),cl+"_IET-ppp","#ffffff",cl+"_IET",
+	e=mkT(x+(w/4)+1+(w/8)+(w/2),(y+(h/32)-p),cl+"_IET-ppp","#ffffff",cl+"_IET",
 		w/11,AT.abSpace[2][2][2].ni,"PF","middle"); E.push(e);
 	/*e=mkT(x+(w/4)+(w/8)+(w/2),(y+(h/8)),cl+"_IEN-ppp","#ffffff",cl+"_IEN",
 		w/22,AT.abSpace[2][2][2].val,"tahoma","middle"); E.push(e);*/
 
-	e=mkT(x+(w/4)+1+(w/8)+(w/2),(y+(h/32)+(h/2)),cl+"_IET-pnp","#ffffff",cl+"_IET",
+	e=mkT(x+(w/4)+1+(w/8)+(w/2),(y+(h/32)+(h/2)-p),cl+"_IET-pnp","#ffffff",cl+"_IET",
 		w/11,AT.abSpace[2][0][2].ni,"PF","middle");E.push(e);
 	/*e=mkT(x+(w/4)+(w/8)+(w/2),(y+(h/2)+(h/8)),cl+"_IEN-pnp","#ffffff",cl+"_IEN",
 		w/22,AT.abSpace[2][0][2].val,"tahoma","middle");E.push(e);*/
@@ -937,7 +1243,7 @@ function drTypeCage(cX,cY,cl){
 
 		function drCr(cx,cy,x,y,X,Y){ var crR;
 			if(AL.subj){
-				if(AL.subj.tYl.ni ==o.ni){
+				if(AL.subj.tYl.ni ===o.ni){
 					crR=Math.round((w/13));
 					e=drC(cx,cy,(w/13)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e); 
 					crR=Math.round((w/13)/1.618);
@@ -954,7 +1260,7 @@ function drTypeCage(cX,cY,cl){
 			if(o.val){ 		col="#880000"; stC="#ff0000"}}
 		else{ 				col="#334488"; stC="#6688ff"; tCo="#ffffff";
 			if(o.val){ 		col="#880000"; stC="#ff0000"}
-			if(AL.tYl.ni ==o.ni){ var fil ="url(#f3)"; var fr=w/13+5; var fCo="#ffffff"
+			if(AL.tYl.ni ===o.ni){ var fil ="url(#f3)"; var fr=w/13+5; var fCo="#ffffff"
 				if(o.val){ 	col="#ffffff"; stC="#ff8888"; tCo ="#000000";}
 				else{ 		col="#ffffff"; stC="#bbddff"; tCo ="#000000";}}
 			if(AL.subj.opts.includes(o)){ var fil ="url(#f3)"; var fr=w/15+5;
@@ -965,12 +1271,12 @@ function drTypeCage(cX,cY,cl){
 		var cM =o.mnt; if(cM){ cMD="M"} else{ cMD="m"}
 		if(!cM){ dash=w/105+","+w/105}
 		var E=[];var e=null;var id="_cUC-";var dx=false;var dy=false;var dz=false;var st;
-		if(lx==2){ id+="p"} else if(lx==1){ id+="t"; dx=true;}else if(lx==0){ id+="n"}
-		if(ly==2){ id+="p"} else if(ly==1){ id+="t"; dy=true;}else if(ly==0){ id+="n"}
-		if(lz==2){ id+="p"} else if(lz==1){ id+="t"; dz=true;}else if(lz==0){ id+="n"}
+		if(lx===2){ id+="p"} else if(lx===1){ id+="t"; dx=true;}else if(lx===0){ id+="n"}
+		if(ly===2){ id+="p"} else if(ly===1){ id+="t"; dy=true;}else if(ly===0){ id+="n"}
+		if(lz===2){ id+="p"} else if(lz===1){ id+="t"; dz=true;}else if(lz===0){ id+="n"}
 		switch(o.str){ case true: st=Math.round(w/8); break; case false: st=Math.round(w/13)}
 		if(dx){
-			if( o.aDi== 1){ x += w/4;
+			if( o.aDi=== 1){ x += w/4;
 				if(fil){ e=drC(x,y,fr,fCo); e.setAttribute("filter",fil); 						E.push(e)}
 				v = (x-(w/6))+","+y+" "+x+","+(y+(w/14))+" "+x+","+(y-(w/14));
 				e =drS(v, stC, id+"_head"); 													E.push(e);
@@ -978,7 +1284,7 @@ function drTypeCage(cX,cY,cl){
 				e =mkT(x+1,y-(w/11),undefined,tCo,undefined,w/13,cNi,"PF","middle"); 			F.push(e);
 				e =mkT(x+1,y-(w/60),"jou",tCo,"jou",w/17,cVD+cSD+cMD,"PF", "middle");			F.push(e);
 				drCr(x,y,x+(w/13),y,X-(w/10),Y)}
-			else if( o.aDi== -1){ X -= w/4;
+			else if( o.aDi=== -1){ X -= w/4;
 				if(fil){ e=drC(X,Y,fr,fCo); e.setAttribute("filter",fil); 						E.push(e)}
 				v = (X+(w/6))+","+Y+" "+X+","+(Y+(w/14))+" "+X+","+(Y-(w/14));
 				e =drS(v, stC, id+"_head"); 													E.push(e);
@@ -987,7 +1293,7 @@ function drTypeCage(cX,cY,cl){
 				e =mkT(X+1,Y-(w/60),"jou",tCo,"jou",w/17,cVD+cSD+cMD,"PF", "middle");			F.push(e);
 				drCr(X,Y,x,y,X,Y)}}
 		if(dy){
-			if( o.aDi== 1){ y += w/4;
+			if( o.aDi=== 1){ y += w/4;
 				if(fil){ e=drC(x,y,fr,fCo); e.setAttribute("filter",fil); 						E.push(e)}
 				v = (x-(w/14))+","+y+" "+(x+(w/14))+","+y+" "+x+","+(y-(w/6));
 				e =drS(v, stC, id+"_head"); 													E.push(e);
@@ -995,7 +1301,7 @@ function drTypeCage(cX,cY,cl){
 				e =mkT(x+1,y-(w/11),undefined,tCo,undefined,w/13,cNi,"PF","middle"); 			F.push(e);
 				e =mkT(x+1,y-(w/60),"jou",tCo,"jou",w/17,cVD+cSD+cMD,"PF", "middle");			F.push(e);
 				drCr(x,y,x,y,X,Y)}
-			else if( o.aDi== -1){ Y -= w/4;
+			else if( o.aDi=== -1){ Y -= w/4;
 				if(fil){ e=drC(X,Y,fr,fCo); e.setAttribute("filter",fil); 						E.push(e)}
 				v = (X-(w/14))+","+Y+" "+(X+(w/14))+","+Y+" "+X+","+(Y+(w/6));
 				e =drS(v, stC, id+"_head"); 													E.push(e);
@@ -1004,7 +1310,7 @@ function drTypeCage(cX,cY,cl){
 				e =mkT(X+1,Y-(w/60),"jou",tCo,"jou",w/17,cVD+cSD+cMD,"PF", "middle");			F.push(e);
 				drCr(X,Y,x,y,X,Y)}}
 		if(dz){
-			if( o.aDi== -1){ x += w/6; y-= w/6;
+			if( o.aDi=== -1){ x += w/6; y-= w/6;
 				if(fil){ e=drC(x,y,fr,fCo); e.setAttribute("filter",fil); 						E.push(e)}
 				v = (x-(w/18))+","+(y-(w/18))+" "+(x-(w/9))+","+(y+(w/9))+" "+(x+(w/18))+","+(y+(w/18));
 				e =drS(v, stC, id+"_head"); 													E.push(e);
@@ -1012,7 +1318,7 @@ function drTypeCage(cX,cY,cl){
 				e =mkT(x+1,y-(w/11),undefined,tCo,undefined,w/13,cNi,"PF","middle"); 			F.push(e);
 				e =mkT(x+1,y-(w/60),"jou",tCo,"jou",w/17,cVD+cSD+cMD,"PF", "middle");			F.push(e);
 				drCr(x,y,x,y,X,Y)}
-			else if( o.aDi== 1){ Y += w/6; X -= w/6;
+			else if( o.aDi=== 1){ Y += w/6; X -= w/6;
 				if(fil){ e=drC(X,Y,fr,fCo); e.setAttribute("filter",fil); 						E.push(e)}
 				v = (X+(w/18))+","+(Y+(w/18))+" "+(X+(w/9))+","+(Y-(w/9))+" "+(X-(w/18))+","+(Y-(w/18));
 				e =drS(v, stC, id+"_head"); 													E.push(e);
@@ -1020,7 +1326,7 @@ function drTypeCage(cX,cY,cl){
 				e =mkT(X+1,Y-(w/11),undefined,tCo,undefined,w/13,cNi,"PF","middle"); 			F.push(e);
 				e =mkT(X+1,Y-(w/60),"jou",tCo,"jou",w/17,cVD+cSD+cMD,"PF", "middle");			F.push(e);
 				drCr(X,Y,x,y,X,Y)}
-			else if( o.aDi== 0){ cY = Y+ w/4.5; cX = X- w/4.5;
+			else if( o.aDi=== 0){ cY = Y+ w/4.5; cX = X- w/4.5;
 				if(fil){ e=drC(cX,cY,fr,fCo); e.setAttribute("filter",fil); 					E.push(e)}
 				e =drC(cX,cY,w/13,col,"jou","jou",stW,stC); 									F.push(e);
 				e =mkT(cX+1,cY-(w/11),undefined,tCo,undefined,w/13,cNi,"PF","middle"); 			F.push(e);
@@ -1034,7 +1340,7 @@ function drTypeCage(cX,cY,cl){
 			if(o.val){ 		col="#880000"; stC="#ff0000"}}
 		else{ 				col="#334488"; stC="#6688ff"; tCo="#ffffff";
 			if(o.val){ 		col="#880000"; stC="#ff0000"}
-			if(AL.tYl.ni ==o.ni){ var fil ="url(#f3)"; var fr=w/10+8; var fCo="#ffffff"
+			if(AL.tYl.ni ===o.ni){ var fil ="url(#f3)"; var fr=w/10+8; var fCo="#ffffff"
 				if(o.val){ 	col="#ffffff"; stC="#ffacac"; tCo ="#000000";}
 				else{ 		col="#ffffff"; stC="#bbddff"; tCo ="#000000";}}
 			if(AL.subj.opts.includes(o)){ var fil ="url(#f3)"; var fr=w/12+8;
@@ -1044,12 +1350,12 @@ function drTypeCage(cX,cY,cl){
 		if(o.str){ cSD="S"; st=w/25}else{ cSD="s"}
 		if(o.val){ cVD="V"} 		else{ cVD="v"}
 		if(o.mnt){ cMD="M"} 		else{ cMD="m"; dash=w/105+","+w/105}
-		if(lx==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
-		if(ly==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
-		if(lz==2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
+		if(lx===2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
+		if(ly===2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
+		if(lz===2){ id1+="p"; id2+="p"; id3+="p"} else { id1+="n"; id2+="n"; id3+="n"}
 		//function drC(x,y,r,c,id,cl,sW,sC,d,fO,sO)
 		if(AL.subj){
-			if(AL.subj.tYl.ni ==o.ni){
+			if(AL.subj.tYl.ni ===o.ni){
 				e=drC(cx,cy,fr,fCo); e.setAttribute("filter",fil); 					E.push(e);
 				crR=Math.round((w/10));
 				e=drC(cx,cy,(w/10)+crR,undefined,undefined,undefined,1,"#ffffff",undefined,"0","0.236"); F.push(e); 
@@ -1090,63 +1396,17 @@ function drTypeCage(cX,cY,cl){
 	e =drFu(x+(w/4)+w/16,	y-(w/4)-(w/16)+h,	0,0,2,AL.tY.reSpace[0][0][2]); E=E.concat(e); E=E.concat(F);
 	E.forEach( function(E){svgFe.appendChild(E)})}
 
-function drSubjList(){ var E=null; var e=null; var liI="";liT="";liB=""; var off; var absB; var F=[];var G=[];
-	switch( AL.liSize){
-		case 0: ui.lI.iHe=ui.lI.iHe0; ui.lI.tPF=ui.lI.tPF0; ui.lI.tTR=ui.lI.tTR0; ui.lI.tSF=ui.lI.tSF0;	ui.lI.mDx=ui.lI.mDx0;
-				ui.lI.kix=ui.lI.kix0; ui.lI.mPx=ui.lI.mPx0; ui.lI.obx=ui.lI.obx0; ui.lI.vQx=ui.lI.vQx0; ui.lI.nMx=ui.lI.nMx0;
-				ui.lI.miW=ui.lI.miW0; break;
-		case 1: ui.lI.iHe=ui.lI.iHe1; ui.lI.tPF=ui.lI.tPF1; ui.lI.tTR=ui.lI.tTR1; ui.lI.tSF=ui.lI.tSF1;
-				ui.lI.mDx=ui.lI.mDx1; ui.lI.nMx=ui.lI.nMx1; break;
-		case 2: ui.lI.iHe=ui.lI.iHe2; ui.lI.tPF=ui.lI.tPF2; ui.lI.tTR=ui.lI.tTR2; ui.lI.tSF=ui.lI.tSF2;
-				ui.lI.mDx=ui.lI.mDx2; ui.lI.nMx=ui.lI.nMx2; break;}
-	ui.lI.svgHei =ui.tB.disHei+(AL.subjsL*ui.lI.iHe+2); svgLi.setAttribute( 'height', ui.lI.svgHei);
-	svgLi.setAttribute( 'width', ui.lI.miW);
-	var ctrHei=ui.tB.disHei;
-	var lisLen=18;
-	var lisHei =ui.winHei-ui.bB.disHei-ctrHei;
-	var lisY =ctrHei;
-	var width = ui.lI.miW;
-	e =mkL( 0, ui.tB.disHei, ui.tY.lIW, ui.tY.liHe,"tY_L",ui.sB.bG,"tY_L_bg");											svgFe.appendChild( e);
-	for(var n=0; n <AL.sim.subjsL; n++){
-		if( 	AL.sim.subjs[n]==AL.subj)	{ liI="#ffffff"; liT="#000000"; liB="#000000"; 	E=G}
-		else if(AL.sim.subjs[n]==AL.keySubj){ liI=ui.tY.sLiI;liT=ui.tY.sLiT;liB=ui.tY.sLiB; E=G}
-		else 								{ liI=ui.tY.liI; liT=ui.tY.liT; liB=ui.tY.liB; 	E=F}					
-		e =mkL(1, ui.lI.iHe*n+ctrHei+1,width-2,ui.lI.iHe,"tY_Li-"+AL.sim.subjs[n].nI,liI,"tY_Li",liB,1);
-		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : subjListKey( e.id);break}});									E.push(e);
-		e =mkT(4,(ui.lI.iHe*n)-1+ctrHei,"tY_LiT-"+n,liT,"tY_LiT",ui.lI.tPF,
-			AL.sim.subjs[n].nI+" "+AL.sim.subjs[n].tY.ni+"("+AL.sim.subjs[n].tYl.ni2+","+AL.sim.subjs[n].tYl.ab.ni+")","PF"); 	E.push(e);
-		if(AL.sim.subjs[n].pMd.symm){ var liT2="#ffff00"} else{ var liT2=liT}
-		if(!AL.sim.subjs[n].sex.fem){ if(!AL.sim.subjs[n].sex.kid){ off=ui.lI.mDx+ui.lI.kix; absB="♂("} else{ off=ui.lI.mDx; absB="*♂("}}
-		else 						{ if(!AL.sim.subjs[n].sex.kid){ off=ui.lI.mDx+ui.lI.kix; absB="♀("} else{ off=ui.lI.mDx; absB="*♀("}}
-		e =mkT(off, (ui.lI.iHe*n)-1+ctrHei,"tY_LiB-"+n,liT2,"tY_LiB",ui.lI.tTR,
-			absB+AL.sim.subjs[n].pPm.niH+AL.sim.subjs[n].pGn.nI+AL.sim.subjs[n].pPm.niT+")","TR");								E.push(e);
-		if(!AL.sim.subjs[n].gnd.fem){ if(!AL.sim.subjs[n].obj){ off=ui.lI.mPx; absB="♂"} else{ off=ui.lI.mPx-ui.lI.obx; absB="'♂"}}
-		else 						{ if(!AL.sim.subjs[n].obj){ off=ui.lI.mPx; absB="♀"} else{ off=ui.lI.mPx-ui.lI.obx; absB="'♀"}}
-		if(AL.sim.subjs[n].i){ absB+="i"} if(AL.sim.subjs[n].e){ absB+="e"} absB+="(";
-		e =mkT(off, (ui.lI.iHe*n)-1+ctrHei+1,"tY_LiP-"+n,liT2,"tY_LiP",ui.lI.tTR,
-			absB+AL.sim.subjs[n].x+","+AL.sim.subjs[n].y+")","TR");															E.push(e);
-		/*e =mkT(ui.lI.vQx, (ui.lI.iHe*n)-1+ctrHei+1,"tY_LiP-"+n,liT2,"tY_LiP",ui.lI.tTR,
-			"= "+AL.sim.subjs[n].xtn.ni,"AI");*/
-		///*"= ("+*//*AL.sim.subjs[n].ntn.nI+*/"("+/*AL.sim.subjs[n].xtn.nI+*/"))","AI");	
-		E.push(e);
-		e =mkT(ui.lI.nMx,(ui.lI.iHe*n)-1+ctrHei+1,"tY_LiT-"+n,liT,"tY_LiT",ui.lI.tSF,AL.sim.subjs[n].nM.full,"SF"); 			E.push(e)}
-	E=F.concat(G);	E.forEach( function(E){svgLi.appendChild(E)})}
-
-function typeKeyMouseDown( e){ var tY= parseInt(e.split("-").pop()); tY=AL.Sociotypes.seed[tY]; tY=mkType( tY,AT);
-	if( AL.subj){ 	AL.subj.tY=tY; AL.tY=tY; /*mkSignal( o,"f5",0,0); mkOptions( o);*/}
-	else if( AL.tY!=tY){ AL.tY=tY;} else { AL.tY =null}draw()}
-function typeKeyMouseOver( e){ var tY =parseInt(e.split("-").pop()); var src=null;
-	if( AL.subj){ src=AL.subj.tYs}
-
-}
+function applyType( t,s){ var tY =s.tYs.find(o => o.ni===t); if(tY){ s.tY=tY}else{ tY=mkType( t,AT); s.tYs.push(tY); s.tY=tY}}
+function typeKeyMouseDown( e){ var tY= parseInt(e.split("-").pop()); tY=AL.Sociotypes.seed[tY];	
+	if( AL.subj){ applyType( tY,AL.subj); AL.tY =AL.subj.tY; mkSignal( AL.subj,"f5",0,0); mkOptions( AL.subj); draw()}
+	else{ 	if(AL.tY.ni===tY){ 	AL.tY =AT.tY; 						draw()}
+		 	else{ 				AL.tY =AT.tYs.find(o => o.ni===tY); draw()}}}
 function drTypeKeys(){ var E=[]; var e=null; var area, areaB, areaT;
 	for(var n=0; n<16; n++){
-		if((AL.tY==null)||(AT.tYs[n].ni != AL.tY.ni)){ area=ui.tY.area; areaB=ui.tY.areaB; areaT=ui.tY.areaT; }
+		if((AL.tY===null)||(AT.tYs[n].ni !== AL.tY.ni)){ area=ui.tY.area; areaB=ui.tY.areaB; areaT=ui.tY.areaT; }
 		else 							{ area=ui.tY.selArea; areaB=ui.tY.selAreaB; areaT=ui.tY.selAreaT; }
 		e =mkL(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))-ui.sB.disWid,ui.tY.keY,ui.tY.keyWid-1,ui.tY.keyWid-1,"tY_Keys-"+n,area,"tY_Keys",areaB,2);
-		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : typeKeyMouseDown( e.id);break;
-												case "mouseover" : typeKeyMouseOver( e.id);break;
-												case "mouseleave" :typeKeyMouseLeave( e.id);break}}); E.push(e); //åöä
+		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : typeKeyMouseDown( e.id);break}}); E.push(e);
 		e=mkT(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))+(ui.tY.keyWid/2)-1-ui.sB.disWid,ui.tY.keY+(ui.tY.keyWid/7)-1,
 		undefined,areaT,undefined,ui.tY.keyWid/1.6,AL.Sociotypes.seed[n],"SF","middle"); E.push(e)}
 	E.forEach( function(E){svgFe.appendChild(E)}); }
@@ -1156,16 +1416,12 @@ function drTypeStage(){
 	e.setAttribute("filter","url(#f1)"); E.push(e);
 	var e=mkT(x, ui.tY.stY-(ui.tY.cE/2)+(ui.tY.keyWid/5), "-stg", "#ffffff", "stg", (2*ui.tY.cE)/5, AL.tY.zo, "SR","middle");
 	e.setAttribute('opacity',0.62);E.push(e);
-	if(AL.subj!=null){ 
+	if(AL.subj){ 
 		var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stY-(ui.tY.cE/12)+ui.tY.keyGap+(ui.mD.keH/3),
 		"-stg", "#ffffff", "stg", ui.tY.cE/6,AL.subj.nI+". "+AL.subj.nM.full, "PF","left");E.push(e)}
 	var e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stY-(ui.tY.cE/12)+ui.tY.keyGap+(ui.mD.keH/3),
-		undefined,"#fff",undefined,ui.tY.cE/6,AL.tY.ni,"PF","end");E.push(e)
+		undefined,"#fff",undefined,ui.tY.cE/6,AL.tY.nI,"PF","end");E.push(e)
 	E.forEach( function(E){svgFe.appendChild(E)})}
-
-function drSequencer(){ var E=[]; var e=null;
-	e= mkL(0,0,ui.sQ.disWid,ui.sB.disHei-ui.tB.disHei,"tY_sQ",ui.sQ.bG,"tY_sQ");				E.push(e);
-	E.forEach( function(E){svgSq.appendChild(E)})}
 
 function mosaicTextColor(c){ if(c.v > 68){ return "#000000"} else{ return "#ffffff"}}
 function drMoodPlane(){ var e; var E=[];
@@ -1191,7 +1447,7 @@ function drMoodPlane(){ var e; var E=[];
 function moodKey( e,prim){
 	if(AL.subj){
 		var pM= parseInt(e.split("-").pop()); pM=AL.PrimalMoods.seed[pM];
-		var b = AL.subj.pMs.find(function(e){ return e.ni =pM}); b ? pM =b : pM =mkPm( pM,AT,AL.subj.pMs);
+		var b = AL.subj.pMs.find(o => o.ni===pM); b ? pM =b : pM =mkPm( pM,AT,AL.subj.pMs);
 		if(prim){ 	//var gnd= mkBeing(AL.pE.pGn.ni);
 				//AL.subj.pMd =combineMoodAndBeing(pM, bE);
 				//function getMood( sex,gnd,pM,from)
@@ -1212,7 +1468,7 @@ function sexKey( e){
 	var sex =parseInt(e.split("-").pop()); sex =AL.Sexes.seed[sex];
 	if(AL.subj){
 		sex =getObjByNi( sex,AL.subj.sXs);
-		if( sex.fem != AL.subj.sex.fem){ var bu=null;
+		if( sex.fem !== AL.subj.sex.fem){ var bu=null;
 			bu 			=AL.subj.sMd;
 			AL.subj.sMd =AL.subj.pMd;
 			AL.subj.pMd =bu;
@@ -1235,14 +1491,14 @@ function sexKey( e){
 		draw()}
 	else{
 		sex =getObjByNi( sex,AT.sXs);
-		if(AL.sex==sex){AL.sex =null}
+		if(AL.sex===sex){AL.sex =null}
 		else{ 			AL.sex =sex }
 		draw()}}
 function genderKey( e){
 	var gnd =parseInt(e.split("-").pop()); gnd =AL.Genders.seed[gnd];
 	if(AL.subj){
 		gnd =getObjByNi( gnd,AL.subj.gNs);
-		if(gnd.fem == AL.subj.sex.fem){
+		if(gnd.fem === AL.subj.sex.fem){
 			//var pM= mkPrimalMood(AL.pE.pMd.pM.ni);
 			//AL.subj.pMd =combineMoodAndBeing(pM, bE);
 			AL.mD =AL.subj.pMd; 		AL.pMd =AL.subj.pMd;
@@ -1255,13 +1511,13 @@ function genderKey( e){
 			AL.gnd= AL.subj.sGn; 		AL.sGn = AL.subj.sGn;
 			AL.pM = AL.subj.sPm;		AL.sPm = AL.subj.sPm}	
 		draw(); }
-	else if( AL.bE==null){ AL.bE=bE;} else if(AL.bE!=bE){AL.bE=bE} else { AL.bE=null}}
+	else if( AL.bE===null){ AL.bE=bE;} else if(AL.bE!==bE){AL.bE=bE} else { AL.bE=null}}
 function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 	for(let n=0; n<AT.sXsL; n++){
-		if(( AL.sex ==null)||( AT.sXs[n].ni != AL.subj.sex.ni)){
+		if(( AL.sex ===null)||( AT.sXs[n].ni !== AL.sex.ni)){
 			keyC =ui.mD.key2; keyS =ui.mD.stroke2; keyF =ui.mD.selTxt}
-		//else if(AT.sXs[n].ni == AL.sBe.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
-		else if(AT.sXs[n].ni ==AL.subj.sex.ni) 	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
+		//else if(AT.sXs[n].ni === AL.sBe.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
+		else if(AT.sXs[n].ni ===AL.sex.ni) 	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
 		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-(ui.mD.keH*2)-ui.tY.keyGap,ui.mD.keW-1,ui.mD.keH-4,
 			"mD_sexKey-"+n,keyC,"mD_sexKeys",keyS,2);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : sexKey( e.id);break}});E.push(e);
@@ -1269,10 +1525,10 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 			"mD_sexKeyTxt",keyF,"mD_sexKeyTxt-",0.55*ui.tY.keyWid,AT.sXs[n].nI+"( )","TR","middle"); E.push(e); }
 
 	for(let n=0; n<AT.gNsL; n++){
-		if((AL.gnd==null)||((AT.gNs[n].ni != AL.subj.pGn.ni)&&(AT.gNs[n].ni != AL.subj.sGn.ni)))
+		if((AL.gnd===null)||((AT.gNs[n].ni !== AL.pGn.ni)&&(AT.gNs[n].ni !== AL.sGn.ni)))
 												{ keyC=ui.mD.key2; 		keyS=ui.mD.stroke2; keyF=ui.mD.selTxt; }
-		else if(AT.gNs[n].ni ==AL.subj.sGn.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
-		else if(AT.gNs[n].ni ==AL.subj.pGn.ni)	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
+		else if(AT.gNs[n].ni ===AL.sGn.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
+		else if(AT.gNs[n].ni ===AL.pGn.ni)	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
 		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-ui.mD.keH-ui.tY.keyGap, ui.mD.keW-1, ui.mD.keH-4,
 			"mD_gndKey-"+n,keyC,"mD_gndKeys",keyS,2);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : genderKey( e.id);break}});E.push(e);
@@ -1282,10 +1538,10 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 	for(let n=0; n <AT.pMsL; n++){
 		//var m=combineMoodAndBeing(AT.pMs[n], AL.pE.pGn );
 		var m =getMood( AL.sex, AL.gnd, AL.obj, AL.pM, AT.mDs);
-		if((AL.pM==null)||(AT.pMs[n].ni != AL.subj.pPm.ni)){ keyC=ui.mD.key2; keyS=ui.mD.stroke2; symC=ui.mD.selTxt }
-		else if(AL.pM.ni ==AT.pMs[n].ni && AL.gnd.ni == AL.subj.pGn.ni)
+		if((AL.pM===null)||(AT.pMs[n].ni !== AL.pPm.ni)){ keyC=ui.mD.key2; keyS=ui.mD.stroke2; symC=ui.mD.selTxt }
+		else if(AL.pM.ni ===AT.pMs[n].ni && AL.gnd.ni === AL.pGn.ni)
 														{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2; }
-		else /*if(AL.pE.sMo.pM.ni == AT.pMs[n].ni)*/		{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	symC=ui.mD.selTxt}
+		else /*if(AL.pE.sMo.pM.ni === AT.pMs[n].ni)*/		{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	symC=ui.mD.selTxt}
 		if(m.sSym){ symC = "#ffff00"; } else if(m.cSym){ symC = "#ff00ff"}
 		//if(AL.mD.symm){ keyS="#ffff00"}
 		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY, ui.mD.keW-1,ui.mD.keH-4,
@@ -1293,22 +1549,22 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : moodKey( e.id,true);break}});E.push(e);
 		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY+ui.mD.keH/12,
 			"mD_pMdKeyTxt",symC,"mD_pMdKeyTxt-",0.45*ui.tY.keyWid,
-			AT.pMs[n].niH+AL.subj.pGn.nI+AT.pMs[n].niT,"TR","middle"); E.push(e);}
+			AT.pMs[n].niH+AL.pGn.nI+AT.pMs[n].niT,"TR","middle"); E.push(e);}
 
 	for(let n=0; n<AT.pMsL; n++){
 		//var m=combineMoodAndBeing(AT.pMs[n], AL.pE.sGn );
-		if((AL.pM==null)||(AT.pMs[n].ni != AL.subj.sPm.ni))
+		if((AL.pM===null)||(AT.pMs[n].ni !== AL.sPm.ni))
 													{ keyC=ui.mD.key2; 		keyS=ui.mD.stroke2; symC=ui.mD.selTxt;}
-		else if(AL.pM.ni ==AT.pMs[n].ni && AL.gnd.ni == AL.subj.sGn.ni)	
+		else if(AL.pM.ni ===AT.pMs[n].ni && AL.gnd.ni === AL.sGn.ni)	
 													{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2; }
-		else /*if(AL.pE.sMo.pM.ni == AT.pMs[n].ni)*/	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt;  symC=ui.mD.selTxt;}
+		else /*if(AL.pE.sMo.pM.ni === AT.pMs[n].ni)*/	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt;  symC=ui.mD.selTxt;}
 		if(m.symm){ symC = "#ffff00"; }
 		//if(AL.mD.symm){ keyS="#ffff00"}
 		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY+ui.mD.keH, ui.mD.keW-1,ui.mD.keH-4,
 			"mD_sMdKey-"+n,keyC,"mD_sMdKeys",keyS,2);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : moodKey( e.id,false);break}});E.push(e);
 		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY+ui.mD.keH+ui.mD.keH/12,
-			"mD_mKeyTxt",symC,"mD_sMdKeyTxt-",0.45*ui.tY.keyWid,AT.pMs[n].niH+AL.subj.sGn.nI+AT.pMs[n].niT,"TR","middle"); E.push(e);}
+			"mD_mKeyTxt",symC,"mD_sMdKeyTxt-",0.45*ui.tY.keyWid,AT.pMs[n].niH+AL.sGn.nI+AT.pMs[n].niT,"TR","middle"); E.push(e);}
 
 	if( AL.mD.obj){ keyC=ui.mD.key2; keyS=ui.mD.stroke2; symC=ui.mD.selTxt;}
 	else { keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2;}
@@ -1397,12 +1653,12 @@ function drMoodDisp(){ var e; var E=[]; var mFDC; var lHead, rHead, lMF, rMF, lA
 	E.forEach( function(E){svgFe.appendChild(E)}); /*document.body.appendChild( sVfE);*/ }
 
 function drMoodStage(){ 
-if(AL.subj!=null){ var E=[]; var e=null; var x=ui.tY.cuHrz-(ui.tY.cMarg/2); var mFS;
+if(AL.subj!==null){ var E=[]; var e=null; var x=ui.tY.cuHrz-(ui.tY.cMarg/2); var mFS;
 	if(AL.mD.symm){ mFS="#ffff00"} else{ mFS="#88ff88"}
 	var mDisp = AL.mD.pM.niH + AL.mD.gnd.nI + AL.mD.pM.niT
 	var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stY-ui.tY.cE/12+ui.tY.keyGap+(ui.mD.keH/3),
 		"-stg", mFS, "stg", ui.tY.cE/6,AL.subj.nI+". "+AL.subj.nM.full, "PF","start");E.push(e);
-	if(AL.subj.pMd.ni == AL.mD.ni){
+	if(AL.subj.pMd.ni === AL.mD.ni){
 		var e=mkT(x, ui.tY.stY-(ui.tY.cE/2.5)+ui.tY.keyGap+(ui.mD.keH/2),
 			"-stg", mFS, "stg", (2*ui.tY.cE)/8, AL.mD.nI, "SF","middle");
 		e.setAttribute("filter","url(#f1)"); E.push(e);}
@@ -1421,7 +1677,7 @@ function drawMood(){var b =null;
 	drMoodKeys();
 	drMoodDisp();
 	drMoodStage();
-	drSubjList();
+	drList();
 	drSequencer();
 	drBottomBar();
 	AL.feInit =false;
@@ -1477,7 +1733,7 @@ function drMosaicDisp(){
 function drawMosaic(){
 	AL.feInit =true;
 	drTopBar();
-	drSubjList();
+	drList();
 	drSequencer();
 	drMosaicDisp();
 	drBottomBar();
@@ -1493,10 +1749,15 @@ function resizeWindow(){ predraw();draw()}
 window.addEventListener("resize", resizeWindow, true);
 history.pushState(null, document.title, location.href);
 window.addEventListener('popstate', function (event){ history.pushState(null, document.title, location.href);});
+window.oncontextmenu = function ()
+{
+    console.log("JOU");
+    return false;     // cancel default menu
+}
 
 
 
-function coinToss() { return ( Math.floor( Math.random() * 2) == 0)}
+function coinToss() { return ( Math.floor( Math.random() * 2) === 0)}
 function isEven(n){ n =Number(n); return n === 0 || !!(n && !(n%2))}
 function isOdd(n) { return isEven(Number(n) + 1)}
 function union (x, y) { var obj = {}; var res = [];
@@ -1509,6 +1770,11 @@ function shuffle(a) { var j, x, i;
 function chunkArray(arr, chunkL){ var index=0; var arrL=arr.length; var ret=[];    
 	for (index =0; index <arrL; index +=chunkL){
 		chunk =arr.slice(index, index+chunkL); ret.push(chunk)}return ret}
+function idOf(i) {
+    return (i >= 52 ? idOf((i / 52 >> 0) - 1) : '') +  'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'[i % 52 >> 0];
+}
+
+
 
 
 
@@ -1535,13 +1801,13 @@ function mkSubj2(s,ni,sim,reso,  fem,  kid,  fin,  tY ,pM,   pureBad,  invMor,  
 	//mkQualities(s.ab, sim.ab);
 	//mkForms( 	s.ab, s.ab, sim.ab, s);
 
-	console.log(tY);
-	console.log(sim);
-	s.tY =mkType( 	tY, sim.ab, sim, s); 	s.fAs =s.tY.fAs;
+	//s.tY =mkType( 	tY, sim.ab, sim, s); 	
+	applyType( tY, s);
+	s.fAs =s.tY.fAs;
 
-	s.pMd =AT.mDs.filter( mD => mD.sex.fem ==s.fem)
-						.filter( mD => mD.sex.kid ==s.kid)
-							.filter( mD => mD.obj ==s.obj);
+	s.pMd =AT.mDs.filter( mD => mD.sex.fem ===s.fem)
+						.filter( mD => mD.sex.kid ===s.kid)
+							.filter( mD => mD.obj ===s.obj);
 	s.pMd =rmMoods( s.pMd, pM, fin, pureBad, invMor, pureGood); 
 	s.pMd =mkMood( 	s.pMd[Math.floor(Math.random()*s.pMd.length)].ni, sim, s.mDs); 			s.mD =s.pMd;
 
@@ -1566,7 +1832,7 @@ function mkSubj2(s,ni,sim,reso,  fem,  kid,  fin,  tY ,pM,   pureBad,  invMor,  
 	s.pPm =mkPm( 	s.pMd.pM.ni,  sim, s); s.pM =s.pPm;
 	if( !s.pMd.sex.fem){ s.mMd=s.pMd; s.mPm=s.pPm} else { s.fMd=s.pMd; s.fPm=s.pPm}
 
-	s.sMd =AT.mDs.filter(mD=>mD.sex.fem!=s.fem);
+	s.sMd =AT.mDs.filter(mD=>mD.sex.fem!==s.fem);
 	s.sMd =rmMoods( s.sMd, pM, fin, pureBad, invMor, pureGood);
 	s.sMd =mkMood( 	s.sMd[Math.floor(Math.random()*s.sMd.length)].ni, sim, s.mDs);
 
@@ -1598,9 +1864,9 @@ function rmMoods( a, pM, fin, pureBad, invMor, pureGood){ var b =[]; var B =fals
 	for( var i =0; i <a.length; i++){ B =pM.includes( a[i].pM.ni); if(B){ b.push( a[i])}}
 	if( fin){ 	b =b.filter( o => !o.pureBad && !o.invMor)}return b}
 function mkInputs( s){
-	o.PHEN_4_1 = mkSq("PHEN_4_1", AT, )//ååå
+	o.PHEN_4_1 = mkSq("PHEN_4_1", AT, )//ööö
 }
-function mkSignal(s,fac){ s.tYl =s.fAs.find( f =>f.ni==fac);
+function mkSignal(s,fac){ s.tYl =s.fAs.find( f =>f.ni===fac);
 	s.tAx=s.tYl.tAx;s.tAy=s.tYl.tAy;s.tAz=s.tYl.tAz;s.tRx=s.tYl.tRx;s.tRy=s.tYl.tRy;s.tRz=s.tYl.tRz;
 	s.tAX=s.tYl.tAX;s.tAY=s.tYl.tAY;s.tAZ=s.tYl.tAZ;s.tRX=s.tYl.tRX;s.tRY=s.tYl.tRY;s.tRZ=s.tYl.tRZ;
 	//if(!s.xtR){ s.xtR=initXtR( s); s.xtC=initXtC( s); s.xtn=initXtn( s); }
@@ -1618,15 +1884,15 @@ function mkSignal(s,fac){ s.tYl =s.fAs.find( f =>f.ni==fac);
 	if(!s.xtn){ s.xtn =initXtn( s.tYl.ab, s.ntn)}*/}
 function mkOptions(s){ s.opts=[];
 	function getOpts( x,y,z,d){ switch(d){
-		case "x" : 	if(s.tY.reSpace[z][y][0] != s.tYl){ s.opts.push(s.tY.reSpace[z][y][0])}
-					if(s.tY.reSpace[z][y][1] != s.tYl){ s.opts.push(s.tY.reSpace[z][y][1])}
-					if(s.tY.reSpace[z][y][2] != s.tYl){ s.opts.push(s.tY.reSpace[z][y][2])}break;
-		case "y" : 	if(s.tY.reSpace[z][0][x] != s.tYl){ s.opts.push(s.tY.reSpace[z][0][x])}
-					if(s.tY.reSpace[z][1][x] != s.tYl){ s.opts.push(s.tY.reSpace[z][1][x])}
-					if(s.tY.reSpace[z][2][x] != s.tYl){ s.opts.push(s.tY.reSpace[z][2][x])}break;
-		case "z" : 	if(s.tY.reSpace[0][y][x] != s.tYl){ s.opts.push(s.tY.reSpace[0][y][x])}
-					if(s.tY.reSpace[1][y][x] != s.tYl){ s.opts.push(s.tY.reSpace[1][y][x])}
-					if(s.tY.reSpace[2][y][x] != s.tYl){ s.opts.push(s.tY.reSpace[2][y][x])}}}
+		case "x" : 	if(s.tY.reSpace[z][y][0] !== s.tYl){ s.opts.push(s.tY.reSpace[z][y][0])}
+					if(s.tY.reSpace[z][y][1] !== s.tYl){ s.opts.push(s.tY.reSpace[z][y][1])}
+					if(s.tY.reSpace[z][y][2] !== s.tYl){ s.opts.push(s.tY.reSpace[z][y][2])}break;
+		case "y" : 	if(s.tY.reSpace[z][0][x] !== s.tYl){ s.opts.push(s.tY.reSpace[z][0][x])}
+					if(s.tY.reSpace[z][1][x] !== s.tYl){ s.opts.push(s.tY.reSpace[z][1][x])}
+					if(s.tY.reSpace[z][2][x] !== s.tYl){ s.opts.push(s.tY.reSpace[z][2][x])}break;
+		case "z" : 	if(s.tY.reSpace[0][y][x] !== s.tYl){ s.opts.push(s.tY.reSpace[0][y][x])}
+					if(s.tY.reSpace[1][y][x] !== s.tYl){ s.opts.push(s.tY.reSpace[1][y][x])}
+					if(s.tY.reSpace[2][y][x] !== s.tYl){ s.opts.push(s.tY.reSpace[2][y][x])}}}
 	if(!s.tYl.hasOwnProperty('lon')){
 		getOpts( s.tAX,s.tAY,s.tAZ,"x");getOpts( s.tAX,s.tAY,s.tAZ,"y");getOpts( s.tAX,s.tAY,s.tAZ,"z")}
 	else if(s.tYl.lon){ getOpts( s.tAX,s.tAY,s.tAZ,"x")}
@@ -1650,8 +1916,8 @@ function mkOptions(s){ s.opts=[];
 */
 
 
-	/*loc=fNs.find(f=>f.ni==loc); console.log(loc);
-	dir=cRs.find(c=>c.ni==dir); console.log(dir);
+	/*loc=fNs.find(f=>f.ni===loc); console.log(loc);
+	dir=cRs.find(c=>c.ni===dir); console.log(dir);
 	return s}
 */				
 /*function awaySubj( sims,nIs,subj){
@@ -1725,45 +1991,45 @@ function evalModalXYPlane(m,r,R){ m.bV=null; m.bK=null; m.gK=null; m.gV=null;
 	m.bK=evalQuantity(m.bAriK);m.gK=evalQuantity(m.gAriK);m.bV=evalQuantity(m.bAriV);m.gV=evalQuantity(m.gAriV);
 	for(var y=0; y<R; y++){ for(var x=0; x<R; x++){
 		if 		( m.bG[y][x].Y <= m.bG[y][x].X ) {  m.bG[y][x].V = m.gV( r, m.bG[y][x].X, m.bG[y][x].Y);
-													if( m.bG[y][x].V == 0){
-														if(m.invMor||m.pureBad) { m.bG[y][x].V == -0}
-														else 					{ m.bG[y][x].V == +0}}
+													if( m.bG[y][x].V === 0){
+														if(m.invMor||m.pureBad) { m.bG[y][x].V === -0}
+														else 					{ m.bG[y][x].V === +0}}
 													m.bG[y][x].K = m.gK( r, m.bG[y][x].X, m.bG[y][x].Y);
-													if( m.bG[y][x].K == 0){ m.bG[y][x].K == +0}}
+													if( m.bG[y][x].K === 0){ m.bG[y][x].K === +0}}
 	 	else if ( m.bG[y][x].Y  > m.bG[y][x].X ) {  m.bG[y][x].V = m.bV( r, m.bG[y][x].X, m.bG[y][x].Y);
-	 												if( m.bG[y][x].V == 0){
-	 													if(m.invMor||m.pureGood){ m.bG[y][x].V == +0}
-	 													else 					{ m.bG[y][x].V == -0}}
+	 												if( m.bG[y][x].V === 0){
+	 													if(m.invMor||m.pureGood){ m.bG[y][x].V === +0}
+	 													else 					{ m.bG[y][x].V === -0}}
 	 												m.bG[y][x].K = m.bK( r, m.bG[y][x].X, m.bG[y][x].Y);
-	 												if( m.bG[y][x].K == 0){ m.bG[y][x].K == -0}}}}}
+	 												if( m.bG[y][x].K === 0){ m.bG[y][x].K === -0}}}}}
 function evalMosaicXYPlane(m,r,R,fem){ m.xV=null; m.xK=null; m.yK=null; m.yV=null;
 	m.xK=evalQuantity(m.xAriK);m.yK=evalQuantity(m.yAriK);m.xV=evalQuantity(m.xAriV);m.yV=evalQuantity(m.yAriV);
 	if(!fem){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){
 		if 		( m.xY[y][x].X <= m.xY[y][x].Y ) {  m.xY[y][x].V = m.xV( r, m.xY[y][x].X, m.xY[y][x].Y);
-													if( m.xY[y][x].V == 0){
-														if(m.invMor||m.pureBad) { m.xY[y][x].V == -0}
-														else 					{ m.xY[y][x].V == +0}}
+													if( m.xY[y][x].V === 0){
+														if(m.invMor||m.pureBad) { m.xY[y][x].V === -0}
+														else 					{ m.xY[y][x].V === +0}}
 													m.xY[y][x].K = m.xK( r, m.xY[y][x].X, m.xY[y][x].Y);
-													if( m.xY[y][x].K == 0){ m.xY[y][x].K == +0}}
+													if( m.xY[y][x].K === 0){ m.xY[y][x].K === +0}}
 	 	else if ( m.xY[y][x].X  > m.xY[y][x].Y ) {  m.xY[y][x].V = m.yV( r, m.xY[y][x].X, m.xY[y][x].Y);
-	 												if( m.xY[y][x].V == 0){
-	 													if(m.invMor||m.pureGood){ m.xY[y][x].V == +0}
-	 													else 					{ m.xY[y][x].V == -0}}
+	 												if( m.xY[y][x].V === 0){
+	 													if(m.invMor||m.pureGood){ m.xY[y][x].V === +0}
+	 													else 					{ m.xY[y][x].V === -0}}
 	 												m.xY[y][x].K = m.yK( r, m.xY[y][x].X, m.xY[y][x].Y);
-	 												if( m.xY[y][x].K == 0){ m.xY[y][x].K == -0}}}}}
+	 												if( m.xY[y][x].K === 0){ m.xY[y][x].K === -0}}}}}
 	else 		 { for(var y=0; y<R; y++){ for(var x=0; x<R; x++){
 		if 		( m.xY[y][x].Y <= m.xY[y][x].X ) {  m.xY[y][x].V = m.xV( r, m.xY[y][x].X, m.xY[y][x].Y);
-													if( m.xY[y][x].V == 0){
-														if(m.invMor||m.pureBad) { m.xY[y][x].V == -0}
-														else 					{ m.xY[y][x].V == +0}}
+													if( m.xY[y][x].V === 0){
+														if(m.invMor||m.pureBad) { m.xY[y][x].V === -0}
+														else 					{ m.xY[y][x].V === +0}}
 													m.xY[y][x].K = m.xK( r, m.xY[y][x].X, m.xY[y][x].Y);
-													if( m.xY[y][x].K == 0){ m.xY[y][x].K == +0}}
+													if( m.xY[y][x].K === 0){ m.xY[y][x].K === +0}}
 	 	else if ( m.xY[y][x].Y  > m.xY[y][x].X ) {  m.xY[y][x].V = m.yV( r, m.xY[y][x].X, m.xY[y][x].Y);
-	 												if( m.xY[y][x].V == 0){
-	 													if(m.invMor||m.pureGood){ m.xY[y][x].V == +0}
-	 													else 					{ m.xY[y][x].V == -0}}
+	 												if( m.xY[y][x].V === 0){
+	 													if(m.invMor||m.pureGood){ m.xY[y][x].V === +0}
+	 													else 					{ m.xY[y][x].V === -0}}
 	 												m.xY[y][x].K = m.yK( r, m.xY[y][x].X, m.xY[y][x].Y);
-	 												if( m.xY[y][x].K == 0){ m.xY[y][x].K == -0}}}}}}
+	 												if( m.xY[y][x].K === 0){ m.xY[y][x].K === -0}}}}}}
 function mapXYPlane(q,r,R){ for(var y=0; y<R; y++){ for(var x=0; x<R; x++){
 	q[y][x].x =x-r; q[y][x].y =y-r; q[y][x].X=Math.abs(q[y][x].x); q[y][x].Y=Math.abs(q[y][x].y);}}}
 //lane( 	m, 	xY, AL.sQr, m.gnd.fem, obj);
@@ -1777,7 +2043,7 @@ function hsvToRgb(h, s, v) {
 	var r, g, b;	var i;	var f, p, q, t;
 	h = Math.max(0, Math.min(360, h));	s = Math.max(0, Math.min(100, s));	v = Math.max(0, Math.min(100, v));
 	s /= 100;	v /= 100;
-	if(s == 0) { r = g = b = v;	return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];}
+	if(s === 0) { r = g = b = v;	return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];}
 	h /= 60; // sector 0 to 5
 	i = Math.floor(h);
 	f = h - i; // factorial part of h
@@ -1796,7 +2062,7 @@ function RGBtoHSV(r, g, b) { if (arguments.length === 1) { g = r.g, b = r.b, r =
     switch (max) { case min: h = 0; break; case r: h = (g - b) + d * (g < b ? 6: 0); h /= 6 * d; break;
         case g: h = (b - r) + d * 2; h /= 6 * d; break; case b: h = (r - g) + d * 4; h /= 6 * d; break}
     return { h: h, s: s, v: v }}
-function componentToHex(c) { var hex = c.toString(16); return hex.length == 1 ? "0" + hex : hex}
+function componentToHex(c) { var hex = c.toString(16); return hex.length === 1 ? "0" + hex : hex}
 function rgbToHex(r, g, b) { return "#" + componentToHex(r) + componentToHex(g) + componentToHex(b);}
 function hexToRgb(hex) { var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 	return result ? { r: parseInt(result[1], 16), g: parseInt(result[2], 16), b: parseInt(result[3], 16)} : null}
@@ -1826,7 +2092,7 @@ function mkNullMatrix(y,x){	var q=[];
 
 function interleaveQuadrants(R,l,v,r) { var X = (2*R)+1; var Y = R; var m = mkNullMatrix(Y,X);
 	for(var y=0; y<Y; y++){	for(var x=0; x<X; x++) { if(x<R)  { m[y][x] = l[y][x] }
-												else if(x==R) { m[y][x] = v[y][0] }
+												else if(x===R) { m[y][x] = v[y][0] }
 												else 		  { m[y][x] = m[y][x] = r[y][x-R-1] }}} return m }
 
 function flipHor(m){ var M=mkNullMatrix(m.length);
@@ -1835,7 +2101,7 @@ function flipVer(m){
 	var M=mkNullMatrix(m.length); var len=M.length;
 	for(var n=0; n<len; n++){ M[len-1-n]=m[n]} return M}
 //(ui.ora, true, false, m.bE.reso, m.goodForm);
-function rotate(matrix,n) {	var r=Math.ceil(n/2); if(n%2==1) { r--; }
+function rotate(matrix,n) {	var r=Math.ceil(n/2); if(n%2===1) { r--; }
     for (var i = 0; i < n/2; i++) { for (var j = 0; j < r; j++) {
             var temp = matrix[i][j]; matrix[i][j] = matrix[n-1-j][i]; matrix[n-1-j][i] = matrix[n-1-i][n-1-j];
             matrix[n-1-i][n-1-j] = matrix[j][n-1-i]; matrix[j][n-1-i] = temp; }} return matrix }
@@ -1845,8 +2111,8 @@ function flipDiagonal(matrix,n) { for (var i = 0; i < n; i++) { for (var j = 0; 
 function fillHalfQuadrant(q,r,reverse,blend2){
 	var from; var to; var L; var len;
 	for(var y=0; y<r; y++){ L =[]; from=null; to=null;
-		for(var x=0; x<r; x++){ if(q[x][y]!=null){
-			if(from==null){ from = {y:y, x:x, c:q[x][y] }} else{ to ={ y:y, x:x, c:q[x][y]}}}
+		for(var x=0; x<r; x++){ if(q[x][y]!==null){
+			if(from===null){ from = {y:y, x:x, c:q[x][y] }} else{ to ={ y:y, x:x, c:q[x][y]}}}
 		if(from&&to){
 			if(blend2){ L=blendColours2(from.c, to.c, to.x-from.x+1);}
 			else{ L=blendColours(from.c, to.c, to.x-from.x+1);}
@@ -1862,7 +2128,7 @@ function mkHalfQuadrantTemplate(c,g,r){
 	return q}
 function mkHalfQuadrant(c,kc,r,mF){
 	var q=mkNullMatrix(r);
-	if(c==kc) { var fToL=blendColours2(c.f, c.l, r);
+	if(c===kc) { var fToL=blendColours2(c.f, c.l, r);
 				var lToH=blendColours (c.l, c.h, r);
 				var fToH=blendColours (c.f, c.h, r)}
 	else 	  { var fToL=blendColours2(kc.f,c.l, r);
@@ -1924,7 +2190,7 @@ function offsetRightwards( m,r){			for(var n=0; n<r; n++){					m[n].unshift(null
 function offsetUpwards( m,r){	var a=[];	for(var n=0; n<r; n++){	a.push(null)}	m.push(a);}
 function offsetLeftwards( m,r) { 			for(var n=0; n<r; n++){ 				m[n].push(null)}}
 function connectHalfQuadrants(master,slave,r){
-	for(var y=0; y<r; y++){	for(var x=0; x<r; x++){	if(master[x][y]==null){ master[x][y] =slave[x][y]}}} return master}
+	for(var y=0; y<r; y++){	for(var x=0; x<r; x++){	if(master[x][y]===null){ master[x][y] =slave[x][y]}}} return master}
 function mkModalXYPlane(m,r){
 	var xY={ uLX:null,uLY:null,uRX:null,uRY:null, l:null,c:null,r:null,
 		dLX:null,dLY:null,d:null,dRX:null,dRY:null,uL:null, uR:null, dL:null, dR:null};
@@ -2452,7 +2718,7 @@ function precalcVectorQualities( seed,sQs,parent,s){ //if( s){ if(s.vQs.length >
 	case "L_deceive" 	: q = new AL.VectorQualities.L_deceive 		("L_deceive", 	undefined,undefined,sQs); inhVq( q,parent,s);return q;
 	case "L_withhold" 	: q = new AL.VectorQualities.L_withhold 	("L_wihhold", 	undefined,undefined,sQs); inhVq( q,parent,s);return q;
 	case "L_wisdom" 	: q = new AL.VectorQualities.L_wisdom 		("L_wisdom", 	undefined,undefined,sQs); inhVq( q,parent,s);return q}}
-function inhVq( v,parent,s){ if(parent){ v.parent=parent.vQs.find(o => o.ni ==v.ni)}}
+function inhVq( v,parent,s){ if(parent){ v.parent=parent.vQs.find(o => o.ni ===v.ni)}}
 /*							 if()
 
 	if(!parent){ var q=v.ni.charAt(0); switch(q){
@@ -2523,7 +2789,7 @@ AL.VectorQualities = { seed:[ "Origin",
 	O_need 			:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs,-1, 2,false,true, "This makes \n me whole."						)},
 	O_tool 			:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs,-1, 3,true, false,"This \n makes me \n independent." 				)},
 	O_method 		:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs,-1, 4,false,true, "How do I \n do this?" 							)},
-//ååå
+//ööö
 	M_destroy 		:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs, 4,-1,false,true, "We do \n something \n bad." 					)},
 	M_confusion 	:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs, 4,-2,true, false,"We don't \n know what \n we want." 			)},
 	M_apathy 		:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs, 4,-3,false,true, "We don't \n want \n anything." 				)},
@@ -2558,11 +2824,11 @@ AL.VectorQualities = { seed:[ "Origin",
 	L_kind			:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs, 1, 3,true, false,"You are \n like that." 						)},
 	L_reason 		:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs, 1, 4,false,true, "Why are you \n like that?"						)}};
 //Fi.invoke : function(){}
-function getVq(a,l,r,c){ var v=null; for(var i=0; i<l; i++){ if((a[i].r==r)&&(a[i].c==c)){ v=a[i]}}return v}
+function getVq(a,l,r,c){ var v=null; for(var i=0; i<l; i++){ if((a[i].r===r)&&(a[i].c===c)){ v=a[i]}}return v}
 function getByNis(a,l,nis,nisL){ var b=null; var q=[];
-	for(var i=0; i<l; i++){ for(var j=0; j<nisL; j++) { if(nis[j]==a[i].ni){ q.push(a[i])}}}return q}
+	for(var i=0; i<l; i++){ for(var j=0; j<nisL; j++) { if(nis[j]===a[i].ni){ q.push(a[i])}}}return q}
 function getByNi1st(a,l,c){ var b=null; var q=[];
-	for(var i=0; i<l; i++){ if((a[i].ni.charAt(0)==c)&&(a[i].ni.charAt(1)=='_')){ q.push(a[i])}}return q}
+	for(var i=0; i<l; i++){ if((a[i].ni.charAt(0)===c)&&(a[i].ni.charAt(1)==='_')){ q.push(a[i])}}return q}
 function mkVq2(o,ni,rQs,cQs,sQs,r,c,i,e,desc){ o.ni=ni; o.r=r; o.c=c; o.i=i; o.e=e; o.desc=desc;
 	var v=ni.charAt(0); switch(v){
 		case "M" : o.lPI=true; o.lPU=true; break; case "L" : o.lPI=true; o.lPU=false;break;
@@ -2772,7 +3038,7 @@ function mkSq( ni,parent){ var q=null; switch(ni){
 	case "THINK_2e" 	:q=new AL.ScalarQualities.THINK_2e 		(ni); inhSq( q,parent);return q;
 	case "THINK_3i" 	:q=new AL.ScalarQualities.THINK_3i 		(ni); inhSq( q,parent);return q;
 	case "THINK_4e" 	:q=new AL.ScalarQualities.THINK_4e 		(ni); inhSq( q,parent);return q}}
-function inhSq( q,parent){ if( parent){ q.parent=parent.sQs.find(o => o.ni == q.ni)}}
+function inhSq( q,parent){ if( parent){ q.parent=parent.sQs.find(o => o.ni === q.ni)}}
 AL.ScalarQualities={ seed : [
 	"RRTANTIC_0", "4_PHEN_1", "3_LOWN_2", "2_HIGH_3", "1_DLBR_4",	"4_HRMNY_1","3_SIGNI_2","2_AWARE_3","1_UNITY_4",
 	"FEEL_0i", 	"FEEL_1e", 	"FEEL_2i", 	"FEEL_3e", 	"FEEL_4i",	"THINK_0e", "THINK_1i", "THINK_2e", "THINK_3i", "THINK_4e"],
@@ -2798,7 +3064,7 @@ THINK_4e	: function(ni){mkSq2(this,ni,4,4,false,true, true, true, "T4e","Extrove
 function mkSq2( o,ni,max,min,i,e,rc,str,nI,desc){ o.iEs=[];
 	o.ni=ni; o.max=max; o.min=min; o.i=i; o.e=e; o.rc=rc; o.str=str; o.nI=nI; o.desc=desc;}
 
-function evalRom(s){ if(s.at.ni=="Sandbox"){}}
+function evalRom(s){ if(s.at.ni==="Sandbox"){}}
 
 
 function initXtR( s){ var b=null; switch(s.tYl.ab.ni){
@@ -2823,10 +3089,10 @@ function initXtn( s){ var b=mkVqByScalars( s.xtR,s.xtC,s.ab,s); console.log(b);r
 		case "Si" : case "Ti" : b = mkSq("THINK_0e"); 	return b;
 		case "Se" : case "Te" : b = mkSq("THINK_1i"); 	return b}}
 function initXtn(iE,ntn){ var b=null; switch(ntn.ni){
-		case "FEEL_0i"  	: if(iE.ni=="Fi"){ b =mkSq("SENSE_0")} 	else{b =mkSq("INTUIT_0")} return b;
-		case "FEEL_1e"  	: if(iE.ni=="Fe"){ b =mkSq("DLBR_1_4")}	else{b =mkSq("UNITY_1_4")}return b;
-		case "THINK_0e"  	: if(iE.ni=="Se"){ b =mkSq("SENSE_0")} 	else{b =mkSq("INTUIT_0")} return b;
-		case "THINK_1i"  	: if(iE.ni=="Si"){ b =mkSq("PHEN_4_1")}	else{b =mkSq("HRMNY_4_1")}return b}}*/
+		case "FEEL_0i"  	: if(iE.ni==="Fi"){ b =mkSq("SENSE_0")} 	else{b =mkSq("INTUIT_0")} return b;
+		case "FEEL_1e"  	: if(iE.ni==="Fe"){ b =mkSq("DLBR_1_4")}	else{b =mkSq("UNITY_1_4")}return b;
+		case "THINK_0e"  	: if(iE.ni==="Se"){ b =mkSq("SENSE_0")} 	else{b =mkSq("INTUIT_0")} return b;
+		case "THINK_1i"  	: if(iE.ni==="Si"){ b =mkSq("PHEN_4_1")}	else{b =mkSq("HRMNY_4_1")}return b}}*/
 //replace sense 0 and intuit 0 with inspection of environment
 
 
@@ -3249,7 +3515,7 @@ function mkMood( ni,qua,parent,arr){ var m=null; switch(ni){
 	case "FEM_FEM_sbj_m_mp" : m= new AL.Moods.FEM_FEM_sbj_m_mp( ni,qua); inhMd( m,parent,arr);return m;
 	case "FEM_FEM_sbj_m_pm" : m= new AL.Moods.FEM_FEM_sbj_m_pm( ni,qua); inhMd( m,parent,arr);return m;
 	case "FEM_FEM_sbj_m_b"  : m= new AL.Moods.FEM_FEM_sbj_m_b ( ni,qua); inhMd( m,parent,arr);return m}}
-function inhMd( mD,parent,arr){ /*if( parent) { mD.parent=parent.mDs.find(o => o.ni == mD.ni)}
+function inhMd( mD,parent,arr){ /*if( parent) { mD.parent=parent.mDs.find(o => o.ni === mD.ni)}
 								if( arr) 	{ arr.push( mD)}*/}
 AL.Moods={ seed : [
 	"MAS_MAS_obj_m_","MAS_MAS_obj_m_m","MAS_MAS_obj_m_p","MAS_MAS_obj_m_mp","MAS_MAS_obj_m_pm","MAS_MAS_obj_m_b",
@@ -3741,13 +4007,13 @@ AL.Moods={ seed : [
 	FEM_FEM_sbj_m_mp:function(ni,qua){mkMood2(this,ni,qua,false,true, false,true, false,"Fightingly Escaping Subject Woman")},
 	FEM_FEM_sbj_m_pm:function(ni,qua){mkMood2(this,ni,qua,false,true, false,true, false,"Escapingly Fighting Subject Woman")},
 	FEM_FEM_sbj_m_b :function(ni,qua){mkMood2(this,ni,qua,false,true, false,true, false,"Escaping & Fighting Subject Woman")}}
-function getObjByNi( ni,from){ var r =from.find( function(o){if( ni==o.ni){ return o}}); return r}
+function getObjByNi( ni,from){ var r =from.find(o => ni===o.ni); return r}
 function mkMood2(o,ni,qua,FEM,KID,fem,kid,obj,nI){
 	o.ni=ni; o.nI=nI; o.gForm =null; o.bForm =null; o.obj =obj; o.vQs=qua.vQs;
-	if( FEM==fem && !( KID && !kid)){ o.stereo  =true} 	else{ o.stereo  =false}
-	if( FEM!=fem &&  KID==kid) 		{ o.pureBad =true} 	else{ o.pureBad =false}
-	if( FEM!=fem &&  KID!=kid) 		{ o.invMor  =true} 	else{ o.invMor  =false}
-	if( FEM==fem &&  KID && !kid) 	{ o.pureGood=true} 	else{ o.pureGood=false}
+	if( FEM===fem && !( KID && !kid)){ o.stereo  =true} 	else{ o.stereo  =false}
+	if( FEM!==fem &&  KID===kid) 		{ o.pureBad =true} 	else{ o.pureBad =false}
+	if( FEM!==fem &&  KID!==kid) 		{ o.invMor  =true} 	else{ o.invMor  =false}
+	if( FEM===fem &&  KID && !kid) 	{ o.pureGood=true} 	else{ o.pureGood=false}
 	o.sex= ni.substr( 0,ni.indexOf( '_')); 					o.sex= getObjByNi( o.sex,AT.sXs);
 	o.gnd= ni.split( '_')[1].substr( 0,ni.indexOf( '_'));	o.gnd= getObjByNi( o.gnd,AT.gNs);
 	o.pM = ni.substr( ni.indexOf( '_') +1)
@@ -3772,9 +4038,9 @@ function modalFlip(mf,f){ var ret=[];
 				case 2: ret[1]=mf[2]; ret[2]=mf[1]; break;
 				case 3: ret[0]=mf[2]; ret[2]=mf[0]} return ret}
 function turnModalFormBad(m){ for(let n=0; n < 3; n++){
-	if(m.gForm[n]=="a" ){ m.gForm[n]="c'"}if(m.gForm[n]=="c" ){m.gForm[n]="a'"}}}
+	if(m.gForm[n]==="a" ){ m.gForm[n]="c'"}if(m.gForm[n]==="c" ){m.gForm[n]="a'"}}}
 function turnModalFormGood(m){ for(let n=0; n < 3; n++){
-	if(m.bForm[n]=="a'"){ m.bForm[n] ="c"}if(m.bForm[n]=="c'"){m.bForm[n] ="a" }}}
+	if(m.bForm[n]==="a'"){ m.bForm[n] ="c"}if(m.bForm[n]==="c'"){m.bForm[n] ="a" }}}
 function manipulateModalForm(m){
 	if(!m.pM.head){ m.gForm =modalFlip(m.gForm,2)}
 	for(let n=0; n < m.pM.tail.length; n++){
@@ -3819,21 +4085,21 @@ function interpretModalForm(m){ var b=""; var g="";
 	if( stereoSyms( m.bForm, m.bFormL, m.gForm, m.gFormL)) { m.sSym=true} else{ m.sSym=false}
 	if( complexSyms(m.bForm, m.bFormL, m.bFormLs, m.gForm, m.gFormL, m.gFormLs)) { m.cSym=true} else{ m.cSym=false}
 	return m}
-function stereoSym(b,g){ g+="'"; if(g==b){ return true} else{ return false}}
+function stereoSym(b,g){ g+="'"; if(g===b){ return true} else{ return false}}
 function stereoSyms(bForm,bLen,gForm,gLen){
-	if( bLen !=gLen){ return false}
+	if( bLen !==gLen){ return false}
 	else{ var vars=[];
 		for(let n=0; n<bLen; n++){ for(let m=0; m<gLen; m++){
 			if(!stereoSym( bForm[n], gForm[m])){ return false}}}
 		return true}}
 function complexSym( bF1, bL1, gF1, gL1){
-	if((bF1 =="b" && gF1 =="b'")||(bF1 =="b'" && gF1 =="b")){ return true}
-	if((bL1 !=gL1)&&
-		(((bF1 =="a")&&(gF2 =="a'"))||((bF1 =="a'")&&(gF2 =="a"))||
-			((bF1 =="c")&&(gF2 =="c'"))||((bF1 =="c'")&&(gF2 =="c")))){ return true}
+	if((bF1 ==="b" && gF1 ==="b'")||(bF1 ==="b'" && gF1 ==="b")){ return true}
+	if((bL1 !==gL1)&&
+		(((bF1 ==="a")&&(gF2 ==="a'"))||((bF1 ==="a'")&&(gF2 ==="a"))||
+			((bF1 ==="c")&&(gF2 ==="c'"))||((bF1 ==="c'")&&(gF2 ==="c")))){ return true}
 	else{ return false}}
 function complexSyms(bForm,bLen,gForm,gLen){
-	if( bLen !=gLen){ return false}
+	if( bLen !==gLen){ return false}
 	else{ var vars=[];
 		for(let n=0; n<bLen; n++){ for(let m=0; m<gLen; m++){
 			if(!complexSym( bForm[n], bFormLs[n], gForm[m], gFormLs[m])){ return false}}}
@@ -3924,7 +4190,7 @@ function mkGender( ni,parent,subj){ var g=null; switch(ni){
 	case "mas": g= new AL.Genders.mas( ni,subj); inhGender( g,parent);return g;
 	case "fem": g= new AL.Genders.fem( ni,subj); inhGender( g,parent);return g;
 	case "FEM": g= new AL.Genders.FEM( ni,subj); inhGender( g,parent);return g}}
-function inhGender( g,parent){ /*if(parent){ g.parent=parent.gNs.find(o => o.ni ==g.ni)}*/}
+function inhGender( g,parent){ /*if(parent){ g.parent=parent.gNs.find(o => o.ni ===g.ni)}*/}
 AL.Genders={ seed:["FEM","fem","MAS","mas"],
 	MAS:function( ni,subj){ mkGender2(this,ni,false,false,"♂" ,subj)},
 	mas:function( ni,subj){ mkGender2(this,ni,false,true, "*♂",subj)},
@@ -3933,8 +4199,8 @@ AL.Genders={ seed:["FEM","fem","MAS","mas"],
 function mkGender2( o,ni,fem,kid,nI,subj){ var b=[];
 	o.ni=ni;o.fem=fem;o.kid=kid;o.nI=nI; o.V =0; o.K =0;
 	if( subj){ b=subj.nMs.filter(n =>
-		n.kid==subj.kid && n.fin ==subj.fin && n.weird==subj.weird &&	n.last ==subj.last)}
-	if(b !=[]){ o.name =b[0]} else{ b =mkName(fem,kid,subj.fin,subj.weird,subj.nM.last); o.name =b}}
+		n.kid===subj.kid && n.fin ===subj.fin && n.weird===subj.weird &&	n.last ===subj.last)}
+	if(b !==[]){ o.name =b[0]} else{ b =mkName(fem,kid,subj.fin,subj.weird,subj.nM.last); o.name =b}}
 
 function precalcSexes(seed,parent){ var r =[]; var b =null;
 	for(let n=0; n<AT.sXsL; n++){ b=mkSex( seed[n],parent);r.push(b)}return r}
@@ -3957,7 +4223,7 @@ function mkSex2( o,ni,fem,kid,nI){ o.ni=ni;o.kid=kid;o.fem=fem;o.nI=nI; o.V =0; 
 function precalcSociotypes( seed,ab,parent,subj){ var tYs =[]; var b =null;
 	for(let n=0; n <AT.tYsL; n++){ b =mkType( seed[n],ab,parent,subj); tYs.push( b)}return tYs}
 function mkType(ni,ab,parent,subj){
-	if( subj){ var t =subj.tYs.find( o => o.ni ==ni); if( t){ return t}}
+	if( subj){ var t =subj.tYs.find( o => o.ni ===ni); if( t){ return t}}
 	var t =null; switch( ni){
 		case "iSFC": t =new AL.Sociotypes.iSFC( ni,ab,parent,subj); return t;
 		case "iSFR": t =new AL.Sociotypes.iSFR( ni,ab,parent,subj); return t;
@@ -3975,12 +4241,12 @@ function mkType(ni,ab,parent,subj){
 		case "eNFR": t =new AL.Sociotypes.eNFR( ni,ab,parent,subj); return t;
 		case "eNTC": t =new AL.Sociotypes.eNTC( ni,ab,parent,subj); return t;
 		case "eNTR": t =new AL.Sociotypes.eNTR( ni,ab,parent,subj); return t;
-		case "NaT" : t =new AL.Sociotypes.NaT(  ni,ab,parent,subj);					 return t}}
-function inhTy( tY,parent){ if( parent){ tY.parent =parent.tYs.find( o => o.ni ==tY.ni)}}
+		case "NaT" : t =new AL.Sociotypes.NaT(  ni,ab,parent,subj);	return t}}
+function inhTy( tY,parent){ if( parent){ tY.parent =parent.tYs.find( o => o.ni ===tY.ni)}}
 AL.Sociotypes={
 	seed: [ "iSFR","iSFC","iSTR","iSTC","iNFR","iNFC","iNTR","iNTC",
 			"eSFR","eSFC","eSTR","eSTC","eNFR","eNFC","eNTR","eNTC"],
-	iSFR:function( ni,ab,parent,s){ mkSociotype(this,ni,ab,parent,s,false,false,false,false,
+	iSFR:function( ni,qua,parent,s){ mkSociotype(this,ni,qua,parent,s,false,false,false,false,
 		"Dolphin", 		"Descending Idealist", 		"Romantic Believer", 	"ESFp","SEE","ESFP")},
 	iSFC:function( ni,qua,parent,s){ mkSociotype(this,ni,qua,parent,s,false,false,false,true, 
 		"Wolverine", 	"Ascending Idealist",		"Classical Believer", 	"ISFj","ESI","ISFP")},
@@ -4012,10 +4278,12 @@ AL.Sociotypes={
 		"Falcon", 		"Ascending Anyone", 		"Romantic Cleric", 		"INTp","ILI","INTJ")},
 	eNTC:function( ni,qua,parent,s){ mkSociotype(this,ni,qua,parent,s,true, true, true, true, 
 		"Piranha", 		"Descending Anyone", 		"Classical Cleric", 	"ENTj","LIE","ENTJ")},
-	NaT: function( ni,s){ mkSociotype(this,ni)}}
+	NaT: function( ni,qua,parent,s){ mkSociotype(this,ni,qua,parent,s,true, true, true, false,
+		"", 		"", 		"", 	"","","")}}
 function mkSociotype( o,ni,ab,parent,s,ie,sn,ft,rc,zo,desc,call,modA4,modA3,mbti){
-							o.ni=ni; o.ie=ie; o.sn=sn; o.ft=ft; o.rc=rc;
-							o.zo=zo; o.desc=desc; o.call=call; o.modA4=modA4; o.modA3=modA3; o.mbti=mbti;
+							o.ni=ni; o.zo=zo; o.desc=desc; o.call=call; o.modA4=modA4; o.modA3=modA3; o.mbti=mbti;
+							if(ni!=="NaT"){ o.nI=ni};
+							o.ie=ie; o.sn=sn; o.ft=ft; o.rc=rc;
 							//inhTy( 		o, parent);
 							o.iEs 		= AT.iEs;
 							o.fNs 		= precalcFunctions( 			AL.Functions.seed, 						AT);
@@ -4024,23 +4292,8 @@ function mkSociotype( o,ni,ab,parent,s,ie,sn,ft,rc,zo,desc,call,modA4,modA3,mbti
 							o.abSpace 	= AT.abSpace;
 							o.reSpace 	= orientRelSpace( o, precalcSocionicsEssence( o.fNs, o.cRs));
 							o.cRs 		= orientCircuitsAbsolutely( o);
-
 						}
-							/*
-	to.origins 	= precalcOrigins( 				AL.Origins.seed, 						parent);
-	to.sXs 		= precalcSexes( 				AL.Sexes.seed, 							parent); 
-	to.gNs 		= precalcGenders( 				AL.Genders.seed, 				 		parent);
-	to.sQs 		= precalcScalarQualities( 		AL.ScalarQualities.seed, 				parent);
-	to.vQs 		= precalcVectorQualities( 		AL.VectorQualities.seed, 		to.sQs, parent);
-	to.pMs 		= precalcPrimalMoods( 			AL.PrimalMoods.seed, 					parent);
-	to.mDs 		= precalcMoods( 				AL.Moods.seed, 					to, 	parent);
-	to.iEs 		= precalcInformationElements( 	AL.InformationElements.seed, 	to, 	parent);
-	to.abSpace 	= precalcSocionicsMetaphysics( 	to.iEs);
-	to.fNs 		= precalcFunctions( 			AL.Functions.seed, 						parent);
-	to.cRs 		= precalcCircuits( 				AL.Circuits.seed, 						parent);
-	to.fAs 		= to.fNs.concat( 				to.cRs);
-	to.tYs 		= precalcSociotypes( 			AL.Sociotypes.seed, 			to,		parent);
-}*/
+
 function connectSpaces( abs,rel){
 	function f(tAZ,tAY,tAX){ rel[tAZ][tAY][tAX].ab =abs[tAZ][tAY][tAX];
 		rel[tAZ][tAY][tAX].tAX=tAX; 	rel[tAZ][tAY][tAX].tAY=tAY; 	rel[tAZ][tAY][tAX].tAZ=tAZ;
@@ -4092,26 +4345,26 @@ function orientCircuitsAbsolutely(t){ var c=null;
 		else{ 		c =t.cRs.filter(o => o.lon); 		c.forEach( function(c){ c.aDi = -c.rDi})}}return t.cRs}
 // SAISINKO LAUTASELLISEN RETURNAMUUSSIA
 function precalcSocionicsEssence( fNs,cRs){ var space =mk3Space();
-	space[2][0][2] =fNs.find( o => o.ni =="f1");	
-	space[2][0][0] =fNs.find( o => o.ni =="f2");	
-	space[0][0][0] =fNs.find( o => o.ni =="f3");	
-	space[0][0][2] =fNs.find( o => o.ni =="f4");	
-	space[0][2][2] =fNs.find( o => o.ni =="f5");	
-	space[0][2][0] =fNs.find( o => o.ni =="f6");	
-	space[2][2][0] =fNs.find( o => o.ni =="f7");	
-	space[2][2][2] =fNs.find( o => o.ni =="f8");
-	space[2][0][1] =orientCircuitRelatively( space,2,0,1,cRs.find( o => o.ni =="a"));
-	space[1][0][0] =orientCircuitRelatively( space,1,0,0,cRs.find( o => o.ni =="g"));
-	space[0][0][1] =orientCircuitRelatively( space,0,0,1,cRs.find( o => o.ni =="b"));
-	space[0][1][2] =orientCircuitRelatively( space,0,1,2,cRs.find( o => o.ni =="i"));
-	space[0][2][1] =orientCircuitRelatively( space,0,2,1,cRs.find( o => o.ni =="c"));
-	space[1][2][0] =orientCircuitRelatively( space,1,2,0,cRs.find( o => o.ni =="h"));
-	space[2][2][1] =orientCircuitRelatively( space,2,2,1,cRs.find( o => o.ni =="d"));
-	space[1][2][2] =orientCircuitRelatively( space,1,2,2,cRs.find( o => o.ni =="e"));
-	space[1][0][2] =orientCircuitRelatively( space,1,0,2,cRs.find( o => o.ni =="f"));
-	space[2][1][0] =orientCircuitRelatively( space,2,1,0,cRs.find( o => o.ni =="k"));
-	space[2][1][2] =orientCircuitRelatively( space,2,1,2,cRs.find( o => o.ni =="l"));
-	space[0][1][0] =orientCircuitRelatively( space,0,1,0,cRs.find( o => o.ni =="j"));return space}
+	space[2][0][2] =fNs.find( o => o.ni ==="f1");	
+	space[2][0][0] =fNs.find( o => o.ni ==="f2");	
+	space[0][0][0] =fNs.find( o => o.ni ==="f3");	
+	space[0][0][2] =fNs.find( o => o.ni ==="f4");	
+	space[0][2][2] =fNs.find( o => o.ni ==="f5");	
+	space[0][2][0] =fNs.find( o => o.ni ==="f6");	
+	space[2][2][0] =fNs.find( o => o.ni ==="f7");	
+	space[2][2][2] =fNs.find( o => o.ni ==="f8");
+	space[2][0][1] =orientCircuitRelatively( space,2,0,1,cRs.find( o => o.ni ==="a"));
+	space[1][0][0] =orientCircuitRelatively( space,1,0,0,cRs.find( o => o.ni ==="g"));
+	space[0][0][1] =orientCircuitRelatively( space,0,0,1,cRs.find( o => o.ni ==="b"));
+	space[0][1][2] =orientCircuitRelatively( space,0,1,2,cRs.find( o => o.ni ==="i"));
+	space[0][2][1] =orientCircuitRelatively( space,0,2,1,cRs.find( o => o.ni ==="c"));
+	space[1][2][0] =orientCircuitRelatively( space,1,2,0,cRs.find( o => o.ni ==="h"));
+	space[2][2][1] =orientCircuitRelatively( space,2,2,1,cRs.find( o => o.ni ==="d"));
+	space[1][2][2] =orientCircuitRelatively( space,1,2,2,cRs.find( o => o.ni ==="e"));
+	space[1][0][2] =orientCircuitRelatively( space,1,0,2,cRs.find( o => o.ni ==="f"));
+	space[2][1][0] =orientCircuitRelatively( space,2,1,0,cRs.find( o => o.ni ==="k"));
+	space[2][1][2] =orientCircuitRelatively( space,2,1,2,cRs.find( o => o.ni ==="l"));
+	space[0][1][0] =orientCircuitRelatively( space,0,1,0,cRs.find( o => o.ni ==="j"));return space}
 function orientCircuitRelatively(space,x,y,z,c){c.tRX=x;c.tRY=y;c.tRZ=z; c.tRx=x-1;c.tRy=y-1;c.tRz=z-1;
 	if 		(c.lat)	{ c.acc =space[x][y][z -c.rDi]; c.pro =space[x][y][z +c.rDi]}
 	else if (c.lon)	{ c.acc =space[x -c.rDi][y][z]; c.pro =space[x +c.rDi][y][z]}
@@ -4123,14 +4376,14 @@ function getCoordinatesOfEssence(ni,src){
 	for(var z=0; z<3; z++){
 		for(var y=0; y<3; y++){
 			for(var x=0; x<3; x++){
-				if(src[x][y][z]){ if(src[x][y][z].ni == ni){ return { z:z, y:y, x:x}}}}}}}
+				if(src[x][y][z]){ if(src[x][y][z].ni === ni){ return { z:z, y:y, x:x}}}}}}}
 function getNeighboursOfEssence(eX,eY,eZ,tY){ var r=[];
-	var nX1 = eX+1; nX1 ==  3 ? nX1 = 0:true;
-	var nX2 = eX-1; nX2 == -1 ? nX2 = 2:true;
-	var nY1 = eY+1; nY1 ==  3 ? nY1 = 0:true;
-	var nY2 = eY-1; nY2 == -1 ? nY2 = 2:true;
-	//var nZ1 = eZ+1; nZ1 ==  3 ? nZ1 = 0:true;
-	//var nZ2 = eZ-1; nZ2 == -1 ? nZ2 = 2:true;
+	var nX1 = eX+1; nX1 ===  3 ? nX1 = 0:true;
+	var nX2 = eX-1; nX2 === -1 ? nX2 = 2:true;
+	var nY1 = eY+1; nY1 ===  3 ? nY1 = 0:true;
+	var nY2 = eY-1; nY2 === -1 ? nY2 = 2:true;
+	//var nZ1 = eZ+1; nZ1 ===  3 ? nZ1 = 0:true;
+	//var nZ2 = eZ-1; nZ2 === -1 ? nZ2 = 2:true;
 	tY[nX1][eY][eZ] ? r.push(tY[nX1][eY][eZ]):true;
 	tY[nX2][eY][eZ] ? r.push(tY[nX2][eY][eZ]):true;
 	tY[eX][nY1][eZ] ? r.push(tY[eX][nY1][eZ]):true;
@@ -4192,7 +4445,7 @@ function mkFunc(ni,parent){ var f=null; switch( ni){
 	case "f6" : f =new AL.Functions.f6( ni); inhFunc( f,parent);return f;
 	case "f7" : f =new AL.Functions.f7( ni); inhFunc( f,parent);return f;
 	case "f8" : f =new AL.Functions.f8( ni); inhFunc( f,parent);return f}}
-function inhFunc(f,parent){ if(parent){ f.parent = parent.fNs.find(o => o.ni ==f.ni)}}
+function inhFunc(f,parent){ if(parent){ f.parent = parent.fNs.find(o => o.ni ===f.ni)}}
 AL.Functions={ seed: ["f1","f2","f3","f4","f5","f6","f7","f8"],
 	f1:function( ni){ mkFunc2(this,ni,"1",2,  2,  0,  false,false,true ,true, true, true, "Role Function" 			)},
 	f2:function( ni){ mkFunc2(this,ni,"2",2,  0,  0,  false,true, false,true, false,false,"Suggestive Function" 	)},
@@ -4208,10 +4461,10 @@ function mkFunc2( 			  f,   ni,ni2,tRX,tRZ,tRY,str,  val,  mnt  ,rXa,  rYa,  rZa
 	f.count=0; f.V=0; f.K=0; f.spd={lon:0,lat:0,ver:0}}
 
 function precalcSocionicsMetaphysics(iEs){ var s=mk3Space();
-	s[0][0][0]=iEs.find(o=>o.ni=="Fi");	s[0][0][2]=iEs.find(o=>o.ni=="Fe");	
-	s[2][0][0]=iEs.find(o=>o.ni=="Si");	s[2][0][2]=iEs.find(o=>o.ni=="Se");
-	s[2][2][0]=iEs.find(o=>o.ni=="Ti");	s[2][2][2]=iEs.find(o=>o.ni=="Te");
-	s[0][2][0]=iEs.find(o=>o.ni=="Ni");	s[0][2][2]=iEs.find(o=>o.ni=="Ne");return s}
+	s[0][0][0]=iEs.find(o=>o.ni==="Fi");	s[0][0][2]=iEs.find(o=>o.ni==="Fe");	
+	s[2][0][0]=iEs.find(o=>o.ni==="Si");	s[2][0][2]=iEs.find(o=>o.ni==="Se");
+	s[2][2][0]=iEs.find(o=>o.ni==="Ti");	s[2][2][2]=iEs.find(o=>o.ni==="Te");
+	s[0][2][0]=iEs.find(o=>o.ni==="Ni");	s[0][2][2]=iEs.find(o=>o.ni==="Ne");return s}
 function mk3Space(){ var space=[]; for(var z=0; z<=2;z++){space[z]=[];
 										for(var y=0; y<=2; y++){space[z][y]=[];
 											for(var x=0; x<=2; x++){space[z][y][x]=null}}} return space}
@@ -4235,7 +4488,7 @@ function mkIe(ni,parent){ var iE =null; switch( ni){
 	case "Te" : iE =new AL.InformationElements.Te( ni); /*inhIe( iE,parent);*/ return iE;
 	case "Ni" : iE =new AL.InformationElements.Ni( ni); /*inhIe( iE,parent);*/ return iE;
 	case "Ne" : iE =new AL.InformationElements.Ne( ni); /*inhIe( iE,parent);*/ return iE}}
-function inhIe(iE,parent){ if(parent){ iE.parent = parent.iEs.find(o => o.ni ==iE.ni)}}
+function inhIe(iE,parent){ if(parent){ iE.parent = parent.iEs.find(o => o.ni ===iE.ni)}}
 AL.InformationElements={ seed: ["Fi","Fe","Si","Se","Ti","Te","Ni","Ne"],
 	Fi:function( ni){ mkIe2(this,ni,false,false,false)},
 	Fe:function( ni){ mkIe2(this,ni,false,false,true )},
@@ -4246,15 +4499,13 @@ AL.InformationElements={ seed: ["Fi","Fe","Si","Se","Ti","Te","Ni","Ne"],
 	Ni:function( ni){ mkIe2(this,ni,false,true, false)},
 	Ne:function( ni){ mkIe2(this,ni,false,true, true )}}
 /*function getSqs(a,s1,s2,s3,s4){ var ret=[]; var b=null;
-	b=a.find(o => o.ni ==s1); ret.push(b);
-	b=a.find(o => o.ni ==s2); ret.push(b);
-	b=a.find(o => o.ni ==s3); ret.push(b);
-	b=a.find(o => o.ni ==s4); ret.push(b); return ret}*/
-// wanted to make a 1px white circle around option Elements and 2 circles around current Element.
+	b=a.find(o => o.ni ===s1); ret.push(b);
+	b=a.find(o => o.ni ===s2); ret.push(b);
+	b=a.find(o => o.ni ===s3); ret.push(b);
+	b=a.find(o => o.ni ===s4); ret.push(b); return ret}*/
 // make also crosshair that intersects sircuits and not intersect functions
 // pms and lps: peaceful iok uok, playful ino uno, caring ino uno, hostile iok uno, fight iok uno, escape ino uno
 // there is no similar need to invoke a circuit from its accepting function? because? because the circuit overwrites the accepting function's state with the producing function's state? so the only reason to use it from the accepting function before the producing function has already been used would be to empty the data of the accepting function? which can be important but is a completely different reason to use the circuit.
-// olis pitäny sanoo mindille vaan että "Rest In Peace <3" :D
 function mkIe2( o,ni,mo,ul,ie){ o.mo=mo;o.ul=ul;o.ie=ie;o.ni=ni;
 	/*console.log(qua);
 	switch(ni){ case "Fi" :
@@ -4373,7 +4624,7 @@ function mkOrigin2(o,ni,subj,definable,sex,gnd){
 	else{ 			o.tYs=null;o.mDs=null;o.pMs=null;o.gNs=null;o.sXs=null}}
 function precalcOrigins( seed,parent){ a =[]; var b =null;
 	for(let n=0; n <AT.originsL; n++){ b =mkOrigin( seed[n],parent); a.push( b)}return a}
-function inhOrigin(O,parent){ if(parent){ O.parent = parent.origins.find(o => o.ni ==O.ni)}}
+function inhOrigin(O,parent){ if(parent){ O.parent = parent.origins.find(o => o.ni ===O.ni)}}
 
 AL.BinaryGenders ={ seed:["Feminine","Neutral","Masculine"],
 	Feminine: 	function(ni){ mkBinaryGender2( this,ni,false)},
@@ -4433,7 +4684,7 @@ function previewMove( sim, mX, mY, mvX, mvY){
 function moveAgents( sim, mX, mY, mvX, mvY){
 	console.log("BREAK");
 	sim.keySubj.agents.forEach(function(p){
-		if(p.nI == sim.keySubj.nI){ p.ni.mX =mX; p.ni.mY =mY}
+		if(p.nI === sim.keySubj.nI){ p.ni.mX =mX; p.ni.mY =mY}
 		else{
 			p.ni.mX+=mvX; while( p.ni.mX < 0){ p.ni.mX += 4*AL.keySubj.ni.bE.reso+2}
 			while( p.ni.mX>= 4*AL.keySubj.ni.bE.reso+2){ p.ni.mX -= 4*AL.keySubj.ni.bE.reso+2}
@@ -4441,7 +4692,7 @@ function moveAgents( sim, mX, mY, mvX, mvY){
 			while( p.ni.mY >= 4*AL.keySubj.ni.bE.reso+2){ p.ni.mY -= 4*AL.keySubj.ni.bE.reso+2}}});
 	sim.subjs.forEach(function(p){
 		console.log(p.agents);
-		if(p.nI == sim.keySubj.nI){ p.ni.mX =mX; p.ni.mY =mY}
+		if(p.nI === sim.keySubj.nI){ p.ni.mX =mX; p.ni.mY =mY}
 		else{
 			p.ni.mX+=mvX; while( p.ni.mX < 0){ p.ni.mX += 4*AL.keySubj.ni.bE.reso+2}
 			while( p.ni.mX>= 4*AL.keySubj.ni.bE.reso+2){ p.ni.mX -= 4*AL.keySubj.ni.bE.reso+2}
@@ -4449,7 +4700,7 @@ function moveAgents( sim, mX, mY, mvX, mvY){
 			while( p.ni.mY >= 4*AL.keySubj.ni.bE.reso+2){ p.ni.mY -= 4*AL.keySubj.ni.bE.reso+2}}
 		//precalcOthers(sim.people);
 		/*p.ppl.forEach(function(P){
-			if(P.ni.in == sim.personInTurn.ni.in){ P.ni.mX =mX; P.ni.mY =mY}
+			if(P.ni.in === sim.personInTurn.ni.in){ P.ni.mX =mX; P.ni.mY =mY}
 			else{
 				P.ni.mX+=mvX; while( P.ni.mX < 0){ P.ni.mX += 4*AL.personInTurn.ni.bE.reso+2}
 				while( P.ni.mX>= 4*AL.personInTurn.ni.bE.reso+2){ P.ni.mX -= 4*AL.personInTurn.ni.bE.reso+2}
@@ -4480,48 +4731,53 @@ function startTurn( sim){
 	//var b =new Event( sim,)
 	}
 
-function mkQueue( sim,subTurn){ var q =[];
-	for( var n =0; n <sim.subjs.length; n++){ q.push( subjs[ n])} q =shuffle( q);
-	sim.subTurn =subTurn;return q}
-function queueNext( sim){ var b=null;
-	for( var n =sim.subTurn; n <sim.subjsL; n++){
-		if( !sim.queue[n].obj && !sim.queue[n].away){ b =sim.queue[n]; sim.keySubj =b; sim.subTurn =n}}
-	if( b ==null){ sim.turn++; sim.subTurn =0; sim.queue =mkQueue( sim);
-		for( var n =sim.subTurn; n <sim.subjsL; n++){
-			if( !sim.queue[n].obj && !sim.queue[n].away){ b =sim.queue[n]; sim.keySubj =b; sim.subTurn =n}}}
-	if( b ==null){ b =[];
-		for( var n =0; n <sim.subjsL; n++){ if(!sim.subjs[n].away){ b.push( sim.subjs[n])}}
-		if( b.length >0){
-			b =b[Math.floor(Math.random()*b.length)]; b.obj=false; sim.keySubj =b; //don't need to do this to turn objs into sbjs
-			for( var n =0; n <sim.subjsL; n++){ if( sim.queue[n] ==b){ sim.subTurn =n}}}}}
-function mkSim2(init, o,   subjs, 	 	subjsL, 	 evs, 	   evsL, 	  turn, 	 subTurn){
-	if( init === true) {
-						RT.simsL++;
-						o.nI 		=RT.simsL;
-						o.subjsL 	=0;
-						o.subjs 	=[];
-						o.queue 	=mkQueue( o.subjs);
-						o.keySubj 	=o.queue[0];
-						o.evs 		=[];
-						o.turn 		=0;
-						o.subTurn 	=0;
-						o.day 		=0;
-						o.hour 		=0;
-						o.min 		=0;
-						o.sec 		=0;
-	}
-	else{ 				
-						RT.simsL++;
-						o.nI 		=RT.simsL;
-						o.subjsL 	=0;
-						o.subjs 	=subjs.slice(0);
-						o.queue 	=mkQueue( o.subjs, subTurn);
-						o.evs 		=evs.slice(0);
-						o.turn  	=turn;
-						o.subTurn 	=subTurn;
-	}
-	RT.sims.push( o)}
 
+function initCleanSlate(){
+				AL.pGn 			=null;
+				AL.sGn 			=null;						
+				AL.pPm 			=null;
+				AL.sPm 			=null;
+				AL.pMd 			=null;
+				AL.sMd 			=null;
+				AL.mP 			=null;
+				AL.pL 			=null;
+
+				AL.ni  			=null;
+				AL.tY 			=AT.tY;
+				AL.mD 			=null;
+				AL.sex  		=null;
+				AL.gnd  		=null;
+				AL.pM 			=null;
+				AL.tYl 			=null;
+
+				AL.touched 		=false;
+
+				AL.fesL 		=AL.fes.length;
+				AL.lIFesL 		=AL.lIFes.length;
+				AL.sBToolsL 	=AL.sBTools.length;
+				AL.tBToolsL 	=AL.tBTools.length;
+				AL.statTabsL	=AL.statTabs.length;
+				AL.lIFesL 	=AL.lIFes.length;
+
+				AL.sBToolsP 	=[]; for( var n =0; n <AL.sBToolsL; n++){ AL.sBToolsP.push(false)}
+				AL.tBToolsP 	=[]; for( var n =0; n <AL.tBToolsL; n++){ AL.tBToolsP.push(false)}
+				//AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}
+
+				AL.turn 		=null;
+				AL.subTurn 		=null;
+				AL.subjs 		=null;
+				AL.subjsL 		=null;
+				AL.keySubj 		=null;
+				AL.subj 		=null;
+				AL.queue 		=null;
+
+				AL.sim=null;
+
+				AL.sBTunes[2] 	=0;
+				AL.sBTunes[3] 	=0;
+
+				AL.statSim = AL.statSims[0];
+}
 
 function initVariables(){
 				AL.pGn 			=AL.subj.pGn;
@@ -4547,13 +4803,14 @@ function initUserInterface(){
 				AL.fesL 		=AL.fes.length;
 				AL.sBToolsL 	=AL.sBTools.length;
 				AL.tBToolsL 	=AL.tBTools.length;
-				AL.abTabsL 		=AL.abTabs.length;
-				AL.lIToolsL 	=AL.lITools.length;
+				AL.statTabsL 	=AL.statTabs.length;
+				AL.lIFesL 	=AL.lIFes.length;
 
 				AL.sBToolsP 	=[]; for( var n =0; n <AL.sBToolsL; n++){ AL.sBToolsP.push(false)}
 				AL.tBToolsP 	=[]; for( var n =0; n <AL.tBToolsL; n++){ AL.tBToolsP.push(false)}
-				AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}
+				//AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}
 
+				AL.sim =RT.sims[0];
 				AL.turn 		=AL.sim.turn;
 				AL.subTurn 		=AL.sim.subTurn;
 				AL.subjs 		=AL.sim.subjs;
@@ -4564,12 +4821,57 @@ function initUserInterface(){
 
 				AL.sBTunes[2] 	=AL.sim.subjsL;
 				AL.sBTunes[3] 	=AL.sim.subjsL+1;
+
+				AL.statSim = AL.statSims[0];
 				}
 
 
+function mkQueue( sim,subTurn){ var q =[];
+	for( var n =0; n <sim.subjs.length; n++){ q.push( subjs[ n])} q =shuffle( q);
+	sim.subTurn =subTurn;return q}
+function queueNext( sim){ var b=null;
+	for( var n =sim.subTurn; n <sim.subjsL; n++){
+		if( !sim.queue[n].obj && !sim.queue[n].away){ b =sim.queue[n]; sim.keySubj =b; sim.subTurn =n}}
+	if( b ===null){ sim.turn++; sim.subTurn =0; sim.queue =mkQueue( sim);
+		for( var n =sim.subTurn; n <sim.subjsL; n++){
+			if( !sim.queue[n].obj && !sim.queue[n].away){ b =sim.queue[n]; sim.keySubj =b; sim.subTurn =n}}}
+	if( b ===null){ b =[];
+		for( var n =0; n <sim.subjsL; n++){ if(!sim.subjs[n].away){ b.push( sim.subjs[n])}}
+		if( b.length >0){
+			b =b[Math.floor(Math.random()*b.length)]; b.obj=false; sim.keySubj =b; //don't need to do this to turn objs into sbjs
+			for( var n =0; n <sim.subjsL; n++){ if( sim.queue[n] ===b){ sim.subTurn =n}}}}}
+/*function mkSim2(init, o,   subjs, 	 	subjsL, 	 evs, 	   evsL, 	  turn, 	 subTurn){
+	if( init === true) {
+						RT.simsL++;
+						o.nI 		=RT.simsL;
+						o.subjsL 	=0;
+						o.subjs 	=[];
+						o.queue 	=mkQueue( o.subjs);
+						o.keySubj 	=o.queue[0];
+						o.evs 		=[];
+						o.turn 		=0;
+						o.subTurn 	=0;
+						o.day 		=0;
+						o.hour 		=0;
+						o.min 		=0;
+						o.sec 		=0;
+	}
+	else{ 				
+						RT.simsL++;
+						o.nI 		=RT.simsL;
+						o.subjsL 	=0;
+						o.subjs 	=subjs.slice(0);
+						o.queue 	=mkQueue( o.subjs, subTurn);
+						o.evs 		=evs.slice(0);
+						o.turn  	=turn;
+						o.subTurn 	=subTurn;
+	}
+	RT.sims.push( o)}*/
+
+
+
+
 function initSubjs(sim){
-				sim.subjs 	=precalcDefaultSubjs(sim);  				sim.subjsL =sim.subjs.length;
-				putDefaultSubjsToDefaultPlaces( sim.subjs, sim.places);
 				sim.finSubjs 	=[]; 	sim.finSubjsL =0;
 				sim.sweSubjs 	=[]; 	sim.sweSubjsL =0;
 				for( var i =0; i <sim.subjsL; i++){
@@ -4584,128 +4886,85 @@ function initSubjs(sim){
 					sim.subjs[i].subjs =sim.subjs;
 					mkSignal( sim.subjs[i],"f5");
 					mkOptions(sim.subjs[i]);}
-				sim.nI 	=AL.simsL +1;
+				//sim.nI 	=AL.simsL +1;
 				sim.queue =sim.subjs.slice();
 				sim.queue =shuffle( sim.queue);
 				sim.keySubj =sim.queue[0];
 }
 
-function initSims(){ var sim =null; var places =null; var patts =[];
-				/*AL.sims =[];*/			AT.sims =[];
-				for(var i=0; i<AL.abTabsL; i++){ mkSim( AL.abTabsL[i], AT)}
-				AT.simsL =AT.sims.length;	
-				RT.sims =[];
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				sim =new Sim( undefined, RT); RT.sims.push( sim);
-				
-				//AL.sims.push( sim);		AL.simsL=1;
-				AL.sim =sim;
-				 	RT.simsL=RT.sims.length;
-				sim.places 	=precalcDefaultPlaces( RT.Places.seed);
-				AL.sim = sim;
-}
-/*
-function initSims(){ var sim =null; var places =null; var patts =[];
-				//AL.sims =[];
-				AT.sims =[];
-				for(var i=0; i<AL.abTabsL; i++){ mkSim( AL.abTabsL[i], AT)}
-				AT.simsL =AT.sims.length;	
-				RT.sims =[];
-				mkSim( undefined, RT); 	AL.sim =RT.sims[0];
-				//AL.sims.push( sim);		AL.simsL=1;
-				//RT.sims.push( sim); 	
-				RT.simsL=1;
-				AL.sim.places 	=precalcDefaultPlaces( RT.Places.seed);
-				AL.sim = sim;*/
-function mkSim( ni,to){ var s =new Sim( ni,to.sQr); to.sims.push(s)}
-function Sim( ni,r){ mkSim2( this,ni,r)}
-function mkSim2( o,ni,r){
-	o.ni=ni;
-	o.r =r; 		o.R = (2*r)+1; 	o.mR = 2*o.R; o.ab={}; o.re={};
+function initSims(){ mkSim( RT, "sim", false); copySim( RT, RT.sims[0], 10);}
+
+// abstract value is always at least the same as abstract karma?
+// maybe should scrap this hypothesis
+
+function mkStatSim( to,ni){ var s =new StatSim( to,ni); to.statSims.push(s)}
+function mkSim( to,ni,randSubjs){
+	var rand=false; if( randSubjs){ rand=true}
+	var s =new Sim( to,ni,rand); to.simsSrc.push(s); to.sims.push(s);
+	if(!randSubjs){
+		s.subjs 	=mkSubjs(s);  				s.subjsL =s.subjs.length;
+		s.places 	=precalcDefaultPlaces( AL.Places.seed);
+		putDefaultSubjsToDefaultPlaces( s.subjs, s.places);}
+	initSubjs( s);}
+function StatSim( to,ni){ mkStatSim2( this,to,ni)}
+function Sim( to,ni,rand){ mkSim2( this,to,ni,rand)}
+function mkStatSim2( o,to,ni){
+	to.statSimsL++;
+	o.ni =ni;
+	switch( ni){ case "tot" : o.nI="Σ";break;case "avg" : o.nI="x̄";break;case "med" : o.nI="µ"}
+	mkResolution( 	o, 	 	AL.rXp);
+	//o.ab={}; o.re={};
+	//o.mP =mkNullMatrix
+	o.subjs =[]; 	o.subjsL =0;}
+function mkSim2( o,to,ni,rand){
+	o.copies=null;
+	o.copiesL=0;
+	to.simsSrcL++;
+	to.simsL++;
+	if(rand){ 	to.simsSrcRand.push(o); to.simsSrcRandL++;o.nI=idOf(to.simsSrcRandL-1); o.ni=ni+"_"+idOf(to.simsSrcRandL-1);}
+	else{ 		to.simsSrcDef.push(o); 	to.simsSrcDefL++; o.nI = to.simsSrcDefL; 	o.ni =ni+"_"+to.simsSrcDefL;}
+	mkResolution( 	o, 	 	RT.rXp);
+	//o.ab={}; o.re={};
 	//o.mP =mkNullMatrix
 	o.subjs =[]; 	o.subjsL =0;
 	o.evs =[]; 		o.evsL =0;
 	o.turn =0; 		o.subTurn =0;
 	o.queue =[]; 	o.keySubj =null;
-	initQualities(o.ab, AT);
-//	mkForms( 	o.ab, o.ab, AT);
-// 	mkEssences( o.ab, AT);
-// 	mkTypes( 	o.ab, AT);
+	initQualities(o);}
+function copySim( to,s,n){
+	if(!n){ var n=1}
+	for(var i=0; i<n; i++){ 
+		if(!s.copies){ s.copies =[]}
+		var sim = _.clone(s);
+		sim.copies=null;
+		sim.copiesL=0;
+		s.copies.push(sim);
+		s.copiesL++;
+		sim.ni = s.ni +"_copy" + s.copiesL;
+		sim.nI = s.nI +"." + s.copiesL}
+	to.sims =mkSimArr( to.simsSrc);
+	to.simsL=to.sims.length}
 
-}
+function mkSimArr( sims){
+	var r=[];
+	for(var i=0; i<sims.length; i++){
+		r.push( sims[i]);
+		if(sims[i].copies){ includeCopies( r,sims[i])}}
+	return r}
+function includeCopies( arr,sim){
+	for(var i=0; i<sim.copies.length;i++){
+		arr.push( sim.copies[i]);
+		if(sim.copies[i].copies){ includeCopies( arr,sim.copies[i])}}
+	return arr}
 
-// resolution is neither absolute nor relative.
-function measureOntology(){
+/*o.sex= ni.substr( 0,ni.indexOf( '_')); 					o.sex= getObjByNi( o.sex,AT.sXs);
+	o.gnd= ni.split( '_')[1].substr( 0,ni.indexOf( '_'));	o.gnd= getObjByNi( o.gnd,AT.gNs);
+	o.pM = ni.substr( ni.indexOf( '_') +1)
+		.substr( ni.indexOf( '_') +1)
+			.substr( ni.indexOf( '_')); o.pM ="G"+o.pM;		o.pM = getObjByNi( o.pM, AT.pMs);
+	*/
+
+function countOntology(){
 				AT.sQsL 		=AL.ScalarQualities.seed.length;
 				AT.vQsL 		=AL.VectorQualities.seed.length;
 				AT.sXsL 		=AL.Genders.seed.length;
@@ -4719,11 +4978,8 @@ function measureOntology(){
 				AT.mDsL 		=AL.Moods.seed.length;
 				AT.originsL  =AL.Origins.seed.length;
 
-				RT.PlacesL 	=RT.Places.seed.length;
+				AL.PlacesL 		=AL.Places.seed.length;
 }
-
-
-
 function initQualities(to){
 	to.sXs 		= []; 
 	to.gNs 		= [];
@@ -4750,6 +5006,8 @@ function mkQualities(to,parent){
 	to.fAs 		= to.fNs.concat( 				to.cRs);
 	to.reSpace 	= precalcSocionicsEssence( 		to.fNs, to.cRs);
 	to.tYs 		= precalcSociotypes( 			AL.Sociotypes.seed, 			to,		parent);
+	to.tY 		= mkType("NaT", to, parent);
+	//function mkType(ni,ab,parent,subj){
 }
 function mkResolution( to, rXp){ 
 	to.rXp = rXp;
@@ -4757,16 +5015,23 @@ function mkResolution( to, rXp){
 	to.vQr = 2 * to.sQr + 1;
 	to.mPr = 2 * to.vQr}
 
-function precalc() { 
+function initOntology(){
+						countOntology();
 						mkResolution( 	AL, 	1);
 						mkResolution( 	AT, 	AL.rXp);
-						mkResolution( 	RT, 	AL.rXp);
-						measureOntology();	
-						
+						mkResolution( 	RT, 	AL.rXp);							
 						mkQualities( 	AT);
+						AL.statTabsL = AL.statTabs.length;
+						AL.statSims =[];
+						AL.statSimsL=0;
+						for(var i=0; i<AL.statTabsL; i++){ mkStatSim( AL, AL.statTabs[i])}	AL.statSimsL =AL.statSims.length;}
+
+function precalc() { 
+						
+
+						initOntology();
 					
 						initSims();
-						initSubjs( AL.sim);
 
 						initUserInterface();
 						initVariables();
