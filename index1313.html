@@ -9,7 +9,7 @@ j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NXVWFS2');</script>-->
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v1235</title>
+<title>Floresta v1313</title>
 <link rel="icon" href="diodi/favicon.ico">
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
@@ -20,8 +20,12 @@ j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	#tB{ position:absolute; 	top:0px; 						overflow: auto; overflow-x:auto;}
 	#tB::-webkit-scrollbar{ display:none; }
 	#lI{ position:absolute; 			 left:0px; 				overflow:auto; overflow-x: auto;}
+	#lK{ position:absolute; overflow:auto; left:120px; background-color: black; top:39px; z-index:10;
+		border-bottom:1px solid #3c3c3c; border-right:1px solid #3c3c3c;
+		-webkit-border-radius: 12px;-moz-border-radius: 12px;border-radius: 12px;}
 	#lI::-webkit-scrollbar{ display:none; }
 	#sQ{ position:absolute; 									overflow:auto; }
+	/*#sC{ position:absolute; background-color:black; z-index:20; width:0px; height:1px; top:39px;}*/
 	html{height:100%;padding:0px;margin:0px;/*font-family:PF;*/font-size:13px;background-color:black;color:white;overflow:auto; overflow-x:auto;}
 	body{height:100%;padding:0px;margin:0px;background-color:transparent; overflow:auto; overflow-x:auto;}
 </style>
@@ -34,7 +38,7 @@ var AL={
 	fe: "type",
 	fes: ["quiz",/*"object",*/"type","mood","mosaic"],
 	statTabs:["tot","avg","med"],
-	rXp: 1, bB:false, liNarrowInMosaic:true, liNarrow:false, liSize:0, wideSq:false, mosaicForm :false,
+	rXp: 1, liNarrowInMosaic:true, liNarrow:false, liS:0, fElIS:0, mPlIS:0, lIW:1, fElIW:1, mPlIW:0, sQW:false, bBH:0, mosaicForm :false,
 	lockSubj:false, lockSim:true,
 	sBTools: ["play","fastForward","skip","skipForward"],
 	sBTunes: [100, 	 100, 		   1, 	  1],
@@ -43,11 +47,13 @@ var AL={
 	sBMoodTunes: [true], // before start away asks for delete?
 //	tBTools: ["listContent","away","hide","copy","rand","make","tabContent","tabSort","tabHide"],
 //	tBTunes: ["subjs", 	undefined,undefined,undefined,undefined,undefined,"sims",false,false],
-	tBTools: ["cleanSlate","makeSim","randSim","copySim","lockSim"],
+	tBTools: ["cleanSlate","makeSim","randSim","copySim","lockSim","confStat"],
 	tBTunes: [undefined, 	100, 		100,	100, 		true],
 	lF:"subjects",
-	lIFes: ["subjects","objects","places","contexts","people","family","goals","models"],
-	sQTools: ["sizeList","wideList","wideSeq"],
+	lIFes: ["subjects","objects","places","contexts","families","peoples","goals","models"],
+	lITools: ["confRand","confDef","defSort","confSort"],
+	lITunes: [undefined,true, 		false, 		"val"],
+	bBTools: ["sizeList","wideList","wideSeq","highFoot"],
 
 	tBRoomTools:[undefined,"roomAway","roomHide","roomCopy","roomRand","roomMake"],
 	tBRoomTunes:[undefined,false, 		false, 		10, 	false, 		10],
@@ -80,7 +86,9 @@ var svgFe =null; var divFe =null; var nS ="http://www.w3.org/2000/svg";
 var svgQz =null; var divQz =null;
 var svgTb =null; var divTb =null;
 var svgLi =null; var divLi =null;
+var svgLk =null; var divLk =null;
 var svgSq =null; var divSq =null;
+//var divSc =null;
 var ui ={winWid:0, winHei:0,
 	sB:{disWid:66, disHei:0, disHrz:0, disVrt:0, rowHei:39,fesHei:0, btnBrd:4, bTOX:6, 	bTOY:10, fnt:15, HUDhei:25,
 		btnTxt:"#cccccc",btnU:"#444444",	btnR:"#111111",		btnD:"#080808",		btnL:"#333333", 	sel:"#1c1c1c",
@@ -91,6 +99,7 @@ var ui ={winWid:0, winHei:0,
 		bG:"#000000", strCol:"#444444"},
 	qZ:{bG:"#cccc88"},
 	lF:{kH:20,kW:80},
+	lK:{},
 	lI:{iteHei:0, fonSiz:0, svgHei:0,
 		iHe: 0 ,tPF: 0 ,tTR: 0 ,tSF: 0 ,mDx:   0,kix: 0,mPx:   0,obx: 0,vQx:   0,nMx:   0,miW: 0,
 		iHe0:16,tPF0:15,tTR0:14,tSF0:14,mDx0:100,kix0:7,mPx0:180,obx0:3,vQx0:240,nMx0:260,miW0:550,
@@ -118,9 +127,24 @@ var ui ={winWid:0, winHei:0,
 	ora: {l: { h:30 , s:25 , v:100}, f:{ h:30 , s:50 , v:50 }, h:{ h:30 , s:100, v:100}}, 
 	gra: {l: { h:1  , s:1  , v:100}, f:{ h:1  , s:1  , v:50 }, h:{ h:1  , s:1  , v:1}}}
 function predraw(){
-	ui.winWid =window.innerWidth; ui.winHei =window.innerHeight; //ui.scrWid =screen.width; ui.scrHei =screen.height;
+	//clearScreen();
+	ui.winHei =window.innerHeight;
+	//ui.winWid =Math.round((4/3)*ui.winHei);
+	ui.winWid =window.innerWidth;
+	//if(ui.winWid2>ui.winWid){ ui.winWid=ui.winWid2}
+	//ui.winWid =window.innerWidth; 
+	//ui.docHei =document.body.clientHeight;
 
-	if( AL.liSize===2){
+	//console.log(document.body);
+	//console.log(ui.docHei);
+
+
+	//ui.scrWid =screen.width; ui.scrHei =screen.height;
+
+	if(AL.fe!=="mosaic"){ 	AL.lIS=AL.fElIS; AL.lIW=AL.fElIW; }
+	else{ 					AL.lIS=AL.mPlIS; AL.lIW=AL.mPlIW; }
+
+	if( AL.lIS===2){
 		ui.lI.iHeL=Math.floor( (ui.winHei-ui.tB.disHei)/ 8);
 		ui.lI.tPFL=Math.floor( (ui.winHei-ui.tB.disHei)/ 8);
 		ui.lI.tTRL=Math.floor( (ui.winHei-ui.tB.disHei)/ 8);
@@ -147,7 +171,7 @@ function predraw(){
 	//console.log(((ui.tB.reTabW+1)-ui.tB.reTabG)/2);
 	ui.tB.disHrz=ui.tB.abTabH+ui.tB.abTabsW+ui.tB.tabSep;
 	ui.tB.disWid=Math.max(ui.winWid-ui.sB.disWid-ui.tB.disHrz, (RT.simsL*ui.tB.reTabG)+30);
-	ui.tB.skrHei=Math.floor(ui.tB.disHei/3.236);//3.236
+	ui.tB.skrHei=Math.floor(12);//3.236
 	ui.tB.skrVrt=ui.tB.disHei-ui.tB.skrHei;
 
 	ui.sQ.narVrt=ui.tB.disHei*4; 		ui.sQ.widVrt=ui.tB.disHei*2;
@@ -166,12 +190,21 @@ function predraw(){
 
 // 8 basic object types: place, context, goal, model, family, people, object, subject
 
+	ui.lK.dW=300;
+	ui.lK.dH=159;
+	ui.lK.sW=300;
+	ui.lK.sH=500;
+
 	ui.tY.disWid =ui.winWid-ui.sB.disWid;
 	//ui.tY.disHei =ui.winHei;
-	if( AL.wideSq){ ui.tY.cE =Math.round(Math.min(ui.winWid,ui.winHei)/4);
-					ui.sQ.disWid = ui.tY.cE;// - Math.round(Math.min(ui.winWid,ui.winHei)/3);
-					console.log( ui.sQ.disWid)}
-	else{ 			ui.tY.cE =Math.round(Math.min(ui.winWid,ui.winHei)/3);}
+	ui.tY.cE1 = Math.round(Math.min(ui.winWid,ui.winHei)/4);
+	ui.tY.cE2 = Math.round(Math.min(ui.winWid,ui.winHei)/3);
+	if(AL.lIW===2){ ui.tY.cE =ui.tY.cE1;}
+	else{ 			ui.tY.cE =ui.tY.cE2;}
+	if( AL.sQW){ ui.sQ.disWid = ui.tY.cE1;}
+	else 		{ui.sQ.disWid = ui.sB.disWid}
+	//else{ 	ui.sQ.cH=80; ui.sQ.cW=66; ui.sQ.kW=ui.sQ.cW;}
+
 	ui.tY.cuHrz =Math.round(ui.winWid-ui.sB.disWid-(2*(ui.tY.cE/ui.tY.cuD))-ui.tY.cE-ui.tY.cMarg);
 	ui.tY.c2x= Math.round(-(1.5 * ui.tY.cE)-ui.tY.cMarg);
 	ui.tY.liW= Math.round(ui.winWid-(1*ui.sB.disWid)-(4*(ui.tY.cE/ui.tY.cuD))-(2*ui.tY.cE)-(3*ui.tY.cMarg));
@@ -187,6 +220,7 @@ function predraw(){
 	ui.tY.keyGap= Math.round(ui.tY.cMarg -(ui.tY.cMarg/1.618));
 	ui.tY.keyWid= Math.round((ui.tY.keW-(15*ui.tY.keyGap))/16);
 	ui.tY.stY=Math.round(ui.tY.keY+((3*ui.tY.cE)/5));
+	ui.tY.lilStY =Math.round(ui.tY.keY+((3*ui.tY.cE1)/5)); 
 
 	ui.mD.plW=Math.min(ui.winWid,ui.winHei)/1.5; 	ui.mD.plX =ui.winWid-ui.sB.disWid-ui.tY.cMarg-ui.mD.plW;
 	ui.mD.plH=Math.min(ui.winWid,ui.winHei)/2; 		ui.mD.plY =ui.tB.disHei+ui.tY.cMarg;
@@ -209,11 +243,41 @@ function predraw(){
 	ui.mP.disWid=ui.winWid-ui.sB.disWid-ui.mP.liW-ui.sQ.disWid;
 
 	ui.midMinHei =Math.round(ui.tB.disHei+ui.tY.stY/*-(ui.tY.cE/12)*/+ui.tY.keyGap+(ui.mD.keH/3));
-	ui.feMinHei =ui.midMinHei+ui.bB.disHei;
-	ui.tY.disHei=ui.midMinHei;
-	ui.tY.liHe = ui.midMinHei-ui.tB.disHei;
-	ui.sQ.disHei=ui.midMinHei-ui.tB.disHei;
+	ui.midMinHei2 =Math.round(ui.tB.disHei+ui.tY.lilStY/*-(ui.tY.cE/12)*/+ui.tY.keyGap+(ui.mD.keH/3));
+	ui.bB.minHei=173;
+	switch(AL.bBH){ case 0: ui.bB.disHei=173; break;
+					case 1: ui.bB.disHei=452; break;
+					case 2: ui.bB.disHei=ui.winHei; break;}
 	
+	if(AL.lIW===1){	
+		if((ui.bB.disHei+ui.midMinHei)<ui.winHei){ ui.bB.disHei =ui.winHei-ui.midMinHei;}
+		ui.bB.minVer=ui.midMinHei+ui.bB.minHei;
+		if(ui.bB.minVer <ui.winHei){ ui.bB.minVer=ui.winHei}
+		ui.feHei =ui.midMinHei+ui.bB.disHei;
+		ui.tY.disHei=ui.midMinHei;
+		ui.tY.liHe = ui.midMinHei-ui.tB.disHei;
+		ui.sQ.disHei=ui.midMinHei-ui.tB.disHei;}
+	else if(AL.lIW===2){
+		if((ui.bB.disHei+ui.midMinHei2)<ui.winHei){ ui.bB.disHei =ui.winHei-ui.midMinHei2;}
+		ui.bB.minVer=ui.midMinHei2+ui.bB.minHei;
+		if(ui.bB.minVer <ui.winHei){ ui.bB.minVer=ui.winHei}
+		ui.feHei =ui.midMinHei2+ui.bB.disHei;
+		ui.tY.disHei=ui.midMinHei2;
+		ui.tY.liHe = ui.midMinHei2-ui.tB.disHei;
+		ui.sQ.disHei=ui.midMinHei2-ui.tB.disHei;}
+	//ui.bB.tooVer=ui.bB.minVer-(AL.bBToolsL*ui.tB.disHei);
+	ui.bB.tooVer=ui.bB.minVer-(AL.bBToolsL*ui.tB.disHei);
+
+	
+	
+
+	//ui.bB.scrHei=ui.midMinHei+(AL.bBToolsL * ui.tB.disHei);
+	
+// markover needs to print each line FOUR TIMES:
+// line 1: intension's romantic quality
+// line 2: intension's classical quality
+// line 3: extension's romantic quality
+// line 4: extension's classical quality	
 }
 
 function initDraw(){
@@ -221,9 +285,9 @@ function initDraw(){
 	/*nS =svgFe.namespaceURI;*/ svgFe.appendChild( defs);
 	divFe =document.createElement( 'div');divFe.setAttribute( 'id','fE');
 	svgFe.setAttribute( 'width', ui.winWid);
-	if(ui.winHei <ui.feMinHei){ svgFe.setAttribute( 'height',ui.feMinHei);
-								divFe.style.height 			=ui.feMinHei+"px";
-								document.body.style.height 	=ui.feMinHei+"px";}
+	if(ui.winHei <ui.feHei){ svgFe.setAttribute( 'height',ui.feHei);
+								divFe.style.height 			=ui.feHei+"px";
+								document.body.style.height 	=ui.feHei+"px";}
 	else { 						svgFe.setAttribute( 'height',ui.winHei);
 								divFe.style.height 			=ui.winHei+"px";
 								document.body.style.height 	=ui.winHei+"px";}
@@ -242,10 +306,13 @@ function initDraw(){
 			ui.sB.disHei=ui.midMinHei;
 			svgTb =document.createElementNS( nS,"svg");
 			svgLi =document.createElementNS( nS,"svg");
+			svgLk =document.createElementNS( nS,"svg");
 			svgSq =document.createElementNS( nS,"svg");
 			divTb =document.createElement( 'div');divTb.setAttribute( 'id','tB');
 			divLi =document.createElement( 'div');divLi.setAttribute( 'id','lI');
+			divLk =document.createElement( 'div');divLk.setAttribute( 'id','lK');
 			divSq =document.createElement( 'div');divSq.setAttribute( 'id','sQ');
+			//divSc =document.createElement( 'div');divSc.setAttribute( 'id','sC');
 
 			svgTb.setAttribute( 'width', ui.tB.disWid); // modify later
 			svgTb.setAttribute( 'height', ui.tB.disHei);
@@ -257,19 +324,34 @@ function initDraw(){
 			svgLi.setAttribute( 'width', ui.tY.lIW); // modify later
 			svgLi.setAttribute( 'height', ui.lI.svgHei);
 			divLi.appendChild( svgLi);
-			if( AL.liNarrow){ 	divLi.style.width =ui.mP.liW+'px'}
+			svgLk.setAttribute( 'width', ui.lK.sW);
+			svgLk.setAttribute( 'height',ui.lK.sH);
+			divLk.style.width = ui.lK.dW+"px";
+			divLk.style.height =ui.lK.dH+"px";
+			divLk.appendChild( svgLk);
+			divFe.appendChild( divLk);
+			//if( AL.liNarrow) { 	divLk.style.width =(ui.mP.liW-122)+"px"}
+			/*else{*/ 				divLk.style.width =(ui.tY.lIW-122)+"px";//}
+			if( AL.lIW===0){ 	divLi.style.width =ui.mP.liW+'px'}
 			else{				divLi.style.width =ui.tY.lIW+'px'}
-			divLi.setAttribute( 'height', ui.winHei-(2*ui.tB.disHei));
-			divLi.style.top =ui.tB.disHei+"px";
+
+			var midMinHei =	ui.midMinHei; if(AL.lIW===2){ midMinHei =ui.midMinHei2}
+			divLi.style.height = (midMinHei-(5*ui.tB.disHei))+'px';
+			divLi.style.top =ui.tB.disHei*5+"px";
 
 			svgSq.setAttribute( 'width', ui.sQ.disWid); 
-			svgSq.setAttribute( 'height',ui.sQ.disHei);
+			svgSq.setAttribute( 'height',ui.sQ.disHei/*-ui.sQ.cH*/);
 			divSq.style.width = ui.sQ.disWid+'px';
-			divSq.setAttribute( 'height',ui.sQ.disHei);
-			if( AL.liNarrow) { 	divSq.style.left =ui.mP.liW+"px"}
+			divSq.setAttribute( 'height',ui.sQ.disHei/*-ui.sQ.cH*/);
+			if( AL.lIW===0) { 	divSq.style.left =ui.mP.liW+"px"}
 			else{ 				divSq.style.left =ui.tY.lIW+"px"}
-			divSq.style.top =ui.tB.disHei+'px';
-			divSq.appendChild( svgSq);	
+			divSq.style.top =(ui.tB.disHei/*+ui.sQ.cH*/)+'px';
+			divSq.appendChild( svgSq);
+
+			/*if(!AL.liNarrow) {
+				divSc.style.width = ui.sQ.disWid-20+"px";
+			 	divSc.style.left =ui.tY.lIW+9+"px"}*/
+
 }}
 
 
@@ -847,15 +929,71 @@ function drawType(){ var b =null;
 	document.body.appendChild( divFe);
 	document.body.appendChild( divTb);
 	document.body.appendChild( divLi);
-	document.body.appendChild( divSq);
+	document.body.appendChild( divSq); 
+	//document.body.appendChild( divSc);
 }
 //function mkI(x,y,X,Y,id,co,st,op,d)
 //function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
 //function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op){ 
+
+function bBToolMouseDown( n){ 	AL.bBToolsP[n] 	=true; 	refreshBbTool( n)}
+function bBToolMouseLeave( n){ if( AL.bBToolsP[n]){ 	AL.bBToolsP[n] 	=false; refreshBbTool( n)}}
+function bBToolMouseUp( n){ switch( AL.bBTools[n]){
+	case "sizeList":if(AL.fe!=="mosaic"){ 	AL.fElIS++; if(AL.fElIS>2){ AL.fElIS=0}} 
+					else{ 					AL.mPlIS++; if(AL.mPlIS>2){ AL.mPlIS=0}}
+					predraw(); draw();  break;
+	case "wideList":var scrollY =window.pageYOffset; var oldMiV =ui.bB.minVer;
+					if(AL.fe!=="mosaic"){ 	AL.fElIW++; if(AL.fElIW>2){ AL.fElIW=1}} 
+					else{ 					AL.mPlIW++; if(AL.mPlIW>2){ AL.mPlIW=0}}
+					predraw(); draw();
+					//console.log("oldFeH: "+oldFeH+", oldMiV: "+oldMiV+", newFeH: "+newFeH+", newMiV: "+newMiV+", winHei: "+ui.winHei);
+					if((oldMiV===ui.winHei)||(ui.bB.minVer>ui.winHei)){
+						document.documentElement.scrollTop = document.body.scrollTop = ui.bB.minVer-ui.winHei+scrollY; }
+					if((oldMiV>ui.winHei)||(ui.bB.minVer===ui.winHei)){
+						document.documentElement.scrollTop = document.body.scrollTop = scrollY-(oldMiV-ui.bB.minVer); }
+					break;
+	case "wideSeq": AL.sQW= !AL.sQW; predraw(); draw();  break;
+	case "highFoot":AL.bBH++; if(AL.bBH>2){AL.bBH=0} predraw(); draw();  break; }
+	bBToolMouseLeave( n)}
+function mkBbTool(n){ var E=[]; var e=null; var t,f,T,F,y,Y; var p =0; var P=4;
+	if((AL.sQW && AL.bBTools[n]==="wideSeq")){ AL.bBToolsP[n]=true}
+	if(!AL.bBToolsP[n]){
+		e =mkL( ui.bB.divWid-20+2, ui.tB.tooWid*n+ui.bB.tooVer,  ui.tB.tooWid-4, ui.tB.disHei-4, 	undefined, "#3c3c3c", "bBTool-"+n,
+			undefined,undefined,true, 		12,12);E.push( e);
+		e =mkL( ui.bB.divWid-20+2, ui.tB.tooWid*n+ui.bB.tooVer,  ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "bBTool-"+n,
+			undefined,undefined,true, 		12,12);E.push( e);}
+	else{ p =P;
+		e =mkL( ui.bB.divWid-20+2, P+(ui.tB.tooWid*n)+ui.bB.tooVer,ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "bBTool-"+n,
+			undefined,undefined,true, 		12,12);E.push( e)}
+	if( AL.feInit){
+		e =mkL( ui.bB.divWid-20+2, (ui.tB.tooWid*n)+ui.bB.tooVer, ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined,undefined,undefined,
+			undefined,undefined,undefined,12,12,"0")}
+	bindK( e, function(ev,e) { switch( ev){ case "mouseleave": bBToolMouseLeave(n);break;
+											case "mouseup"   : bBToolMouseUp  ( n);break;
+											case "mousedown" : bBToolMouseDown( n);break}});E.push(e);
+	//"preCalc","defSort","turnSort","confSort"
+	switch( AL.bBTools[n]){
+		case "sizeList": 	t="size";	T="List";	y=-1; Y=11; 	f=14; F=14;		break;
+		case "wideList": 	t="wide";	T="List";	y=-1; Y=11; 	f=14; F=14;		break;
+		case "wideSeq": 	t="wide";	T="Seq";	y=-1; Y=11; 	f=14; F=14;		break;
+		case "highFoot": 	t="high";	T="Foot";	y=-1; Y=11; 	f=14; F=14;		break;
+		//case "confSort": 	t="conf";	T="Sort";	y=-1; Y=11; 	f=14; F=14;		break;
+		}
+	e 		=mkT( ui.bB.divWid-20+(ui.tB.tooWid/2), (ui.tB.tooWid*n)+y+p+ui.bB.tooVer, undefined,"#ccc","bBTool-"+n,f,t,"PF","middle");E.push(e);
+	if(T){e =mkT( ui.bB.divWid-20+(ui.tB.tooWid/2), (ui.tB.tooWid*n)+Y+p+ui.bB.tooVer, undefined,"#ccc","bBTool-"+n,F,T,"AI","middle");E.push(e)}
+	return E}
+function refreshBbTool( n){ var t ="bBTool-"+n; var e =document.getElementsByClassName( t);
+							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
+							t =mkBbTool( n); t.forEach( function( e){ svgFe.appendChild( e)})}
 function drBottomBar(){ var E=[]; var e=null; var t="";
-	e=mkL(0,ui.midMinHei,ui.winWid,ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
-	e=mkL(ui.bB.divWid,ui.midMinHei+ui.bB.skrHei,ui.bB.skrHei,ui.bB.disHei-ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
-	e=mkL(0,ui.midMinHei+ui.bB.tipHei,ui.bB.divWid,ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
+	var midMinHei =	ui.midMinHei; if(AL.lIW===2){ midMinHei =ui.midMinHei2}
+
+
+	e=mkL(0,midMinHei,ui.winWid,ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
+	//e=mkL(ui.bB.divWid-20,midMinHei+ui.bB.skrHei,ui.tB.disHei,ui.bB.disHei-ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
+	e=mkL(ui.bB.divWid-20,midMinHei+ui.bB.skrHei,ui.tB.disHei,ui.bB.disHei-ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
+	for(var i=0; i<AL.bBToolsL; i++){ e =mkBbTool(i); E=E.concat(e)}
+	e=mkL(0,midMinHei+ui.bB.tipHei,ui.bB.divWid-20,ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
 	e=mkT(ui.bB.rimHei,ui.midMinHei+ui.bB.skrHei+ui.bB.rimHei,undefined,"#fff",undefined,20,"ntn:","SF"); E.push(e);
 	e=mkT(ui.bB.rimHei,Math.round(ui.midMinHei+ui.bB.tipHei/2+ui.bB.skrHei),undefined,"#fff",undefined,20,"xtn:","SF"); E.push(e);
 	//if(AL.subj){ t="("+AL.subj.xtR.nP+","+AL.subj.xtC.nP+") = "+AL.subj.xtn.ni}
@@ -891,6 +1029,8 @@ function tBToolMouseUp( n){ switch( AL.tBTools[n]){
 								AL.keySubj=AL.sim.keySubj; AL.subj=AL.keySubj} //expand
 							predraw(); draw();} break;
 	case "lockSim" : 	AL.lockSim= !AL.lockSim; draw(); break;
+	case "confStat" : 	if(AL.lF!=="confStat"){ AL.prevLf=AL.lF; AL.lF="confStat"}
+						else{ AL.lF=AL.prevLf} draw(); break;
 	/*case "delSim" : 	if( RT.simsL >1){ var v =confirm("Delete this simulation?");
 							if(v){ 			tBToolDelSim( AL.sim)}}break;
 	case "delSims" : 	if( RT.simsL >1){ var v =confirm("Delete all untagged simulations?");
@@ -900,28 +1040,29 @@ function tBToolMouseUp( n){ switch( AL.tBTools[n]){
 // this explains why neurosoma is so strong as to be overwhelming because the leading function is already strongest.
 // mobi func turns "3-dimensional" (lol?) in metaprogramming circuit
 function mkTbTool( n){ var E =[]; var e =null; var t,f,T,F,y,Y; var p =0; var P=4;
-	if(AL.lockSim && AL.tBTools[n]==="lockSim"){ AL.tBToolsP[n]=true}
+	if((AL.lockSim && AL.tBTools[n]==="lockSim")||(AL.lF==="confStat"&&AL.tBTools[n]==="confStat")){ AL.tBToolsP[n]=true}
 	if(!AL.tBToolsP[n]){
-		e =mkL( ui.tB.tooWid*n+1, 2,  ui.tB.tooWid-2, ui.tB.disHei-4, 	undefined, "#3c3c3c", "tBTool-"+n,
-			undefined,undefined,true, 		ui.tB.disHei/3.236,ui.tB.disHei/3.236);E.push( e);
-		e =mkL( ui.tB.tooWid*n+1, 2,  ui.tB.tooWid-2, ui.tB.disHei-4-P, undefined, "#555555", "tBTool-"+n,
-			undefined,undefined,true, 		ui.tB.disHei/3.236,ui.tB.disHei/3.236);E.push( e);}
+		e =mkL( ui.tB.tooWid*n+2, 0/*2*/,  ui.tB.tooWid-4, ui.tB.disHei-4, 	undefined, "#3c3c3c", "tBTool-"+n,
+			undefined,undefined,true, 		12,12);E.push( e);
+		e =mkL( ui.tB.tooWid*n+2, 0,  ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "tBTool-"+n,
+			undefined,undefined,true, 		12,12);E.push( e);}
 	else{ p =P;
-		e =mkL( ui.tB.tooWid*n+1, 2+P,ui.tB.tooWid-2, ui.tB.disHei-4-P, undefined, "#555555", "tBTool-"+n,
-			undefined,undefined,true, 		ui.tB.disHei/3.236,ui.tB.disHei/3.236);E.push( e)}
+		e =mkL( ui.tB.tooWid*n+2, 0+P,ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "tBTool-"+n,
+			undefined,undefined,true, 		12,12);E.push( e)}
 	if( AL.feInit){
-		e =mkL( ui.tB.tooWid*n+1, 2, ui.tB.tooWid-2, ui.tB.disHei-4-P, undefined,undefined,undefined,
-			undefined,undefined,undefined,ui.tB.disHei/3.236,ui.tB.disHei/3.236,"0")}	
+		e =mkL( ui.tB.tooWid*n+2, 0, ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined,undefined,undefined,
+			undefined,undefined,undefined,12,12,"0")}	
 	bindK( e, function(ev,e) { switch( ev){ case "mouseleave": tBToolMouseLeave(n);break;
 											case "mouseup"   : tBToolMouseUp  ( n);break;
 											case "mousedown" : tBToolMouseDown( n);break}});E.push(e);
 	switch( AL.tBTools[n]){
-		case "cleanSlate":t="cln";		T="Slate";	y=0; Y=12; 	f=15; F=15;		break;
+		case "cleanSlate":t="cln";		T="Slate";	y=-1; Y=11; 	f=14; F=14;		break;
 //		case "clearSubjs":t="clr"; 		T="subjs";	y=0; Y=12; 	f=15; F=15;		break;
-		case "copySim" 	: t="copy"; 	T="Sim"; 	y=0; Y=12; 	f=15; F=15;		break;
-		case "makeSim" 	: t="make";		T="Sim"; 	y=0; Y=12; 	f=15; F=15;		break;
-		case "randSim" 	: t="rand";		T="Sim"; 	y=0; Y=12; 	f=15; F=15;		break;
-		case "lockSim" 	: t="lock";		T="Sim"; 	y=0; Y=12; 	f=15; F=15;		break;
+		case "copySim" 	: t="copy"; 	T="Sim"; 	y=-1; Y=11; 	f=14; F=14;		break;
+		case "makeSim" 	: t="def";		T="Sim"; 	y=-1; Y=11; 	f=14; F=14;		break;
+		case "randSim" 	: t="rand";		T="Sim"; 	y=-1; Y=11; 	f=14; F=14;		break;
+		case "lockSim" 	: t="lock";		T="Sim"; 	y=-1; Y=11; 	f=14; F=14;		break;
+		case "confStat" : t="conf";		T="Stat"; 	y=-1; Y=11; 	f=14; F=14;		break;
 //		case "delSim" 	: t="del"; 		T="Sim";	y=0; Y=12; 	f=15; F=15; 	break;
 //		case "delSims" 	: t="del"; 		T="Sims";   y=0; Y=12;  f=15; F=15; 	break;
 		}
@@ -981,45 +1122,73 @@ function drTopBar(){ var E=[]; var e=null; var T=[]; var t=null;
 	T.forEach( function(t){svgTb.appendChild(t)})}
 
 
-//function sidebarKey( e){ var tab= parseInt(e.split("-").pop()); AL.fe=AL.fes[tab]; draw();}
+
+function lIToolMouseDown( n){ 	AL.lIToolsP[n] 	=true; 	refreshLiTool( n)}
+function lIToolMouseLeave( n){ if( AL.lIToolsP[n]){ 	AL.lIToolsP[n] 	=false; refreshLiTool( n)}}
+function lIToolMouseUp( n){ switch( AL.lITools[n]){
+	case "cleanSlate" : if( !AL.touched){ 	cleanSlate()}
+						else{ var v =confirm("Delete all data?"); if(v){ cleanSlate()}}break;}
+	lIToolMouseLeave( n)}
+function mkLiTool(n){ var E=[]; var e=null; var t,f,T,F,y,Y; var p =0; var P=4;
+	if(!AL.lIToolsP[n]){
+		e =mkL( ui.lF.kW+2, ui.tB.tooWid*n+ui.tB.disHei,  ui.tB.tooWid-4, ui.tB.disHei-4, 	undefined, "#3c3c3c", "lITool-"+n,
+			undefined,undefined,true, 		12,12);E.push( e);
+		e =mkL( ui.lF.kW+2, ui.tB.tooWid*n+ui.tB.disHei,  ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "lITool-"+n,
+			undefined,undefined,true, 		12,12);E.push( e);}
+	else{ p =P;
+		e =mkL( ui.lF.kW+2, P+(ui.tB.tooWid*n)+ui.tB.disHei,ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "lITool-"+n,
+			undefined,undefined,true, 		12,12);E.push( e)}
+	if( AL.feInit){
+		e =mkL( ui.lF.kW+2, (ui.tB.tooWid*n)+ui.tB.disHei, ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined,undefined,undefined,
+			undefined,undefined,undefined,12,12,"0")}
+	bindK( e, function(ev,e) { switch( ev){ case "mouseleave": lIToolMouseLeave(n);break;
+											case "mouseup"   : lIToolMouseUp  ( n);break;
+											case "mousedown" : lIToolMouseDown( n);break}});E.push(e);
+	//"preCalc","defSort","turnSort","confSort"
+	switch( AL.lITools[n]){
+		case "confRand": 	t="conf";	T="Rand";	y=-1; Y=11; 	f=14; F=13;		break;
+		case "confDef": 	t="conf";	T="Def";	y=-1; Y=11; 	f=14; F=14;		break;
+		case "defSort": 	t="def";	T="Sort";	y=-1; Y=11; 	f=14; F=14;		break;
+		case "confSort": 	t="conf";	T="Sort";	y=-1; Y=11; 	f=14; F=14;		break;
+		}
+	e 		=mkT( ui.lF.kW+(ui.tB.tooWid/2), (ui.tB.tooWid*n)+y+p+ui.tB.disHei, undefined,"#ccc","lITool-"+n,f,t,"PF","middle");E.push(e);
+	if(T){e =mkT( ui.lF.kW+(ui.tB.tooWid/2), (ui.tB.tooWid*n)+Y+p+ui.tB.disHei, undefined,"#ccc","lITool-"+n,F,T,"AI","middle");E.push(e)}
+	return E}
+function refreshLiTool( n){ var t ="lITool-"+n; var e =document.getElementsByClassName( t);
+							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
+							t =mkLiTool( n); t.forEach( function( e){ svgLi.appendChild( e)})}
+
 function listFeatureKey(e){ var f= parseInt(e.split("-").pop()); AL.lF=AL.lIFes[f]; draw();}
 function mkLiFb( n,ni){ var id="lIFe-"+n;
-	if( AL.lF !== ni){ 	var e =mkL( 0, n*ui.lF.kH, ui.lF.kW, ui.lF.kH, id, ui.sB.btn)}
-	else 			{ 	var e =mkL( 0, n*ui.lF.kH, ui.lF.kW, ui.lF.kH, id, ui.sB.sel)}
+	if( AL.lF !== ni){ 	var e =mkL( 0, n*ui.lF.kH+ui.tB.disHei, ui.lF.kW, ui.lF.kH, id, ui.sB.btn)}
+	else 			{ 	var e =mkL( 0, n*ui.lF.kH+ui.tB.disHei, ui.lF.kW, ui.lF.kH, id, ui.sB.sel)}
 	bindK( e, function(ev,e) { switch( ev){ case "mousedown" : listFeatureKey( e.id);break}}); return e }
 function mkLiFt( n,ni){ 
-	if( AL.lF !== ni){ 	var e =mkT( 8, (n*ui.lF.kH)-2, undefined, ui.sB.btnTxt, undefined, ui.sB.fnt, ni, 'PF')}//mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
-	else 			{ 	var e =mkT( 8, (n*ui.lF.kH)-2, undefined, ui.sB.selTxt, undefined, ui.sB.fnt, ni, 'PF')}return e }
+	if( AL.lF !== ni){ 	var e =mkT( 8, (n*ui.lF.kH)-2+ui.tB.disHei, undefined, ui.sB.btnTxt, undefined, ui.sB.fnt, ni, 'PF')}
+	else 			{ 	var e =mkT( 8, (n*ui.lF.kH)-2+ui.tB.disHei, undefined, ui.sB.selTxt, undefined, ui.sB.fnt, ni, 'PF')}return e }
 function mkLiFr( n,sB,ni){ var et=[]; var v; // NO "FORM", NO "SUBSTANCE"!
 	if( AL.lF !== ni) { 
-		var e=mkL( 0, n*ui.lF.kH, 			ui.lF.kW, 3, undefined, ui.sB.btnU); et.push( e);
-		var e=mkL( 0, ((n+1)*ui.lF.kH)-3, 	ui.lF.kW, 3, undefined, ui.sB.btnD); et.push( e);
-		v = "0,"+(n*ui.lF.kH)+" 3,"+((n*ui.lF.kH)+3)+" 3,"+(((n+1)*ui.lF.kH)-3)+" 0,"+((n+1)*ui.lF.kH);
+		var e=mkL( 0, n*ui.lF.kH+ui.tB.disHei, 			ui.lF.kW, 3, undefined, ui.sB.btnU); et.push( e);
+		var e=mkL( 0, ((n+1)*ui.lF.kH)-3+ui.tB.disHei, 	ui.lF.kW, 3, undefined, ui.sB.btnD); et.push( e);
+		v = "0,"+(n*ui.lF.kH+ui.tB.disHei)+" 3,"+((n*ui.lF.kH)+3+ui.tB.disHei)+" 3,"+(((n+1)*ui.lF.kH+ui.tB.disHei)-3)+" 0,"+((n+1)*ui.lF.kH+ui.tB.disHei);
 		e=mkS( v,undefined,ui.sB.btnL,undefined,false); et.push(e);
-		v = ui.lF.kW+","+(n*ui.lF.kH)+" "+(ui.lF.kW-3)+","+((n*ui.lF.kH)+3)+" "+(ui.lF.kW-3)+","+(((n+1)*ui.lF.kH)-3)+" "+ui.lF.kW+","+((n+1)*ui.lF.kH);
+		v = ui.lF.kW+","+(n*ui.lF.kH+ui.tB.disHei)+" "+(ui.lF.kW-3)+","+((n*ui.lF.kH)+3+ui.tB.disHei)+" "+(ui.lF.kW-3)+","+(((n+1)*ui.lF.kH)-3+ui.tB.disHei)+" "+ui.lF.kW+","+((n+1)*ui.lF.kH+ui.tB.disHei);
 		e=mkS( v,undefined,ui.sB.btnR,undefined,false); et.push(e);}
 	else{
-		var e=mkL( 0, n*ui.lF.kH, 			ui.lF.kW, 3, undefined, ui.sB.selU); et.push( e);
-		var e=mkL( 0, ((n+1)*ui.lF.kH)-3, 	ui.lF.kW, 3, undefined, ui.sB.selD); et.push( e);
-		v = "0,"+(n*ui.lF.kH)+" 3,"+((n*ui.lF.kH)+3)+" 3,"+(((n+1)*ui.lF.kH)-3)+" 0,"+((n+1)*ui.lF.kH);
+		var e=mkL( 0, n*ui.lF.kH+ui.tB.disHei, 			ui.lF.kW, 3, undefined, ui.sB.selU); et.push( e);
+		var e=mkL( 0, ((n+1)*ui.lF.kH)-3+ui.tB.disHei, 	ui.lF.kW, 3, undefined, ui.sB.selD); et.push( e);
+		v = "0,"+(n*ui.lF.kH+ui.tB.disHei)+" 3,"+((n*ui.lF.kH)+3+ui.tB.disHei)+" 3,"+(((n+1)*ui.lF.kH)-3+ui.tB.disHei)+" 0,"+((n+1)*ui.lF.kH+ui.tB.disHei);
 		e=mkS( v,undefined,ui.sB.selL,undefined,false); et.push(e);
-		v = ui.lF.kW+","+(n*ui.lF.kH)+" "+(ui.lF.kW-3)+","+((n*ui.lF.kH)+3)+" "+(ui.lF.kW-3)+","+(((n+1)*ui.lF.kH)-3)+" "+ui.lF.kW+","+((n+1)*ui.lF.kH);
+		v = ui.lF.kW+","+(n*ui.lF.kH+ui.tB.disHei)+" "+(ui.lF.kW-3)+","+((n*ui.lF.kH)+3+ui.tB.disHei)+" "+(ui.lF.kW-3)+","+(((n+1)*ui.lF.kH)-3+ui.tB.disHei)+" "+ui.lF.kW+","+((n+1)*ui.lF.kH+ui.tB.disHei);
 		e=mkS( v,undefined,ui.sB.selR,undefined,false); et.push(e);
-	}
-	/*else{ var e=mkL( ui.sB.disHrz, yi,sB.disWid, sB.btnBrd, "sB_btnBrd-"+n, sB.selU, "sB_btnBrd"); et.push( e);
-		e=mkL( ui.sB.disHrz, yi+sB.rowHei-sB.btnBrd,sB.disWid,sB.btnBrd, "sB_btnBrd-"+n, sB.selD, "sB_btnBrd");
-		et.push( e); var v = ui.sB.disHrz+","+yi+" "+ 				(ui.sB.disHrz+sB.btnBrd)+","+(yi+sB.btnBrd)+" "+
-			(ui.sB.disHrz+sB.btnBrd)+","+(yi+sB.rowHei-sB.btnBrd)+" "+ui.sB.disHrz+","+(yi+sB.rowHei);
-		e=mkS( v,"sB_btnBrd-"+n,sB.selL,"sB_btnBrd",false); et.push( e);
-		var v = ui.sB.disHrz+sB.disWid+","+yi+" "+ 	(ui.sB.disHrz+sB.disWid-sB.btnBrd)+","+(yi+sB.btnBrd)+" "+
-			(ui.sB.disHrz+sB.disWid-sB.btnBrd)+","+(yi+sB.rowHei-sB.btnBrd)+" "+(ui.sB.disHrz+sB.disWid)+","+(yi+sB.rowHei);
-		e=mkS( v,"sB_btnBrd-"+n,sB.selR,"sB_btnBrd",false); et.push( e)}*/ return et}
+	} return et}
 function drList(){ var E=[]; var e=null; var liI="";liT="";liB=""; var off; var absB; var F=[];var G=[];
-	// ååå
+	e =mkL( 0, ui.tB.disHei, ui.tY.liW, ui.tY.liHe,"tY_L",ui.sB.bG,"tY_L_bg");											svgFe.appendChild( e);
 	for( var i=0; i < AL.lIFesL; i++){ 	e =mkLiFb( i, AL.lIFes[i]); E.push(e);
 										e =mkLiFt( i, AL.lIFes[i]); E.push(e);
 										e =mkLiFr( i, ui.sB, AL.lIFes[i]); E =E.concat(e)}
-	switch( AL.liSize){
+	for(var i=0; i<AL.lIToolsL; i++){ e =mkLiTool(i); E=E.concat(e)}
+	switch( AL.liS){
 		case 0: ui.lI.iHe=ui.lI.iHe0; ui.lI.tPF=ui.lI.tPF0; ui.lI.tTR=ui.lI.tTR0; ui.lI.tSF=ui.lI.tSF0;	ui.lI.mDx=ui.lI.mDx0;
 				ui.lI.kix=ui.lI.kix0; ui.lI.mPx=ui.lI.mPx0; ui.lI.obx=ui.lI.obx0; ui.lI.vQx=ui.lI.vQx0; ui.lI.nMx=ui.lI.nMx0;
 				ui.lI.miW=ui.lI.miW0; break;
@@ -1027,15 +1196,16 @@ function drList(){ var E=[]; var e=null; var liI="";liT="";liB=""; var off; var 
 				ui.lI.mDx=ui.lI.mDx1; ui.lI.nMx=ui.lI.nMx1; break;
 		case 2: ui.lI.iHe=ui.lI.iHe2; ui.lI.tPF=ui.lI.tPF2; ui.lI.tTR=ui.lI.tTR2; ui.lI.tSF=ui.lI.tSF2;
 				ui.lI.mDx=ui.lI.mDx2; ui.lI.nMx=ui.lI.nMx2; break;}
-	var ctrHei=ui.tB.disHei*4;
-	ui.lI.svgHei =ctrHei+(AL.subjsL*ui.lI.iHe+2); svgLi.setAttribute( 'height', ui.lI.svgHei);
+	var ctrHei=0;
+	ui.lI.svgHei =(AL.subjsL*ui.lI.iHe+2); svgLi.setAttribute( 'height', ui.lI.svgHei);
 	svgLi.setAttribute( 'width', ui.lI.miW);
 	var lisLen=18;
-	var lisHei =ui.winHei-ui.bB.disHei-ctrHei;
+	var lisHei=0;
+	if(AL.lIW===3){ 	lisHei = ui.midMinHei2 -ui.tB.disHei*5}
+	else if(AL.liW===2){lisHei = ui.midMinHei -ui.tB.disHei*5}
 	var lisY =ctrHei;
 	var width = ui.lI.miW;
-	E.forEach( function(E){svgLi.appendChild(E)}); var E=null;
-	e =mkL( 0, ui.tB.disHei, ui.tY.lIW, ui.tY.liHe,"tY_L",ui.sB.bG,"tY_L_bg");											svgFe.appendChild( e);
+	E.forEach( function(E){svgFe.appendChild(E)}); var E=null;
 	if(AL.sim){for(var n=0; n <AL.sim.subjsL; n++){
 		if( 	AL.sim.subjs[n]===AL.subj)	{ liI="#ffffff"; liT="#000000"; liB="#000000"; 	E=G}
 		else if(AL.sim.subjs[n]===AL.keySubj){ liI=ui.tY.sLiI;liT=ui.tY.sLiT;liB=ui.tY.sLiB; E=G}
@@ -1061,7 +1231,12 @@ function drList(){ var E=[]; var e=null; var liI="";liT="";liB=""; var off; var 
 		e =mkT(ui.lI.nMx,(ui.lI.iHe*n)-1+ctrHei+1,"tY_LiT-"+n,liT,"tY_LiT",ui.lI.tSF,AL.sim.subjs[n].nM.full,"SF"); 			E.push(e)}
 	E=F.concat(G);	E.forEach( function(E){svgLi.appendChild(E)})}}
 
-function drSequencer(){ var E=[]; var e=null;
+// function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
+function drSequencer(){ var E=[]; var e=null; var l=120;
+	if(AL.lIW>0) { 	l =ui.tY.lIW}
+//	e= mkL(l,ui.tB.disHei-1,ui.sQ.cW-2,ui.sQ.cH,undefined,"#3c3c3c",undefined,undefined,undefined,undefined,12,12); E.push(e);
+//	e= mkL(l,ui.tB.disHei-1,ui.sQ.cW-3,ui.sQ.cH-1,undefined,"#000000",undefined,undefined,undefined,undefined,12,12); E.push(e);
+	E.forEach( function(E){svgFe.appendChild(E)}); E=[];
 	e= mkL(0,0,ui.sQ.disWid,ui.sB.disHei-ui.tB.disHei,"tY_sQ",ui.sQ.bG,"tY_sQ");				E.push(e);
 	E.forEach( function(E){svgSq.appendChild(E)})}
 
@@ -1105,7 +1280,7 @@ function drTypeCube(cX,cY,cl){ var e; var E=[]; var v; var w=ui.tY.cE; var h=ui.
 
 	e =drA(x+(w/d),	y-(h/d),w,h,co,id+"-btm",cl+"-btm pAIU",0,undefined,op); 		E.push(e);
 
-	var p=(w/32);
+	var p=(w/32)-2;
 	v = x+(w/4)-p+","+(y+(h/8)+(h/4)-(h/4))+" "+ 		(x+(w/8)+(w/4))+","+(y+(w/4)-(h/4)-p)+" "+
 		(x+(w/2)+p)+","+(y+(h/8))+" "+ 					(x+(w/8)+(w/4))+","+(y+(w/2)-(h/4)+p);
 	e =drS(v, ui.tY.cIE, cl+"_IE-npp", cl, undefined, "#8fc",1); E.push(e);
@@ -1685,6 +1860,7 @@ function drawMood(){var b =null;
 	document.body.appendChild( divTb);
 	document.body.appendChild( divLi);
 	document.body.appendChild( divSq);
+	//document.body.appendChild( divSc);
 }
 
 function mosaicKeyMouseOver(mX,mY) 	{ previewMove( mX, mY)}
@@ -1742,13 +1918,23 @@ function drawMosaic(){
 	document.body.appendChild( divTb);
 	document.body.appendChild( divLi);
 	document.body.appendChild( divSq);
+	//document.body.appendChild( divSc);
 }
 
 
-function resizeWindow(){ predraw();draw()}
+function resizeWindow(){ /*console.log("w: "+window.innerWidth+", h: "+window.innerHeight);*/predraw();draw()}
 window.addEventListener("resize", resizeWindow, true);
-history.pushState(null, document.title, location.href);
-window.addEventListener('popstate', function (event){ history.pushState(null, document.title, location.href);});
+
+/*history.pushState(null, document.title, location.href);
+window.addEventListener('popstate', function (event){ history.pushState(null, document.title, location.href);});*/
+
+// Who's the fool who has stood up against humanity's survival by enabling the back button?
+
+history.pushState(null, null, document.URL);
+window.addEventListener('popstate', function () {
+    history.pushState(null, null, document.URL);
+});
+
 window.oncontextmenu = function ()
 {
     console.log("JOU");
@@ -4757,11 +4943,14 @@ function initCleanSlate(){
 				AL.sBToolsL 	=AL.sBTools.length;
 				AL.tBToolsL 	=AL.tBTools.length;
 				AL.statTabsL	=AL.statTabs.length;
-				AL.lIFesL 	=AL.lIFes.length;
+				AL.lIFesL 		=AL.lIFes.length;
+				AL.lIToolsL 	=AL.lITools.length;
+				AL.bBToolsL 	=AL.bBTools.length;
 
 				AL.sBToolsP 	=[]; for( var n =0; n <AL.sBToolsL; n++){ AL.sBToolsP.push(false)}
 				AL.tBToolsP 	=[]; for( var n =0; n <AL.tBToolsL; n++){ AL.tBToolsP.push(false)}
-				//AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}
+				AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}
+				AL.bBToolsP 	=[]; for( var n =0; n <AL.bBToolsL; n++){ AL.bBToolsP.push(false)}
 
 				AL.turn 		=null;
 				AL.subTurn 		=null;
@@ -4804,11 +4993,14 @@ function initUserInterface(){
 				AL.sBToolsL 	=AL.sBTools.length;
 				AL.tBToolsL 	=AL.tBTools.length;
 				AL.statTabsL 	=AL.statTabs.length;
-				AL.lIFesL 	=AL.lIFes.length;
+				AL.lIFesL 		=AL.lIFes.length;
+				AL.lIToolsL 	=AL.lITools.length;
+				AL.bBToolsL 	=AL.bBTools.length;
 
 				AL.sBToolsP 	=[]; for( var n =0; n <AL.sBToolsL; n++){ AL.sBToolsP.push(false)}
 				AL.tBToolsP 	=[]; for( var n =0; n <AL.tBToolsL; n++){ AL.tBToolsP.push(false)}
-				//AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}
+				AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}				
+				AL.bBToolsP 	=[]; for( var n =0; n <AL.bBToolsL; n++){ AL.bBToolsP.push(false)}
 
 				AL.sim =RT.sims[0];
 				AL.turn 		=AL.sim.turn;
