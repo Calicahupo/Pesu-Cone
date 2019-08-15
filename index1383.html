@@ -9,7 +9,7 @@ j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NXVWFS2');</script>-->
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v1313</title>
+<title>Floresta v1383</title>
 <link rel="icon" href="diodi/favicon.ico">
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
@@ -35,8 +35,8 @@ function initTheRelative(){ RT ={ subjs:[], sims:[],simsL:0, simsSrc:[],simsSrcL
 function initTheAbsolute(){ AT ={ sims:[], simsL:0}}
 initTheRelative(); initTheAbsolute();
 var AL={ 
-	fe: "type",
-	fes: ["quiz",/*"object",*/"type","mood","mosaic"],
+	fe: "AMOQ",
+	fes: ["quiz",/*"object",*/"type","AMOQ","mosaic"],
 	statTabs:["tot","avg","med"],
 	rXp: 1, liNarrowInMosaic:true, liNarrow:false, liS:0, fElIS:0, mPlIS:0, lIW:1, fElIW:1, mPlIW:0, sQW:false, bBH:0, mosaicForm :false,
 	lockSubj:false, lockSim:true,
@@ -114,7 +114,7 @@ var ui ={winWid:0, winHei:0,
 		selAreaB:"#6789ab", areaB:"#6789ab", shArea:"#012345", liB:"#666666", liI:"#444444", liT: "#cccccc",
 		sLiB:"#cccccc", sLiI:"#888888", sLiT: "#ffffff", cIE:"#33d0aa"}, //ui.tY.cIE #95B388 #33d0aa
 	sQ:{bG:"#333333", disHrz:0/*66*/, disWid:66, disWid2:66},
-	mD:{base:"#002200", key:"#003300", key2:"#004400", selKey:"#005500", selTxt:"#00ee00", dis:"#221900", disStr: "#110800", stroke:"#009900", stroke2:"#008800", hilTxt: "#00cc00", selKey2:"#007700", selKey3: "#004400", stroke3: "#002200"},
+	mD:{base:"#002200", key:"#083300", key2:"#0c4400", selKey:"#105500", selTxt:"#00ee00", dis:"#221900", disStr: "#110800", stroke:"#009900", stroke2:"#208800", hilTxt: "#30cc00", selKey2:"#1c7700", selKey3: "#0c4400", stroke3: "#002200"},
 	mP:{liW:120},
 	bB:{disHei: 173, tipHei:66},
 	red: {l: { h:0  , s:25 , v:100}, f:{ h:0  , s:50 , v:50 }, h:{ h:0  , s:100, v:100}},
@@ -183,45 +183,45 @@ function predraw(){
 	ui.bB.rimHei=Math.round(ui.bB.skrHei/1.618);
 	ui.bB.divWid=ui.winWid-Math.round((ui.winWid/1.618)-(ui.bB.skrHei/2));
 
-	/*ui.tY.liW= Math.round(ui.winWid-(1*ui.sB.disWid)-(4*(ui.tY.cE/ui.tY.cuD))-(2*ui.tY.cE)-(3*ui.tY.cMarg));
-	ui.tY.lIW= ui.tY.liW-ui.sQ.disWid2;
-	ui.tY.liX2=ui.sQ.disWid; ui.tY.liHe=ui.winHei-ui.tB.disHei; ui.tY.liY=ui.tB.disHei;
-	ui.tY.keX=ui.sB.disWid+ui.tY.liW+ui.tY.cMarg;*/
-
-// 8 basic object types: place, context, goal, model, family, people, object, subject
-
 	ui.lK.dW=300;
 	ui.lK.dH=159;
 	ui.lK.sW=300;
 	ui.lK.sH=500;
 
-	ui.tY.disWid =ui.winWid-ui.sB.disWid;
-	//ui.tY.disHei =ui.winHei;
 	ui.tY.cE1 = Math.round(Math.min(ui.winWid,ui.winHei)/4);
 	ui.tY.cE2 = Math.round(Math.min(ui.winWid,ui.winHei)/3);
 	if(AL.lIW===2){ ui.tY.cE =ui.tY.cE1;}
 	else{ 			ui.tY.cE =ui.tY.cE2;}
 	if( AL.sQW){ ui.sQ.disWid = ui.tY.cE1;}
 	else 		{ui.sQ.disWid = ui.sB.disWid}
-	//else{ 	ui.sQ.cH=80; ui.sQ.cW=66; ui.sQ.kW=ui.sQ.cW;}
+
+	ui.tY.cMarg =Math.round(ui.tY.cE/10);
+	ui.tY.bMarg =ui.tY.cMarg/1.618;
+	ui.tY.aMarg =ui.tY.bMarg/1.618;
+	ui.mD.lineW=Math.round(ui.tY.cMarg/10); 	if(ui.mD.lineW<1){ ui.mD.lineW=1}
+	ui.mD.LineW=Math.round(ui.mD.lineW*1.618); 	if(ui.mD.LineW<1){ ui.mD.LineW=1}
+	ui.mD.linew=Math.round(ui.mD.lineW/1.618); 	if(ui.mD.linew<1){ ui.mD.linew=1}
 
 	ui.tY.cuHrz =Math.round(ui.winWid-ui.sB.disWid-(2*(ui.tY.cE/ui.tY.cuD))-ui.tY.cE-ui.tY.cMarg);
 	ui.tY.c2x= Math.round(-(1.5 * ui.tY.cE)-ui.tY.cMarg);
 	ui.tY.liW= Math.round(ui.winWid-(1*ui.sB.disWid)-(4*(ui.tY.cE/ui.tY.cuD))-(2*ui.tY.cE)-(3*ui.tY.cMarg));
-	/*if( AL.wideSq){
-		ui.sQ.disWid =2*ui.sB.disWid}
-	else{
-		ui.sQ.disWid =ui.sB.disWid}*/
+	ui.tY.disHrz =ui.tY.liW;
+
 	ui.tY.lIW= ui.tY.liW-ui.sQ.disWid;
+	ui.tY.disWid =ui.winWid-ui.sB.disWid-ui.tY.liW;
+	ui.tY.disVrt =ui.tB.disHei;
 	ui.tY.liY=ui.tB.disHei;
 	ui.tY.keX=ui.sB.disWid+ui.tY.liW+ui.tY.cMarg;
-	ui.tY.keW=Math.round((4*(ui.tY.cE/ui.tY.cuD))+(2*ui.tY.cE)+ui.tY.cMarg);
+	//ui.tY.keW=Math.round((4*(ui.tY.cE/ui.tY.cuD))+(2*ui.tY.cE)+ui.tY.cMarg);
+	ui.tY.keW = ui.tY.disWid-ui.tY.cMarg-ui.tY.cMarg;
 	ui.tY.keY=Math.round((2*(ui.tY.cE/ui.tY.cuD))+ui.tY.cE+(2*ui.tY.cMarg)+ui.tY.c1y);
-	ui.tY.keyGap= Math.round(ui.tY.cMarg -(ui.tY.cMarg/1.618));
-	ui.tY.keyWid= Math.round((ui.tY.keW-(15*ui.tY.keyGap))/16);
+	//ui.tY.keY =
+	ui.tY.keyGap= Math.round(ui.tY.aMarg);
+	ui.tY.keyWid= (ui.tY.keW-(15*ui.tY.keyGap))/16;
 	ui.tY.stY=Math.round(ui.tY.keY+((3*ui.tY.cE)/5));
 	ui.tY.lilStY =Math.round(ui.tY.keY+((3*ui.tY.cE1)/5)); 
 
+	ui.mD.keY=Math.round((2*(ui.tY.cE/ui.tY.cuD))+ui.tY.cE+(2*ui.tY.cMarg)+ui.tY.c1y);
 	ui.mD.plW=Math.min(ui.winWid,ui.winHei)/1.5; 	ui.mD.plX =ui.winWid-ui.sB.disWid-ui.tY.cMarg-ui.mD.plW;
 	ui.mD.plH=Math.min(ui.winWid,ui.winHei)/2; 		ui.mD.plY =ui.tB.disHei+ui.tY.cMarg;
 	ui.mD.kex=ui.tY.liW+ui.tY.cMarg; 	ui.mD.keX =ui.winWid-ui.sB.disWid-ui.tY.cMarg;
@@ -254,7 +254,7 @@ function predraw(){
 		ui.bB.minVer=ui.midMinHei+ui.bB.minHei;
 		if(ui.bB.minVer <ui.winHei){ ui.bB.minVer=ui.winHei}
 		ui.feHei =ui.midMinHei+ui.bB.disHei;
-		ui.tY.disHei=ui.midMinHei;
+		ui.tY.disHei=ui.midMinHei-ui.tB.disHei;
 		ui.tY.liHe = ui.midMinHei-ui.tB.disHei;
 		ui.sQ.disHei=ui.midMinHei-ui.tB.disHei;}
 	else if(AL.lIW===2){
@@ -262,16 +262,59 @@ function predraw(){
 		ui.bB.minVer=ui.midMinHei2+ui.bB.minHei;
 		if(ui.bB.minVer <ui.winHei){ ui.bB.minVer=ui.winHei}
 		ui.feHei =ui.midMinHei2+ui.bB.disHei;
-		ui.tY.disHei=ui.midMinHei2;
+		ui.tY.disHei=ui.midMinHei2-ui.tB.disHei;
 		ui.tY.liHe = ui.midMinHei2-ui.tB.disHei;
 		ui.sQ.disHei=ui.midMinHei2-ui.tB.disHei;}
-	//ui.bB.tooVer=ui.bB.minVer-(AL.bBToolsL*ui.tB.disHei);
 	ui.bB.tooVer=ui.bB.minVer-(AL.bBToolsL*ui.tB.disHei);
 
-	
-	
+	// stage
+	ui.tY.stgf=Math.round(ui.tY.cE/6);
+	ui.tY.stgy=Math.round(ui.tB.disHei+ui.tY.disHei-ui.tY.stgf-ui.tY.cMarg);
+	ui.tY.stgF=Math.round((2*ui.tY.cE)/5);
+	ui.tY.stgY=Math.round(((ui.tY.keY+ui.tY.keyWid+ui.tY.stgy+(ui.tY.stgf/3))/2)-ui.tY.stgF);
 
-	//ui.bB.scrHei=ui.midMinHei+(AL.bBToolsL * ui.tB.disHei);
+	// mood plane
+	ui.mD.plFrW=Math.round(ui.tY.disWid/1.618-ui.tY.cMarg+ui.tY.bMarg);
+	ui.mD.plFrX=Math.round(ui.tY.disHrz+ui.tY.disWid-(ui.tY.disWid/1.618)-ui.tY.bMarg);
+	ui.mD.plFrY=ui.tB.disHei+ui.tY.cMarg;
+	ui.mD.plDiW=Math.round(ui.tY.disWid/1.618-ui.tY.cMarg-ui.tY.bMarg);
+	ui.mD.plDiX=Math.round(ui.tY.disHrz+ui.tY.disWid-(ui.tY.disWid/1.618));
+	ui.mD.plDiH=Math.round(ui.tY.disHei/1.618-ui.tY.cMarg-ui.tY.bMarg);
+	ui.mD.plFrH=Math.round(ui.mD.plDiH+2*ui.tY.bMarg);
+	ui.mD.plDiY=Math.round(ui.mD.plFrY+ui.tY.bMarg);
+	// mood keys
+	ui.mD.keGaV=ui.mD.lineW/1.618;
+	ui.mD.keGaH=ui.mD.LineW;
+	ui.mD.keRoW=ui.tY.disWid-(2*ui.tY.cMarg);
+	ui.mD.keFaH=ui.tY.keyWid/1.618-ui.mD.linew/2;
+	ui.mD.keFnS=Math.round(ui.mD.keFaH/1.414);
+	ui.mD.keFnY=Math.round(ui.mD.keFaH/7);
+	ui.mD.keFaW=((ui.mD.keRoW-(12*ui.mD.keGaH))-ui.mD.linew/2)/13;
+	ui.mD.pPmRY=Math.round(ui.mD.plFrY+ui.mD.plFrH+ui.tY.aMarg);
+	ui.mD.sPmRY=ui.mD.pPmRY+ui.mD.keFaH+ui.mD.keGaV;
+	ui.mD.obKeH=2*ui.mD.keFaH+ui.mD.keGaV;
+	ui.mD.gndRY=ui.mD.pPmRY-ui.tY.cMarg-ui.mD.keFaH;
+	ui.mD.sexRY=ui.mD.gndRY-ui.mD.keFaH-ui.mD.keGaV;
+	// mood disp
+	ui.mD.tbFrW=Math.round(ui.tY.disWid-ui.mD.plFrW-2*ui.tY.cMarg-ui.tY.aMarg);
+	ui.mD.tbFrX=ui.tY.disHrz+ui.tY.cMarg;
+	ui.mD.tbFrY=ui.mD.plFrY;
+	//ui.mD.tbFrH=Math.round(ui.mD.plFrH-(2*ui.mD.keFaH)-ui.mD.keGaV-ui.tY.cMarg-ui.tY.aMarg);
+	ui.mD.tbFrH=ui.mD.sexRY-ui.tB.disHei-2*ui.tY.cMarg;
+	ui.mD.tbDiW=(ui.mD.tbFrW-ui.mD.LineW*3);
+	ui.mD.tbDiX=(ui.mD.tbFrX+ui.mD.LineW*1.5);
+	ui.mD.tbDiH=(ui.mD.tbFrH-ui.mD.LineW*3);
+	ui.mD.tbDiY=(ui.mD.tbFrY+ui.mD.LineW*1.5);
+	//ui.mD.tbHeH=(ui.mD.tbDiH*(2/17));
+	ui.mD.tbHeW=Math.round(ui.mD.tbDiW/1.618);
+	ui.mD.tbRoH=(ui.mD.tbDiH*(1/5));
+	ui.mD.tbCeW=ui.mD.tbDiW/2;
+	ui.mD.tbCeB=ui.mD.tbRoH/1.618;
+	ui.mD.tbCeT=ui.mD.tbCeB/1.618-ui.mD.LineW/2;
+	ui.mD.tbTxX=(ui.mD.tbCeW+ui.mD.tbCeT+ui.mD.LineW)/2;
+	//ui.tY.stgY=Math.round((ui.tY.stgy-ui.tY.stgf-ui.tY.stgF+ui.tY.keY+ui.tY.keyWid)/2);
+	
+	//ui.tY.stgY=Math.round(ui.tB.disHei+ui.tY.disHei-ui.tY.stgF-ui.tY.stgf-(ui.tY.cMarg*2));
 	
 // markover needs to print each line FOUR TIMES:
 // line 1: intension's romantic quality
@@ -302,7 +345,7 @@ function initDraw(){
 			svgQz.setAttribute( 'width', ui.winWid-ui.sB.disWid);
 			svgQz.setAttribute( 'height', ui.qZ.disHei+(2*ui.qZ.disVrt));
 			break;
-		case "type" : case "mood" : case "mosaic" :
+		case "type" : case "AMOQ" : case "mosaic" :
 			ui.sB.disHei=ui.midMinHei;
 			svgTb =document.createElementNS( nS,"svg");
 			svgLi =document.createElementNS( nS,"svg");
@@ -321,23 +364,33 @@ function initDraw(){
 			divTb.style.left =ui.tB.disHrz+"px";
 			divTb.appendChild( svgTb);
 
-			svgLi.setAttribute( 'width', ui.tY.lIW); // modify later
-			svgLi.setAttribute( 'height', ui.lI.svgHei);
-			divLi.appendChild( svgLi);
-			svgLk.setAttribute( 'width', ui.lK.sW);
-			svgLk.setAttribute( 'height',ui.lK.sH);
-			divLk.style.width = ui.lK.dW+"px";
-			divLk.style.height =ui.lK.dH+"px";
-			divLk.appendChild( svgLk);
-			divFe.appendChild( divLk);
-			//if( AL.liNarrow) { 	divLk.style.width =(ui.mP.liW-122)+"px"}
-			/*else{*/ 				divLk.style.width =(ui.tY.lIW-122)+"px";//}
-			if( AL.lIW===0){ 	divLi.style.width =ui.mP.liW+'px'}
-			else{				divLi.style.width =ui.tY.lIW+'px'}
-
-			var midMinHei =	ui.midMinHei; if(AL.lIW===2){ midMinHei =ui.midMinHei2}
-			divLi.style.height = (midMinHei-(5*ui.tB.disHei))+'px';
-			divLi.style.top =ui.tB.disHei*5+"px";
+			
+			if(ui.tY.lIW>0){
+				svgLi.setAttribute( 'width', ui.tY.lIW); // modify later
+				svgLi.setAttribute( 'height', ui.lI.svgHei);
+				divLi.appendChild( svgLi);
+				if(ui.tY.lIW>120){
+					svgLk.setAttribute( 'width', ui.lK.sW);
+					svgLk.setAttribute( 'height',ui.lK.sH);
+					divLk.style.width = ui.lK.dW+"px";
+					divLk.style.height =ui.lK.dH+"px";
+					divLk.appendChild( svgLk);
+					divFe.appendChild( divLk)}
+				else{
+					divLk.style.display="none";
+				}
+				//if( AL.liNarrow) { 	divLk.style.width =(ui.mP.liW-122)+"px"}
+				/*else{*/ 				divLk.style.width =(ui.tY.lIW-122)+"px";//}
+				if( AL.lIW===0){ 	divLi.style.width =ui.mP.liW+'px'}
+				else{				divLi.style.width =ui.tY.lIW+'px'}
+	
+				var midMinHei =	ui.midMinHei; if(AL.lIW===2){ midMinHei =ui.midMinHei2}
+				divLi.style.height = (midMinHei-(5*ui.tB.disHei))+'px';
+				divLi.style.top =ui.tB.disHei*5+"px";}
+			else{
+				divLi.style.display="none";
+			}
+		
 
 			svgSq.setAttribute( 'width', ui.sQ.disWid); 
 			svgSq.setAttribute( 'height',ui.sQ.disHei/*-ui.sQ.cH*/);
@@ -450,7 +503,7 @@ function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op){ var r=document.createElementNS
 					if( rx){ 		r.setAttribute( 'rx',rx)}
 					if( ry){ 		r.setAttribute( 'ry',ry)}
 					if( op){ 		r.setAttribute( 'fill-opacity',op)}return r}
-function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op){ var t =document.createElementNS( nS,'text'); y+=fonSiz;
+function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op,dB){ var t =document.createElementNS( nS,'text'); y+=fonSiz;
 					if( x> -1){ 	t.setAttribute( 'x',x)}	
 					if( y> -1){ 	t.setAttribute( 'y',y)}
 					if( fonSiz){ 	t.setAttribute( 'font-size',fonSiz)}
@@ -465,10 +518,12 @@ function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op){ var t =document.createEleme
 						case "SR" : 	t.setAttribute( 'font-family','Strike Fighter');			break;
 //						case "MP" : 	t.setAttribute( 'font-family','More Perfect DOS VGA');		break;
 //						case "AB" : 	t.setAttribute( 'font-family','Aileron Bold');				break;
-						case "TR" : 	t.setAttribute( 'font-family','times new roman')}}
+						case "TR" : 	t.setAttribute( 'font-family','times new roman'); 			break;
+										t.setAttribute( 'font-family',fonFam)}}
 									t.setAttribute( 'pointer-events', 'none');
 					if( anc){ 		t.setAttribute( 'text-anchor',anc)}
 					if( op){	 	t.setAttribute( 'opacity',op)}
+					if( dB){	 	t.setAttribute( 'dominant-baseline',dB)}
 									t.textContent =txt; return t}
 function mkS(pt,id,co,cl,op) { var p=document.createElementNS( nS,'polygon');
 									p.setAttribute("points", pt);
@@ -855,7 +910,7 @@ function draw(){
 	switch( AL.fe){ 
 		case "quiz": 	drawQuiz(); 	break;
 		case "type": 	drawType(); 	break;
-		case "mood": 	drawMood(); 	break;
+		case "AMOQ": 	drawMood(); 	break;
 		case "mosaic": 	drawMosaic(); 	break;}}
 function bindK( e,c){
 	e.addEventListener("mouseover", function(){ c("mouseover", e)});
@@ -915,12 +970,11 @@ function mkQuiz( q,n){ var b =null; var B=[];
 
 function drawType(){ var b =null;
 	AL.feInit =true;
-	b =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.tY.base,"tY");
-	svgFe.appendChild( b);
 	drTopBar();
+	drList();
+	b =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.tY.base,"tY"); svgFe.appendChild( b);
 	drTypeCube(ui.tY.c1x, ui.tY.c1y, "tYC1"); 	
 	drTypeCage(ui.tY.c2x, ui.tY.c2y, "tYC2"); 	
-	drList();
 	drSequencer( );						
 	drTypeKeys();
 	drTypeStage();					
@@ -934,7 +988,7 @@ function drawType(){ var b =null;
 }
 //function mkI(x,y,X,Y,id,co,st,op,d)
 //function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
-//function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op){ 
+//function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op,dB){ 
 
 function bBToolMouseDown( n){ 	AL.bBToolsP[n] 	=true; 	refreshBbTool( n)}
 function bBToolMouseLeave( n){ if( AL.bBToolsP[n]){ 	AL.bBToolsP[n] 	=false; refreshBbTool( n)}}
@@ -1182,6 +1236,9 @@ function mkLiFr( n,sB,ni){ var et=[]; var v; // NO "FORM", NO "SUBSTANCE"!
 		v = ui.lF.kW+","+(n*ui.lF.kH+ui.tB.disHei)+" "+(ui.lF.kW-3)+","+((n*ui.lF.kH)+3+ui.tB.disHei)+" "+(ui.lF.kW-3)+","+(((n+1)*ui.lF.kH)-3+ui.tB.disHei)+" "+ui.lF.kW+","+((n+1)*ui.lF.kH+ui.tB.disHei);
 		e=mkS( v,undefined,ui.sB.selR,undefined,false); et.push(e);
 	} return et}
+
+function mkSubjMoodCode(subj){ var r=subj.sex.nI; if(subj.mD.obj){ r +="'"}	r=r+"("+subj.pPm.niH+subj.pGn.nI+subj.pPm.niT+")"; return r	}
+
 function drList(){ var E=[]; var e=null; var liI="";liT="";liB=""; var off; var absB; var F=[];var G=[];
 	e =mkL( 0, ui.tB.disHei, ui.tY.liW, ui.tY.liHe,"tY_L",ui.sB.bG,"tY_L_bg");											svgFe.appendChild( e);
 	for( var i=0; i < AL.lIFesL; i++){ 	e =mkLiFb( i, AL.lIFes[i]); E.push(e);
@@ -1580,32 +1637,39 @@ function drTypeKeys(){ var E=[]; var e=null; var area, areaB, areaT;
 	for(var n=0; n<16; n++){
 		if((AL.tY===null)||(AT.tYs[n].ni !== AL.tY.ni)){ area=ui.tY.area; areaB=ui.tY.areaB; areaT=ui.tY.areaT; }
 		else 							{ area=ui.tY.selArea; areaB=ui.tY.selAreaB; areaT=ui.tY.selAreaT; }
-		e =mkL(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))-ui.sB.disWid,ui.tY.keY,ui.tY.keyWid-1,ui.tY.keyWid-1,"tY_Keys-"+n,area,"tY_Keys",areaB,2);
+		e =mkL(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))-ui.sB.disWid,ui.tY.keY,
+			ui.tY.keyWid-ui.mD.linew/2,ui.tY.keyWid-ui.mD.linew/2,"tY_Keys-"+n,area,"tY_Keys",areaB,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : typeKeyMouseDown( e.id);break}}); E.push(e);
 		e=mkT(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))+(ui.tY.keyWid/2)-1-ui.sB.disWid,ui.tY.keY+(ui.tY.keyWid/7)-1,
 		undefined,areaT,undefined,ui.tY.keyWid/1.6,AL.Sociotypes.seed[n],"SF","middle"); E.push(e)}
 	E.forEach( function(E){svgFe.appendChild(E)}); }
 function drTypeStage(){ 
- 	var E=[]; var e=null; var x=ui.tY.cuHrz-(ui.tY.cMarg/2);
-	var e=mkT(x, ui.tY.stY-(ui.tY.cE/2)+(ui.tY.keyWid/5), "-stg", "#ffffff", "stg", (2*ui.tY.cE)/5, AL.tY.zo, "SR","middle");
-	e.setAttribute("filter","url(#f1)"); E.push(e);
-	var e=mkT(x, ui.tY.stY-(ui.tY.cE/2)+(ui.tY.keyWid/5), "-stg", "#ffffff", "stg", (2*ui.tY.cE)/5, AL.tY.zo, "SR","middle");
-	e.setAttribute('opacity',0.62);E.push(e);
+ 	var E=[]; var e=null;
+	var x=Math.round(ui.tY.disHrz+(ui.tY.disWid/2));
+	var e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
+	e.setAttribute("filter","url(#f1)"); e.setAttribute("dominant-baseline","middle"); E.push(e);
+	var e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
+	e.setAttribute('opacity',0.62); e.setAttribute("dominant-baseline","middle"); E.push(e);
 	if(AL.subj){ 
-		var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stY-(ui.tY.cE/12)+ui.tY.keyGap+(ui.mD.keH/3),
-		"-stg", "#ffffff", "stg", ui.tY.cE/6,AL.subj.nI+". "+AL.subj.nM.full, "PF","left");E.push(e)}
-	var e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stY-(ui.tY.cE/12)+ui.tY.keyGap+(ui.mD.keH/3),
-		undefined,"#fff",undefined,ui.tY.cE/6,AL.tY.nI,"PF","end");E.push(e)
+		var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stgy,
+		"-stg", "#ffffff", "stg", ui.tY.stgf,AL.subj.nI+". "+AL.subj.nM.full, "PF","left");
+		//e.setAttribute("alignment-baseline","hanging");
+		E.push(e)}
+	var e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stgy,
+		undefined,"#fff",undefined,ui.tY.stgf,AL.tY.nI,"PF","end");E.push(e)
 	E.forEach( function(E){svgFe.appendChild(E)})}
+
+// wovels/consonants for male/female, upper/lower for child adult?
+// include big mood plane with descriptions and nothing else
 
 function mosaicTextColor(c){ if(c.v > 68){ return "#000000"} else{ return "#ffffff"}}
 function drMoodPlane(){ var e; var E=[];
 	if(AL.mD){ 
 		var pL =null;
-		AL.mosaicForm ? pL =AL.mD.xY : pL =AL.mD.bG; 
-		var w =ui.mD.plW /AL.vQr -( ui.tY.cMarg /( AL.vQr /2));var h =ui.mD.plH /AL.vQr -( ui.tY.cMarg /( AL.vQr /2));
-		var X=ui.mD.plX+(ui.tY.cMarg); var Y=ui.mD.plY+(ui.tY.cMarg);
-		e =mkL(ui.mD.plX, ui.mD.plY, ui.mD.plW, ui.mD.plH,"mD_plane-","#000000","mD_plane"); E.push(e);
+		AL.mosaicForm ? pL =AL.mD.xY : pL =AL.mD.bG;
+		var w =ui.mD.plDiW/AL.vQr; var h=ui.mD.plDiH/AL.vQr;
+		var X =ui.mD.plDiX; var Y =ui.mD.plDiY;
+		e =mkL(ui.mD.plFrX, ui.mD.plFrY, ui.mD.plFrW, ui.mD.plFrH,"mD_plane-","#000000","mD_plane"); E.push(e);
 		var mD =mkNullMatrix( AL.vQr,AL.vQr);
 		for(var y =0; y <AL.vQr; y++){
 			for(var x =0; x <AL.vQr; x++){
@@ -1613,10 +1677,10 @@ function drMoodPlane(){ var e; var E=[];
 				mD[y][x] = rgbToHex(mD[y][x].r, mD[y][x].g, mD[y][x].b);
 				e=mkL( w*x+X, h*y+Y, w, h, "test", mD[y][x]);	E.push(e);
 				e=mkT(w*x+X+3, h*y+Y-h/8, false, mosaicTextColor( pL[y][x]),false,h/2,"V: "+pL[y][x].V,
-					"PF", false, 1/1.618); E.push(e);
+					"PF", false, 0.618); E.push(e);
 				//function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op)
 				e=mkT(w*x+X+3, h*y+Y-(h/8)+(h/2), "test", mosaicTextColor(pL[y][x]), "test",h/2,"K: "+pL[y][x].K,
-					"PF", false, 1/1.618); E.push(e);
+					"PF", false, 0.618); E.push(e);
 				/*e=mkT(w*x+X+1, h*y+Y-5+(h/3), "test", mosaicTextColor(q[y][x]), "test",h*(2/3),AL.pE.mo.qU[y][x].Q ,"StrikeFighter");*/ E.push(e);}}}
 		E.forEach( function(E){svgFe.appendChild(E)})}
 function moodKey( e,prim){
@@ -1693,23 +1757,25 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 			keyC =ui.mD.key2; keyS =ui.mD.stroke2; keyF =ui.mD.selTxt}
 		//else if(AT.sXs[n].ni === AL.sBe.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
 		else if(AT.sXs[n].ni ===AL.sex.ni) 	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
-		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-(ui.mD.keH*2)-ui.tY.keyGap,ui.mD.keW-1,ui.mD.keH-4,
-			"mD_sexKey-"+n,keyC,"mD_sexKeys",keyS,2);
+		e=mkL(ui.mD.tbFrX+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sexRY, ui.mD.keFaW, ui.mD.keFaH,
+			"mD_sexKey-"+n,keyC,"mD_sexKeys",keyS,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : sexKey( e.id);break}});E.push(e);
-		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-(ui.mD.keH*2)-ui.tY.keyGap,
-			"mD_sexKeyTxt",keyF,"mD_sexKeyTxt-",0.55*ui.tY.keyWid,AT.sXs[n].nI+"( )","TR","middle"); E.push(e); }
+		e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2)+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sexRY-ui.mD.keFnY,//+(ui.mD.keFaH/2),
+			"mD_sexKeyTxt",keyF,"mD_sexKeyTxt-",ui.mD.keFnS,
+			AT.sXs[n].nI+"( )","TR","middle",undefined,"middle"); E.push(e); }
 
 	for(let n=0; n<AT.gNsL; n++){
 		if((AL.gnd===null)||((AT.gNs[n].ni !== AL.pGn.ni)&&(AT.gNs[n].ni !== AL.sGn.ni)))
 												{ keyC=ui.mD.key2; 		keyS=ui.mD.stroke2; keyF=ui.mD.selTxt; }
 		else if(AT.gNs[n].ni ===AL.sGn.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
 		else if(AT.gNs[n].ni ===AL.pGn.ni)	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
-		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-ui.mD.keH-ui.tY.keyGap, ui.mD.keW-1, ui.mD.keH-4,
-			"mD_gndKey-"+n,keyC,"mD_gndKeys",keyS,2);
+		e=mkL(ui.mD.tbFrX+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.gndRY, ui.mD.keFaW, ui.mD.keFaH,
+			"mD_gndKey-"+n,keyC,"mD_gndKeys",keyS,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : genderKey( e.id);break}});E.push(e);
-		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY-ui.mD.keH-ui.tY.keyGap,
-			"mD_gndKeyTxt",keyF,"mD_gndKeyTxt-",0.55*ui.tY.keyWid,AT.gNs[n].nI,"TR","middle");E.push(e);}
-
+		e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2)+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.gndRY-ui.mD.keFnY,
+			"mD_gndKeyTxt",keyF,"mD_gndKeyTxt-",ui.mD.keFnS,
+			AT.gNs[n].nI,"TR","middle",undefined,"middle");E.push(e);}
+// ååå 
 	for(let n=0; n <AT.pMsL; n++){
 		//var m=combineMoodAndBeing(AT.pMs[n], AL.pE.pGn );
 		var m =getMood( AL.sex, AL.gnd, AL.obj, AL.pM, AT.mDs);
@@ -1719,12 +1785,12 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 		else /*if(AL.pE.sMo.pM.ni === AT.pMs[n].ni)*/		{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	symC=ui.mD.selTxt}
 		if(m.sSym){ symC = "#ffff00"; } else if(m.cSym){ symC = "#ff00ff"}
 		//if(AL.mD.symm){ keyS="#ffff00"}
-		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY, ui.mD.keW-1,ui.mD.keH-4,
-			"mD_pMdKey-"+n,keyC,"mD_pMdKeys",keyS,2);
+		e=mkL(ui.mD.tbFrX+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.pPmRY, ui.mD.keFaW,ui.mD.keFaH,
+			"mD_pMdKey-"+n,keyC,"mD_pMdKeys",keyS,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : moodKey( e.id,true);break}});E.push(e);
-		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY+ui.mD.keH/12,
-			"mD_pMdKeyTxt",symC,"mD_pMdKeyTxt-",0.45*ui.tY.keyWid,
-			AT.pMs[n].niH+AL.pGn.nI+AT.pMs[n].niT,"TR","middle"); E.push(e);}
+		e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2)+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.pPmRY-ui.mD.keFnY,
+			"mD_pMdKeyTxt",symC,"mD_pMdKeyTxt-",ui.mD.keFnS,
+			AT.pMs[n].niH+AL.pGn.nI+AT.pMs[n].niT,"TR","middle",undefined,"middle"); E.push(e);}
 
 	for(let n=0; n<AT.pMsL; n++){
 		//var m=combineMoodAndBeing(AT.pMs[n], AL.pE.sGn );
@@ -1735,21 +1801,134 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 		else /*if(AL.pE.sMo.pM.ni === AT.pMs[n].ni)*/	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt;  symC=ui.mD.selTxt;}
 		if(m.symm){ symC = "#ffff00"; }
 		//if(AL.mD.symm){ keyS="#ffff00"}
-		e=mkL(ui.mD.kex+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY+ui.mD.keH, ui.mD.keW-1,ui.mD.keH-4,
-			"mD_sMdKey-"+n,keyC,"mD_sMdKeys",keyS,2);
+		e=mkL(ui.mD.tbFrX+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sPmRY, ui.mD.keFaW,ui.mD.keFaH,
+			"mD_sMdKey-"+n,keyC,"mD_sMdKeys",keyS,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : moodKey( e.id,false);break}});E.push(e);
-		e=mkT(ui.mD.kex+(ui.mD.keW/2)+(n*(ui.mD.keW+ui.tY.keyGap)), ui.tY.keY+ui.mD.keH+ui.mD.keH/12,
-			"mD_mKeyTxt",symC,"mD_sMdKeyTxt-",0.45*ui.tY.keyWid,AT.pMs[n].niH+AL.sGn.nI+AT.pMs[n].niT,"TR","middle"); E.push(e);}
+		e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2)+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sPmRY-ui.mD.keFnY,
+			"mD_mKeyTxt",symC,"mD_sMdKeyTxt-",ui.mD.keFnS,
+			AT.pMs[n].niH+AL.sGn.nI+AT.pMs[n].niT,"TR","middle",undefined,"middle"); E.push(e);}
 
 	if( AL.mD.obj){ keyC=ui.mD.key2; keyS=ui.mD.stroke2; symC=ui.mD.selTxt;}
 	else { keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2;}
-	e=mkL(ui.mD.kex, ui.tY.keY+(ui.mD.keH*2)+ui.tY.keyGap, ui.mD.keW-1,ui.mD.keH-4,
-		"mD_objKey",keyC,"mD_objKeys",keyS,2); E.push(e);
-	e=mkT(ui.mD.kex+(ui.mD.keW/2), ui.tY.keY+(ui.mD.keH*2)+ui.tY.keyGap+ui.mD.keH/6,"mD_objKeyTxt",symC,"mD_objKeyTxt-",0.33*ui.tY.keyWid,"object","AI","middle"); E.push(e);
+	e=mkL(ui.mD.tbFrX, ui.mD.pPmRY, ui.mD.keFaW,ui.mD.obKeH,
+		"mD_objKey",keyC,"mD_objKeys",keyS,ui.mD.linew); E.push(e);
+	//console.log(ui.mD.obKeH);
+	e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2), ui.mD.pPmRY-ui.mD.keFaH+ui.mD.keGaV/2,//-ui.mD.keFnY,
+		"mD_objKeyTxt",symC,"mD_objKeyTxt-",ui.mD.obKeH,
+		"OBJ","CH","middle",undefined,"middle"); E.push(e);
 
 	E.forEach( function(E){svgFe.appendChild(E)})}
 
-function drMoodDisp(){ var e; var E=[]; var mFDC; var lHead, rHead, lMF, rMF, lAriV, rAriV, lAriK, rAriK;
+function drMoodDisp(){ 
+
+/*
+ui.mD.tbFrW
+ui.mD.tbFrX
+ui.mD.tbFrY
+ui.mD.tbFrH
+*///function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op) // ööö
+//function mkI(x,y,X,Y,id,co,st,op,d)
+//function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op,dB){ v
+
+/*if we have a notation in which we always begin with a positive variable if possible and never use brackets
+we will be able to express value and karma quantification arithmetic as an array of strings like ["X","-Y"]
+and if we encounter something like ["Y","-r","+r"] it will be easy to algorithmically simplify that to ["Y"]*/
+
+// STEREOTYPICAL MOOD 	GENDER ALIGNED 			AGE ALIGNED
+// COMING TO AGE		GENDER ALIGNED 			SEX KID GENDER ADULT 											BAD V -> GOOD V w/ OFFSET
+// INFANTILIZATION 		GENDER ALIGNED 			SEX ADULT GENDER KID 	GOOD V -> BAD V w/ OFFSET
+// FEMALE-TO-MALE QUEER SEX FEMALE GENDER MALE 	AGE ALIGNED 			INTRO GOOD V -> INTRO BAD V w/ OFFSET
+// MALE-TO-FEMALE QUEER SEX MALE GENDER FEMALE 	AGE ALIGNED 			EXTRO GOOD V -> EXTRO BAD V w/ OFFSET
+// INVERSE MORALITY 	GENDER MISMATCH  		AGE MISMATCH 			GOOD V -> BAD V w/ OFFSET 				BAD V -> GOOD V w/ OFFSET
+
+// 3 screens:
+// Value/Karma
+// LifeP/ProcessP
+// Sex/Gender
+	
+	var e; var E=[];
+	//frame
+	e=mkL(ui.mD.tbFrX,ui.mD.tbFrY,ui.mD.tbFrW,ui.mD.tbFrH,"tY",ui.mD.key,"tY"); E.push(e);
+	e=mkL(ui.mD.tbDiX,ui.mD.tbDiY,ui.mD.tbDiW,ui.mD.tbDiH,"tY",ui.mD.key,"tY",ui.mD.base,ui.mD.LineW); E.push(e); 
+	//grid
+	e=mkI(ui.mD.tbDiX,ui.mD.tbDiY+ui.mD.tbRoH, ui.mD.tbDiX+ui.mD.tbDiW,ui.mD.tbDiY+ui.mD.tbRoH,
+		undefined,ui.mD.base,ui.mD.LineW); E.push(e);
+	e=mkI(ui.mD.tbDiX,ui.mD.tbDiY+ui.mD.tbRoH*2, ui.mD.tbDiX+ui.mD.tbDiW,ui.mD.tbDiY+ui.mD.tbRoH*2,
+		undefined,ui.mD.base,ui.mD.LineW); E.push(e);
+	e=mkI(ui.mD.tbDiX,ui.mD.tbDiY+ui.mD.tbRoH*3, ui.mD.tbDiX+ui.mD.tbDiW,ui.mD.tbDiY+ui.mD.tbRoH*3,
+		undefined,ui.mD.base,ui.mD.LineW); E.push(e);
+	e=mkI(ui.mD.tbDiX,ui.mD.tbDiY+ui.mD.tbRoH*4, ui.mD.tbDiX+ui.mD.tbDiW,ui.mD.tbDiY+ui.mD.tbRoH*4,
+		undefined,ui.mD.base,ui.mD.LineW); E.push(e);
+	e=mkI(ui.mD.tbDiX+ui.mD.tbCeW,ui.mD.tbDiY, ui.mD.tbDiX+ui.mD.tbCeW,ui.mD.tbDiY+ui.mD.tbDiH,
+		undefined,ui.mD.base,ui.mD.LineW); E.push(e);
+	//left label containers
+	e=mkL(ui.mD.tbDiX, 				ui.mD.tbDiY, ui.mD.tbCeT+ui.mD.LineW,ui.mD.tbDiH, undefined,ui.mD.base); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeW, 	ui.mD.tbDiY, ui.mD.tbCeT+ui.mD.LineW,ui.mD.tbDiH, undefined,ui.mD.base); E.push(e);
+	//top label containers
+	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.linew/2,  			ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
+		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbRoH+ui.mD.linew/2, 	ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
+		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbRoH*2+ui.mD.linew/2,ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
+		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbRoH*3+ui.mD.linew/2,ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
+		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbRoH*4+ui.mD.linew/2,ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
+		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
+	//left labels
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW, 			ui.mD.tbDiY+ui.mD.tbCeT,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"X:","PF","middle",undefined,"middle");E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW+ui.mD.tbCeW,ui.mD.tbDiY+ui.mD.tbCeT,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"Y:","PF","middle",undefined,"middle");E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW, 			ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"X:","PF","middle",undefined,"middle");E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW+ui.mD.tbCeW,ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"Y:","PF","middle",undefined,"middle");E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW, 			ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*2,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"X:","PF","middle",undefined,"middle");E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW+ui.mD.tbCeW,ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*2,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"Y:","PF","middle",undefined,"middle");E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW, 			ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*3,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"I:","PF","middle",undefined,"middle");E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW+ui.mD.tbCeW,ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*3,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"U:","PF","middle",undefined,"middle");E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW, 			ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*4,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"I:","PF","middle",undefined,"middle");E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeT/2+ui.mD.LineW+ui.mD.tbCeW,ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*4,
+		undefined,ui.mD.hilTxt,undefined,ui.mD.tbCeT,"U:","PF","middle",undefined,"middle");E.push(e);
+	//cell frames
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT, 				ui.mD.tbDiY+ui.mD.tbCeT, ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.selKey,undefined,ui.mD.stroke3,1,ui.tY.cMarg,ui.tY.bMarg); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT+ui.mD.tbCeW, 	ui.mD.tbDiY+ui.mD.tbCeT, ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.selKey,undefined,ui.mD.stroke3,1,ui.tY.cMarg,ui.tY.bMarg); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT, 				ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH, 	ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.dis,undefined,ui.mD.disStr,1); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT+ui.mD.tbCeW,	ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH, 	ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.dis,undefined,ui.mD.disStr,1); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT, 				ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*2, 	ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.dis,undefined,ui.mD.disStr,1); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT+ui.mD.tbCeW,	ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*2, 	ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.dis,undefined,ui.mD.disStr,1); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT, 				ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*3, 	ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.dis,undefined,ui.mD.disStr,1); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT+ui.mD.tbCeW,	ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*3, 	ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.dis,undefined,ui.mD.disStr,1); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT, 				ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*4, 	ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.dis,undefined,ui.mD.disStr,1); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeT+ui.mD.tbCeW,	ui.mD.tbDiY+ui.mD.tbCeT+ui.mD.tbRoH*4, 	ui.mD.tbCeW-ui.mD.tbCeT, ui.mD.tbCeB,
+		undefined,ui.mD.dis,undefined,ui.mD.disStr,1); E.push(e);
+	//variables
+	/*var r1="";
+	var lAriV="N/A";var rAriV="N/A";var lAriK="N/A";var rAriK="N/A";var lCmp="N/A"; var rCmp="N/A";var lMF="N/A";var rMF="N/A";
+	var mFDC;
+	var lHead="GOOD";
+	var rHead="BAD";
+	var moF="Modal Form:"; 			if(AL.mosaicForm){ 	moF 	="Mosaic Form:"} 		 
+	var cmp="Mood Complexity"; 		if(AL.mD.stereo){ 	cmp 	="Stereotypical Mood"; 	cmpL="NORMAL"; cmpR="NORMAL"}
+								else if(AL.mD.invMor){ 	cmp 	="Inverse Morality"; 	cmpL="V - r"}
+								else if(AL.mD.pureBad){ cmp 	="Pure Bad"}*/
+	var mFDC, lHead, rHead, moF, cmplx, lMF, rMF, lAriV, rAriV, lAriK, rAriK;
+	var moF="Modal Form:"; 			if(AL.mosaicForm){ 	moF 	="Mosaic Form:"}
 	if( AL.mD.sSym){ mFDC="#ffff00"} else if( AL.mD.cSym){ MFDC="#ff00ff"} else{ mFDC="#00ff00"}
 	if(!AL.mosaicForm){ lHead="Bad"; rHead="Good"; lMF=AL.mD.bMF; rMF=AL.mD.gMF;
 		lAriV=AL.mD.bAriV; rAriV=AL.mD.gAriV; lAriK=AL.mD.bAriK; rAriK=AL.mD.gAriK;}
@@ -1757,102 +1936,104 @@ function drMoodDisp(){ var e; var E=[]; var mFDC; var lHead, rHead, lMF, rMF, lA
 		lAriV=AL.mD.xAriV; rAriV=AL.mD.yAriV; lAriK=AL.mD.xAriK, rAriK=AL.mD.yAriK;}
 	else{ lHead="Good"; rHead="Bad"; lMF=AL.mD.xMF; rMF=AL.mD.yMF;
 		lAriV=AL.mD.xAriV; rAriV=AL.mD.yAriV; lAriK=AL.mD.xAriK, rAriK=AL.mD.yAriK;}}
+	//row labels
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeW, ui.mD.tbDiY-ui.mD.LineW, 				undefined, ui.mD.hilTxt,undefined,
+		ui.mD.tbCeT*0.9,moF,"PF","middle",undefined); E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeW, ui.mD.tbDiY-ui.mD.LineW+ui.mD.tbRoH, 	undefined, ui.mD.hilTxt,undefined,
+		ui.mD.tbCeT*0.9,"Value:","PF","middle",undefined); E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeW, ui.mD.tbDiY-ui.mD.LineW+ui.mD.tbRoH*2, 	undefined, ui.mD.hilTxt,undefined,
+		ui.mD.tbCeT*0.9,"Karma:","PF","middle",undefined); E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeW, ui.mD.tbDiY-ui.mD.LineW+ui.mD.tbRoH*3, 	undefined, ui.mD.hilTxt,undefined,
+		ui.mD.tbCeT*0.9,"Life Position:","PF","middle",undefined); E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeW, ui.mD.tbDiY-ui.mD.LineW+ui.mD.tbRoH*4, 	undefined, ui.mD.hilTxt,undefined,
+		ui.mD.tbCeT*0.9,"Process Position:","PF","middle",undefined); E.push(e);
+	//cell content
+	e=mkT(ui.mD.tbDiX+ui.mD.tbTxX, 				ui.mD.tbDiY+ui.mD.tbCeT-ui.mD.LineW,
+		undefined, mFDC, undefined, 	ui.mD.tbCeB*0.8, lMF, "TR", "middle"); E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbTxX+ui.mD.tbCeW, 	ui.mD.tbDiY+ui.mD.tbCeT-ui.mD.LineW,
+		undefined, mFDC, undefined, 	ui.mD.tbCeB*0.8, rMF, "TR", "middle"); E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbTxX, 				ui.mD.tbDiY+ui.mD.tbCeT-ui.mD.LineW+ui.mD.tbRoH,
+		undefined,"#ffff00", undefined,	0.8*ui.mD.tbCeB, lAriV, "PF", "middle"); E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbTxX+ui.mD.tbCeW,	ui.mD.tbDiY+ui.mD.tbCeT-ui.mD.LineW+ui.mD.tbRoH,
+		undefined,"#ffff00", undefined,	0.8*ui.mD.tbCeB, rAriV, "PF", "middle"); E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbTxX, 				ui.mD.tbDiY+ui.mD.tbCeT-ui.mD.LineW+ui.mD.tbRoH*2,
+		undefined,"#ffff00", undefined,	0.8*ui.mD.tbCeB, lAriK, "PF", "middle"); E.push(e);
+	e=mkT(ui.mD.tbDiX+ui.mD.tbTxX+ui.mD.tbCeW,	ui.mD.tbDiY+ui.mD.tbCeT-ui.mD.LineW+ui.mD.tbRoH*2,
+		undefined,"#ffff00", undefined,	0.8*ui.mD.tbCeB, rAriK, "PF", "middle"); E.push(e);
 
-	e=mkL(ui.mD.kex, ui.mD.plY, ui.mD.disWid, ui.mD.taH, undefined, ui.mD.key); E.push(e);
 
-	e=mkI(ui.mD.kex+(ui.mD.disWid/2), ui.mD.plY, ui.mD.kex+(ui.mD.disWid/2), ui.mD.taH+ui.mD.plY, undefined, ui.mD.base, 4); E.push(e);
+// what if gender is classical and age is romantic???
 
-	e=mkL(ui.mD.kex, ui.mD.plY+ui.mD.tRL, ui.mD.disWid, ui.mD.tRH,
-		"mD_disp-binder", ui.mD.key, "mD_disp", ui.mD.base,4); E.push(e);
-	e=mkL(ui.mD.kex, ui.mD.plY+ui.mD.tRL+ui.mD.tRH, ui.mD.disWid, ui.mD.tRH,
-		"mD_disp-binder", ui.mD.key, "mD_disp", ui.mD.base,4); E.push(e);
-	e=mkL(ui.mD.kex, ui.mD.plY+ui.mD.tRL+(2*ui.mD.tRH), ui.mD.disWid, ui.mD.tRH,
-		"mD_disp-binder", ui.mD.key, "mD_disp", ui.mD.base,4); E.push(e);
+	//e=mkT(ui.mD.kex+ui.mD.disWid/4, 	 ui.mD.plY+ui.mD.tRL+(ui.mD.fRH2/1.3), "mD_dispTxt-gMF",
+	//	mFDC,	"mD_dispTxt",	0.7*ui.mD.fRH2, lMF, "TR", "middle"); E.push(e);
+	
+	
+	
+	//heading containers
+	/*e=mkL(ui.mD.tbDiX,ui.mD.tbDiY, ui.mD.tbCeT,ui.mD.tbHeH, undefined,ui.mD.base); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.tbCeW,ui.mD.tbDiY, ui.mD.tbCeT,ui.mD.tbHeH, undefined,ui.mD.base); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.linew/2, ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
+		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.tbRoH+ui.mD.linew/2, ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
+		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.tbRoH*2+ui.mD.linew/2, ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
+		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
+	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.tbRoH*3+ui.mD.linew/2, ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
+		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);*/
+	//headings
+	/*if(AL.mosaicForm){ moF="Mosaic Form"}
+	e=mkT(ui.mD.tbDiX+ui.mD.tbCeW, ui.mD.tbDiY+ui.mD.tbHeH-ui.mD.LineW, undefined, "#ffffff",undefined,
+		ui.mD.tbCeT*0.9,moF,"PF","middle",undefined); E.push(e);
+		e=mkT(ui.mD.tbDiX+ui.mD.tbCeW, ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.tbRoH-ui.mD.LineW, undefined, "#ffffff",undefined,
+			ui.mD.tbCeT*0.9,"Mosaic Form","PF","middle",undefined); E.push(e);*/
 
-	e=mkL(ui.mD.kex+(ui.tY.cMarg/1.618), ui.mD.plY+ui.mD.tRL+(ui.mD.fRH2/1.3),
-		ui.mD.disWid/2-(2*(ui.tY.cMarg/1.618)), ui.mD.fRH2,
-		"mD_disp",ui.mD.selKey,"mD_disp",ui.mD.stroke3,1,ui.tY.cMarg,ui.tY.cMarg/1.618); E.push(e);
-	e=mkT(ui.mD.kex+ui.mD.disWid/4, 	 ui.mD.plY+ui.mD.tRL+(ui.mD.fRH2/1.3), "mD_dispTxt-gMF",
-		mFDC,	"mD_dispTxt",	0.7*ui.mD.fRH2, lMF, "TR", "middle"); E.push(e);
-	e=mkL(ui.mD.kex+ui.mD.disWid/2+(ui.tY.cMarg/1.618), ui.mD.plY+ui.mD.tRL+(ui.mD.fRH2/1.3),
-		ui.mD.disWid/2-(2*(ui.tY.cMarg/1.618)), ui.mD.fRH2,
-		"mD_disp",ui.mD.selKey,"mD_disp",ui.mD.stroke3,1,ui.tY.cMarg,ui.tY.cMarg/1.618); E.push(e);
-	e=mkT(ui.mD.kex+ui.mD.disWid-(ui.mD.disWid/4), 	ui.mD.plY+ui.mD.tRL+(ui.mD.fRH2/1.3), "mD_dispTxt-bMF",
-		mFDC, "mD_dispTxt", 0.7*ui.mD.fRH2, rMF, "TR", "middle"); E.push(e);
 
-	e=mkL(ui.mD.kex+(ui.tY.cMarg/1.618), ui.mD.plY+ui.mD.tRL+ui.mD.tRH+(ui.mD.fRH2/1.3),
-		ui.mD.disWid/2-(2*(ui.tY.cMarg/1.618)), ui.mD.fRH2,
-		"mD_disp",ui.mD.dis,"mD_disp",ui.mD.disStr,1); E.push(e);
-	e=mkT(ui.mD.kex+ui.mD.disWid/4, 	 ui.mD.plY+ui.mD.tRL+ui.mD.tRH+(ui.mD.fRH2/1.3),
-		"mD_dispTxt-gV",	"#ffff00",	"mD_dispTxt", 0.7*ui.mD.fRH2, lAriV, "PF", "middle"); E.push(e);
-	e=mkL(ui.mD.kex+ui.mD.disWid/2+(ui.tY.cMarg/1.618), ui.mD.plY+ui.mD.tRL+ui.mD.tRH+(ui.mD.fRH2/1.3),
-		ui.mD.disWid/2-(2*(ui.tY.cMarg/1.618)), ui.mD.fRH2,"mD_disp",ui.mD.dis,"mD_disp",ui.mD.disStr,1); E.push(e);
-	e=mkT(ui.mD.kex+ui.mD.disWid-(ui.mD.disWid/4), ui.mD.plY+ui.mD.tRL+ui.mD.tRH+(ui.mD.fRH2/1.3),
-		"mD_dispTxt-bV",	"#ffff00",	"mD_dispTxt",	0.7*ui.mD.fRH2, rAriV, "PF", "middle"); E.push(e);
 
-	e=mkL(ui.mD.kex+(ui.tY.cMarg/1.618), ui.mD.plY+ui.mD.tRL+(ui.mD.tRH*2)+(ui.mD.fRH2/1.3),
-		ui.mD.disWid/2-(2*(ui.tY.cMarg/1.618)), ui.mD.fRH2,
-		"mD_disp",ui.mD.dis,"mD_disp",ui.mD.disStr,1); E.push(e);
-	e=mkT(ui.mD.kex+ui.mD.disWid/4, ui.mD.plY+ui.mD.tRL+(ui.mD.tRH*2)+(ui.mD.fRH2/1.3),
-		"mD_dispTxt-gK",	"#ffff00",	"mD_dispTxt",	0.7*ui.mD.fRH2, lAriK, "PF", "middle"); E.push(e);
-	e=mkL(ui.mD.kex+ui.mD.disWid/2+(ui.tY.cMarg/1.618), ui.mD.plY+ui.mD.tRL+(ui.mD.tRH*2)+(ui.mD.fRH2/1.3),
-		ui.mD.disWid/2-(2*(ui.tY.cMarg/1.618)), ui.mD.fRH2,
-		"mD_disp",ui.mD.dis,"mD_disp",ui.mD.disStr,1); E.push(e);
-	e=mkT(ui.mD.kex+ui.mD.disWid-(ui.mD.disWid/4), ui.mD.plY+ui.mD.tRL+(ui.mD.tRH*2)+(ui.mD.fRH2/1.3),
-		"mD_dispTxt-bK",	"#ffff00",	"mD_dispTxt",	0.7*ui.mD.fRH2, rAriK, "PF", "middle"); E.push(e);
 
-	e=mkT(ui.mD.kex+(ui.mD.disWid/4), ui.mD.plY, "mD_disp-good", ui.mD.stroke, "mD_disp",
-		ui.mD.fRL2/2, "Horizontal", "PF", "middle"); E.push(e);
-	e=mkT(ui.mD.kex+ui.mD.disWid-(ui.mD.disWid/4), ui.mD.plY, "mD_disp-good", ui.mD.stroke, "mD_disp",
-		ui.mD.fRL2/2, "Vertical", "PF", "middle"); E.push(e);
-	e=mkT(ui.mD.kex+(ui.mD.disWid/4), ui.mD.plY+(ui.mD.fRL2/2.5), "mD_disp-good", ui.mD.stroke, "mD_disp",
-		ui.mD.fRL, lHead, "SR", "middle"); E.push(e);
-	e=mkT(ui.mD.kex+ui.mD.disWid-(ui.mD.disWid/4), ui.mD.plY+(ui.mD.fRL2/2.5), "mD_disp-good", ui.mD.stroke, "mD_disp",
-		ui.mD.fRL, rHead, "SR", "middle"); E.push(e);
-	var formText ="";
-	if( AL.mosaicForm){ formText ="Mosaic Form"} else{ formText ="Modal Form"}
-	e=mkT(ui.mD.kex+(ui.mD.disWid/2), ui.mD.plY+ui.mD.tRL-2, "mD_disp-good", ui.mD.hilTxt, "mD_disp",
-		ui.mD.fRH2/1.618, formText, "PF", "middle"); E.push(e);
-	e=mkT(ui.mD.kex+(ui.mD.disWid/2), ui.mD.plY+ui.mD.tRL+ui.mD.tRH-2, "mD_disp-good", ui.mD.hilTxt, "mD_disp",
-		ui.mD.fRH2/1.618, "Value", "PF", "middle"); E.push(e);
-	e=mkT(ui.mD.kex+(ui.mD.disWid/2), ui.mD.plY+ui.mD.tRL+(2*ui.mD.tRH)-2, "mD_disp-good", ui.mD.hilTxt, "mD_disp",
-		ui.mD.fRH2/1.618, "Karma", "PF", "middle"); E.push(e);
+	E.forEach( function(E){svgFe.appendChild(E)}); }
 
-	e=mkI(ui.mD.kex+(ui.mD.disWid/2), ui.mD.plY+ui.mD.tRL+ui.mD.fRH2,
-		ui.mD.kex+(ui.mD.disWid/2), ui.mD.tRL+ui.mD.tRH+ui.mD.plY, undefined, ui.mD.base, 4); E.push(e);
-	e=mkI(ui.mD.kex+(ui.mD.disWid/2), ui.mD.plY+ui.mD.tRL+ui.mD.tRH+ui.mD.fRH2,
-		ui.mD.kex+(ui.mD.disWid/2), ui.mD.tRL+ui.mD.tRH+ui.mD.tRH+ui.mD.plY,undefined, ui.mD.base, 4); E.push(e);
-	e=mkI(ui.mD.kex+(ui.mD.disWid/2), ui.mD.plY+ui.mD.tRL+(2*ui.mD.tRH)+ui.mD.fRH2,
-		ui.mD.kex+(ui.mD.disWid/2), ui.mD.tRL+(3*ui.mD.tRH)+ui.mD.plY,undefined,ui.mD.base, 4); E.push(e);
-
-	E.forEach( function(E){svgFe.appendChild(E)}); /*document.body.appendChild( sVfE);*/ }
+/*
+function drTypeStage(){ 
+ 	var E=[]; var e=null;
+	var x=Math.round(ui.tY.disHrz+(ui.tY.disWid/2));
+	var e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
+	e.setAttribute("filter","url(#f1)"); e.setAttribute("dominant-baseline","middle"); E.push(e);
+	var e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
+	e.setAttribute('opacity',0.62); e.setAttribute("dominant-baseline","middle"); E.push(e);
+	if(AL.subj){ 
+		var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stgy,
+		"-stg", "#ffffff", "stg", ui.tY.stgf,AL.subj.nI+". "+AL.subj.nM.full, "PF","left");
+		//e.setAttribute("alignment-baseline","hanging");
+		E.push(e)}
+	var e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stgy,
+		undefined,"#fff",undefined,ui.tY.stgf,AL.tY.nI,"PF","end");E.push(e)
+	E.forEach( function(E){svgFe.appendChild(E)})}*/
 
 function drMoodStage(){ 
-if(AL.subj!==null){ var E=[]; var e=null; var x=ui.tY.cuHrz-(ui.tY.cMarg/2); var mFS;
+if(AL.subj){ var E=[]; var e=null; var x=Math.round(ui.tY.disHrz+(ui.tY.disWid/2)); var mFS;
 	if(AL.mD.symm){ mFS="#ffff00"} else{ mFS="#88ff88"}
-	var mDisp = AL.mD.pM.niH + AL.mD.gnd.nI + AL.mD.pM.niT
-	var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stY-ui.tY.cE/12+ui.tY.keyGap+(ui.mD.keH/3),
-		"-stg", mFS, "stg", ui.tY.cE/6,AL.subj.nI+". "+AL.subj.nM.full, "PF","start");E.push(e);
+	var mDisp = mkSubjMoodCode(AL.subj);
 	if(AL.subj.pMd.ni === AL.mD.ni){
-		var e=mkT(x, ui.tY.stY-(ui.tY.cE/2.5)+ui.tY.keyGap+(ui.mD.keH/2),
-			"-stg", mFS, "stg", (2*ui.tY.cE)/8, AL.mD.nI, "SF","middle");
+		var e=mkT(x, ui.tY.stgY+ui.tY.cE/6, // not right
+			"-stg", mFS, "stg", (ui.tY.cE)/4, AL.mD.nI, "SF","middle",undefined,"middle");
 		e.setAttribute("filter","url(#f1)"); E.push(e);}
-	var e=mkT(x, ui.tY.stY-(ui.tY.cE/2.5)+ui.tY.keyGap+(ui.mD.keH/2),
-		"-stg", mFS, "stg", (2*ui.tY.cE)/8, AL.mD.nI, "SF","middle");
+	var e=mkT(x, ui.tY.stgY+ui.tY.cE/6,
+		"-stg", mFS, "stg", (ui.tY.cE)/4, AL.mD.nI, "SF","middle",undefined,"middle");
 	e.setAttribute('opacity',0.62);E.push(e);
-	var e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stY-(ui.tY.cE/12)+ui.tY.keyGap+(ui.mD.keH/3),
+		var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stgy,
+		"-stg", mFS, "stg", ui.tY.cE/6,AL.subj.nI+". "+AL.subj.nM.full, "PF","start");E.push(e);
+	var e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stgy,
 		undefined,mFS,undefined,ui.tY.cE/6, mDisp, "TR","end"); E.push(e);
 	E.forEach( function(E){svgFe.appendChild(E)}); }}
 function drawMood(){var b =null;
 	AL.feInit =true;
-	b =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.mD.base,"tY");
-	svgFe.appendChild( b);
 	drTopBar();
+	drList();
+	b =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.mD.base,"tY"); svgFe.appendChild( b);
 	drMoodPlane();
 	drMoodKeys();
 	drMoodDisp();
 	drMoodStage();
-	drList();
 	drSequencer();
 	drBottomBar();
 	AL.feInit =false;
@@ -1922,18 +2103,11 @@ function drawMosaic(){
 }
 
 
-function resizeWindow(){ /*console.log("w: "+window.innerWidth+", h: "+window.innerHeight);*/predraw();draw()}
+function resizeWindow(){ predraw();draw()}
 window.addEventListener("resize", resizeWindow, true);
 
-/*history.pushState(null, document.title, location.href);
-window.addEventListener('popstate', function (event){ history.pushState(null, document.title, location.href);});*/
 
-// Who has stood up against humanity's survival by enabling the back button?
 
-history.pushState(null, null, document.URL);
-window.addEventListener('popstate', function () {
-    history.pushState(null, null, document.URL);
-});
 
 window.oncontextmenu = function ()
 {
@@ -2050,7 +2224,7 @@ function rmMoods( a, pM, fin, pureBad, invMor, pureGood){ var b =[]; var B =fals
 	for( var i =0; i <a.length; i++){ B =pM.includes( a[i].pM.ni); if(B){ b.push( a[i])}}
 	if( fin){ 	b =b.filter( o => !o.pureBad && !o.invMor)}return b}
 function mkInputs( s){
-	o.PHEN_4_1 = mkSq("PHEN_4_1", AT, )//ööö
+	o.PHEN_4_1 = mkSq("PHEN_4_1", AT, )//
 }
 function mkSignal(s,fac){ s.tYl =s.fAs.find( f =>f.ni===fac);
 	s.tAx=s.tYl.tAx;s.tAy=s.tYl.tAy;s.tAz=s.tYl.tAz;s.tRx=s.tYl.tRx;s.tRy=s.tYl.tRy;s.tRz=s.tYl.tRz;
@@ -2107,7 +2281,7 @@ function mkOptions(s){ s.opts=[];
 	return s}
 */				
 /*function awaySubj( sims,nIs,subj){
-	for( var i =0; i <sims.length; i++){ //ööö
+	for( var i =0; i <sims.length; i++){ //
 		sims[i].
 	}
 	subj.away =true}*/
@@ -2975,7 +3149,7 @@ AL.VectorQualities = { seed:[ "Origin",
 	O_need 			:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs,-1, 2,false,true, "This makes \n me whole."						)},
 	O_tool 			:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs,-1, 3,true, false,"This \n makes me \n independent." 				)},
 	O_method 		:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs,-1, 4,false,true, "How do I \n do this?" 							)},
-//ööö
+//
 	M_destroy 		:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs, 4,-1,false,true, "We do \n something \n bad." 					)},
 	M_confusion 	:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs, 4,-2,true, false,"We don't \n know what \n we want." 			)},
 	M_apathy 		:function(ni,rom,cla,sQs){mkVq2(this,ni,rom,cla,sQs, 4,-3,false,true, "We don't \n want \n anything." 				)},
@@ -3022,7 +3196,7 @@ function mkVq2(o,ni,rQs,cQs,sQs,r,c,i,e,desc){ o.ni=ni; o.r=r; o.c=c; o.i=i; o.e
 	o.rQs=null; if(rQs){ o.rQs=rQs} else{ o.rQs=getRomanticQualities( ni, sQs, AT.sQsL)}
 	o.cQs=null; if(cQs){ o.cQs=cQs} else{ o.cQs=getClassicalQualities(ni, sQs, AT.sQsL)}}
 function getRomanticQualities(ni,sQs,l){ var q=null; switch( ni){
-case "Origin"  :q=getByNis(sQs,l,["RRTANTIC_0"] 																					,1);return q;
+case "Origin"  :q=getByNis(sQs,l,["ROMANTIC_0"] 																					,1);return q;
 case "Feel_1e" :q=getByNis(sQs,l,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DLBR_1_4", "HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);return q;
 case "Feel_2i" :q=getByNis(sQs,l,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DLBR_1_4", "HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);return q;
 case "Feel_3e" :q=getByNis(sQs,l,["PHEN_4_1", "LOWN_3_2", "HIGH_2_3", "DLBR_1_4", "HRMNY_4_1","SIGNI_3_2","AWARE_2_3","UNITY_1_4"],4);return q;
@@ -3205,7 +3379,7 @@ function precalcScalarQualities( seed,parent){ var b =null; var sQs =[];
 										case "HIGH_2_3" : s.HIGH_2_3=b; break; case "AWARE_2_3": s.AWARE_2_3=b; break;
 										case "DLBR_1_4"	: s.DLBR_1_4=b; break; case "UNITY_1_4": s.UNITY_1_4=b; break}}}}*/return sQs}
 function mkSq( ni,parent){ var q=null; switch(ni){
-	case "RRTANTIC_0" 	:q=new AL.ScalarQualities.RRTANTIC_0 	(ni); inhSq( q,parent);return q;
+	case "ROMANTIC_0" 	:q=new AL.ScalarQualities.ROMANTIC_0 	(ni); inhSq( q,parent);return q;
 	case "4_PHEN_1"  	:q=new AL.ScalarQualities.PHEN_4_1		(ni); inhSq( q,parent);return q;
 	case "3_LOWN_2"  	:q=new AL.ScalarQualities.LOWN_3_2 		(ni); inhSq( q,parent);return q;
 	case "2_HIGH_3"  	:q=new AL.ScalarQualities.HIGH_2_3 		(ni); inhSq( q,parent);return q;
@@ -3226,9 +3400,9 @@ function mkSq( ni,parent){ var q=null; switch(ni){
 	case "THINK_4e" 	:q=new AL.ScalarQualities.THINK_4e 		(ni); inhSq( q,parent);return q}}
 function inhSq( q,parent){ if( parent){ q.parent=parent.sQs.find(o => o.ni === q.ni)}}
 AL.ScalarQualities={ seed : [
-	"RRTANTIC_0", "4_PHEN_1", "3_LOWN_2", "2_HIGH_3", "1_DLBR_4",	"4_HRMNY_1","3_SIGNI_2","2_AWARE_3","1_UNITY_4",
+	"ROMANTIC_0", "4_PHEN_1", "3_LOWN_2", "2_HIGH_3", "1_DLBR_4",	"4_HRMNY_1","3_SIGNI_2","2_AWARE_3","1_UNITY_4",
 	"FEEL_0i", 	"FEEL_1e", 	"FEEL_2i", 	"FEEL_3e", 	"FEEL_4i",	"THINK_0e", "THINK_1i", "THINK_2e", "THINK_3i", "THINK_4e"],
-RRTANTIC_0 	: function(ni){mkSq2(this,ni,0,0,true, true, false,false,"0R0","Empty \n romantic \n quality")},
+ROMANTIC_0 	: function(ni){mkSq2(this,ni,0,0,true, true, false,false,"0R0","Empty \n romantic \n quality")},
 PHEN_4_1 	: function(ni){mkSq2(this,ni,4,1,true, true, false,false,"4S1","Sensory \n introverted \n phenomena")},
 LOWN_3_2 	: function(ni){mkSq2(this,ni,3,2,true, true, false,false,"3S2","Sensory \n extroverted \n lower needs")},
 HIGH_2_3 	: function(ni){mkSq2(this,ni,2,3,true, true, false,true, "2S3","Sensory \n introverted \n higher needs")},
@@ -5280,8 +5454,8 @@ precalc();
 //There is no need to precalc colours of quality vectors for resolution exponents greater than 1
 
 //chains of scalar qualities are evaluated so that V(1) * V(2) * V(3) * ... * V(4ˆAL.rXp).
-//only scalar qualities of the same type (ie THINK or FEEL or "SENSE" or "INTUIT" or RRTANTIC_0) may be chained
-//qualities which have both intension and extension, and include RRTANTIC_0, can have an age but cannot have a gender
+//only scalar qualities of the same type (ie THINK or FEEL or "SENSE" or "INTUIT" or ROMANTIC_0) may be chained
+//qualities which have both intension and extension, and include ROMANTIC_0, can have an age but cannot have a gender
 //because they cannot have a gender they cannot be feminine
 //therefore the masculine origins are actually equivalent to the non-feminine origins.
 //if the resolution of a value (length of the chain) is less than V(4ˆrXp) then it is evaluated so that
@@ -5328,7 +5502,7 @@ precalc();
 // information elements are generalizations of vector qualities.
 // the sex of an information element can be determined according to constituent romantic qualities
 // information elements may have chirality?
-// romantic scalar qualities, including RRTANTIC_0, have a sex. classical scalar qualities don't.
+// romantic scalar qualities, including ROMANTIC_0, have a sex. classical scalar qualities don't.
 // scalar qualities whose sex is different need to be modeled as different objects
 // f.ex. needing attention for its own sake is a feminine scalar quality. it obviously is easier to define as a scalar quality than as an information element.
 // associating scalar qualities to the self is to objectify the self
@@ -5353,7 +5527,7 @@ precalc();
 // in the scalar quality feature of the program, there is no need for any sequencer. there is also no need for a list of subjects. a list of objects would be needed.
 
 // lp ip up 	gnostic						-> peaceful
-// lp ino uno, 	subjective					-> caring
+// lp ino uno, 	subjective	ISBJ	UOBJ	-> caring
 // lp ip up, 	gnostic 	iobj 	usubj 	-> playingly careful
 // lp iok uok, 	mystical					-> playful
 // lp ip up, 	gnostic		iobj 	uobj 	-> carefully playful
@@ -5361,9 +5535,23 @@ precalc();
 // lp ip unp 	rational					-> hostile
 // lp ino uok, 	objective 	 				-> escape
 // lp ip unp 	rational 	iobj 	usubj 	-> fightingly escaping
-// lp iok uno, 	logical 					-> fighting
+// lp iok uno, 	logical 	ISBJ	UOBJ	-> fighting
 // lp ip unp 	rational 	iobj 	uobj 	-> escapingly fighting
 // lp ip unp, 	rational 	isubj 	usubj 	-> escaping & fighting
+
+// functions have process positions?
+// 5,8 isbj uobj
+// 2,3 iobj usbj
+// 1,4 isbj uobj
+// 6,7 iobj usbj
+
+// IEs have life positions?
+
+// what if circuits DON'T have process positions?
+
+// vector qualities have life positions derived from IE
+// vector qualities have SVM derived from IE
+// IEs have SVM
 
 // lps and subj-obj-positions are attributes of relations.
 // subj-obj positions are attributes of directed socionics relations. subj position is the "better" one
@@ -5428,8 +5616,8 @@ precalc();
 // scalar qualities are attributes of objects
 // on the mosaic plane, scalar qualities are accumulated in domains of object and information elements in domains of subject?
 
-// technically, in chains of scalar qualities the null value of JavaScript would mean "undefined/arbitrary" and RRTANTIC_0 specifically zero.
-// orgasm only happens when RRTANTIC_0 is the most valuable scalar quality of the model
+// technically, in chains of scalar qualities the null value of JavaScript would mean "undefined/arbitrary" and ROMANTIC_0 specifically zero.
+// orgasm only happens when ROMANTIC_0 is the most valuable scalar quality of the model
 // orgasm lasts only until some other scalar quality accumulates more value
 // time could perhaps be defined in relation to the length of an orgasm
 // the default unit of measuring time would be in relation to the length of arousal? explaining why longer intercourses could make people more patient
@@ -5440,17 +5628,17 @@ precalc();
 // the value of an information element is determined on the subject domains of the mosaic plane
 // orgasm is an Information Element of its own
 // it represents the 0 value of the Information Element model
-// RRTANTIC_0 with an intension means the orgasm of a subject's object
+// ROMANTIC_0 with an intension means the orgasm of a subject's object
 // the subject's object can also be the self if one refers to his own orgasm while not having it
 // abstract (iNtuitive) scalar qualities and Information Elements are inherently weaker than Sensing scalar qualities.
 // because strength means the ability to sustain itself, Thinking is inherently stronger than Feeling
 // if objectivity were the ultimate ground of relevance reality would obviously contain too much information for making a complete model.
 // there are two null Information Elements without orgasm:
-// * RRTANTIC_0,FEEL_0i would be vector M_iNtuit_0i because Mysticality is the ultimate ground of relevance of this model.
-// * a subject cannot notice RRTANTIC_0,THINK_0e = L_Think_0e in himself unless he is an object (in object domain of mosaic plane).
+// * ROMANTIC_0,FEEL_0i would be vector M_iNtuit_0i because Mysticality is the ultimate ground of relevance of this model.
+// * a subject cannot notice ROMANTIC_0,THINK_0e = L_Think_0e in himself unless he is an object (in object domain of mosaic plane).
 // to become an object of Buddhism so that Buddhism is a subject makes it possible to meditate indefinitely because Buddhism tells one to produce L_Think_0e
 // M_iNtuit_0 is the weak zero and L_Think_0e is the strong zero
-// "SENSE_0" could as well be called RRTANTIC_0 without an intension, which is orgasm
+// "SENSE_0" could as well be called ROMANTIC_0 without an intension, which is orgasm
 // Perhaps iNtuitions are echoes of Sensations anyway
 // sensory deprivation creates hallucinations and hallucinations must be produced by intuition
 // prolonged sensory deprivation is torture
@@ -5472,9 +5660,9 @@ precalc();
 // the size of the domain of sensing is smaller than the domain of intuition because intuition includes the c axis.
 // sensory 0 is orgasm
 // in order to attain sensory 0 it is necessary that FEEL_0i and THINK_0e are absent
-// arousal means RRTANTIC_0 as intension
-// orgasm means RRTANTIC_0 as extension and no intension
-// attempting to overwrite RRTANTIC_0 as extension does not ruin an orgasm if it is began before the orgasm starts but after the orgasm has become inevitable. it it is began before the orgasm has become inevitable there will be no orgasm.
+// arousal means ROMANTIC_0 as intension
+// orgasm means ROMANTIC_0 as extension and no intension
+// attempting to overwrite ROMANTIC_0 as extension does not ruin an orgasm if it is began before the orgasm starts but after the orgasm has become inevitable. it it is began before the orgasm has become inevitable there will be no orgasm.
 // feminine subjects and objects affect the location of masculine subjects on the multipolar plane
 // if the domains weren't mirrored it would look like feminine subjects pull masculine subjects towards themselves
 // masculine objects and subjects do not pull feminine objects towards themselves
@@ -5508,7 +5696,7 @@ precalc();
 // ie. she does not perceive the masculine aspect of the man regardless of what it is
 // classical scalar quality has a gender only on the multipolar plane
 // true gender neutrality on the multipolar plane is accomplished only by pairing romantic and classical qualities of mixed gender.
-// which prevents arousal by creating an intension which is not RRTANTIC_0
+// which prevents arousal by creating an intension which is not ROMANTIC_0
 
 
 </script></head>
