@@ -9,7 +9,7 @@ j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NXVWFS2');</script>-->
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v1526</title>
+<title>Floresta v1542</title>
 <link rel="icon" href="diodi/favicon.ico">
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
@@ -61,8 +61,12 @@ var AL={
 	sKTypeTools: ["stage"],
 	sKTypeToolsH:[16],
 	sKTypeTunes: [undefined],
-	sKMoodTools: ["mosaicForm",["Plane","Legend","Worth","infElem","I & U"],["TableMT","Total","Stereo.","Infant.","Raise","Queer-","Queer+"],["Bottom","Table","Stage"]],
-	sKMoodTunes: [undefined, "Worth",			"Total", "Stage"],
+	sKMoodTools: ["mosaicForm",
+		["Plane","Legend","Worth","infElem","I & U"],
+		["TableMT","Total","Stereo.","Infant.","Raise","Queer-","Queer+"],
+		["Bottom","Table","Stage"]],
+	sKMoodTunes: [undefined, "Worth", "Total", "Stage"],
+	sKMoodPlane: "Worth", sKMoodTable: "Total", sKMoodBottom: "Stage",
 
 // moods accumulate quality and karma. scalar qualities also do. vector qualities don't, they're just the gate.
 
@@ -776,19 +780,17 @@ function refreshSkTypeTool( n){ var t ="sKTypeTool-"+n; var e =document.getEleme
 // Legend should disable stage, not compare
 // ["Plane","Legend","Worth","infElem","I & U"],["TableMT","Total","Infant.","Raise","Queer-","Queer+"],["Bottom","Table","Stage"]],
 
-function sKMoodToolFade(str){ if( !AL.sKMoodToolsD.includes(str)){AL.sKMoodToolsD.push(str)}}
-function sKMoodToolUnfade(str){	var index =AL.sKMoodToolsD.indexOf(str); if(index > -1){ AL.sKMoodToolsD.splice(index, 1)}}
-function sKMoodToolApply(n,str){ AL.sKMoodTunes[n]=str; AL.moodFeature =str;
-	switch(str){
-		case "Legend" 	: 	sKMoodToolFade("Bottom"); sKMoodToolFade("TableMT"); break;
-		case "Stage" 	: 	sKMoodToolFade("TableMT"); break;
-		default 		: 	sKMoodToolUnfade("TableMT"); sKMoodToolUnfade("Bottom");}}
-function sKMoodMultiToolMouseDown( n,str){  console.log(AL.sKMoodToolsD); sKMoodToolApply(n,str); console.log(AL.sKMoodToolsD); draw();}
-//this fails because draw triggers feinit
-function mkSkMoodMultiToolKey( n,i,yO,low,mid,high,none){ var E=[]; var e=null; var T,b,s,t;
-	if( AL.sKMoodTunes[n]===AL.sKMoodTools[n][i]){ 	b=mid; s=high; t=none; 
-													if(AL.feInit){sKMoodToolApply(n,AL.sKMoodTools[n][i])}}
-	else{ 											b=low; s=mid; t=high }
+
+function sKMoodMultiToolMouseDown( n,tune){ //sKMoodToolConfigure( n,tune);
+	switch(AL.sKMoodTools[n][0]){ 	case "Plane" 	: 	AL.sKMoodPlane=tune; break;
+									case "TableMT" 	: 	AL.sKMoodTable=tune; break;
+									case "Bottom" 	: 	AL.sKMoodBottom=tune;break;}	draw();}
+function mkSkMoodMultiToolKey( n,i,yO,k,l,m,h){ var E=[]; var e=null; var T,b,s,t,tune;
+	switch( AL.sKMoodTools[n][0]){ 	case "Plane" 	: 	tune=AL.sKMoodPlane; break;
+									case "TableMT" 	: 	tune=AL.sKMoodTable; break;
+									case "Bottom" 	: 	tune=AL.sKMoodBottom;break;}
+	if(tune===AL.sKMoodTools[n][i]){b=m; s=h; t=k}
+	else { 							b=l; s=m; t=h}
 	switch(AL.sKMoodTools[n][i]){ 	case "Legend" 	: 	T="Legend"; break;
 									case "Worth" 	: 	T="Worth"; 	break;
 									case "infElem" 	: 	T="infElem";break;
@@ -805,43 +807,35 @@ function mkSkMoodMultiToolKey( n,i,yO,low,mid,high,none){ var E=[]; var e=null; 
 	e =mkL( 4,yO+(ui.sK.tH+2)*i+2, 54, ui.sK.tH, undefined, b, "sKMoodTool-"+n, s,1,undefined,7,7);E.push(e);
 	bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKMoodMultiToolMouseDown( n, AL.sKMoodTools[n][i]); 	break}});
 	e =mkT( ui.sK.widMid,yO+(ui.sK.tH+2)*i-1, undefined, t, "sKMoodTool-"+n,14,T,"PF","middle"); E.push(e);return E}
-function mkSkMoodMultiTool( n,yO,DLow,DMid,DHigh,dLow,dMid,dHigh,none){ var E=[];var e=null; var T,b,s,t,low,mid,high;
-	var l=AL.sKMoodTools[n].length; var h=l*(ui.sK.tH+2)+2;
-	console.log( AL.sKMoodToolsD);
-	if( AL.sKMoodToolsD.includes(AL.sKMoodTools[n][0])){if(AL.sKMoodToolsP[n]){ b=DMid; t=DLow;	s=DHigh}
-														else{ 					b=DLow; t=DHigh;s=DMid}
-														low="#3e3e3e"; mid=DMid; high=DHigh}
-	else{ 												if(AL.sKMoodToolsP[n]){ b=dMid; t=dLow; s=dHigh}
-														else{ 					b=dLow; t=dHigh;s=dMid}
-														low=ui.mD.key2; mid=dMid; high=dHigh} // NOTICE BACKGROUD COLOR
-	e =mkL(2, yO, ui.sK.keyWid, h, undefined, low, "sKMoodTool-"+n, s,1, true,7,7); E.push(e);
+function isSkMoodToolFaded( t){ var r=false; if(Array.isArray(t)){ t =t[0]}	switch(t){
+		case "TableMT": if((AL.sKMoodPlane==="Legend")||(AL.sKMoodBottom==="Stage")){ r=true} 	break;
+		case "Bottom": 	if(AL.sKMoodPlane==="Legend"){ r=true} 									break;} return r}
+function mkSkMoodMultiTool( n,yO,ck,lo,mi,hi){ var E=[];var e=null; var T;
+	var l=AL.sKMoodTools[n].length; var h=l*(ui.sK.tH+2)+2; 
+	e =mkL(2, yO, ui.sK.keyWid, h, undefined, lo, "sKMoodTool-"+n, mi,1, true,7,7); E.push(e);
 	switch(AL.sKMoodTools[n][0]){ 	case "Plane" 	: T="plane"; break;
 									case "TableMT" 	: T="table"; break;
 									case "Bottom" 	: T="bottom";break}
-	e =mkT( ui.sK.widMid,yO, undefined, t, "sKMoodTool-"+n,14,T,"AI","middle"); E.push(e);
-	for(var i=1; i<l; i++){ e =mkSkMoodMultiToolKey( n,i,yO,low,mid,high,none); E=E.concat(e)} return E}
+	e =mkT( ui.sK.widMid,yO, undefined, hi, "sKMoodTool-"+n,14,T,"AI","middle"); E.push(e);
+	for(var i=1; i<l; i++){ e =mkSkMoodMultiToolKey( n,i,yO,ck,lo,mi,hi); E=E.concat(e)} return E}
 function sKMoodSingleToolMouseDown( n){	switch( AL.sKMoodTools[n]){
 		case "stage"  		: 	AL.stage=  	 	!AL.stage; 		draw(); break;
 		case "mosaicForm" 	: 	AL.mosaicForm=  !AL.mosaicForm; draw(); break;}}
-function mkSkMoodSingleTool( n,yO,dLow,DMid,DHigh,dLow,dMid,dHigh){ var E =[]; var e =null; var T,F,Y,b,s,t;
-	if((!AL.mosaicForm && AL.sKMoodTools[n]==="mosaicForm")||(AL.stage && AL.sKMoodTools[n]==="stage")){ AL.sKMoodToolsP[n]=true}
-	else{ AL.sKMoodToolsP[n]=false}
-	if( AL.sKMoodToolsD.includes(AL.sKMoodTools[n])){ 	if(AL.sKMoodToolsP[n]){ b=DMid; t=DLow;	s=DHigh}
-														else{ 					b=DLow; t=DHigh;s=DMid}}
-	else{ 												if(AL.sKMoodToolsP[n]){ b=dMid; t=dLow; s=dHigh}
-														else{ 					b=dLow; t=dHigh;s=dMid}}
-	e =mkL( 2, yO, ui.sK.keyWid,ui.sK.tH,undefined,b,"sKMoodTool-"+n,s,1,true,7,7);E.push(e);
-	if( AL.feInit){
-		e =mkL( 2, yO, ui.sK.keyWid, ui.sK.tH, undefined,undefined,undefined,undefined,undefined,undefined,7,7,"0");
-		bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKMoodSingleToolMouseDown( n);break}});E.push(e)}
-	switch( AL.sKMoodTools[n]){ case "stage": 		T="Stage";	 Y=-2; F=14; break;
-								case "mosaicForm": 	T="Compare"; Y=-2; F=14; break;}
-	e =mkT( ui.sK.widMid, yO+Y, undefined,t,"sKMoodTool-"+n,F,T,"PF","middle");E.push(e); return E}
-function mkSkMoodTool( n){ var yO=2.5;
+function mkSkMoodSingleTool( n,yO,k,l,m,h){ var E =[]; var e =null; var T,b,s,t;
+	if((!AL.mosaicForm && AL.sKMoodTools[n]==="mosaicForm")||(AL.stage && AL.sKMoodTools[n]==="stage")){b=m; t=k; s=m;}
+	else{  																								b=k; t=h; s=m;}
+	e =mkL( 2, yO, ui.sK.keyWid,ui.sK.tH,undefined,b,"sKMoodTool-"+n,s,1,undefined,7,7);
+	bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKMoodSingleToolMouseDown( n);break}});E.push(e);
+	switch( AL.sKMoodTools[n]){ case "stage": 		T="Stage";	  break;
+								case "mosaicForm": 	T="Compare";  break;}
+	e =mkT( ui.sK.widMid, yO-2, undefined,t,"sKMoodTool-"+n,14,T,"PF","middle");E.push(e); return E}
+function mkSkMoodTool( n){ var yO=2.5; var k,l,m,h;
+	if( isSkMoodToolFaded( AL.sKMoodTools[n])){ k="#000"; 		l="#3e3e3e"; 	m="#888"; 		h="#ccc"}
+	else{ 										k="#000"; 		l=ui.mD.key2; 	m="#33aa00"; 	h=ui.mD.selTxt}
 	for(var i=0; i<n; i++){	if(Array.isArray(AL.sKMoodTools[i])){ AL.sKMoodTools[i].forEach(function(){ yO+=ui.sK.tH+2}); yO+=4}
 							else{ 																		yO+=ui.sK.tH+2}}
-	if( Array.isArray( AL.sKMoodTools[n])){ var E =mkSkMoodMultiTool( n,yO,"#000","#888","#ccc","#000","#33aa00",ui.mD.selTxt,"#000")}
-	else{ 									var E =mkSkMoodSingleTool(n,yO,"#000","#888","#ccc","#000","#33aa00",ui.mD.selTxt)} return E}
+	if( Array.isArray( AL.sKMoodTools[n])){ var E =mkSkMoodMultiTool( n,yO,k,l,m,h)}
+	else{ 									var E =mkSkMoodSingleTool(n,yO,k,l,m,h)} return E}
 function refreshSkMoodTool( n){ var t ="sKMoodTool-"+n; var e =document.getElementsByClassName( t);
 							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
 							t =mkSkMoodTool( n); t.forEach( function( e){ svgSk.appendChild( e)})}
@@ -1011,7 +1005,7 @@ function clearScreen(){
 function draw(){
 	AL.feInit =true;
 	if( AL.fe==='mosaic'){ AL.liNarrow =AL.liNarrowInMosaic}else{ AL.liNarrow =false}
-	clearScreen(); initDraw(); drSidebar(); 
+	clearScreen(); initDraw();
 	switch( AL.fe){ 
 		case "quiz": 	drawQuiz(); 	break;
 		case "type": 	drawType(); 	break;
@@ -1040,6 +1034,7 @@ AL.quiz = [
 	{ l:"I seek happiness.", r:"I seek freedom.", m:{}},
 	{ l:"Cats", r:"Dogs", m:{}}]; AL.quizLen =AL.quiz.length;
 function drawQuiz(){ var b =null; var B=[];
+	drSidebar();
 	//document.body.setAttribute( 'height', ui.qZ.disHei+(2*ui.qZ.disVrt))+"px";
 	b =mkL(0,0,ui.winWid-ui.sB.disWid, ui.qZ.disHei+(2*ui.qZ.disVrt),
 		undefined,ui.qZ.bG,undefined); B.push(b);
@@ -1076,6 +1071,7 @@ function mkQuiz( q,n){ var b =null; var B=[];
 	return B}
 
 function drawType(){ var b =null;
+	drSidebar();
 	drTopBar();
 	drList();
 	b =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.tY.base,"tY"); svgFe.appendChild( b);
@@ -2159,15 +2155,18 @@ function drMoodTable(){ var e=null; var E=[];
 	//e= mkL(ui.tY.tbX, ui.mD.tbY, ui.tY.tbW, ui.mD.tbH, undefined, ui.mD.key2); E.push(e);
 	E.forEach( function(E){svgFe.appendChild(E)})}
 function drawMood(){var b =null;
+	drSidebar();
 	drTopBar();
 	drList();
 	b =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.mD.base,"tY"); svgFe.appendChild( b);
 	drMoodPlane();
-	drMoodKeys();
-	drMoodDisp();
-	switch( AL.moodFeature){
-		case "Stage" 	: drMoodStage(); 	break;
-		case "Worth" 	: drMoodTable(); 	break;	}
+	if( AL.sKMoodPlane!=="Legend"){
+	 	drMoodKeys();
+		drMoodDisp();
+		if( AL.sKMoodBottom!=="Stage"){
+			drMoodTable();}
+		else{
+			drMoodStage();}}
 	drSequencer();
 	drBottomPanel();
 	document.body.appendChild( divFe);
@@ -2177,6 +2176,7 @@ function drawMood(){var b =null;
 	document.body.appendChild( divSq);
 	//document.body.appendChild( divSc);
 }
+
 
 function mosaicKeyMouseOver(mX,mY) 	{ previewMove( mX, mY)}
 function mosaicKeyMouseDown(mX,mY) 	{ AL.moved =attemptMove( mX, mY)}
@@ -2222,6 +2222,7 @@ function drMosaicDisp(){
 					case "mouseup" 		: mosaicKeyMouseUp( mX,mY); 				break;
 					case "mouseleave" 	: mosaicKeyMouseUp( mX,mY); 				break;}})}
 function drawMosaic(){
+	drSidebar();
 	drTopBar();
 	drList();
 	drSequencer();
@@ -2236,6 +2237,7 @@ function drawMosaic(){
 
 //rom cla tool sel
 function drawScalar(){ var e=null; var E=[];
+	drSidebar();
 	drTopBar();
 	drList();
 	drSequencer();
@@ -2272,6 +2274,7 @@ function drawScalar(){ var e=null; var E=[];
 }
 
 function drawRels(){ var b=null;
+	drSidebar();
 	drTopBar();
 	drList();
 	drSequencer();
@@ -2284,6 +2287,7 @@ function drawRels(){ var b=null;
 }
 
 function drawMarker(){ var b=null;
+	drSidebar();
 	drTopBar();
 	drList();
 	drSequencer();
@@ -5472,8 +5476,6 @@ function initUserInterface(){
 				AL.bPToolsL 	=AL.bPTools.length;
 
 				AL.sBToolsP 	=[]; for( var n =0; n <AL.sBToolsL; n++){ AL.sBToolsP.push(false)}
-				AL.sKMoodToolsP =[]; for( var n =0; n <AL.sKMoodToolsL; n++){ AL.sKMoodToolsP.push(false)}
-				AL.sKMoodToolsD =[];
 				AL.sKTypeToolsP =[]; for( var n =0; n <AL.sKTypeToolsL; n++){ AL.sKTypeToolsP.push(false)}
 				AL.tBToolsP 	=[]; for( var n =0; n <AL.tBToolsL; n++){ AL.tBToolsP.push(false)}
 				AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}				
