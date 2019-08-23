@@ -9,7 +9,7 @@ j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NXVWFS2');</script>-->
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v1383</title>
+<title>Floresta v1526</title>
 <link rel="icon" href="diodi/favicon.ico">
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
@@ -21,6 +21,9 @@ j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	#tB::-webkit-scrollbar{ display:none; }
 	#lI{ position:absolute; 			 left:0px; 				overflow:auto; overflow-x: auto;}
 	#lK{ position:absolute; overflow:auto; left:120px; background-color: black; top:39px; z-index:10;
+		border-bottom:1px solid #3c3c3c; border-right:1px solid #3c3c3c;
+		-webkit-border-radius: 12px;-moz-border-radius: 12px;border-radius: 12px;}
+	#sK{ position:absolute; overflow:auto; background-color: black;
 		border-bottom:1px solid #3c3c3c; border-right:1px solid #3c3c3c;
 		-webkit-border-radius: 12px;-moz-border-radius: 12px;border-radius: 12px;}
 	#lI::-webkit-scrollbar{ display:none; }
@@ -35,10 +38,11 @@ function initTheRelative(){ RT ={ subjs:[], sims:[],simsL:0, simsSrc:[],simsSrcL
 function initTheAbsolute(){ AT ={ sims:[], simsL:0}}
 initTheRelative(); initTheAbsolute();
 var AL={ 
-	fe: "AMOQ",
-	fes: ["quiz",/*"object",*/"type","AMOQ","mosaic"],
+	fe: "mood",
+	fes: ["quiz","type","rels","mood","mosaic","scalar","marker"],
 	statTabs:["tot","avg","med"],
-	rXp: 1, liNarrowInMosaic:true, liNarrow:false, liS:0, fElIS:0, mPlIS:0, lIW:1, fElIW:1, mPlIW:0, sQW:false, bBH:0, mosaicForm :false,
+	rXp: 1, liNarrowInMosaic:true, liNarrow:false, liS:0, fElIS:0, mPlIS:0, lIW:1, fElIW:1, mPlIW:0, sQW:false, bPH:0,
+	mosaicForm :true, stage:false,
 	lockSubj:false, lockSim:true,
 	sBTools: ["play","fastForward","skip","skipForward"],
 	sBTunes: [100, 	 100, 		   1, 	  1],
@@ -53,7 +57,14 @@ var AL={
 	lIFes: ["subjects","objects","places","contexts","families","peoples","goals","models"],
 	lITools: ["confRand","confDef","defSort","confSort"],
 	lITunes: [undefined,true, 		false, 		"val"],
-	bBTools: ["sizeList","wideList","wideSeq","highFoot"],
+	bPTools: ["sizeList","wideList","wideSeq","highFoot"],
+	sKTypeTools: ["stage"],
+	sKTypeToolsH:[16],
+	sKTypeTunes: [undefined],
+	sKMoodTools: ["mosaicForm",["Plane","Legend","Worth","infElem","I & U"],["TableMT","Total","Stereo.","Infant.","Raise","Queer-","Queer+"],["Bottom","Table","Stage"]],
+	sKMoodTunes: [undefined, "Worth",			"Total", "Stage"],
+
+// moods accumulate quality and karma. scalar qualities also do. vector qualities don't, they're just the gate.
 
 	tBRoomTools:[undefined,"roomAway","roomHide","roomCopy","roomRand","roomMake"],
 	tBRoomTunes:[undefined,false, 		false, 		10, 	false, 		10],
@@ -83,6 +94,7 @@ var AL={
 
 // This application has been developed on MacBook Pro and Chrome. It is meant to be used with the touchpad – please do not plug an external mouse on OS X. The application does not work on Safari. The back button of the browser has been disabled to prevent two-finger left swipe from unloading the page. This gesture is needed for horizonal scrolling.
 var svgFe =null; var divFe =null; var nS ="http://www.w3.org/2000/svg";
+var svgSk =null; var divSk =null;
 var svgQz =null; var divQz =null;
 var svgTb =null; var divTb =null;
 var svgLi =null; var divLi =null;
@@ -90,14 +102,15 @@ var svgLk =null; var divLk =null;
 var svgSq =null; var divSq =null;
 //var divSc =null;
 var ui ={winWid:0, winHei:0,
-	sB:{disWid:66, disHei:0, disHrz:0, disVrt:0, rowHei:39,fesHei:0, btnBrd:4, bTOX:6, 	bTOY:10, fnt:15, HUDhei:25,
+	sB:{disWid:66, disHei:0, disHrz:0, disVrt:0, rowHei:25,fesHei:0, btnBrd:4, bTOX:6, 	bTOY:2, fnt:15, HUDhei:25,
 		btnTxt:"#cccccc",btnU:"#444444",	btnR:"#111111",		btnD:"#080808",		btnL:"#333333", 	sel:"#1c1c1c",
 		selTxt:"#ffffff",selU:"#000000",	selR:"#333333",		selD:"#555555",		selL:"#080808", 	btn:"#333333",
 		bG:"#222222", HUDbg:"#444444"},
+	qZ:{bG:"#cccc88"},
+	sK:{disWid:62,keyWid:58,tH:16},
 	tB:{disHei: 40, disVrt:0, tooWid:40, tabGap:5, tabSep:10,
 		abTabW:25, abTabsW:0, reTabW:40, reTabH:16,reTabV:45,reTabsW:0, tabHei:30,  
 		bG:"#000000", strCol:"#444444"},
-	qZ:{bG:"#cccc88"},
 	lF:{kH:20,kW:80},
 	lK:{},
 	lI:{iteHei:0, fonSiz:0, svgHei:0,
@@ -107,16 +120,20 @@ var ui ={winWid:0, winHei:0,
 		iHe2:0 ,tPF2: 0,tTR2: 0,tSF2: 0,mDx2:100,kix2:4,mPx2:200,obx2:4,vQx2:240,nMx2:200,miW1:550,},
 	/*lI:{liB:"#666666", liI:"#444444", liT: "#cccccc",
 		sLiB:"#cccccc", sLiI:"#888888", sLiT: "#ffffff"}*/
+	sQ:{bG:"#333333", disHrz:0/*66*/, disWid:66, disWid2:66},
 	tY:{disWid:0, disHei:0, disHrz:0, disVrt:0,
 		cE:230, cuD:4, op2:0.7, c1x:0 ,c1y:40,/*40*/ c2x:0 ,c2y:40,/*40*/ cMarg:25, liY:0,
 		base:"#234567", 	hilite:"#ff6600", area:"#345678", areaT:"#89abcd", selArea:"#6789ab",
 		selAreaT:"#deefde", cShade:"#ffcccc", valNum:"#662525", shaNum:"#252566", plane:"#336688",
 		selAreaB:"#6789ab", areaB:"#6789ab", shArea:"#012345", liB:"#666666", liI:"#444444", liT: "#cccccc",
 		sLiB:"#cccccc", sLiI:"#888888", sLiT: "#ffffff", cIE:"#33d0aa"}, //ui.tY.cIE #95B388 #33d0aa
-	sQ:{bG:"#333333", disHrz:0/*66*/, disWid:66, disWid2:66},
-	mD:{base:"#002200", key:"#083300", key2:"#0c4400", selKey:"#105500", selTxt:"#00ee00", dis:"#221900", disStr: "#110800", stroke:"#009900", stroke2:"#208800", hilTxt: "#30cc00", selKey2:"#1c7700", selKey3: "#0c4400", stroke3: "#002200"},
+	rE:{bG:"#120a8f"},
+	mD:{base:"#002200", key:"#083300", key2:"#0c4400", selKey:"#105500", selTxt:"#40ee00", dis:"#221900", disStr: "#110800", stroke:"#009900", stroke2:"#208800", hilTxt: "#30cc00", selKey2:"#1c7700", selKey3: "#0c4400", stroke3: "#002200"},
+	sC:{bG:"#004040",öö:"#016648",hL:"#01796F",fX:"#00A693"},
+	//ultramarine 120a8f
+
 	mP:{liW:120},
-	bB:{disHei: 173, tipHei:66},
+	bP:{disHei: 173, tipHei:66},
 	red: {l: { h:0  , s:25 , v:100}, f:{ h:0  , s:50 , v:50 }, h:{ h:0  , s:100, v:100}},
 	cya: {l: { h:180, s:25 , v:100}, f:{ h:180, s:50 , v:50 }, h:{ h:180, s:100, v:100}},
 	gre: {l: { h:135, s:25 , v:100}, f:{ h:135, s:50 , v:50 }, h:{ h:135, s:100, v:100}}, 
@@ -127,19 +144,8 @@ var ui ={winWid:0, winHei:0,
 	ora: {l: { h:30 , s:25 , v:100}, f:{ h:30 , s:50 , v:50 }, h:{ h:30 , s:100, v:100}}, 
 	gra: {l: { h:1  , s:1  , v:100}, f:{ h:1  , s:1  , v:50 }, h:{ h:1  , s:1  , v:1}}}
 function predraw(){
-	//clearScreen();
 	ui.winHei =window.innerHeight;
-	//ui.winWid =Math.round((4/3)*ui.winHei);
 	ui.winWid =window.innerWidth;
-	//if(ui.winWid2>ui.winWid){ ui.winWid=ui.winWid2}
-	//ui.winWid =window.innerWidth; 
-	//ui.docHei =document.body.clientHeight;
-
-	//console.log(document.body);
-	//console.log(ui.docHei);
-
-
-	//ui.scrWid =screen.width; ui.scrHei =screen.height;
 
 	if(AL.fe!=="mosaic"){ 	AL.lIS=AL.fElIS; AL.lIW=AL.fElIW; }
 	else{ 					AL.lIS=AL.mPlIS; AL.lIW=AL.mPlIW; }
@@ -149,11 +155,12 @@ function predraw(){
 		ui.lI.tPFL=Math.floor( (ui.winHei-ui.tB.disHei)/ 8);
 		ui.lI.tTRL=Math.floor( (ui.winHei-ui.tB.disHei)/ 8);
 		ui.lI.tSFL=Math.floor( (ui.winHei-ui.tB.disHei)/ 8);
-		ui.lI.mDx =iHeL*8;
-		ui.lI.nMx =iHeL*14}
+		ui.lI.mDx =ui.lI.iHeL*8;
+		ui.lI.nMx =ui.lI.iHeL*14}
 
-	ui.sB.disHrz =ui.winWid-ui.sB.disWid; ui.sB.fesHei =AL.fesL * ui.sB.rowHei;
-	ui.sB.tooHei =ui.sBToolsL*ui.tB.tooWid;
+	ui.sB.disHrz =ui.winWid-ui.sB.disWid;
+	ui.sB.fesHei =AL.fesL * ui.sB.rowHei;
+	ui.sB.tooHei =AL.sBToolsL*ui.tB.tooWid;
 
 	ui.qZ.disWid =Math.round((ui.winWid*(3/4))-ui.sB.disWid);
 	ui.qZ.disHrz =Math.round((ui.winWid-ui.sB.disWid-ui.qZ.disWid)/2);
@@ -176,12 +183,12 @@ function predraw(){
 
 	ui.sQ.narVrt=ui.tB.disHei*4; 		ui.sQ.widVrt=ui.tB.disHei*2;
 
-	ui.bB.disWid=ui.winWid-ui.sB.disWid;
-	ui.bB.disHrz=0;
-	ui.bB.disVrt=ui.winHei-Math.floor(ui.winHei/12);
-	ui.bB.skrHei=Math.round((ui.tB.disHei-ui.tB.skrVrt)/1.618);
-	ui.bB.rimHei=Math.round(ui.bB.skrHei/1.618);
-	ui.bB.divWid=ui.winWid-Math.round((ui.winWid/1.618)-(ui.bB.skrHei/2));
+	ui.bP.disWid=ui.winWid-ui.sB.disWid;
+	ui.bP.disHrz=0;
+	ui.bP.disVrt=ui.winHei-Math.floor(ui.winHei/12);
+	ui.bP.skrHei=Math.round((ui.tB.disHei-ui.tB.skrVrt)/1.618);
+	ui.bP.rimHei=Math.round(ui.bP.skrHei/1.618);
+	ui.bP.divWid=ui.winWid-Math.round((ui.winWid/1.618)-(ui.bP.skrHei/2));
 
 	ui.lK.dW=300;
 	ui.lK.dH=159;
@@ -198,6 +205,7 @@ function predraw(){
 	ui.tY.cMarg =Math.round(ui.tY.cE/10);
 	ui.tY.bMarg =ui.tY.cMarg/1.618;
 	ui.tY.aMarg =ui.tY.bMarg/1.618;
+	ui.tY.dMarg =Math.round(ui.tY.cMarg*1.618);
 	ui.mD.lineW=Math.round(ui.tY.cMarg/10); 	if(ui.mD.lineW<1){ ui.mD.lineW=1}
 	ui.mD.LineW=Math.round(ui.mD.lineW*1.618); 	if(ui.mD.LineW<1){ ui.mD.LineW=1}
 	ui.mD.linew=Math.round(ui.mD.lineW/1.618); 	if(ui.mD.linew<1){ ui.mD.linew=1}
@@ -211,9 +219,9 @@ function predraw(){
 	ui.tY.disWid =ui.winWid-ui.sB.disWid-ui.tY.liW;
 	ui.tY.disVrt =ui.tB.disHei;
 	ui.tY.liY=ui.tB.disHei;
-	ui.tY.keX=ui.sB.disWid+ui.tY.liW+ui.tY.cMarg;
+	ui.tY.keX=ui.tY.liW+ui.tY.cMarg+ui.mD.linew/2;
 	//ui.tY.keW=Math.round((4*(ui.tY.cE/ui.tY.cuD))+(2*ui.tY.cE)+ui.tY.cMarg);
-	ui.tY.keW = ui.tY.disWid-ui.tY.cMarg-ui.tY.cMarg;
+	ui.tY.keW = ui.tY.disWid-ui.tY.cMarg-ui.tY.cMarg-ui.mD.linew;//ääää
 	ui.tY.keY=Math.round((2*(ui.tY.cE/ui.tY.cuD))+ui.tY.cE+(2*ui.tY.cMarg)+ui.tY.c1y);
 	//ui.tY.keY =
 	ui.tY.keyGap= Math.round(ui.tY.aMarg);
@@ -242,36 +250,62 @@ function predraw(){
 
 	ui.mP.disWid=ui.winWid-ui.sB.disWid-ui.mP.liW-ui.sQ.disWid;
 
-	ui.midMinHei =Math.round(ui.tB.disHei+ui.tY.stY/*-(ui.tY.cE/12)*/+ui.tY.keyGap+(ui.mD.keH/3));
+	ui.midMinHei1 =Math.round(ui.tB.disHei+ui.tY.stY/*-(ui.tY.cE/12)*/+ui.tY.keyGap+(ui.mD.keH/3));
 	ui.midMinHei2 =Math.round(ui.tB.disHei+ui.tY.lilStY/*-(ui.tY.cE/12)*/+ui.tY.keyGap+(ui.mD.keH/3));
-	ui.bB.minHei=173;
-	switch(AL.bBH){ case 0: ui.bB.disHei=173; break;
-					case 1: ui.bB.disHei=452; break;
-					case 2: ui.bB.disHei=ui.winHei; break;}
-	
-	if(AL.lIW===1){	
-		if((ui.bB.disHei+ui.midMinHei)<ui.winHei){ ui.bB.disHei =ui.winHei-ui.midMinHei;}
-		ui.bB.minVer=ui.midMinHei+ui.bB.minHei;
-		if(ui.bB.minVer <ui.winHei){ ui.bB.minVer=ui.winHei}
-		ui.feHei =ui.midMinHei+ui.bB.disHei;
-		ui.tY.disHei=ui.midMinHei-ui.tB.disHei;
-		ui.tY.liHe = ui.midMinHei-ui.tB.disHei;
-		ui.sQ.disHei=ui.midMinHei-ui.tB.disHei;}
-	else if(AL.lIW===2){
-		if((ui.bB.disHei+ui.midMinHei2)<ui.winHei){ ui.bB.disHei =ui.winHei-ui.midMinHei2;}
-		ui.bB.minVer=ui.midMinHei2+ui.bB.minHei;
-		if(ui.bB.minVer <ui.winHei){ ui.bB.minVer=ui.winHei}
-		ui.feHei =ui.midMinHei2+ui.bB.disHei;
-		ui.tY.disHei=ui.midMinHei2-ui.tB.disHei;
-		ui.tY.liHe = ui.midMinHei2-ui.tB.disHei;
-		ui.sQ.disHei=ui.midMinHei2-ui.tB.disHei;}
-	ui.bB.tooVer=ui.bB.minVer-(AL.bBToolsL*ui.tB.disHei);
+	switch(AL.lIW){ case 1:	ui.midMinHei=ui.midMinHei1; break;
+					case 2: ui.midMinHei=ui.midMinHei2; break;}
+	ui.bP.minHei=173;
+	switch(AL.bPH){ case 0: ui.bP.disHei=173; break;
+					case 1: ui.bP.disHei=452; break;
+					case 2: ui.bP.disHei=ui.winHei; break;}	
 
-	// stage
+	if((ui.bP.disHei+ui.midMinHei)<ui.winHei){ ui.bP.disHei =ui.winHei-ui.midMinHei;}
+	ui.bP.minVer=ui.midMinHei+ui.bP.minHei;
+	if(ui.bP.minVer <ui.winHei){ ui.bP.minVer=ui.winHei}
+	ui.feHei =ui.midMinHei+ui.bP.disHei;
+	ui.tY.disHei=ui.midMinHei-ui.tB.disHei;
+	ui.tY.liHe = ui.midMinHei-ui.tB.disHei;
+	ui.sQ.disHei=ui.midMinHei-ui.tB.disHei;
+
+	ui.bP.tooVer=ui.bP.minVer-(AL.bPToolsL*ui.tB.disHei);
+
+	// sidebar feature tools
+	ui.sK.disVrt =ui.sB.fesHei+ui.sB.HUDhei+ui.sB.tooHei;
+	ui.sK.disHei =ui.midMinHei-ui.sK.disVrt;
+	ui.sK.widMid =ui.sK.disWid/2;
+	ui.sK.svgHei =2;
+	AL.sKMoodTools.forEach(function(t){ if(Array.isArray(t)){ t.forEach(function(){ ui.sK.svgHei+=ui.sK.tH+2}); ui.sK.svgHei+=4}
+										else{ 										ui.sK.svgHei+=ui.sK.tH+2}});
+
+	// type stage or table
 	ui.tY.stgf=Math.round(ui.tY.cE/6);
 	ui.tY.stgy=Math.round(ui.tB.disHei+ui.tY.disHei-ui.tY.stgf-ui.tY.cMarg);
 	ui.tY.stgF=Math.round((2*ui.tY.cE)/5);
 	ui.tY.stgY=Math.round(((ui.tY.keY+ui.tY.keyWid+ui.tY.stgy+(ui.tY.stgf/3))/2)-ui.tY.stgF);
+
+	ui.tY.tbY =Math.round(ui.tY.keY+ui.tY.keyWid+ui.tY.bMarg);
+	ui.tY.tbH =Math.round(ui.tY.disHei-ui.tY.tbY-ui.tY.cMarg+ui.tB.disHei);
+	ui.tY.tbW =Math.round(ui.tY.keW+ui.mD.linew);
+	ui.tY.tbX =ui.tY.liW+ui.tY.cMarg;
+	ui.tY.coW =ui.tY.tbW/5;
+	ui.tY.cow =ui.tY.coW-ui.mD.linew;
+	ui.tY.roH =ui.tY.tbH/4;
+	ui.tY.roh =ui.tY.roH-ui.mD.linew;
+
+	ui.tY.tY1 =Math.floor(-2/7*ui.tY.roh);
+	ui.tY.tY2 =Math.floor(2/15*ui.tY.roh);
+	ui.tY.tCO =ui.tY.cMarg;
+	ui.tY.tCW =ui.tY.cMarg+2*ui.mD.lineW;
+	ui.tY.tC2 =ui.tY.tCO+ui.tY.tCW;
+	ui.tY.tC3 =ui.tY.tCO+ui.tY.tCW*2;
+	ui.tY.tC4 =ui.tY.tCO+ui.tY.tCW*3;
+	ui.tY.tCF =Math.floor(3/4*ui.tY.roh);
+//	ui.tY.tC1
+/*e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.mD.LineW+ui.tY.bMarg+ui.mD.LineW+(ui.tY.cMarg+ui.mD.LineW)*3, ui.tY.tbY+j*ui.tY.roH-1/5*ui.tY.roh,
+ 				undefined,"#0c0",undefined,3/4*ui.tY.roh,".000","CH"); E.push(e);
+*/
+
+// HUD needs to contain info of 1.0 sV = 2393042490 etc.
 
 	// mood plane
 	ui.mD.plFrW=Math.round(ui.tY.disWid/1.618-ui.tY.cMarg+ui.tY.bMarg);
@@ -285,7 +319,8 @@ function predraw(){
 	// mood keys
 	ui.mD.keGaV=ui.mD.lineW/1.618;
 	ui.mD.keGaH=ui.mD.LineW;
-	ui.mD.keRoW=ui.tY.disWid-(2*ui.tY.cMarg);
+	ui.mD.keRoW=ui.tY.disWid-(2*ui.tY.cMarg)-ui.mD.linew;
+	ui.mD.keRoX=ui.tY.disHrz+ui.tY.cMarg+ui.mD.linew/2;
 	ui.mD.keFaH=ui.tY.keyWid/1.618-ui.mD.linew/2;
 	ui.mD.keFnS=Math.round(ui.mD.keFaH/1.414);
 	ui.mD.keFnY=Math.round(ui.mD.keFaH/7);
@@ -299,22 +334,37 @@ function predraw(){
 	ui.mD.tbFrW=Math.round(ui.tY.disWid-ui.mD.plFrW-2*ui.tY.cMarg-ui.tY.aMarg);
 	ui.mD.tbFrX=ui.tY.disHrz+ui.tY.cMarg;
 	ui.mD.tbFrY=ui.mD.plFrY;
-	//ui.mD.tbFrH=Math.round(ui.mD.plFrH-(2*ui.mD.keFaH)-ui.mD.keGaV-ui.tY.cMarg-ui.tY.aMarg);
 	ui.mD.tbFrH=ui.mD.sexRY-ui.tB.disHei-2*ui.tY.cMarg;
 	ui.mD.tbDiW=(ui.mD.tbFrW-ui.mD.LineW*3);
 	ui.mD.tbDiX=(ui.mD.tbFrX+ui.mD.LineW*1.5);
 	ui.mD.tbDiH=(ui.mD.tbFrH-ui.mD.LineW*3);
 	ui.mD.tbDiY=(ui.mD.tbFrY+ui.mD.LineW*1.5);
-	//ui.mD.tbHeH=(ui.mD.tbDiH*(2/17));
 	ui.mD.tbHeW=Math.round(ui.mD.tbDiW/1.618);
 	ui.mD.tbRoH=(ui.mD.tbDiH*(1/5));
 	ui.mD.tbCeW=ui.mD.tbDiW/2;
 	ui.mD.tbCeB=ui.mD.tbRoH/1.618;
 	ui.mD.tbCeT=ui.mD.tbCeB/1.618-ui.mD.LineW/2;
 	ui.mD.tbTxX=(ui.mD.tbCeW+ui.mD.tbCeT+ui.mD.LineW)/2;
-	//ui.tY.stgY=Math.round((ui.tY.stgy-ui.tY.stgf-ui.tY.stgF+ui.tY.keY+ui.tY.keyWid)/2);
-	
-	//ui.tY.stgY=Math.round(ui.tB.disHei+ui.tY.disHei-ui.tY.stgF-ui.tY.stgf-(ui.tY.cMarg*2));
+	// stage or table
+	ui.mD.tbY =Math.round(ui.mD.pPmRY+ui.mD.obKeH+ui.mD.linew/2+ui.tY.bMarg);
+	ui.mD.tbH =Math.round(ui.tY.disHei+ui.tY.disVrt-ui.mD.tbY-ui.tY.cMarg);
+	ui.mD.roH =ui.mD.tbH/5-ui.mD.linew;
+	ui.mD.coW =ui.tY.tbW/13-ui.mD.linew;
+
+	// scalar
+	ui.sC.diX =ui.tY.disHrz+ui.tY.cMarg;
+	ui.sC.diY =ui.tY.disVrt+ui.tY.cMarg;
+	ui.sC.diW =ui.tY.disWid-2*ui.tY.cMarg;
+	ui.sC.diH =Math.round(/*3/4**/ui.tY.disHei-2*ui.tY.cMarg);
+	ui.sC.hDH =Math.round((ui.sC.diH-ui.tY.bMarg)/2);
+	ui.sC.hDB =Math.round(ui.sC.diY+ui.sC.hDH+ui.tY.bMarg);
+	ui.sC.roW =Math.round(ui.sC.diW-2*ui.tY.bMarg);
+	ui.sC.roX =Math.round(ui.sC.diX+ui.tY.bMarg);
+	ui.sC.mQY =Math.round(ui.sC.diY+ui.sC.hDH/2);
+	ui.sC.cQY =Math.round(ui.sC.hDB+ui.sC.hDH/2);
+	ui.sC.cQW =ui.sC.diW/AT.fQsL;
+	ui.sC.rQW =ui.sC.diW/AT.aQsL;
+	ui.sC.quH =ui.tY.dMarg;
 	
 // markover needs to print each line FOUR TIMES:
 // line 1: intension's romantic quality
@@ -345,17 +395,26 @@ function initDraw(){
 			svgQz.setAttribute( 'width', ui.winWid-ui.sB.disWid);
 			svgQz.setAttribute( 'height', ui.qZ.disHei+(2*ui.qZ.disVrt));
 			break;
-		case "type" : case "AMOQ" : case "mosaic" :
+		case "type" : case "mood" : case "scalar" : case "mosaic" : case "rels" : case "marker" :
 			ui.sB.disHei=ui.midMinHei;
+			svgSk =document.createElementNS( nS,"svg");
 			svgTb =document.createElementNS( nS,"svg");
 			svgLi =document.createElementNS( nS,"svg");
 			svgLk =document.createElementNS( nS,"svg");
 			svgSq =document.createElementNS( nS,"svg");
+			divSk =document.createElement( 'div');divSk.setAttribute( 'id','sK');
 			divTb =document.createElement( 'div');divTb.setAttribute( 'id','tB');
 			divLi =document.createElement( 'div');divLi.setAttribute( 'id','lI');
 			divLk =document.createElement( 'div');divLk.setAttribute( 'id','lK');
 			divSq =document.createElement( 'div');divSq.setAttribute( 'id','sQ');
-			//divSc =document.createElement( 'div');divSc.setAttribute( 'id','sC');
+
+			svgSk.setAttribute( 'width', ui.sB.disWid-2);
+			svgSk.setAttribute( 'height',ui.sK.svgHei);
+			divSk.style.width = ui.sB.disWid-4+'px';
+			divSk.style.height =ui.sK.disHei+'px';
+			divSk.style.top =ui.sK.disVrt+'px';
+			divSk.style.left =ui.sB.disHrz+2+'px';
+			divSk.appendChild( svgSk);
 
 			svgTb.setAttribute( 'width', ui.tB.disWid); // modify later
 			svgTb.setAttribute( 'height', ui.tB.disHei);
@@ -363,7 +422,6 @@ function initDraw(){
 			divTb.setAttribute( 'height', ui.tB.disHei);
 			divTb.style.left =ui.tB.disHrz+"px";
 			divTb.appendChild( svgTb);
-
 			
 			if(ui.tY.lIW>0){
 				svgLi.setAttribute( 'width', ui.tY.lIW); // modify later
@@ -383,9 +441,8 @@ function initDraw(){
 				/*else{*/ 				divLk.style.width =(ui.tY.lIW-122)+"px";//}
 				if( AL.lIW===0){ 	divLi.style.width =ui.mP.liW+'px'}
 				else{				divLi.style.width =ui.tY.lIW+'px'}
-	
-				var midMinHei =	ui.midMinHei; if(AL.lIW===2){ midMinHei =ui.midMinHei2}
-				divLi.style.height = (midMinHei-(5*ui.tB.disHei))+'px';
+
+				divLi.style.height = (ui.midMinHei-(5*ui.tB.disHei))+'px';
 				divLi.style.top =ui.tB.disHei*5+"px";}
 			else{
 				divLi.style.display="none";
@@ -409,64 +466,6 @@ function initDraw(){
 
 
 var defs 	=document.createElementNS( nS, "defs");
-
-//How the hell does one use markers?
-
-/*var marker = document.createElementNS(nS, "marker");
-marker.setAttribute( "id","triangle");
-marker.setAttribute( "viewBox","0 0 10 10");
-marker.setAttribute( "refX",0);
-marker.setAttribute( "refY",5);
-marker.setAttribute( "markerUnits","strokeWidth");
-marker.setAttribute( "markerWidth",4);
-marker.setAttribute( "markerHeight",3);
-marker.setAttribute( "orient","auto");
-var path = document.createElementNS(nS, "path");
-path.setAttribute( "d","M 0 0 L 10 5 L 0 10 z");
-marker.appendChild(path);
-defs.appendChild(marker);*/
-
-
-
-//var marker 	=mkM("triangle","#ff0000","0 0 10 10","0","5","strokeWidth","4","3","auto"); console.log(marker);
-/*
-var marker = document.createElementNS(nS, "marker");
-    //var id = "arrow-" + arrowID++;
-    //marker.setAttribute("id", id);
-    marker.setAttribute( "id","marker");
-    marker.setAttribute( "stroke","#000000");
-    marker.setAttribute( "fill", "#ff0000");
-    marker.setAttribute( "stroke-width", 2);
-    marker.setAttribute("markerWidth", 20);
-    marker.setAttribute("markerHeight", 20);
-    marker.setAttribute("markerUnits", "strokeWidth");
-    marker.setAttribute("refX", 20);
-    marker.setAttribute("refY", 20);
-    //marker.setAttribute("viewBox", "0 0 10 10");
-    //marker.setAttribute("orient", "auto");
-    marker.setAttribute("orient", "auto");
-var path = document.createElementNS(nS, "path");
-    path.setAttribute("d","M 0 0 L 10 5 L 0 10 z");
-    path.setAttribute("fill","context-stroke");
-
-    marker.appendChild(path);
-
-defs.appendChild(marker);
-
-
-var marker = document.createElementNS(nS, "marker");
-marker.setAttribute( "id","arrow");
-marker.setAttribute( "markerWidth", 2);
-marker.setAttribute( "markerHeight",2);
-marker.setAttribute( "viewBox","-1 -1 2 2");
-marker.setAttribute( "orient","auto");
-var path = document.createElementNS(nS, "path");
-path.setAttribute( "fill", "#00ffff");
-path.setAttribute("d", "M-1,-1 L1,0 -1,1 z");
-marker.appendChild(path);
-defs.appendChild(marker);
-
-console.log(defs);*/
 
 var filter  =document.createElementNS( nS, "filter");
 filter.setAttribute( "id", "f1");		filter.setAttribute( "x", "-40%"); filter.setAttribute( "y", "0");
@@ -525,6 +524,12 @@ function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op,dB){ var t =document.createEl
 					if( op){	 	t.setAttribute( 'opacity',op)}
 					if( dB){	 	t.setAttribute( 'dominant-baseline',dB)}
 									t.textContent =txt; return t}
+function mkI(x,y,X,Y,id,co,st,op,d){var r=document.createElementNS( nS,'line');
+									r.setAttribute( 'x1',x);r.setAttribute( 'x2',X);r.setAttribute( 'y1',y);r.setAttribute( 'y2',Y);
+					if( id){ 		r.setAttribute( 'id',id)}
+					if( op){ 		r.setAttribute( 'opacity',op)}
+					if( d){ 		r.setAttribute( 'stroke-dasharray',d)}
+					r.setAttribute('stroke',co); r.setAttribute( 'stroke-width',st);return r}
 function mkS(pt,id,co,cl,op) { var p=document.createElementNS( nS,'polygon');
 									p.setAttribute("points", pt);
 									p.setAttribute( 'fill',co);
@@ -537,27 +542,6 @@ function mkE(x,y,w,h,c){ var e=document.createElementNS( nS,'ellipse');
 									e.setAttribute( 'width',2*w);e.setAttribute( 'height',2*h);
 									e.setAttribute( 'rx',w);e.setAttribute( 'ry',h);
 									e.setAttribute( 'fill',c); return e}
-/*function mkM(id,c,vB,rX,rY,mU,mW,mH,or){ var m=document.createElementNS( nS,'marker');
-									m.setAttributeNS( null,'id', id);
-									m.setAttribute( 'fill',c);
-									m.setAttributeNS( null,'viewBox', vB);
-									m.setAttributeNS( null,'refX', rX);
-									m.setAttributeNS( null,'refY', rY);
-									m.setAttributeNS( null,'markerUnits', mU);
-									m.setAttributeNS( null,'markerWidth', mW);
-									m.setAttributeNS( null,'markerHeight', mH);
-									m.setAttributeNS( null,'orient', or); return m}*/
-/*marker.setAttribute('id', 'Triangle');
-    marker.setAttribute('viewBox', '0 0 10 10');
-    marker.setAttribute('refX', '0');
-    marker.setAttribute('refY', '5');
-    marker.setAttribute('markerUnits', 'strokeWidth');
-    marker.setAttribute('markerWidth', '4');
-    marker.setAttribute('markerHeight', '3');
-    marker.setAttribute('orient', 'auto');
-    var path = document.createElementNS('http;//www.w3.org/2000/svg', 'path');
-    marker.appendChild(path);
-*/
 function drS(v,l,id,cl,op,sC,sW){ var e=document.createElementNS( nS,'polygon'); e.setAttribute("points",v);
 	e.setAttribute( 'fill',l); e.setAttribute('id',id); e.setAttribute('class',cl);
 	if(op){ e.setAttribute( 'opacity',op);} if(sC){ e.setAttribute('stroke',sC)}if(sW){ e.setAttribute('stroke-width',sW)} return e}
@@ -577,7 +561,6 @@ function mkFb( n,sB,ni){ var id="sB_btn-"+n; n = n * sB.rowHei;
 	if( AL.fe !== ni){ var e =mkL( ui.sB.disHrz, n+ui.sB.disVrt, sB.disWid, sB.rowHei,	id, sB.btn,"sB_btn")}
 	else 			{ var e =mkL( ui.sB.disHrz, n+ui.sB.disVrt, sB.disWid, sB.rowHei,	id, sB.sel,"sB_btn")}
 	bindK( e, function(ev,e) { switch( ev){ case "mousedown" : sidebarKey( e.id);break}}); return e }
-//function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op)
 function mkFt( n,sB,ni){ var id="sB_btT-"+n; n = n * sB.rowHei;
 	if( AL.fe !== ni){ var e =mkT( ui.sB.disHrz+sB.bTOX+50, n+sB.bTOY+ui.sB.disVrt,	id, sB.btnTxt, "sB_btT",sB.fnt,ni,'PF',"end")}
 	else 			{ var e =mkT( ui.sB.disHrz+sB.bTOX, n+sB.bTOY+ui.sB.disVrt,	id, sB.selTxt, "sB_btT",sB.fnt,ni,'PF')}return e }
@@ -598,14 +581,7 @@ function mkFr( n,sB,ni){ var et=[]; var yi=(n * sB.rowHei)+sB.disVrt; if( AL.fe 
 		var v = ui.sB.disHrz+sB.disWid+","+yi+" "+ 	(ui.sB.disHrz+sB.disWid-sB.btnBrd)+","+(yi+sB.btnBrd)+" "+
 			(ui.sB.disHrz+sB.disWid-sB.btnBrd)+","+(yi+sB.rowHei-sB.btnBrd)+" "+(ui.sB.disHrz+sB.disWid)+","+(yi+sB.rowHei);
 		e=mkS( v,"sB_btnBrd-"+n,sB.selR/*"#880000"*/,"sB_btnBrd",false); et.push( e)} return et}
-function mkI(x,y,X,Y,id,co,st,op,d){var r=document.createElementNS( nS,'line');
-	r.setAttribute( 'x1',x);r.setAttribute( 'x2',X);r.setAttribute( 'y1',y);r.setAttribute( 'y2',Y);
-	if( id){ 	r.setAttribute( 'id',id)}
-	if( op){ 	r.setAttribute( 'opacity',op)}
-	if( d){ 	r.setAttribute( 'stroke-dasharray',d)}
-	r.setAttribute('stroke',co); r.setAttribute( 'stroke-width',st);return r}
 
-//function processTurn(sim){}
 function refreshSbTool( t){ 	var id ="sBTool-"+t; var e=document.getElementById( id); e.remove();
 							   	var id ="sBToolT-"+t;var e=document.getElementById( id); e.remove();
 								var T = mkSbTool( t,ui.sB); T.forEach( function(T){ svgFe.appendChild( T)})}
@@ -668,55 +644,55 @@ function sBTuneMouseDown( e){	var t=parseInt(e.substr( e.indexOf('-')+1)); switc
 	case 2 : AL.sBTunes[t] =prompt("Set skip length:", 							AL.sBTunes[t]); 	break;
 	case 3 : AL.sBTunes[t] =prompt("Set skip fast forward length:",				AL.sBTunes[t])}}
 function clearTool(n){var e=Array.from(document.querySelectorAll('sB')); e.forEach( function(e){ e.remove()})}
-function mkSbTool( n, sB){ var r=[]; var b; var l; var s; var y; var x=sB.disWid-(sB.rowHei/2);
-	b=mkL( sB.disHrz+sB.disWid-sB.rowHei, sB.fesHei+sB.HUDhei+(sB.rowHei*n)+1, sB.rowHei-2, sB.rowHei-2,
-		"sBTool-"+n, "#555", "sBTool", undefined, 0, undefined, sB.rowHei/3.236);
+function mkSbTool( n, sB){ var r=[]; var b; var l; var s; var y; var x=sB.disWid-(ui.tB.tooWid/2);
+	b=mkL( sB.disHrz+sB.disWid-ui.tB.tooWid, sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+1, ui.tB.tooWid-2, ui.tB.tooWid-2,
+		"sBTool-"+n, "#555", "sBTool", undefined, 0, undefined, ui.tB.tooWid/3.236);
 	bindK( b, function(ev,b) { switch( ev){ case "mousedown" : sBToolMouseDown( b.id);break;
 											case "mouseup" 	 : sBToolMouseUp(b.id);   break;
 											case "mouseleave": sBToolMouseLeave(b.id)}});r.push(b);
-	b=mkL( sB.disHrz+2, sB.fesHei+sB.HUDhei+(sB.rowHei*n)+1, sB.disWid-sB.rowHei-4, sB.rowHei-2,
-		"sBTune-"+n, "#555", undefined, undefined, 0, true, sB.rowHei/3.236); r.push(b);
-	b=mkI( sB.disHrz,sB.fesHei+sB.HUDhei+(sB.rowHei*n)+(sB.rowHei/2),
-		sB.disHrz+sB.disWid-sB.rowHei, sB.fesHei+sB.HUDhei+(sB.rowHei*n)+(sB.rowHei/2),
+	b=mkL( sB.disHrz+2, sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+1, sB.disWid-ui.tB.tooWid-4, ui.tB.tooWid-2,
+		"sBTune-"+n, "#555", undefined, undefined, 0, true, ui.tB.tooWid/3.236); r.push(b);
+	b=mkI( sB.disHrz,sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+(ui.tB.tooWid/2),
+		sB.disHrz+sB.disWid-ui.tB.tooWid, sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+(ui.tB.tooWid/2),
 		"sBTuneDeco"+n, sB.btnL, 3); r.push(b);
-	b=mkT( sB.disHrz+Math.floor((sB.disWid-sB.rowHei)/2), sB.fesHei+sB.HUDhei+(sB.rowHei*n),
-		"sBTuneMoreT-"+n, "#888", undefined, sB.rowHei/3.236, "▲", "arial", "middle"); r.push(b);
-	b=mkL( sB.disHrz+2, sB.fesHei+sB.HUDhei+(sB.rowHei*n)+1,
-		sB.disWid-sB.rowHei-4, Math.round(((sB.rowHei-2)/5)*2),
+	b=mkT( sB.disHrz+Math.floor((sB.disWid-ui.tB.tooWid)/2), sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n),
+		"sBTuneMoreT-"+n, "#888", undefined, ui.tB.tooWid/3.236, "▲", "arial", "middle"); r.push(b);
+	b=mkL( sB.disHrz+2, sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+1,
+		sB.disWid-ui.tB.tooWid-4, Math.round(((ui.tB.tooWid-2)/5)*2),
 		"sBTuneMore-"+n, undefined,"sBTuneMore",undefined,undefined,undefined,undefined,undefined,"0");
 	//sBTuneMoreMouseDown( e);
 	bindK( b, function(ev,b) { switch( ev){ case "mousedown" : sBTuneMoreMouseDown( b.id);break;}});
 	r.push(b);
-	b=mkT( sB.disHrz+(sB.disWid-sB.rowHei)/2, sB.fesHei+sB.HUDhei+(sB.rowHei*n)+(sB.rowHei/1.618),
-		"sBTuneLessT-"+n, "#888", undefined,sB.rowHei/3.236, "▼","arial","middle"); r.push(b);
+	b=mkT( sB.disHrz+(sB.disWid-ui.tB.tooWid)/2, sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+(ui.tB.tooWid/1.618),
+		"sBTuneLessT-"+n, "#888", undefined,ui.tB.tooWid/3.236, "▼","arial","middle"); r.push(b);
 	//mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
-	b=mkL( sB.disHrz+2, sB.fesHei+sB.HUDhei+(sB.rowHei*n)+Math.round(((sB.rowHei-2)/5)*3),
-		sB.disWid-sB.rowHei-4, Math.round(((sB.rowHei-2)/5)*3),
+	b=mkL( sB.disHrz+2, sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+Math.round(((ui.tB.tooWid-2)/5)*3),
+		sB.disWid-ui.tB.tooWid-4, Math.round(((ui.tB.tooWid-2)/5)*3),
 		"sBTuneLess-"+n, undefined,"sBTuneLess",undefined,undefined,undefined,undefined,undefined,"0");
 	bindK( b, function(ev,b) { switch( ev){ case "mousedown" : sBTuneLessMouseDown( b.id);break;}});
 	r.push(b);
-	b=mkT( sB.disHrz+(sB.disWid-sB.rowHei)/2+1, sB.fesHei+sB.HUDhei+(sB.rowHei*n)+(sB.rowHei/3.7),
-		"sBTuneT-"+n, "#fff", undefined,sB.rowHei/3, AL.sBTunes[n], "PF","middle"); r.push(b);
-	b=mkL( sB.disHrz+2, sB.fesHei+sB.HUDhei+(sB.rowHei*n)+Math.round(((sB.rowHei-2)/5)*2),
-		sB.disWid-sB.rowHei-4, Math.round(((sB.rowHei-2)/5)*2),
+	b=mkT( sB.disHrz+(sB.disWid-ui.tB.tooWid)/2+1, sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+(ui.tB.tooWid/3.7),
+		"sBTuneT-"+n, "#fff", undefined,ui.tB.tooWid/3, AL.sBTunes[n], "PF","middle"); r.push(b);
+	b=mkL( sB.disHrz+2, sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+Math.round(((ui.tB.tooWid-2)/5)*2),
+		sB.disWid-ui.tB.tooWid-4, Math.round(((ui.tB.tooWid-2)/5)*2),
 		"sBTune-"+n, 	undefined,"sBTune",undefined,undefined,undefined,undefined,undefined,"0");
 	bindK( b, function(ev,b) { switch( ev){ case "mousedown" : sBTuneMouseDown( b.id);break;}});
 	r.push(b);
 	switch( AL.sBTools[n]){ 	
 		case "play": 		if( AL.play){ l="❚❚"}else { l="►"}
-							s =Math.floor(sB.rowHei/1.618); y =sB.fesHei+sB.HUDhei+(sB.rowHei*n)+3; break;
-		case "fastForward": if( AL.fastForward)	{ 	l ="❚❚"; s =Math.floor(sB.rowHei/1.618);
-												y = sB.fesHei+sB.HUDhei+(sB.rowHei*n)+3}
-							else 				{ 	l ="►►"; s =Math.floor(sB.rowHei/3.236);
-												y = sB.fesHei+sB.HUDhei+(sB.rowHei*n+3)+(sB.rowHei/5)} break;
-		case "skip": 		l ="❚►"; s =Math.floor(sB.rowHei/1.618);
-							y=sB.fesHei+sB.HUDhei+(sB.rowHei*n)+3; break;
-		case "skipForward": if( AL.skipForward) { 	l ="❚❚"; s =Math.floor(sB.rowHei/1.618);
-												y = sB.fesHei+sB.HUDhei+(sB.rowHei*n)+3}
-							else 				{ 	l="❚►►"; s =Math.floor(sB.rowHei/3.236);
-												y=sB.fesHei+sB.HUDhei+(sB.rowHei*n+3)+(sB.rowHei/5); break;}}
-		/*case "reso" 		: l="⊞"; 							s=sB.rowHei;
-			y=sB.fesHei+sB.HUDhei+(sB.rowHei*n)-(sB.rowHei/4)}*/
+							s =Math.floor(ui.tB.tooWid/1.618); y =sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+3; break;
+		case "fastForward": if( AL.fastForward)	{ 	l ="❚❚"; s =Math.floor(ui.tB.tooWid/1.618);
+												y = sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+3}
+							else 				{ 	l ="►►"; s =Math.floor(ui.tB.tooWid/3.236);
+												y = sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n+3)+(ui.tB.tooWid/5)} break;
+		case "skip": 		l ="❚►"; s =Math.floor(ui.tB.tooWid/1.618);
+							y=sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+3; break;
+		case "skipForward": if( AL.skipForward) { 	l ="❚❚"; s =Math.floor(ui.tB.tooWid/1.618);
+												y = sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)+3}
+							else 				{ 	l="❚►►"; s =Math.floor(ui.tB.tooWid/3.236);
+												y=sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n+3)+(ui.tB.tooWid/5); break;}}
+		/*case "reso" 		: l="⊞"; 							s=ui.tB.tooWid;
+			y=sB.fesHei+sB.HUDhei+(ui.tB.tooWid*n)-(ui.tB.tooWid/4)}*/
 	t=mkT( sB.disHrz+x, y, "sBToolT-"+n, "#ffffff", undefined, s, l, "arial", "middle");r.push(t);
 	return r}
 function mkTurnCounter(sim){ var E=[]; var e=null;
@@ -731,17 +707,145 @@ function mkResoTool(sim){ var E=[]; var e=null;
 	e=mkL(ui.sB.disHrz,ui.sB.fesHei+3+ui.sB.HUDhei+ui.sB.tooHei, Math.round(ui.sB.disWid/1.618), ui.sB.HUDhei-6,undefined,ui.sB.HUDbg,undefined); E.push(e);
 	e=mkT(ui.sB.disHrz+ui.sB.disWid-3,ui.sB.fesHei+2, undefined, "#ffffff", undefined, ui.sB.fnt,"reso", "PF"); E.push(e); return E}
 function drSidebar(){ var obs=[];  var buf =null;
-	buf =mkL(ui.sB.disHrz,ui.sB.disVrt,ui.sB.disWid,ui.sB.disHei,"sB",ui.sB.bG,"sB");
-	obs.push(buf);
-	for( var i=0; i < AL.fesL; i++){ 	buf =mkFb( i,ui.sB, AL.fes[i]); obs.push(buf);
-										buf =mkFt( i,ui.sB, AL.fes[i]); obs.push(buf);
-										buf =mkFr( i,ui.sB, AL.fes[i]); obs =obs.concat(buf)}
-	if(AL.fe !== "quiz"){ 	buf=mkTurnCounter( AL.sim); obs =obs.concat(buf);
-							for( var n=0; n < AL.sBToolsL;n++){ buf =mkSbTool( n, ui.sB); obs=obs.concat(buf);
-							/*buf=mkResoTool( AL.sim);*/ obs =obs.concat(buf)}}
-	obs.forEach( function(obs){ svgFe.appendChild( obs)});
-}
+	buf =mkL(ui.sB.disHrz,ui.sB.disVrt,ui.sB.disWid,ui.sB.disHei,"sB",ui.sB.bG,"sB"); obs.push(buf);
+	for( var i=0; i < AL.fesL; i++){
+		buf =mkFb( i,ui.sB, AL.fes[i]); obs.push(buf);
+		buf =mkFt( i,ui.sB, AL.fes[i]); obs.push(buf);
+		buf =mkFr( i,ui.sB, AL.fes[i]); obs =obs.concat(buf)}
+	obs.forEach( function(obs){ svgFe.appendChild( obs)}); obs=[];
+	if(AL.fe !== "quiz"){ 
+		buf=mkTurnCounter( AL.sim); obs =obs.concat(buf);
+		for( var n=0; n < AL.sBToolsL;n++){ buf =mkSbTool( n, ui.sB); obs=obs.concat(buf)}
+		obs.forEach( function(obs){ svgFe.appendChild( obs)}); obs=[];
+		switch(AL.fe){ 
+			case "mood": 	for( var n=0; n <AL.sKMoodToolsL;n++){ buf =mkSkMoodTool( n); obs=obs.concat(buf)} break;
+			case "type": 	for( var n=0; n <AL.sKTypeToolsL;n++){ buf =mkSkTypeTool( n); obs=obs.concat(buf)} break;}
+		obs.forEach( function(obs){ svgSk.appendChild( obs)});}}
 function sidebarKey( e){ var tab= parseInt(e.split("-").pop()); AL.fe=AL.fes[tab]; draw();}
+
+
+//scalar qualities acquire positive and negative quality separately?
+
+// detach --> shock ååå
+// dysphoria --> terror?
+
+//function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
+
+//stattab summa 0–1
+
+function sKTypeToolMouseDown( n){
+	switch( AL.sKTypeTools[n]){
+		case "stage"  		: AL.stage=  	 	!AL.stage;  	draw(); break;}
+	if( AL.sKTypeToolsP[n]){ 	AL.sKTypeToolsP[n] 	=false; refreshSkTypeTool( n)}}
+function mkSkTypeSubTool( n,yO,t,f){ var e=null; var E=[]; var l=t.length; var h=(AL.sKTypeToolsH[n]-2)/l; var bG, tC, sT; 
+	switch(AL.sKTypeTools[n]){ case "moodViewSelector": for(var i=0; i<l; i++){
+		if(AL.sKTypeTunes[n]===i){  sT=ui.mD.selTxt; 	bG="#00aa00"; 	tC="#000"}
+		else{ 						sT=ui.mD.selTxt; 	bG="#000"; 		tC=ui.mD.selTxt;	}
+ 	 	e =mkL( 4,yO+(h*i)+2, 54, h-2, undefined, bG, "sKTypeTool-"+n, sT,1,true,12,12); E.push(e);
+ 	 	e =mkT( ui.sK.widMid,yO+(h*i)+(l/2), undefined, tC, "sKTypeTool-"+n, f, t[i], "PF","middle"); E.push(e);}
+	}
+	return E}
+function mkSkTypeTool( n){ var E =[]; var e =null; var tC=ui.tY.areaT; var yO=2; var t,f,y,T,F,Y,bG;
+	if((AL.stage && AL.sKTypeTools[n]==="stage")){ AL.sKTypeToolsP[n]=true}
+	else{ AL.sKTypeToolsP[n]=false}
+	for(var i=0; i<n; i++){ console.log(i); yO=yO+AL.sKTypeToolsH[i]+2}
+	if(!AL.sKTypeToolsP[n]){
+		e =mkL( 2, yO, ui.sK.keyWid, AL.sKTypeToolsH[n], 	undefined, bG, "sKTypeTool-"+n,
+			ui.tY.areaB,1,true, 		12,12);E.push( e)}
+	else{ tC="#000";
+		e =mkL( 2, yO, ui.sK.keyWid, AL.sKTypeToolsH[n], undefined, ui.tY.areaB, "sKTypeTool-"+n, //area=ui.tY.area; areaB=ui.tY.areaB; areaT=ui.tY.areaT;
+			ui.tY.areaT,1,true, 		12,12);E.push( e)}
+	if( AL.feInit){
+		e =mkL( 2, yO, ui.sK.keyWid, AL.sKTypeToolsH[n], undefined,undefined,undefined,
+			undefined,undefined,undefined,12,12,"0")}
+	bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKTypeToolMouseDown( n);break}});E.push(e);
+	switch( AL.sKTypeTools[n]){
+		case "stage": 						T="Stage";	 	  Y=-2; 	  F=14;		break;
+		case "moodViewSelector": 	e=mkSkTypeSubTool( n,yO, ["Stage", "Legend",  "Quanta", 	"Binary"], 14); E=E.concat(e);break;
+		case "mosaicForm": 					T="Compare"; 	  Y=-2; 	  F=14;		break;
+		}
+	if(t){e	=mkT( ui.sK.widMid, yO+y, undefined,tC,"sKTypeTool-"+n,f,t,"PF","middle");E.push(e)}
+	if(T){e =mkT( ui.sK.widMid, yO+Y, undefined,tC,"sKTypeTool-"+n,F,T,"PF","middle");E.push(e)}
+	return E}
+function refreshSkTypeTool( n){ var t ="sKTypeTool-"+n; var e =document.getElementsByClassName( t);
+							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
+							t =mkSkTypeTool( n); t.forEach( function( e){ svgSk.appendChild( e)})}
+
+
+// split obj subj button
+// Legend should disable stage, not compare
+// ["Plane","Legend","Worth","infElem","I & U"],["TableMT","Total","Infant.","Raise","Queer-","Queer+"],["Bottom","Table","Stage"]],
+
+function sKMoodToolFade(str){ if( !AL.sKMoodToolsD.includes(str)){AL.sKMoodToolsD.push(str)}}
+function sKMoodToolUnfade(str){	var index =AL.sKMoodToolsD.indexOf(str); if(index > -1){ AL.sKMoodToolsD.splice(index, 1)}}
+function sKMoodToolApply(n,str){ AL.sKMoodTunes[n]=str; AL.moodFeature =str;
+	switch(str){
+		case "Legend" 	: 	sKMoodToolFade("Bottom"); sKMoodToolFade("TableMT"); break;
+		case "Stage" 	: 	sKMoodToolFade("TableMT"); break;
+		default 		: 	sKMoodToolUnfade("TableMT"); sKMoodToolUnfade("Bottom");}}
+function sKMoodMultiToolMouseDown( n,str){  console.log(AL.sKMoodToolsD); sKMoodToolApply(n,str); console.log(AL.sKMoodToolsD); draw();}
+//this fails because draw triggers feinit
+function mkSkMoodMultiToolKey( n,i,yO,low,mid,high,none){ var E=[]; var e=null; var T,b,s,t;
+	if( AL.sKMoodTunes[n]===AL.sKMoodTools[n][i]){ 	b=mid; s=high; t=none; 
+													if(AL.feInit){sKMoodToolApply(n,AL.sKMoodTools[n][i])}}
+	else{ 											b=low; s=mid; t=high }
+	switch(AL.sKMoodTools[n][i]){ 	case "Legend" 	: 	T="Legend"; break;
+									case "Worth" 	: 	T="Worth"; 	break;
+									case "infElem" 	: 	T="infElem";break;
+									case "I & U" 	: 	T="I & U"; 	break;
+									case "Total" 	: 	T="Total"; 	break;
+									case "Stereo." 	: 	T="Stereo.";break;
+									case "Infant." 	: 	T="Age-"; 	break;
+									case "Raise" 	: 	T="Age+"; 	break;
+									case "Queer-" 	: 	T="Queer-"; break;
+									case "Queer+" 	: 	T="Queer+"; break;
+									case "Complex" 	: 	T="Complex";break;
+									case "Table" 	: 	T="Table"; 	break;
+									case "Stage" 	: 	T="Stage"; 	break;}
+	e =mkL( 4,yO+(ui.sK.tH+2)*i+2, 54, ui.sK.tH, undefined, b, "sKMoodTool-"+n, s,1,undefined,7,7);E.push(e);
+	bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKMoodMultiToolMouseDown( n, AL.sKMoodTools[n][i]); 	break}});
+	e =mkT( ui.sK.widMid,yO+(ui.sK.tH+2)*i-1, undefined, t, "sKMoodTool-"+n,14,T,"PF","middle"); E.push(e);return E}
+function mkSkMoodMultiTool( n,yO,DLow,DMid,DHigh,dLow,dMid,dHigh,none){ var E=[];var e=null; var T,b,s,t,low,mid,high;
+	var l=AL.sKMoodTools[n].length; var h=l*(ui.sK.tH+2)+2;
+	console.log( AL.sKMoodToolsD);
+	if( AL.sKMoodToolsD.includes(AL.sKMoodTools[n][0])){if(AL.sKMoodToolsP[n]){ b=DMid; t=DLow;	s=DHigh}
+														else{ 					b=DLow; t=DHigh;s=DMid}
+														low="#3e3e3e"; mid=DMid; high=DHigh}
+	else{ 												if(AL.sKMoodToolsP[n]){ b=dMid; t=dLow; s=dHigh}
+														else{ 					b=dLow; t=dHigh;s=dMid}
+														low=ui.mD.key2; mid=dMid; high=dHigh} // NOTICE BACKGROUD COLOR
+	e =mkL(2, yO, ui.sK.keyWid, h, undefined, low, "sKMoodTool-"+n, s,1, true,7,7); E.push(e);
+	switch(AL.sKMoodTools[n][0]){ 	case "Plane" 	: T="plane"; break;
+									case "TableMT" 	: T="table"; break;
+									case "Bottom" 	: T="bottom";break}
+	e =mkT( ui.sK.widMid,yO, undefined, t, "sKMoodTool-"+n,14,T,"AI","middle"); E.push(e);
+	for(var i=1; i<l; i++){ e =mkSkMoodMultiToolKey( n,i,yO,low,mid,high,none); E=E.concat(e)} return E}
+function sKMoodSingleToolMouseDown( n){	switch( AL.sKMoodTools[n]){
+		case "stage"  		: 	AL.stage=  	 	!AL.stage; 		draw(); break;
+		case "mosaicForm" 	: 	AL.mosaicForm=  !AL.mosaicForm; draw(); break;}}
+function mkSkMoodSingleTool( n,yO,dLow,DMid,DHigh,dLow,dMid,dHigh){ var E =[]; var e =null; var T,F,Y,b,s,t;
+	if((!AL.mosaicForm && AL.sKMoodTools[n]==="mosaicForm")||(AL.stage && AL.sKMoodTools[n]==="stage")){ AL.sKMoodToolsP[n]=true}
+	else{ AL.sKMoodToolsP[n]=false}
+	if( AL.sKMoodToolsD.includes(AL.sKMoodTools[n])){ 	if(AL.sKMoodToolsP[n]){ b=DMid; t=DLow;	s=DHigh}
+														else{ 					b=DLow; t=DHigh;s=DMid}}
+	else{ 												if(AL.sKMoodToolsP[n]){ b=dMid; t=dLow; s=dHigh}
+														else{ 					b=dLow; t=dHigh;s=dMid}}
+	e =mkL( 2, yO, ui.sK.keyWid,ui.sK.tH,undefined,b,"sKMoodTool-"+n,s,1,true,7,7);E.push(e);
+	if( AL.feInit){
+		e =mkL( 2, yO, ui.sK.keyWid, ui.sK.tH, undefined,undefined,undefined,undefined,undefined,undefined,7,7,"0");
+		bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKMoodSingleToolMouseDown( n);break}});E.push(e)}
+	switch( AL.sKMoodTools[n]){ case "stage": 		T="Stage";	 Y=-2; F=14; break;
+								case "mosaicForm": 	T="Compare"; Y=-2; F=14; break;}
+	e =mkT( ui.sK.widMid, yO+Y, undefined,t,"sKMoodTool-"+n,F,T,"PF","middle");E.push(e); return E}
+function mkSkMoodTool( n){ var yO=2.5;
+	for(var i=0; i<n; i++){	if(Array.isArray(AL.sKMoodTools[i])){ AL.sKMoodTools[i].forEach(function(){ yO+=ui.sK.tH+2}); yO+=4}
+							else{ 																		yO+=ui.sK.tH+2}}
+	if( Array.isArray( AL.sKMoodTools[n])){ var E =mkSkMoodMultiTool( n,yO,"#000","#888","#ccc","#000","#33aa00",ui.mD.selTxt,"#000")}
+	else{ 									var E =mkSkMoodSingleTool(n,yO,"#000","#888","#ccc","#000","#33aa00",ui.mD.selTxt)} return E}
+function refreshSkMoodTool( n){ var t ="sKMoodTool-"+n; var e =document.getElementsByClassName( t);
+							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
+							t =mkSkMoodTool( n); t.forEach( function( e){ svgSk.appendChild( e)})}
+
 
 
 function selectSubj(s){
@@ -905,20 +1009,23 @@ function clearScreen(){
 	var e=Array.from(document.querySelectorAll('div, svg, rect, text, polygon, line, circle, ellipse'));
  	e.forEach( function(e){ e.remove()})}
 function draw(){
+	AL.feInit =true;
 	if( AL.fe==='mosaic'){ AL.liNarrow =AL.liNarrowInMosaic}else{ AL.liNarrow =false}
 	clearScreen(); initDraw(); drSidebar(); 
 	switch( AL.fe){ 
 		case "quiz": 	drawQuiz(); 	break;
 		case "type": 	drawType(); 	break;
-		case "AMOQ": 	drawMood(); 	break;
-		case "mosaic": 	drawMosaic(); 	break;}}
+		case "mood": 	drawMood(); 	break;
+		case "scalar": 	drawScalar(); 	break;
+		case "mosaic": 	drawMosaic(); 	break;
+		case "rels": 	drawRels(); 	break;
+		case "marker": 	drawMarker(); 	break;}
+	AL.feInit =false}
 function bindK( e,c){
-	e.addEventListener("mouseover", function(){ c("mouseover", e)});
 	e.addEventListener("mousedown", function(){ c("mousedown", e)});
 	e.addEventListener("mouseup", 	function(){ c("mouseup", e)});
 	e.addEventListener("mouseleave",function(){ c("mouseleave", e)})}
 function bindE( e,c){
-	e.addEventListener("mouseover", function(){ c("mouseover", e)});
 	e.addEventListener("mousedown", function(){ c("mousedown", e)})}
 
 function bindMosaic( sel,c){ var e=Array.from(document.querySelectorAll( sel));
@@ -969,7 +1076,6 @@ function mkQuiz( q,n){ var b =null; var B=[];
 	return B}
 
 function drawType(){ var b =null;
-	AL.feInit =true;
 	drTopBar();
 	drList();
 	b =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.tY.base,"tY"); svgFe.appendChild( b);
@@ -977,10 +1083,10 @@ function drawType(){ var b =null;
 	drTypeCage(ui.tY.c2x, ui.tY.c2y, "tYC2"); 	
 	drSequencer( );						
 	drTypeKeys();
-	drTypeStage();					
-	drBottomBar();
-	AL.feInit =false;
+	AL.stage ? drTypeStage() : drTypeTable();					
+	drBottomPanel();
 	document.body.appendChild( divFe);
+	document.body.appendChild( divSk);
 	document.body.appendChild( divTb);
 	document.body.appendChild( divLi);
 	document.body.appendChild( divSq); 
@@ -990,70 +1096,67 @@ function drawType(){ var b =null;
 //function mkL(x,y,w,h,id,co,cl,sC,sW,pE,rx,ry,op)
 //function mkT(x,y,id,co,cl,fonSiz,txt,fonFam,anc,op,dB){ 
 
-function bBToolMouseDown( n){ 	AL.bBToolsP[n] 	=true; 	refreshBbTool( n)}
-function bBToolMouseLeave( n){ if( AL.bBToolsP[n]){ 	AL.bBToolsP[n] 	=false; refreshBbTool( n)}}
-function bBToolMouseUp( n){ switch( AL.bBTools[n]){
+function bPToolMouseDown( n){ 	AL.bPToolsP[n] 	=true; 	refreshBpTool( n)}
+function bPToolMouseLeave( n){ if( AL.bPToolsP[n]){ 	AL.bPToolsP[n] 	=false; refreshBpTool( n)}}
+function bPToolMouseUp( n){ switch( AL.bPTools[n]){
 	case "sizeList":if(AL.fe!=="mosaic"){ 	AL.fElIS++; if(AL.fElIS>2){ AL.fElIS=0}} 
 					else{ 					AL.mPlIS++; if(AL.mPlIS>2){ AL.mPlIS=0}}
 					predraw(); draw();  break;
-	case "wideList":var scrollY =window.pageYOffset; var oldMiV =ui.bB.minVer;
+	case "wideList":var scrollY =window.pageYOffset; var oldMiV =ui.bP.minVer;
 					if(AL.fe!=="mosaic"){ 	AL.fElIW++; if(AL.fElIW>2){ AL.fElIW=1}} 
 					else{ 					AL.mPlIW++; if(AL.mPlIW>2){ AL.mPlIW=0}}
 					predraw(); draw();
 					//console.log("oldFeH: "+oldFeH+", oldMiV: "+oldMiV+", newFeH: "+newFeH+", newMiV: "+newMiV+", winHei: "+ui.winHei);
-					if((oldMiV===ui.winHei)||(ui.bB.minVer>ui.winHei)){
-						document.documentElement.scrollTop = document.body.scrollTop = ui.bB.minVer-ui.winHei+scrollY; }
-					if((oldMiV>ui.winHei)||(ui.bB.minVer===ui.winHei)){
-						document.documentElement.scrollTop = document.body.scrollTop = scrollY-(oldMiV-ui.bB.minVer); }
+					if((oldMiV===ui.winHei)||(ui.bP.minVer>ui.winHei)){
+						document.documentElement.scrollTop = document.body.scrollTop = ui.bP.minVer-ui.winHei+scrollY; }
+					if((oldMiV>ui.winHei)||(ui.bP.minVer===ui.winHei)){
+						document.documentElement.scrollTop = document.body.scrollTop = scrollY-(oldMiV-ui.bP.minVer); }
 					break;
 	case "wideSeq": AL.sQW= !AL.sQW; predraw(); draw();  break;
-	case "highFoot":AL.bBH++; if(AL.bBH>2){AL.bBH=0} predraw(); draw();  break; }
-	bBToolMouseLeave( n)}
-function mkBbTool(n){ var E=[]; var e=null; var t,f,T,F,y,Y; var p =0; var P=4;
-	if((AL.sQW && AL.bBTools[n]==="wideSeq")){ AL.bBToolsP[n]=true}
-	if(!AL.bBToolsP[n]){
-		e =mkL( ui.bB.divWid-20+2, ui.tB.tooWid*n+ui.bB.tooVer,  ui.tB.tooWid-4, ui.tB.disHei-4, 	undefined, "#3c3c3c", "bBTool-"+n,
+	case "highFoot":AL.bPH++; if(AL.bPH>2){AL.bPH=0} predraw(); draw();  break; }
+	bPToolMouseLeave( n)}
+function mkBpTool(n){ var E=[]; var e=null; var t,f,T,F,y,Y; var p =0; var P=4;
+	if((AL.sQW && AL.bPTools[n]==="wideSeq")){ AL.bPToolsP[n]=true}
+	if(!AL.bPToolsP[n]){
+		e =mkL( ui.bP.divWid-20+2, ui.tB.tooWid*n+ui.bP.tooVer,  ui.tB.tooWid-4, ui.tB.disHei-4, 	undefined, "#3c3c3c", "bPTool-"+n,
 			undefined,undefined,true, 		12,12);E.push( e);
-		e =mkL( ui.bB.divWid-20+2, ui.tB.tooWid*n+ui.bB.tooVer,  ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "bBTool-"+n,
+		e =mkL( ui.bP.divWid-20+2, ui.tB.tooWid*n+ui.bP.tooVer,  ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "bPTool-"+n,
 			undefined,undefined,true, 		12,12);E.push( e);}
 	else{ p =P;
-		e =mkL( ui.bB.divWid-20+2, P+(ui.tB.tooWid*n)+ui.bB.tooVer,ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "bBTool-"+n,
+		e =mkL( ui.bP.divWid-20+2, P+(ui.tB.tooWid*n)+ui.bP.tooVer,ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "bPTool-"+n,
 			undefined,undefined,true, 		12,12);E.push( e)}
 	if( AL.feInit){
-		e =mkL( ui.bB.divWid-20+2, (ui.tB.tooWid*n)+ui.bB.tooVer, ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined,undefined,undefined,
-			undefined,undefined,undefined,12,12,"0")}
-	bindK( e, function(ev,e) { switch( ev){ case "mouseleave": bBToolMouseLeave(n);break;
-											case "mouseup"   : bBToolMouseUp  ( n);break;
-											case "mousedown" : bBToolMouseDown( n);break}});E.push(e);
+		e =mkL( ui.bP.divWid-20+2, (ui.tB.tooWid*n)+ui.bP.tooVer, ui.tB.tooWid-4, ui.tB.disHei-4, undefined,undefined,undefined,
+			undefined,undefined,undefined,12,12,"0");
+		bindK( e, function(ev,e) { switch( ev){ case "mouseleave": bPToolMouseLeave(n);break;
+												case "mouseup"   : bPToolMouseUp  ( n);break;
+												case "mousedown" : bPToolMouseDown( n);break}});E.push(e)}
 	//"preCalc","defSort","turnSort","confSort"
-	switch( AL.bBTools[n]){
+	switch( AL.bPTools[n]){
 		case "sizeList": 	t="size";	T="List";	y=-1; Y=11; 	f=14; F=14;		break;
 		case "wideList": 	t="wide";	T="List";	y=-1; Y=11; 	f=14; F=14;		break;
 		case "wideSeq": 	t="wide";	T="Seq";	y=-1; Y=11; 	f=14; F=14;		break;
 		case "highFoot": 	t="high";	T="Foot";	y=-1; Y=11; 	f=14; F=14;		break;
 		//case "confSort": 	t="conf";	T="Sort";	y=-1; Y=11; 	f=14; F=14;		break;
 		}
-	e 		=mkT( ui.bB.divWid-20+(ui.tB.tooWid/2), (ui.tB.tooWid*n)+y+p+ui.bB.tooVer, undefined,"#ccc","bBTool-"+n,f,t,"PF","middle");E.push(e);
-	if(T){e =mkT( ui.bB.divWid-20+(ui.tB.tooWid/2), (ui.tB.tooWid*n)+Y+p+ui.bB.tooVer, undefined,"#ccc","bBTool-"+n,F,T,"AI","middle");E.push(e)}
+	e 		=mkT( ui.bP.divWid-20+(ui.tB.tooWid/2), (ui.tB.tooWid*n)+y+p+ui.bP.tooVer, undefined,"#ccc","bPTool-"+n,f,t,"PF","middle");E.push(e);
+	if(T){e =mkT( ui.bP.divWid-20+(ui.tB.tooWid/2), (ui.tB.tooWid*n)+Y+p+ui.bP.tooVer, undefined,"#ccc","bPTool-"+n,F,T,"AI","middle");E.push(e)}
 	return E}
-function refreshBbTool( n){ var t ="bBTool-"+n; var e =document.getElementsByClassName( t);
+function refreshBpTool( n){ var t ="bPTool-"+n; var e =document.getElementsByClassName( t);
 							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
-							t =mkBbTool( n); t.forEach( function( e){ svgFe.appendChild( e)})}
-function drBottomBar(){ var E=[]; var e=null; var t="";
-	var midMinHei =	ui.midMinHei; if(AL.lIW===2){ midMinHei =ui.midMinHei2}
-
-
-	e=mkL(0,midMinHei,ui.winWid,ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
-	//e=mkL(ui.bB.divWid-20,midMinHei+ui.bB.skrHei,ui.tB.disHei,ui.bB.disHei-ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
-	e=mkL(ui.bB.divWid-20,midMinHei+ui.bB.skrHei,ui.tB.disHei,ui.bB.disHei-ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
-	for(var i=0; i<AL.bBToolsL; i++){ e =mkBbTool(i); E=E.concat(e)}
-	e=mkL(0,midMinHei+ui.bB.tipHei,ui.bB.divWid-20,ui.bB.skrHei,undefined,ui.sB.bG); E.push(e);
-	e=mkT(ui.bB.rimHei,ui.midMinHei+ui.bB.skrHei+ui.bB.rimHei,undefined,"#fff",undefined,20,"ntn:","SF"); E.push(e);
-	e=mkT(ui.bB.rimHei,Math.round(ui.midMinHei+ui.bB.tipHei/2+ui.bB.skrHei),undefined,"#fff",undefined,20,"xtn:","SF"); E.push(e);
+							t =mkBpTool( n); t.forEach( function( e){ svgFe.appendChild( e)})}
+function drBottomPanel(){ var E=[]; var e=null; var t="";
+	e=mkL(0,ui.midMinHei,ui.winWid,ui.bP.skrHei,undefined,ui.sB.bG); E.push(e);
+	//e=mkL(ui.bP.divWid-20,midMinHei+ui.bP.skrHei,ui.tB.disHei,ui.bP.disHei-ui.bP.skrHei,undefined,ui.sB.bG); E.push(e);
+	e=mkL(ui.bP.divWid-20,ui.midMinHei+ui.bP.skrHei,ui.tB.disHei,ui.bP.disHei-ui.bP.skrHei,undefined,ui.sB.bG); E.push(e);
+	for(var i=0; i<AL.bPToolsL; i++){ e =mkBpTool(i); E=E.concat(e)}
+	e=mkL(0,ui.midMinHei+ui.bP.tipHei,ui.bP.divWid-20,ui.bP.skrHei,undefined,ui.sB.bG); E.push(e);
+	e=mkT(ui.bP.rimHei,ui.midMinHei1+ui.bP.skrHei+ui.bP.rimHei,undefined,"#fff",undefined,20,"ntn:","SF"); E.push(e);
+	e=mkT(ui.bP.rimHei,Math.round(ui.midMinHei1+ui.bP.tipHei/2+ui.bP.skrHei),undefined,"#fff",undefined,20,"xtn:","SF"); E.push(e);
 	//if(AL.subj){ t="("+AL.subj.xtR.nP+","+AL.subj.xtC.nP+") = "+AL.subj.xtn.ni}
-	//e=mkT(25,Math.round(ui.midMinHei+ui.bB.tipHei/2+ui.bB.skrHei),undefined,"#fff",undefined,20,t,"AI"); E.push(e);
+	//e=mkT(25,Math.round(ui.midMinHei+ui.bP.tipHei/2+ui.bP.skrHei),undefined,"#fff",undefined,20,t,"AI"); E.push(e);
 
-	//e=mkT(75,Math.round(ui.midMinHei+ui.bB.tipHei/2+ui.bB.skrHei),undefined,"#fff",undefined,25,,"AI"); E.push(e);
+	//e=mkT(75,Math.round(ui.midMinHei+ui.bP.tipHei/2+ui.bP.skrHei),undefined,"#fff",undefined,25,,"AI"); E.push(e);
 	E.forEach( function(e){ svgFe.appendChild(e)})}
 
 // it is not so that abstract karma would be more valuable than abstract value
@@ -1104,16 +1207,16 @@ function mkTbTool( n){ var E =[]; var e =null; var t,f,T,F,y,Y; var p =0; var P=
 		e =mkL( ui.tB.tooWid*n+2, 0+P,ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "tBTool-"+n,
 			undefined,undefined,true, 		12,12);E.push( e)}
 	if( AL.feInit){
-		e =mkL( ui.tB.tooWid*n+2, 0, ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined,undefined,undefined,
-			undefined,undefined,undefined,12,12,"0")}	
-	bindK( e, function(ev,e) { switch( ev){ case "mouseleave": tBToolMouseLeave(n);break;
-											case "mouseup"   : tBToolMouseUp  ( n);break;
-											case "mousedown" : tBToolMouseDown( n);break}});E.push(e);
+		e =mkL( ui.tB.tooWid*n+2, 0, ui.tB.tooWid-4, ui.tB.disHei-4, undefined,undefined,undefined,
+			undefined,undefined,undefined,12,12,"0");
+		bindK( e, function(ev,e) { switch( ev){ case "mouseleave": tBToolMouseLeave(n);break;
+												case "mouseup"   : tBToolMouseUp  ( n);break;
+												case "mousedown" : tBToolMouseDown( n);break}});E.push(e)}
 	switch( AL.tBTools[n]){
 		case "cleanSlate":t="cln";		T="Slate";	y=-1; Y=11; 	f=14; F=14;		break;
 //		case "clearSubjs":t="clr"; 		T="subjs";	y=0; Y=12; 	f=15; F=15;		break;
 		case "copySim" 	: t="copy"; 	T="Sim"; 	y=-1; Y=11; 	f=14; F=14;		break;
-		case "makeSim" 	: t="def";		T="Sim"; 	y=-1; Y=11; 	f=14; F=14;		break;
+		case "makeSim" 	: t="norm";		T="Sim"; 	y=-1; Y=11; 	f=14; F=14;		break;
 		case "randSim" 	: t="rand";		T="Sim"; 	y=-1; Y=11; 	f=14; F=14;		break;
 		case "lockSim" 	: t="lock";		T="Sim"; 	y=-1; Y=11; 	f=14; F=14;		break;
 		case "confStat" : t="conf";		T="Stat"; 	y=-1; Y=11; 	f=14; F=14;		break;
@@ -1125,7 +1228,7 @@ function mkTbTool( n){ var E =[]; var e =null; var t,f,T,F,y,Y; var p =0; var P=
 	return E}
 function refreshTbTool( n){ var t ="tBTool-"+n; var e =document.getElementsByClassName( t);
 							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
-							t =mkTbTool( n); t.forEach( function( e){ svgFe.appendChild( e)})} //xxx sVfE->sVtB
+							t =mkTbTool( n); t.forEach( function( e){ svgFe.appendChild( e)})}
 
 function tabKey(n){
 	if(AL.sim===RT.sims[n]){ AL.sim=null; predraw();draw()}
@@ -1193,15 +1296,15 @@ function mkLiTool(n){ var E=[]; var e=null; var t,f,T,F,y,Y; var p =0; var P=4;
 		e =mkL( ui.lF.kW+2, P+(ui.tB.tooWid*n)+ui.tB.disHei,ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined, "#555555", "lITool-"+n,
 			undefined,undefined,true, 		12,12);E.push( e)}
 	if( AL.feInit){
-		e =mkL( ui.lF.kW+2, (ui.tB.tooWid*n)+ui.tB.disHei, ui.tB.tooWid-4, ui.tB.disHei-4-P, undefined,undefined,undefined,
-			undefined,undefined,undefined,12,12,"0")}
-	bindK( e, function(ev,e) { switch( ev){ case "mouseleave": lIToolMouseLeave(n);break;
-											case "mouseup"   : lIToolMouseUp  ( n);break;
-											case "mousedown" : lIToolMouseDown( n);break}});E.push(e);
+		e =mkL( ui.lF.kW+2, (ui.tB.tooWid*n)+ui.tB.disHei, ui.tB.tooWid-4, ui.tB.disHei-4, undefined,undefined,undefined,
+			undefined,undefined,undefined,12,12,"0")
+		bindK( e, function(ev,e) { switch( ev){ case "mouseleave": lIToolMouseLeave(n);break;
+												case "mouseup"   : lIToolMouseUp  ( n);break;
+												case "mousedown" : lIToolMouseDown( n);break}});E.push(e)}
 	//"preCalc","defSort","turnSort","confSort"
 	switch( AL.lITools[n]){
 		case "confRand": 	t="conf";	T="Rand";	y=-1; Y=11; 	f=14; F=13;		break;
-		case "confDef": 	t="conf";	T="Def";	y=-1; Y=11; 	f=14; F=14;		break;
+		case "confDef": 	t="conf";	T="Norm";	y=-1; Y=11; 	f=14; F=13;		break;
 		case "defSort": 	t="def";	T="Sort";	y=-1; Y=11; 	f=14; F=14;		break;
 		case "confSort": 	t="conf";	T="Sort";	y=-1; Y=11; 	f=14; F=14;		break;
 		}
@@ -1219,7 +1322,7 @@ function mkLiFb( n,ni){ var id="lIFe-"+n;
 	bindK( e, function(ev,e) { switch( ev){ case "mousedown" : listFeatureKey( e.id);break}}); return e }
 function mkLiFt( n,ni){ 
 	if( AL.lF !== ni){ 	var e =mkT( 8, (n*ui.lF.kH)-2+ui.tB.disHei, undefined, ui.sB.btnTxt, undefined, ui.sB.fnt, ni, 'PF')}
-	else 			{ 	var e =mkT( 8, (n*ui.lF.kH)-2+ui.tB.disHei, undefined, ui.sB.selTxt, undefined, ui.sB.fnt, ni, 'PF')}return e }
+	else 			{ 	var e =mkT( 76, (n*ui.lF.kH)-2+ui.tB.disHei, undefined, ui.sB.selTxt, undefined, ui.sB.fnt, ni, 'PF',"end")}return e }
 function mkLiFr( n,sB,ni){ var et=[]; var v; // NO "FORM", NO "SUBSTANCE"!
 	if( AL.lF !== ni) { 
 		var e=mkL( 0, n*ui.lF.kH+ui.tB.disHei, 			ui.lF.kW, 3, undefined, ui.sB.btnU); et.push( e);
@@ -1257,9 +1360,7 @@ function drList(){ var E=[]; var e=null; var liI="";liT="";liB=""; var off; var 
 	ui.lI.svgHei =(AL.subjsL*ui.lI.iHe+2); svgLi.setAttribute( 'height', ui.lI.svgHei);
 	svgLi.setAttribute( 'width', ui.lI.miW);
 	var lisLen=18;
-	var lisHei=0;
-	if(AL.lIW===3){ 	lisHei = ui.midMinHei2 -ui.tB.disHei*5}
-	else if(AL.liW===2){lisHei = ui.midMinHei -ui.tB.disHei*5}
+	var lisHei=ui.midMinHei -ui.tB.disHei*5;
 	var lisY =ctrHei;
 	var width = ui.lI.miW;
 	E.forEach( function(E){svgFe.appendChild(E)}); var E=null;
@@ -1269,7 +1370,7 @@ function drList(){ var E=[]; var e=null; var liI="";liT="";liB=""; var off; var 
 		else 								{ liI=ui.tY.liI; liT=ui.tY.liT; liB=ui.tY.liB; 	E=F}					
 		e =mkL(1, ui.lI.iHe*n+ctrHei+1,width-2,ui.lI.iHe,"tY_Li-"+AL.sim.subjs[n].nI,liI,"tY_Li",liB,1);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : subjListKey( e.id);break}});									E.push(e);
-		e =mkT(4,(ui.lI.iHe*n)-1+ctrHei,"tY_LiT-"+n,liT,"tY_LiT",ui.lI.tPF,
+		e =mkT(4,(ui.lI.iHe*n)-1+ctrHei,"tY_LiT-"+n,liT,"tY_LiT",ui.lI.tPF,//ååå
 			AL.sim.subjs[n].nI+" "+AL.sim.subjs[n].tY.nI+"("+AL.sim.subjs[n].tYl.ni2+","+AL.sim.subjs[n].tYl.ab.ni+")","PF"); 	E.push(e);
 		if(AL.sim.subjs[n].pMd.symm){ var liT2="#ffff00"} else{ var liT2=liT}
 		if(!AL.sim.subjs[n].sex.fem){ if(!AL.sim.subjs[n].sex.kid){ off=ui.lI.mDx+ui.lI.kix; absB="♂("} else{ off=ui.lI.mDx; absB="*♂("}}
@@ -1637,26 +1738,60 @@ function drTypeKeys(){ var E=[]; var e=null; var area, areaB, areaT;
 	for(var n=0; n<16; n++){
 		if((AL.tY===null)||(AT.tYs[n].ni !== AL.tY.ni)){ area=ui.tY.area; areaB=ui.tY.areaB; areaT=ui.tY.areaT; }
 		else 							{ area=ui.tY.selArea; areaB=ui.tY.selAreaB; areaT=ui.tY.selAreaT; }
-		e =mkL(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))-ui.sB.disWid,ui.tY.keY,
+		e =mkL(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap)),ui.tY.keY,
 			ui.tY.keyWid-ui.mD.linew/2,ui.tY.keyWid-ui.mD.linew/2,"tY_Keys-"+n,area,"tY_Keys",areaB,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : typeKeyMouseDown( e.id);break}}); E.push(e);
-		e=mkT(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))+(ui.tY.keyWid/2)-1-ui.sB.disWid,ui.tY.keY+(ui.tY.keyWid/7)-1,
+		e=mkT(ui.tY.keX+(n*(ui.tY.keyWid+ui.tY.keyGap))+(ui.tY.keyWid/2)-1,ui.tY.keY+(ui.tY.keyWid/7)-1,
 		undefined,areaT,undefined,ui.tY.keyWid/1.6,AL.Sociotypes.seed[n],"SF","middle"); E.push(e)}
 	E.forEach( function(E){svgFe.appendChild(E)}); }
-function drTypeStage(){ 
- 	var E=[]; var e=null;
+function drTypeStage(){ var E=[]; var e=null;
 	var x=Math.round(ui.tY.disHrz+(ui.tY.disWid/2));
-	var e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
+	e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
 	e.setAttribute("filter","url(#f1)"); e.setAttribute("dominant-baseline","middle"); E.push(e);
-	var e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
+	e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
 	e.setAttribute('opacity',0.62); e.setAttribute("dominant-baseline","middle"); E.push(e);
 	if(AL.subj){ 
-		var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stgy,
+		e=mkT(ui.tY.keX, ui.tY.stgy,
 		"-stg", "#ffffff", "stg", ui.tY.stgf,AL.subj.nI+". "+AL.subj.nM.full, "PF","left");
 		//e.setAttribute("alignment-baseline","hanging");
 		E.push(e)}
-	var e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stgy,
+	e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stgy,
 		undefined,"#fff",undefined,ui.tY.stgf,AL.tY.nI,"PF","end");E.push(e)
+	E.forEach( function(E){svgFe.appendChild(E)})}
+function drTypeTable(){ var e=null; var E=[]; var t,b;
+	for(var i=0; i<5; i++){
+		for(var j=0; j<4; j++){
+			if(AL.subj){
+				if( AL.tYl && AL.tYl.ni2 ===AL.tY.fAs[ i*4+j].ni2){ t="#fff"; 		b=ui.tY.areaB}
+				else if(AL.subj.opts.includes(AL.tY.fAs[ i*4+j])){ 	t=ui.tY.base; 	b=ui.tY.areaB}
+				else{ 												t=ui.tY.areaT;	b=ui.tY.area}}
+			else{ 												t=ui.tY.areaT;	b=ui.tY.area}
+ 			e =mkL( ui.tY.tbX+i*ui.tY.coW, ui.tY.tbY+j*ui.tY.roH,
+ 				ui.tY.cow, ui.tY.roh, undefined, b); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.mD.LineW+1, ui.tY.tbY+j*ui.tY.roH-1/5*ui.tY.roh,//-ui.tY.aMarg,
+ 				undefined,t,undefined,ui.tY.roh,AL.tY.fAs[i*4+j].ni2,"PF"); E.push(e);
+
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.tY.tCO, ui.tY.tbY+j*ui.tY.roH+ui.tY.tY1,
+ 				undefined,"#fff",undefined,ui.tY.tCF,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.tY.tC2, ui.tY.tbY+j*ui.tY.roH+ui.tY.tY1,
+ 				undefined,"#fff",undefined,ui.tY.tCF,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.tY.tC3, ui.tY.tbY+j*ui.tY.roH+ui.tY.tY1,
+ 				undefined,"#ccc",undefined,ui.tY.tCF,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.tY.tC4, ui.tY.tbY+j*ui.tY.roH+ui.tY.tY1,
+ 				undefined,"#ccc",undefined,ui.tY.tCF,".000","CH"); E.push(e);
+
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.tY.tCO, ui.tY.tbY+j*ui.tY.roH+ui.tY.tY2,
+ 				undefined,"#000",undefined,ui.tY.tCF,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.tY.tC2, ui.tY.tbY+j*ui.tY.roH+ui.tY.tY2,
+ 				undefined,"#000",undefined,ui.tY.tCF,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.tY.tC3, ui.tY.tbY+j*ui.tY.roH+ui.tY.tY2,
+ 				undefined,"#333",undefined,ui.tY.tCF,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.tY.tC4, ui.tY.tbY+j*ui.tY.roH+ui.tY.tY2,
+ 				undefined,"#333",undefined,ui.tY.tCF,".000","CH"); E.push(e);
+
+		}
+	}
+	//e= mkL(ui.tY.tbX, ui.tY.tbY, ui.tY.tbW, ui.tY.tbH, undefined, "#000"); E.push(e);
 	E.forEach( function(E){svgFe.appendChild(E)})}
 
 // wovels/consonants for male/female, upper/lower for child adult?
@@ -1757,10 +1892,10 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 			keyC =ui.mD.key2; keyS =ui.mD.stroke2; keyF =ui.mD.selTxt}
 		//else if(AT.sXs[n].ni === AL.sBe.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
 		else if(AT.sXs[n].ni ===AL.sex.ni) 	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
-		e=mkL(ui.mD.tbFrX+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sexRY, ui.mD.keFaW, ui.mD.keFaH,
+		e=mkL(ui.mD.keRoX+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sexRY, ui.mD.keFaW, ui.mD.keFaH,
 			"mD_sexKey-"+n,keyC,"mD_sexKeys",keyS,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : sexKey( e.id);break}});E.push(e);
-		e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2)+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sexRY-ui.mD.keFnY,//+(ui.mD.keFaH/2),
+		e=mkT(ui.mD.keRoX+(ui.mD.keFaW/2)+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sexRY-ui.mD.keFnY,//+(ui.mD.keFaH/2),
 			"mD_sexKeyTxt",keyF,"mD_sexKeyTxt-",ui.mD.keFnS,
 			AT.sXs[n].nI+"( )","TR","middle",undefined,"middle"); E.push(e); }
 
@@ -1769,10 +1904,10 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 												{ keyC=ui.mD.key2; 		keyS=ui.mD.stroke2; keyF=ui.mD.selTxt; }
 		else if(AT.gNs[n].ni ===AL.sGn.ni)	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	keyF=ui.mD.selTxt; }
 		else if(AT.gNs[n].ni ===AL.pGn.ni)	{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; keyF=ui.mD.key2; }
-		e=mkL(ui.mD.tbFrX+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.gndRY, ui.mD.keFaW, ui.mD.keFaH,
+		e=mkL(ui.mD.keRoX+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.gndRY, ui.mD.keFaW, ui.mD.keFaH,
 			"mD_gndKey-"+n,keyC,"mD_gndKeys",keyS,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : genderKey( e.id);break}});E.push(e);
-		e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2)+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.gndRY-ui.mD.keFnY,
+		e=mkT(ui.mD.keRoX+(ui.mD.keFaW/2)+(n*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.gndRY-ui.mD.keFnY,
 			"mD_gndKeyTxt",keyF,"mD_gndKeyTxt-",ui.mD.keFnS,
 			AT.gNs[n].nI,"TR","middle",undefined,"middle");E.push(e);}
 // ååå 
@@ -1785,10 +1920,10 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 		else /*if(AL.pE.sMo.pM.ni === AT.pMs[n].ni)*/		{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt; 	symC=ui.mD.selTxt}
 		if(m.sSym){ symC = "#ffff00"; } else if(m.cSym){ symC = "#ff00ff"}
 		//if(AL.mD.symm){ keyS="#ffff00"}
-		e=mkL(ui.mD.tbFrX+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.pPmRY, ui.mD.keFaW,ui.mD.keFaH,
+		e=mkL(ui.mD.keRoX+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.pPmRY, ui.mD.keFaW,ui.mD.keFaH,
 			"mD_pMdKey-"+n,keyC,"mD_pMdKeys",keyS,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : moodKey( e.id,true);break}});E.push(e);
-		e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2)+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.pPmRY-ui.mD.keFnY,
+		e=mkT(ui.mD.keRoX+(ui.mD.keFaW/2)+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.pPmRY-ui.mD.keFnY,
 			"mD_pMdKeyTxt",symC,"mD_pMdKeyTxt-",ui.mD.keFnS,
 			AT.pMs[n].niH+AL.pGn.nI+AT.pMs[n].niT,"TR","middle",undefined,"middle"); E.push(e);}
 
@@ -1801,25 +1936,37 @@ function drMoodKeys(){ var e; var E=[]; var keyC, keyS, symC; var p;
 		else /*if(AL.pE.sMo.pM.ni === AT.pMs[n].ni)*/	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt;  symC=ui.mD.selTxt;}
 		if(m.symm){ symC = "#ffff00"; }
 		//if(AL.mD.symm){ keyS="#ffff00"}
-		e=mkL(ui.mD.tbFrX+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sPmRY, ui.mD.keFaW,ui.mD.keFaH,
+		e=mkL(ui.mD.keRoX+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sPmRY, ui.mD.keFaW,ui.mD.keFaH,
 			"mD_sMdKey-"+n,keyC,"mD_sMdKeys",keyS,ui.mD.linew);
 		bindK( e, function(ev,e) { switch( ev){ case "mousedown" : moodKey( e.id,false);break}});E.push(e);
-		e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2)+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sPmRY-ui.mD.keFnY,
+		e=mkT(ui.mD.keRoX+(ui.mD.keFaW/2)+((n+1)*(ui.mD.keFaW+ui.mD.keGaH)), ui.mD.sPmRY-ui.mD.keFnY,
 			"mD_mKeyTxt",symC,"mD_sMdKeyTxt-",ui.mD.keFnS,
 			AT.pMs[n].niH+AL.sGn.nI+AT.pMs[n].niT,"TR","middle",undefined,"middle"); E.push(e);}
 
+	if(!AL.mD.obj){ keyC=ui.mD.key2; keyS=ui.mD.stroke2; symC=ui.mD.selTxt;}
+	else { keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2;}
+	e=mkL(ui.mD.keRoX, ui.mD.pPmRY/*-Math.floor(ui.tY.aMarg)*/, ui.mD.keFaW-Math.floor(ui.tY.bMarg),ui.mD.keFaH,
+		"mD_objKey",keyC,"mD_objKeys",keyS,ui.mD.linew); E.push(e);
+	e=mkT(ui.mD.keRoX+((ui.mD.keFaW-Math.floor(ui.tY.bMarg))/2), ui.mD.pPmRY-ui.mD.keFnY/*-Math.floor(ui.tY.aMarg)*/,
+		"mD_objKeyTxt",symC,"mD_objKeyTxt-",ui.mD.keFnS,
+		"¬"+AL.gnd.nI+"'","TR","middle",undefined,"middle"); E.push(e);
 	if( AL.mD.obj){ keyC=ui.mD.key2; keyS=ui.mD.stroke2; symC=ui.mD.selTxt;}
 	else { keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2;}
-	e=mkL(ui.mD.tbFrX, ui.mD.pPmRY, ui.mD.keFaW,ui.mD.obKeH,
+	e=mkL(ui.mD.keRoX, ui.mD.sPmRY/*-Math.floor(ui.tY.aMarg)*/, ui.mD.keFaW-Math.floor(ui.tY.bMarg),ui.mD.keFaH,
 		"mD_objKey",keyC,"mD_objKeys",keyS,ui.mD.linew); E.push(e);
-	//console.log(ui.mD.obKeH);
-	e=mkT(ui.mD.tbFrX+(ui.mD.keFaW/2), ui.mD.pPmRY-ui.mD.keFaH+ui.mD.keGaV/2,//-ui.mD.keFnY,
-		"mD_objKeyTxt",symC,"mD_objKeyTxt-",ui.mD.obKeH,
-		"OBJ","CH","middle",undefined,"middle"); E.push(e);
+	e=mkT(ui.mD.keRoX+((ui.mD.keFaW-Math.floor(ui.tY.bMarg))/2), ui.mD.sPmRY-ui.mD.keFnY/*-Math.floor(ui.tY.aMarg)*/,
+		"mD_objKeyTxt",symC,"mD_objKeyTxt-",ui.mD.keFnS,
+		AL.gnd.nI+"'","TR","middle",undefined,"middle"); E.push(e);
 
 	E.forEach( function(E){svgFe.appendChild(E)})}
 
 function drMoodDisp(){ 
+
+// CV CK TV TK
+//IE are classical binary
+//FT are classical scalar
+//SN are romantic non-binary non-scalar
+//1. CR 2. IE 3. FT 4. SN
 
 /*
 ui.mD.tbFrW
@@ -1960,84 +2107,71 @@ and if we encounter something like ["Y","-r","+r"] it will be easy to algorithmi
 		undefined,"#ffff00", undefined,	0.8*ui.mD.tbCeB, lAriK, "PF", "middle"); E.push(e);
 	e=mkT(ui.mD.tbDiX+ui.mD.tbTxX+ui.mD.tbCeW,	ui.mD.tbDiY+ui.mD.tbCeT-ui.mD.LineW+ui.mD.tbRoH*2,
 		undefined,"#ffff00", undefined,	0.8*ui.mD.tbCeB, rAriK, "PF", "middle"); E.push(e);
-
-
-// what if gender is classical and age is romantic???
-
-	//e=mkT(ui.mD.kex+ui.mD.disWid/4, 	 ui.mD.plY+ui.mD.tRL+(ui.mD.fRH2/1.3), "mD_dispTxt-gMF",
-	//	mFDC,	"mD_dispTxt",	0.7*ui.mD.fRH2, lMF, "TR", "middle"); E.push(e);
-	
-	
-	
-	//heading containers
-	/*e=mkL(ui.mD.tbDiX,ui.mD.tbDiY, ui.mD.tbCeT,ui.mD.tbHeH, undefined,ui.mD.base); E.push(e);
-	e=mkL(ui.mD.tbDiX+ui.mD.tbCeW,ui.mD.tbDiY, ui.mD.tbCeT,ui.mD.tbHeH, undefined,ui.mD.base); E.push(e);
-	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.linew/2, ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
-		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
-	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.tbRoH+ui.mD.linew/2, ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
-		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
-	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.tbRoH*2+ui.mD.linew/2, ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
-		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);
-	e=mkL(ui.mD.tbDiX+ui.mD.linew/2,ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.tbRoH*3+ui.mD.linew/2, ui.mD.tbDiW-ui.mD.linew, ui.mD.tbCeT-ui.mD.linew,
-		undefined, ui.mD.key, undefined, ui.mD.base, ui.mD.lineW); E.push(e);*/
-	//headings
-	/*if(AL.mosaicForm){ moF="Mosaic Form"}
-	e=mkT(ui.mD.tbDiX+ui.mD.tbCeW, ui.mD.tbDiY+ui.mD.tbHeH-ui.mD.LineW, undefined, "#ffffff",undefined,
-		ui.mD.tbCeT*0.9,moF,"PF","middle",undefined); E.push(e);
-		e=mkT(ui.mD.tbDiX+ui.mD.tbCeW, ui.mD.tbDiY+ui.mD.tbHeH+ui.mD.tbRoH-ui.mD.LineW, undefined, "#ffffff",undefined,
-			ui.mD.tbCeT*0.9,"Mosaic Form","PF","middle",undefined); E.push(e);*/
-
-
-
-
 	E.forEach( function(E){svgFe.appendChild(E)}); }
 
-/*
-function drTypeStage(){ 
- 	var E=[]; var e=null;
-	var x=Math.round(ui.tY.disHrz+(ui.tY.disWid/2));
-	var e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
-	e.setAttribute("filter","url(#f1)"); e.setAttribute("dominant-baseline","middle"); E.push(e);
-	var e=mkT(x, ui.tY.stgY, "-stg", "#ffffff", "stg", ui.tY.stgF, AL.tY.zo, "SR","middle");
-	e.setAttribute('opacity',0.62); e.setAttribute("dominant-baseline","middle"); E.push(e);
-	if(AL.subj){ 
-		var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stgy,
-		"-stg", "#ffffff", "stg", ui.tY.stgf,AL.subj.nI+". "+AL.subj.nM.full, "PF","left");
-		//e.setAttribute("alignment-baseline","hanging");
-		E.push(e)}
-	var e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stgy,
-		undefined,"#fff",undefined,ui.tY.stgf,AL.tY.nI,"PF","end");E.push(e)
-	E.forEach( function(E){svgFe.appendChild(E)})}*/
+//can subject exist without tYl? for example when sleeping? or does this default to iNtuition?
 
 function drMoodStage(){ 
 if(AL.subj){ var E=[]; var e=null; var x=Math.round(ui.tY.disHrz+(ui.tY.disWid/2)); var mFS;
 	if(AL.mD.symm){ mFS="#ffff00"} else{ mFS="#88ff88"}
 	var mDisp = mkSubjMoodCode(AL.subj);
 	if(AL.subj.pMd.ni === AL.mD.ni){
-		var e=mkT(x, ui.tY.stgY+ui.tY.cE/6, // not right
+		e=mkT(x, ui.tY.stgY+ui.tY.cE/6, // not right
 			"-stg", mFS, "stg", (ui.tY.cE)/4, AL.mD.nI, "SF","middle",undefined,"middle");
 		e.setAttribute("filter","url(#f1)"); E.push(e);}
-	var e=mkT(x, ui.tY.stgY+ui.tY.cE/6,
+	e=mkT(x, ui.tY.stgY+ui.tY.cE/6,
 		"-stg", mFS, "stg", (ui.tY.cE)/4, AL.mD.nI, "SF","middle",undefined,"middle");
 	e.setAttribute('opacity',0.62);E.push(e);
-		var e=mkT(ui.tY.keX-ui.sB.disWid, ui.tY.stgy,
+		e=mkT(ui.tY.keX, ui.tY.stgy,
 		"-stg", mFS, "stg", ui.tY.cE/6,AL.subj.nI+". "+AL.subj.nM.full, "PF","start");E.push(e);
-	var e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stgy,
+	e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stgy,
 		undefined,mFS,undefined,ui.tY.cE/6, mDisp, "TR","end"); E.push(e);
 	E.forEach( function(E){svgFe.appendChild(E)}); }}
+/*
+function drTypeTable(){ var e=null; var E=[]; var t,b;
+	for(var i=0; i<5; i++){
+		for(var j=0; j<4; j++){
+			if( AL.tYl && AL.tYl.ni2 ===AL.tY.fAs[ i*4+j].ni2){ t="#fff"; 		b=ui.tY.areaB}
+			else if(AL.subj.opts.includes(AL.tY.fAs[ i*4+j])){ 	t=ui.tY.base; 	b=ui.tY.areaB}
+			else{ 												t=ui.tY.areaT;	b=ui.tY.area;}
+ 			e =mkL( ui.tY.tbX+i*(ui.tY.coW+ui.mD.linew), ui.tY.tbY+j*(ui.tY.roH+ui.mD.linew),
+ 				ui.tY.coW, ui.tY.roH, undefined, b); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*(ui.tY.coW+ui.mD.linew)+ui.mD.LineW+1, ui.tY.tbY+j*(ui.tY.roH+ui.mD.linew)-1/5*ui.tY.roH,//-ui.tY.aMarg,
+ 				undefined,t,undefined,ui.tY.roH,AL.tY.fAs[i*4+j].ni2,"PF"); E.push(e);
+		}
+	}
+	//e= mkL(ui.tY.tbX, ui.tY.tbY, ui.tY.tbW, ui.tY.tbH, undefined, "#000"); E.push(e);
+	E.forEach( function(E){svgFe.appendChild(E)})}
+*/
+function drMoodTable(){ var e=null; var E=[];
+	/*		if((AL.pM===null)||(AT.pMs[n].ni !== AL.sPm.ni))
+													{ keyC=ui.mD.key2; 		keyS=ui.mD.stroke2; symC=ui.mD.selTxt;}
+		else if(AL.pM.ni ===AT.pMs[n].ni && AL.gnd.ni === AL.sGn.ni)	
+													{ keyC=ui.mD.selTxt; 	keyS=ui.mD.selKey2; symC=ui.mD.key2; }
+		else 	{ keyC=ui.mD.selKey2; 	keyS=ui.mD.selTxt;  symC=ui.mD.selTxt;}
+	*/
+	for(var i=0; i<13; i++){
+		for(var j=0; j<5; j++){
+			e =mkL( ui.tY.tbX+i*(ui.mD.coW+ui.mD.linew), ui.mD.tbY+j*(ui.mD.roH+ui.mD.linew),
+				ui.mD.coW, ui.mD.roH, undefined, ui.mD.key2); E.push(e);
+		}
+	}
+	//e= mkL(ui.tY.tbX, ui.mD.tbY, ui.tY.tbW, ui.mD.tbH, undefined, ui.mD.key2); E.push(e);
+	E.forEach( function(E){svgFe.appendChild(E)})}
 function drawMood(){var b =null;
-	AL.feInit =true;
 	drTopBar();
 	drList();
 	b =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.mD.base,"tY"); svgFe.appendChild( b);
 	drMoodPlane();
 	drMoodKeys();
 	drMoodDisp();
-	drMoodStage();
+	switch( AL.moodFeature){
+		case "Stage" 	: drMoodStage(); 	break;
+		case "Worth" 	: drMoodTable(); 	break;	}
 	drSequencer();
-	drBottomBar();
-	AL.feInit =false;
+	drBottomPanel();
 	document.body.appendChild( divFe);
+	document.body.appendChild( divSk);
 	document.body.appendChild( divTb);
 	document.body.appendChild( divLi);
 	document.body.appendChild( divSq);
@@ -2053,9 +2187,9 @@ function drMosaicDisp(){
 	if(AL.sim.subjs.length > 2){ pRow=4; pCol=2}
 	if(AL.sim.subjs.length > 8){ pRow=6; pCol=3}
 	var w= Math.floor(ui.mP.disWid/r); // tile width
-	var h= Math.floor((ui.winHei-ui.bB.tipHei-ui.tB.disHei)/r); // tile height
+	var h= Math.floor((ui.winHei-ui.bP.tipHei-ui.tB.disHei)/r); // tile height
 	var X= Math.round((ui.mP.disWid-(r*w))/2)+ui.mP.liW+ui.sQ.disWid; // screen offset x
-	var Y= Math.round(((ui.winHei-ui.bB.tipHei+ui.tB.disHei)-(r*h))/2); // screen offset y
+	var Y= Math.round(((ui.winHei-ui.bP.tipHei+ui.tB.disHei)-(r*h))/2); // screen offset y
 	var pW=Math.floor((w-pRow)/pRow); // person width
 	var pH=Math.floor((h-pCol)/pCol); // person height
 	var fOff=2; if(pH < 12){ fOff=0}
@@ -2088,18 +2222,77 @@ function drMosaicDisp(){
 					case "mouseup" 		: mosaicKeyMouseUp( mX,mY); 				break;
 					case "mouseleave" 	: mosaicKeyMouseUp( mX,mY); 				break;}})}
 function drawMosaic(){
-	AL.feInit =true;
 	drTopBar();
 	drList();
 	drSequencer();
 	drMosaicDisp();
-	drBottomBar();
-	AL.feInit =false;
+	drBottomPanel();
 	document.body.appendChild( divFe);
+	document.body.appendChild( divSk);
 	document.body.appendChild( divTb);
 	document.body.appendChild( divLi);
 	document.body.appendChild( divSq);
-	//document.body.appendChild( divSc);
+}
+
+//rom cla tool sel
+function drawScalar(){ var e=null; var E=[];
+	drTopBar();
+	drList();
+	drSequencer();
+	e =mkL(ui.tY.disHrz,ui.tY.disVrt,ui.tY.disWid,ui.tY.disHei,"tY",ui.sC.bG,"tY"); E.push(e);
+	e =mkL(ui.sC.diX,ui.sC.diY,ui.sC.diW,ui.sC.hDH,"tY",ui.sC.hL,"tY"); E.push(e);
+	for(var i=0; i<AT.fQsL; i++){
+		e =mkL(ui.sC.diX+i*ui.sC.cQW, ui.sC.diY, ui.sC.cQW, ui.sC.quH, undefined, "#fff"); E.push(e);
+		e =mkL(ui.sC.diX+i*ui.sC.cQW+ui.tY.bMarg, ui.sC.diY+ui.sC.quH,
+			ui.sC.cQW-ui.tY.bMarg, ui.sC.hDH/2-ui.sC.quH-ui.tY.aMarg, undefined, ui.sC.fX); E.push(e);
+	}
+	for(var i=0; i<AT.mQsL; i++){
+		e =mkL(ui.sC.diX+i*ui.sC.cQW, ui.sC.mQY, ui.sC.cQW, ui.sC.quH, undefined, "#fff"); E.push(e);
+		e =mkL(ui.sC.diX+i*ui.sC.cQW+ui.tY.bMarg, ui.sC.mQY+ui.sC.quH,
+			ui.sC.cQW-ui.tY.bMarg, ui.sC.hDH/2-ui.sC.quH-ui.tY.aMarg, undefined, ui.sC.fX); E.push(e);
+	}
+	e =mkL(ui.sC.diX,ui.sC.hDB,ui.sC.diW,ui.sC.hDH,"tY",ui.sC.fX,"tY"); E.push(e);
+	for(var i=0; i<AT.aQsL; i++){
+		e =mkL(ui.sC.diX+i*ui.sC.rQW, ui.sC.hDB, ui.sC.rQW, ui.sC.quH, undefined, "#fff"); E.push(e);
+		e =mkL(ui.sC.diX+i*ui.sC.rQW+ui.tY.bMarg, ui.sC.hDB+ui.sC.quH,
+			ui.sC.rQW-ui.tY.bMarg, ui.sC.hDH/2-ui.sC.quH-ui.tY.aMarg, undefined, ui.sC.hL); E.push(e);
+	}
+	for(var i=0; i<AT.cQsL; i++){
+		e =mkL(ui.sC.diX+i*ui.sC.rQW, ui.sC.cQY, ui.sC.rQW, ui.sC.quH, undefined, "#fff"); E.push(e);
+		e =mkL(ui.sC.diX+i*ui.sC.rQW+ui.tY.bMarg, ui.sC.cQY+ui.sC.quH,
+			ui.sC.rQW-ui.tY.bMarg, ui.sC.hDH/2-ui.sC.quH-ui.tY.aMarg, undefined, ui.sC.hL); E.push(e);
+	}
+	E.forEach( function(e){ svgFe.appendChild(e)})
+	drBottomPanel();
+	document.body.appendChild( divFe);
+	document.body.appendChild( divSk);
+	document.body.appendChild( divTb);
+	document.body.appendChild( divLi);
+	document.body.appendChild( divSq);	
+}
+
+function drawRels(){ var b=null;
+	drTopBar();
+	drList();
+	drSequencer();
+	drBottomPanel();
+	document.body.appendChild( divFe);
+	document.body.appendChild( divSk);
+	document.body.appendChild( divTb);
+	document.body.appendChild( divLi);
+	document.body.appendChild( divSq);	
+}
+
+function drawMarker(){ var b=null;
+	drTopBar();
+	drList();
+	drSequencer();
+	drBottomPanel();
+	document.body.appendChild( divFe);
+	document.body.appendChild( divSk);
+	document.body.appendChild( divTb);
+	document.body.appendChild( divLi);
+	document.body.appendChild( divSq);	
 }
 
 
@@ -2561,8 +2754,8 @@ function mkModalXYPlane(m,r){
 
 	else 					  { xY.uLX = mkHalfQuadrant(ui.yel, ui.yel, r,   m.gForm);
 								xY.uRX = mkHalfQuadrant(ui.ora, ui.ora, r,   m.gForm);
-								xY.dRX = mkHalfQuadrant(ui.lil, ui.lil, r,   m.gForm);
-								xY.dLX = mkHalfQuadrant(ui.red, ui.red, r,   m.gForm)}
+								xY.dRX = mkHalfQuadrant(ui.red, ui.red, r,   m.gForm);
+								xY.dLX = mkHalfQuadrant(ui.lil, ui.lil, r,   m.gForm)}
 
 	if( m.invMor||m.pureGood) { xY.uLY = mkHalfQuadrant(ui.yel, ui.vio, r-1, m.bForm);
 								xY.uRY = mkHalfQuadrant(ui.ora, ui.blu, r-1, m.bForm);
@@ -2571,8 +2764,8 @@ function mkModalXYPlane(m,r){
 
 	else 					  { xY.uLY = mkHalfQuadrant(ui.vio, ui.vio, r-1, m.bForm);
 								xY.uRY = mkHalfQuadrant(ui.blu, ui.blu, r-1, m.bForm);
-								xY.dRY = mkHalfQuadrant(ui.gre, ui.gre, r-1, m.bForm);
-								xY.dLY = mkHalfQuadrant(ui.cya, ui.cya, r-1, m.bForm)}
+								xY.dRY = mkHalfQuadrant(ui.cya, ui.cya, r-1, m.bForm);
+								xY.dLY = mkHalfQuadrant(ui.gre, ui.gre, r-1, m.bForm)}
 
 	/*console.log("DEBUT mkModalXYPlane I");
 	console.log("DEBUT uLX");console.log(xY.uLX);
@@ -4603,9 +4796,9 @@ function mkType(ni,ab,parent,subj){
 		case "eNTR": t =new AL.Sociotypes.eNTR( ni,ab,parent,subj); return t;
 		case "NaT" : t =new AL.Sociotypes.NaT(  ni,ab,parent,subj);	return t}}
 function inhTy( tY,parent){ if( parent){ tY.parent =parent.tYs.find( o => o.ni ===tY.ni)}}
-AL.Sociotypes={
-	seed: [ "iSFR","iSFC","iSTR","iSTC","iNFR","iNFC","iNTR","iNTC",
-			"eSFR","eSFC","eSTR","eSTC","eNFR","eNFC","eNTR","eNTC"],
+AL.Sociotypes={ //1. CR 2. IE 3. FT 4. SN
+	seed: [ "iSFC","iSFR","eSFC","eSFR","iSTC","iSTR","eSTC","eSTR",
+			"iNFC","iNFR","eNFC","eNFR","iNTC","iNTR","eNTC","eNTR"],
 	iSFR:function( ni,qua,parent,s){ mkSociotype(this,ni,qua,parent,s,false,false,false,false,
 		"Dolphin", 		"Descending Idealist", 		"Romantic Believer", 	"ESFp","SEE","ESFP")},
 	iSFC:function( ni,qua,parent,s){ mkSociotype(this,ni,qua,parent,s,false,false,false,true, 
@@ -4791,7 +4984,7 @@ AL.Circuits={ seed:["a","b","c","d","e","f","g","h","i","j","k","l"],
 	k:function( ni){ mkCircuit2( this,ni,false,false,true, -1,true, false,true ,"Morphogenetic Circuit" 	)},
 	l:function( ni){ mkCircuit2( this,ni,false,false,true,  1,false,false,false,"Meta-Ego" 					)}}
 function mkCircuit2( 			 c,   ni,lon,  lat,  ver, rDi,str,  val,  mnt,  nI){
-	c.lon=lon; c.lat=lat; c.ver=ver; c.rDi=rDi; c.ni=ni; c.nI=ni; c.str=str; c.val=val; c.mnt=mnt; c.nI=nI;
+	c.lon=lon; c.lat=lat; c.ver=ver; c.rDi=rDi; c.ni=ni; c.ni2=ni; c.str=str; c.val=val; c.mnt=mnt; c.nI=nI;
 	c.count=0; c.K=0; c.V=0; c.spd={lon:0,lat:0,ver:0}}
 
 function precalcFunctions(seed,parent){ fNs =[]; var b =null;
@@ -4999,6 +5192,125 @@ function mkBinaryGender2(o,ni,masculine){ this.ni=ni;switch(masculine){ case und
 																		case true 		:o.masculine =true}}
 
 
+
+
+
+
+
+
+
+function precalcAdultQualities( seed,parent){ var b =null; var a =[];
+	for(let n=0; n <AT.aQsL; n++){	b =mkRq( seed[n],parent); a.push( b);}return a}
+AL.AdultQualities =[
+	"adu_0_rom_0","adu_4_phen_1","adu_3_lown_2","adu_2_high_3","adu_1_dlbr_4",
+	"adu_4_hrmny_1", "adu_3_signi_2", "adu_2_aware_3", "adu_1_unity_4"];
+function precalcChildQualities( seed,parent){ var b =null; var a =[];
+	for(let n=0; n <AT.cQsL; n++){	b =mkRq( seed[n],parent); a.push( b);}return a}
+AL.ChildQualities =[
+	"kid_0_rom_0","kid_4_phen_1","kid_3_lown_2","kid_2_high_3","kid_1_dlbr_4",
+	"kid_4_hrmny_1", "kid_3_signi_2", "kid_2_aware_3", "kid_1_unity_4"];
+function mkRq( ni,parent){ var q=null; switch(ni){
+	case "kid_0_rom_0" 	:q=new AL.RomanticQualities.kid_0_rom_0 	(ni); inhRq( q,parent);return q;
+	case "kid_4_phen_1" :q=new AL.RomanticQualities.kid_4_phen_1	(ni); inhRq( q,parent);return q;
+	case "kid_3_lown_2" :q=new AL.RomanticQualities.kid_3_lown_2 	(ni); inhRq( q,parent);return q;
+	case "kid_2_high_3" :q=new AL.RomanticQualities.kid_2_high_3 	(ni); inhRq( q,parent);return q;
+	case "kid_1_dlbr_4" :q=new AL.RomanticQualities.kid_1_dlbr_4 	(ni); inhRq( q,parent);return q;
+	case "kid_4_hrmny_1":q=new AL.RomanticQualities.kid_4_hrmny_1 	(ni); inhRq( q,parent);return q;
+	case "kid_3_signi_2":q=new AL.RomanticQualities.kid_3_signi_2 	(ni); inhRq( q,parent);return q;
+	case "kid_2_aware_3":q=new AL.RomanticQualities.kid_2_aware_3 	(ni); inhRq( q,parent);return q;
+	case "kid_1_unity_4":q=new AL.RomanticQualities.kid_1_unity_4 	(ni); inhRq( q,parent);return q;
+	case "adu_0_rom_0" 	:q=new AL.RomanticQualities.adu_0_rom_0 	(ni); inhRq( q,parent);return q;
+	case "adu_4_phen_1" :q=new AL.RomanticQualities.adu_4_phen_1	(ni); inhRq( q,parent);return q;
+	case "adu_3_lown_2" :q=new AL.RomanticQualities.adu_3_lown_2 	(ni); inhRq( q,parent);return q;
+	case "adu_2_high_3" :q=new AL.RomanticQualities.adu_2_high_3 	(ni); inhRq( q,parent);return q;
+	case "adu_1_dlbr_4" :q=new AL.RomanticQualities.adu_1_dlbr_4 	(ni); inhRq( q,parent);return q;
+	case "adu_4_hrmny_1":q=new AL.RomanticQualities.adu_4_hrmny_1 	(ni); inhRq( q,parent);return q;
+	case "adu_3_signi_2":q=new AL.RomanticQualities.adu_3_signi_2 	(ni); inhRq( q,parent);return q;
+	case "adu_2_aware_3":q=new AL.RomanticQualities.adu_2_aware_3 	(ni); inhRq( q,parent);return q;
+	case "adu_1_unity_4":q=new AL.RomanticQualities.adu_1_unity_4 	(ni); inhRq( q,parent);return q;}}
+function inhRq( q,parent){ if( parent){ q.parent=parent.rQs.find(o => o.ni === q.ni)}}
+AL.RomanticQualities={ 
+	kid_4_phen_1 	: function(ni){mkRq2(this,ni,false,false,4,1,"4s1","Sensory \n introverted \n phenomena")},
+	kid_3_lown_2 	: function(ni){mkRq2(this,ni,false,false,3,2,"3s2","Sensory \n extroverted \n lower needs")},
+	kid_2_high_3 	: function(ni){mkRq2(this,ni,false,false,2,3,"2s3","Sensory \n introverted \n higher needs")},
+	kid_1_dlbr_4 	: function(ni){mkRq2(this,ni,false,false,1,4,"1s4","Sensory \n extroverted \n deliberation")},
+	kid_0_rom_0 	: function(ni){mkRq2(this,ni,false,true, 0,0,"0n0","Empty \n romantic \n quality")},
+	kid_4_hrmny_1	: function(ni){mkRq2(this,ni,false,true, 4,1,"4n1","iNtuitive \n introverted \n harmony")},
+	kid_3_signi_2	: function(ni){mkRq2(this,ni,false,true, 3,2,"3n2","iNtuitive \n extroverted \n significance")},
+	kid_2_aware_3	: function(ni){mkRq2(this,ni,false,true, 2,3,"2n3","iNtuitive \n introverted \n awareness")},
+	kid_1_unity_4	: function(ni){mkRq2(this,ni,false,true, 1,4,"1n4","iNtuitive \n extroverted \n unity")},
+	adu_4_phen_1 	: function(ni){mkRq2(this,ni,true, false,4,1,"4S1","Sensory \n introverted \n phenomena")},
+	adu_3_lown_2 	: function(ni){mkRq2(this,ni,true, false,3,2,"3S2","Sensory \n extroverted \n lower needs")},
+	adu_2_high_3 	: function(ni){mkRq2(this,ni,true, false,2,3,"2S3","Sensory \n introverted \n higher needs")},
+	adu_1_dlbr_4 	: function(ni){mkRq2(this,ni,true, false,1,4,"1S4","Sensory \n extroverted \n deliberation")},
+	adu_0_rom_0 	: function(ni){mkRq2(this,ni,true, true, 0,0,"0N0","Empty \n romantic \n quality")},
+	adu_4_hrmny_1	: function(ni){mkRq2(this,ni,true, true, 4,1,"4N1","iNtuitive \n introverted \n harmony")},
+	adu_3_signi_2	: function(ni){mkRq2(this,ni,true, true, 3,2,"3N2","iNtuitive \n extroverted \n significance")},
+	adu_2_aware_3	: function(ni){mkRq2(this,ni,true, true, 2,3,"2N3","iNtuitive \n introverted \n awareness")},
+	adu_1_unity_4	: function(ni){mkRq2(this,ni,true, true, 1,4,"1N4","iNtuitive \n extroverted \n unity")}}
+function mkRq2( o,ni,kid,SN,F,T,nI,desc){ o.ni=ni; o.kid=kid; o.SN=SN; o.F=F; o.T=T; o.nI=nI; o.desc=desc;}
+
+
+function precalcFeminineQualities( seed,parent){ var b =null; var a =[];
+	for(var n=0; n <AT.fQsL; n++){	b =mkCq( seed[n],parent); a.push( b);}return a}
+AL.FeminineQualities =[
+	"fem_feel_0i","fem_feel_1e","fem_feel_2i","fem_feel_3e","fem_feel_4i",
+	"fem_think_0e","fem_think_1i","fem_think_2e","fem_think_3i","fem_think_4e"];
+function precalcMasculineQualities( seed,parent){ var b =null; var a =[];
+	for(var n=0; n <AT.mQsL; n++){	b =mkCq( seed[n],parent); a.push( b);}return a}
+AL.MasculineQualities =[
+	"mas_feel_0i","mas_feel_1e","mas_feel_2i","mas_feel_3e","mas_feel_4i",
+	"mas_think_0e","mas_think_1i","mas_think_2e","mas_think_3i","mas_think_4e"];
+function mkCq( ni,parent){ var q=null; switch(ni){
+	case "fem_feel_0i" 	:q=new AL.ClassicalQualities.fem_feel_0i	(ni); inhCq( q,parent);return q;
+	case "fem_feel_1e" 	:q=new AL.ClassicalQualities.fem_feel_1e	(ni); inhCq( q,parent);return q;
+	case "fem_feel_2i" 	:q=new AL.ClassicalQualities.fem_feel_2i 	(ni); inhCq( q,parent);return q;
+	case "fem_feel_3e" 	:q=new AL.ClassicalQualities.fem_feel_3e 	(ni); inhCq( q,parent);return q;
+	case "fem_feel_4i" 	:q=new AL.ClassicalQualities.fem_feel_4i 	(ni); inhCq( q,parent);return q;
+	case "fem_think_0e"	:q=new AL.ClassicalQualities.fem_think_0e 	(ni); inhCq( q,parent);return q;
+	case "fem_think_1i"	:q=new AL.ClassicalQualities.fem_think_1i 	(ni); inhCq( q,parent);return q;
+	case "fem_think_2e"	:q=new AL.ClassicalQualities.fem_think_2e 	(ni); inhCq( q,parent);return q;
+	case "fem_think_3i"	:q=new AL.ClassicalQualities.fem_think_3i 	(ni); inhCq( q,parent);return q;
+	case "fem_think_4e"	:q=new AL.ClassicalQualities.fem_think_4e 	(ni); inhCq( q,parent);return q;
+	case "mas_feel_0i" 	:q=new AL.ClassicalQualities.mas_feel_0i	(ni); inhCq( q,parent);return q;
+	case "mas_feel_1e" 	:q=new AL.ClassicalQualities.mas_feel_1e	(ni); inhCq( q,parent);return q;
+	case "mas_feel_2i" 	:q=new AL.ClassicalQualities.mas_feel_2i 	(ni); inhCq( q,parent);return q;
+	case "mas_feel_3e" 	:q=new AL.ClassicalQualities.mas_feel_3e 	(ni); inhCq( q,parent);return q;
+	case "mas_feel_4i" 	:q=new AL.ClassicalQualities.mas_feel_4i 	(ni); inhCq( q,parent);return q;
+	case "mas_think_0e"	:q=new AL.ClassicalQualities.mas_think_0e 	(ni); inhCq( q,parent);return q;
+	case "mas_think_1i"	:q=new AL.ClassicalQualities.mas_think_1i 	(ni); inhCq( q,parent);return q;
+	case "mas_think_2e"	:q=new AL.ClassicalQualities.mas_think_2e 	(ni); inhCq( q,parent);return q;
+	case "mas_think_3i"	:q=new AL.ClassicalQualities.mas_think_3i 	(ni); inhCq( q,parent);return q;
+	case "mas_think_4e"	:q=new AL.ClassicalQualities.mas_think_4e 	(ni); inhCq( q,parent);return q}}
+function inhCq( q,parent){ if( parent){ q.parent=parent.cQs.find(o => o.ni === q.ni)}}
+AL.ClassicalQualities={ 
+	fem_feel_0i	: function(ni){mkCq2(this,ni,false,false,-0,"♀F0i","Sensory \n introverted \n phenomena")},
+	fem_feel_1e	: function(ni){mkCq2(this,ni,false,true, -1,"♀F1e","Sensory \n extroverted \n lower needs")},
+	fem_feel_2i : function(ni){mkCq2(this,ni,false,false,-2,"♀F2i","Sensory \n introverted \n higher needs")},
+	fem_feel_3e : function(ni){mkCq2(this,ni,false,true, -3,"♀F3e","Sensory \n extroverted \n deliberation")},
+	fem_feel_4i : function(ni){mkCq2(this,ni,false,false,-4,"♀F4i","Empty \n romantic \n quality")},
+	fem_think_0e: function(ni){mkCq2(this,ni,false,true, +0,"♀T0e","iNtuitive \n introverted \n harmony")},
+	fem_think_1i: function(ni){mkCq2(this,ni,false,false, 1,"♀T1i","iNtuitive \n extroverted \n significance")},
+	fem_think_2e: function(ni){mkCq2(this,ni,false,true,  2,"♀T2e","iNtuitive \n introverted \n awareness")},
+	fem_think_3i: function(ni){mkCq2(this,ni,false,false, 3,"♀T3i","iNtuitive \n extroverted \n unity")},
+	fem_think_4e: function(ni){mkCq2(this,ni,false,true,  4,"♀T4e","Sensory \n introverted \n phenomena")},
+	mas_feel_0i	: function(ni){mkCq2(this,ni,true, false,-0,"♂F0i","Sensory \n extroverted \n lower needs")},
+	mas_feel_1e	: function(ni){mkCq2(this,ni,true, true, -1,"♂F1e","Sensory \n introverted \n higher needs")},
+	mas_feel_2i : function(ni){mkCq2(this,ni,true, false,-2,"♂F2i","Sensory \n extroverted \n deliberation")},
+	mas_feel_3e : function(ni){mkCq2(this,ni,true, true, -3,"♂F3e","Empty \n romantic \n quality")},
+	mas_feel_4i : function(ni){mkCq2(this,ni,true, false,-4,"♂F4i","iNtuitive \n introverted \n harmony")},
+	mas_think_0e: function(ni){mkCq2(this,ni,true, true, +0,"♂T0e","iNtuitive \n extroverted \n significance")},
+	mas_think_1i: function(ni){mkCq2(this,ni,true, false, 1,"♂T1i","iNtuitive \n introverted \n awareness")},
+	mas_think_2e: function(ni){mkCq2(this,ni,true, true,  2,"♂T2e","iNtuitive \n introverted \n awareness")},
+	mas_think_3i: function(ni){mkCq2(this,ni,true, false, 3,"♂T3i","iNtuitive \n introverted \n awareness")},
+	mas_think_4e: function(ni){mkCq2(this,ni,true, true,  4,"♂T4e","iNtuitive \n extroverted \n unity")}}
+function mkCq2( o,ni,mas,ie,FT,nI,desc){ o.ni=ni; o.mas=mas; o.ie=ie; o.FT=FT; o.nI=nI; o.desc=desc;}
+
+
+
+
+
+
 /*AL.Subjects ={ seed:["Allah","God","Yahweh","Satan", //the gender of allah is undefined, gender of yahweh is fluid
 	"Femininity","Masculinity","Adults","Children","Pure","Hejssans","Islam","Kafirs","Culture","Logic","Subjectivity","Objectivity",
 	"Best","Average","Median",
@@ -5093,6 +5405,8 @@ function startTurn( sim){
 
 
 function initCleanSlate(){
+				AL.touched 		=false;
+
 				AL.pGn 			=null;
 				AL.sGn 			=null;						
 				AL.pPm 			=null;
@@ -5109,22 +5423,6 @@ function initCleanSlate(){
 				AL.gnd  		=null;
 				AL.pM 			=null;
 				AL.tYl 			=null;
-
-				AL.touched 		=false;
-
-				AL.fesL 		=AL.fes.length;
-				AL.lIFesL 		=AL.lIFes.length;
-				AL.sBToolsL 	=AL.sBTools.length;
-				AL.tBToolsL 	=AL.tBTools.length;
-				AL.statTabsL	=AL.statTabs.length;
-				AL.lIFesL 		=AL.lIFes.length;
-				AL.lIToolsL 	=AL.lITools.length;
-				AL.bBToolsL 	=AL.bBTools.length;
-
-				AL.sBToolsP 	=[]; for( var n =0; n <AL.sBToolsL; n++){ AL.sBToolsP.push(false)}
-				AL.tBToolsP 	=[]; for( var n =0; n <AL.tBToolsL; n++){ AL.tBToolsP.push(false)}
-				AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}
-				AL.bBToolsP 	=[]; for( var n =0; n <AL.bBToolsL; n++){ AL.bBToolsP.push(false)}
 
 				AL.turn 		=null;
 				AL.subTurn 		=null;
@@ -5165,17 +5463,23 @@ function initUserInterface(){
 
 				AL.fesL 		=AL.fes.length;
 				AL.sBToolsL 	=AL.sBTools.length;
+				AL.sKMoodToolsL =AL.sKMoodTools.length;
+				AL.sKTypeToolsL =AL.sKTypeTools.length;
 				AL.tBToolsL 	=AL.tBTools.length;
 				AL.statTabsL 	=AL.statTabs.length;
 				AL.lIFesL 		=AL.lIFes.length;
 				AL.lIToolsL 	=AL.lITools.length;
-				AL.bBToolsL 	=AL.bBTools.length;
+				AL.bPToolsL 	=AL.bPTools.length;
 
 				AL.sBToolsP 	=[]; for( var n =0; n <AL.sBToolsL; n++){ AL.sBToolsP.push(false)}
+				AL.sKMoodToolsP =[]; for( var n =0; n <AL.sKMoodToolsL; n++){ AL.sKMoodToolsP.push(false)}
+				AL.sKMoodToolsD =[];
+				AL.sKTypeToolsP =[]; for( var n =0; n <AL.sKTypeToolsL; n++){ AL.sKTypeToolsP.push(false)}
 				AL.tBToolsP 	=[]; for( var n =0; n <AL.tBToolsL; n++){ AL.tBToolsP.push(false)}
 				AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}				
-				AL.bBToolsP 	=[]; for( var n =0; n <AL.bBToolsL; n++){ AL.bBToolsP.push(false)}
+				AL.bPToolsP 	=[]; for( var n =0; n <AL.bPToolsL; n++){ AL.bPToolsP.push(false)}}
 
+function initDefaultState(){
 				AL.sim =RT.sims[0];
 				AL.turn 		=AL.sim.turn;
 				AL.subTurn 		=AL.sim.subTurn;
@@ -5331,8 +5635,14 @@ function includeCopies( arr,sim){
 	*/
 
 function countOntology(){
-				AT.sQsL 		=AL.ScalarQualities.seed.length;
-				AT.vQsL 		=AL.VectorQualities.seed.length;
+				AT.fQsL 		=AL.FeminineQualities.length;
+				AT.mQsL 		=AL.MasculineQualities.length;
+				AT.aQsL 		=AL.AdultQualities.length;
+				AT.cQsL 		=AL.ChildQualities.length;
+
+				//AT.rQsL 		=AL.RomanticQualities.seed.length;
+				//AT.sQsL 		=AL.ScalarQualities.seed.length;
+				//AT.vQsL 		=AL.VectorQualities.seed.length;
 				AT.sXsL 		=AL.Genders.seed.length;
 				AT.pMsL 		=AL.PrimalMoods.seed.length;
 				AT.iEsL 		=AL.InformationElements.seed.length;
@@ -5347,6 +5657,8 @@ function countOntology(){
 				AL.PlacesL 		=AL.Places.seed.length;
 }
 function initQualities(to){
+	to.fQs 		= [];
+
 	to.sXs 		= []; 
 	to.gNs 		= [];
 	to.sQs 		= [];
@@ -5359,6 +5671,11 @@ function initQualities(to){
 	to.tYs 		= [];
 }
 function mkQualities(to,parent){
+	to.fQs 		= precalcFeminineQualities( 	AL.FeminineQualities, 					parent);
+	to.mQs 		= precalcMasculineQualities( 	AL.MasculineQualities, 					parent);
+	to.aQs 		= precalcAdultQualities( 		AL.AdultQualities, 						parent);
+	to.cQs 		= precalcChildQualities( 		AL.ChildQualities, 						parent);
+
 	to.sXs 		= precalcSexes( 				AL.Sexes.seed, 							parent); 
 	to.gNs 		= precalcGenders( 				AL.Genders.seed, 				 		parent);
 	to.sQs 		= precalcScalarQualities( 		AL.ScalarQualities.seed, 				parent);
@@ -5400,6 +5717,7 @@ function precalc() {
 						initSims();
 
 						initUserInterface();
+						initDefaultState();
 						initVariables();
 						initTurn( AL.sim);
 
