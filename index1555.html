@@ -9,7 +9,7 @@ j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-NXVWFS2');</script>-->
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0" http-equiv="Content-Type"/>
-<title>Floresta v1542</title>
+<title>Floresta v1555</title>
 <link rel="icon" href="diodi/favicon.ico">
 <link rel="stylesheet" type="text/css" href="diodi/fonts.css">
 <style>svg text { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}
@@ -22,35 +22,31 @@ j=d.createElement(s),dl=l!=='dataLayer'?'&l='+l:'';j.async=true;j.src=
 	#lI{ position:absolute; 			 left:0px; 				overflow:auto; overflow-x: auto;}
 	#lK{ position:absolute; overflow:auto; left:120px; background-color: black; top:39px; z-index:10;
 		border-bottom:1px solid #3c3c3c; border-right:1px solid #3c3c3c;
-		-webkit-border-radius: 12px;-moz-border-radius: 12px;border-radius: 12px;}
+		-webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px;}
 	#sK{ position:absolute; overflow:auto; background-color: black;
 		border-bottom:1px solid #3c3c3c; border-right:1px solid #3c3c3c;
-		-webkit-border-radius: 12px;-moz-border-radius: 12px;border-radius: 12px;}
+		-webkit-border-radius: 7px;-moz-border-radius: 7px;border-radius: 7px;}
 	#lI::-webkit-scrollbar{ display:none; }
 	#sQ{ position:absolute; 									overflow:auto; }
 	/*#sC{ position:absolute; background-color:black; z-index:20; width:0px; height:1px; top:39px;}*/
 	html{height:100%;padding:0px;margin:0px;/*font-family:PF;*/font-size:13px;background-color:black;color:white;overflow:auto; overflow-x:auto;}
 	body{height:100%;padding:0px;margin:0px;background-color:transparent; overflow:auto; overflow-x:auto;}
 </style>
-<script> 
+<script>
 var RT =null; var AT =null;
 function initTheRelative(){ RT ={ subjs:[], sims:[],simsL:0, simsSrc:[],simsSrcL:0, simsSrcRand:[],simsSrcRandL:0, simsSrcDef:[],simsSrcDefL:0}}
 function initTheAbsolute(){ AT ={ sims:[], simsL:0}}
 initTheRelative(); initTheAbsolute();
 var AL={ 
-	fe: "mood",
+	fe: "type",
 	fes: ["quiz","type","rels","mood","mosaic","scalar","marker"],
 	statTabs:["tot","avg","med"],
 	rXp: 1, liNarrowInMosaic:true, liNarrow:false, liS:0, fElIS:0, mPlIS:0, lIW:1, fElIW:1, mPlIW:0, sQW:false, bPH:0,
-	mosaicForm :true, stage:false,
+	mosaicForm :true,
 	lockSubj:false, lockSim:true,
 	sBTools: ["play","fastForward","skip","skipForward"],
 	sBTunes: [100, 	 100, 		   1, 	  1],
 	sBMoved: false, sBPlay: false, 	sBSkipSims: true, 	sBFastForward:false,
-	sBMoodTools: ["mosaicForm"],
-	sBMoodTunes: [true], // before start away asks for delete?
-//	tBTools: ["listContent","away","hide","copy","rand","make","tabContent","tabSort","tabHide"],
-//	tBTunes: ["subjs", 	undefined,undefined,undefined,undefined,undefined,"sims",false,false],
 	tBTools: ["cleanSlate","makeSim","randSim","copySim","lockSim","confStat"],
 	tBTunes: [undefined, 	100, 		100,	100, 		true],
 	lF:"subjects",
@@ -58,15 +54,19 @@ var AL={
 	lITools: ["confRand","confDef","defSort","confSort"],
 	lITunes: [undefined,true, 		false, 		"val"],
 	bPTools: ["sizeList","wideList","wideSeq","highFoot"],
-	sKTypeTools: ["stage"],
-	sKTypeToolsH:[16],
-	sKTypeTunes: [undefined],
+	sKTypeTools:[
+		["Select","off","global","save"],
+		["Mood","Legend","Total","Stereo.","Infant.","Raise","Queer-","Queer+"],
+		["Bottom","Faculty","infElem","Stage"]],
+	sKTypeSelect:"off", sKTypeMood: "Total", sKTypeBottom: "Stage",
 	sKMoodTools: ["mosaicForm",
+		["Select","off","local","global","save"],
 		["Plane","Legend","Worth","infElem","I & U"],
 		["TableMT","Total","Stereo.","Infant.","Raise","Queer-","Queer+"],
+		["cell","bad","good","both"],
 		["Bottom","Table","Stage"]],
 	sKMoodTunes: [undefined, "Worth", "Total", "Stage"],
-	sKMoodPlane: "Worth", sKMoodTable: "Total", sKMoodBottom: "Stage",
+	sKMoodPlane: "Worth", sKMoodTable: "Total", sKMoodBottom: "Stage", sKMoodSelect: "off", sKMoodCell: "both",
 
 // moods accumulate quality and karma. scalar qualities also do. vector qualities don't, they're just the gate.
 
@@ -304,6 +304,20 @@ function predraw(){
 	ui.tY.tC3 =ui.tY.tCO+ui.tY.tCW*2;
 	ui.tY.tC4 =ui.tY.tCO+ui.tY.tCW*3;
 	ui.tY.tCF =Math.floor(3/4*ui.tY.roh);
+
+	ui.tY.coW2=ui.tY.tbW/4;
+	ui.tY.cow2=ui.tY.coW2-ui.mD.linew;
+	ui.tY.roH2=ui.tY.tbH/2;
+	ui.tY.roh2=ui.tY.roH2-ui.mD.linew;
+
+	ui.tY.tY12=Math.floor(-2/7*ui.tY.roh2);
+	ui.tY.tY22=Math.floor(2/15*ui.tY.roh2);
+	ui.tY.tCO2=ui.tY.cMarg;
+	ui.tY.tCW2=ui.tY.cMarg+2*ui.mD.lineW;
+	ui.tY.tC22=ui.tY.tCO2+ui.tY.tCW2;
+	ui.tY.tC32=ui.tY.tCO2+ui.tY.tCW2*2;
+	ui.tY.tC42=ui.tY.tCO2+ui.tY.tCW2*3;
+	ui.tY.tCF2=Math.floor(3/4*ui.tY.roh2);
 //	ui.tY.tC1
 /*e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.mD.LineW+ui.tY.bMarg+ui.mD.LineW+(ui.tY.cMarg+ui.mD.LineW)*3, ui.tY.tbY+j*ui.tY.roH-1/5*ui.tY.roh,
  				undefined,"#0c0",undefined,3/4*ui.tY.roh,".000","CH"); E.push(e);
@@ -737,90 +751,131 @@ function sidebarKey( e){ var tab= parseInt(e.split("-").pop()); AL.fe=AL.fes[tab
 
 //stattab summa 0–1
 
-function sKTypeToolMouseDown( n){
-	switch( AL.sKTypeTools[n]){
-		case "stage"  		: AL.stage=  	 	!AL.stage;  	draw(); break;}
-	if( AL.sKTypeToolsP[n]){ 	AL.sKTypeToolsP[n] 	=false; refreshSkTypeTool( n)}}
-function mkSkTypeSubTool( n,yO,t,f){ var e=null; var E=[]; var l=t.length; var h=(AL.sKTypeToolsH[n]-2)/l; var bG, tC, sT; 
-	switch(AL.sKTypeTools[n]){ case "moodViewSelector": for(var i=0; i<l; i++){
-		if(AL.sKTypeTunes[n]===i){  sT=ui.mD.selTxt; 	bG="#00aa00"; 	tC="#000"}
-		else{ 						sT=ui.mD.selTxt; 	bG="#000"; 		tC=ui.mD.selTxt;	}
- 	 	e =mkL( 4,yO+(h*i)+2, 54, h-2, undefined, bG, "sKTypeTool-"+n, sT,1,true,12,12); E.push(e);
- 	 	e =mkT( ui.sK.widMid,yO+(h*i)+(l/2), undefined, tC, "sKTypeTool-"+n, f, t[i], "PF","middle"); E.push(e);}
-	}
-	return E}
-function mkSkTypeTool( n){ var E =[]; var e =null; var tC=ui.tY.areaT; var yO=2; var t,f,y,T,F,Y,bG;
-	if((AL.stage && AL.sKTypeTools[n]==="stage")){ AL.sKTypeToolsP[n]=true}
-	else{ AL.sKTypeToolsP[n]=false}
-	for(var i=0; i<n; i++){ console.log(i); yO=yO+AL.sKTypeToolsH[i]+2}
-	if(!AL.sKTypeToolsP[n]){
-		e =mkL( 2, yO, ui.sK.keyWid, AL.sKTypeToolsH[n], 	undefined, bG, "sKTypeTool-"+n,
-			ui.tY.areaB,1,true, 		12,12);E.push( e)}
-	else{ tC="#000";
-		e =mkL( 2, yO, ui.sK.keyWid, AL.sKTypeToolsH[n], undefined, ui.tY.areaB, "sKTypeTool-"+n, //area=ui.tY.area; areaB=ui.tY.areaB; areaT=ui.tY.areaT;
-			ui.tY.areaT,1,true, 		12,12);E.push( e)}
-	if( AL.feInit){
-		e =mkL( 2, yO, ui.sK.keyWid, AL.sKTypeToolsH[n], undefined,undefined,undefined,
-			undefined,undefined,undefined,12,12,"0")}
-	bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKTypeToolMouseDown( n);break}});E.push(e);
-	switch( AL.sKTypeTools[n]){
-		case "stage": 						T="Stage";	 	  Y=-2; 	  F=14;		break;
-		case "moodViewSelector": 	e=mkSkTypeSubTool( n,yO, ["Stage", "Legend",  "Quanta", 	"Binary"], 14); E=E.concat(e);break;
-		case "mosaicForm": 					T="Compare"; 	  Y=-2; 	  F=14;		break;
-		}
-	if(t){e	=mkT( ui.sK.widMid, yO+y, undefined,tC,"sKTypeTool-"+n,f,t,"PF","middle");E.push(e)}
-	if(T){e =mkT( ui.sK.widMid, yO+Y, undefined,tC,"sKTypeTool-"+n,F,T,"PF","middle");E.push(e)}
-	return E}
-function refreshSkTypeTool( n){ var t ="sKTypeTool-"+n; var e =document.getElementsByClassName( t);
-							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
-							t =mkSkTypeTool( n); t.forEach( function( e){ svgSk.appendChild( e)})}
 
 
-// split obj subj button
-// Legend should disable stage, not compare
-// ["Plane","Legend","Worth","infElem","I & U"],["TableMT","Total","Infant.","Raise","Queer-","Queer+"],["Bottom","Table","Stage"]],
+function sKTypeSingleToolMouseDown( n){	switch( AL.sKTypeTools[n]){
+		case "mosaicForm" 	: 	AL.mosaicForm=  !AL.mosaicForm; draw(); break;}}
+function sKTypeMultiToolMouseDown( n,tune){ 
+	switch(AL.sKTypeTools[n][0]){ 	
+		case "Select" 	: 	AL.sKTypeSelect=tune;break;
+		case "TableMT" 	: 	AL.sKTypeTable=tune; break;
+		case "Mood" 	: 	AL.sKTypeMood=tune;  break;
+		case "Bottom" 	: 	AL.sKTypeBottom=tune;break;}	draw();}
+function mkSkTypeMultiToolKey( n,i,yO,k,l,m,h){ var E=[]; var e=null; var T,b,s,t,tune;
+	switch( AL.sKTypeTools[n][0]){ 	
+		case "Select" 	: 	tune=AL.sKTypeSelect;break;
+		case "Mood" 	: 	tune=AL.sKTypeMood; break;
+		case "TableMT" 	: 	tune=AL.sKTypeTable; break;
+		case "Bottom" 	: 	tune=AL.sKTypeBottom;break;}
+	if(tune===AL.sKTypeTools[n][i]){b=m; s=h; t=k}
+	else { 							b=l; s=m; t=h}
+	switch(AL.sKTypeTools[n][i]){ 	
+		case "off" 		: 	T="Off"; 	break;
+		case "local" 	: 	T="Local"; 	break;
+		case "global" 	: 	T="Global"; break;
+		case "save" 	: 	T="Save"; 	break;
+		case "Legend" 	: 	T="Legend"; break;
+		case "Worth" 	: 	T="Worth"; 	break;
+		case "infElem" 	: 	T="InfElem";break;
+		case "I & U" 	: 	T="I & U"; 	break;
+		case "Total" 	: 	T="Total"; 	break;
+		case "Stereo." 	: 	T="Stereo.";break;
+		case "Infant." 	: 	T="Age-"; 	break;
+		case "Raise" 	: 	T="Age+"; 	break;
+		case "Queer-" 	: 	T="Queer-"; break;
+		case "Queer+" 	: 	T="Queer+"; break;
+		case "Faculty" 	: 	T="Faculty";break;
+		case "Table" 	: 	T="Table"; 	break;
+		case "Stage" 	: 	T="Stage"; 	break;}
+	e =mkL( 4,yO+(ui.sK.tH+2)*i+2, 54, ui.sK.tH, undefined, b, "sKTypeTool-"+n, s,1,undefined,7,7);E.push(e);
+	bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKTypeMultiToolMouseDown( n, AL.sKTypeTools[n][i]); 	break}});
+	e =mkT( ui.sK.widMid,yO+(ui.sK.tH+2)*i-1, undefined, t, "sKTypeTool-"+n,14,T,"PF","middle"); E.push(e);return E}
+function isSkTypeToolFaded( t){ var r=false; if(Array.isArray(t)){ t =t[0]}	switch(t){
+		case "Mood": if((AL.sKTypeBottom==="Stage")){ r=true} 	break;} return r}
+function mkSkTypeMultiTool( n,yO,ck,lo,mi,hi){ var E=[];var e=null; var T;
+	var l=AL.sKTypeTools[n].length; var h=l*(ui.sK.tH+2)+2; 
+	e =mkL(2, yO, ui.sK.keyWid, h, undefined, lo, "sKTypeTool-"+n, mi,1, true,7,7); E.push(e);
+	switch(AL.sKTypeTools[n][0]){ 	
+		case "Select" 	: T="select";break;
+		case "Mood" 	: T="table"; break;
+		case "TableMT" 	: T="table"; break;
+		case "Bottom" 	: T="bottom";break}
+	e =mkT( ui.sK.widMid,yO, undefined, hi, "sKTypeTool-"+n,14,T,"AI","middle"); E.push(e);
+	for(var i=1; i<l; i++){ e =mkSkTypeMultiToolKey( n,i,yO,ck,lo,mi,hi); E=E.concat(e)} return E}
+function mkSkTypeSingleTool( n,yO,k,l,m,h){ var E =[]; var e =null; var T,b,s,t;
+	if((!AL.mosaicForm && AL.sKTypeTools[n]==="mosaicForm")||(AL.stage && AL.sKTypeTools[n]==="stage")){b=m; t=k; s=m;}
+	else{  																								b=k; t=h; s=m;}
+	e =mkL( 2, yO, ui.sK.keyWid,ui.sK.tH,undefined,b,"sKTypeTool-"+n,s,1,undefined,7,7);
+	bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKTypeSingleToolMouseDown( n);break}});E.push(e);
+	switch( AL.sKTypeTools[n]){ case "stage": 		T="Stage";	  break;
+								case "mosaicForm": 	T="Compare";  break;}
+	e =mkT( ui.sK.widMid, yO-2, undefined,t,"sKTypeTool-"+n,14,T,"PF","middle");E.push(e); return E}
+function mkSkTypeTool( n){ var yO=2.5; var k,l,m,h;
+	if( isSkTypeToolFaded( AL.sKTypeTools[n])){ k="#000"; 		l="#3e3e3e"; 	m="#888"; 		h="#ccc"}
+	else{ 										k="#000"; 		l=ui.tY.base; 	m=ui.tY.areaB; 	h=ui.tY.areaT}
+	for(var i=0; i<n; i++){	if(Array.isArray(AL.sKTypeTools[i])){ AL.sKTypeTools[i].forEach(function(){ yO+=ui.sK.tH+2}); yO+=4}
+							else{ 																		yO+=ui.sK.tH+2}}
+	if( Array.isArray( AL.sKTypeTools[n])){ var E =mkSkTypeMultiTool( n,yO,k,l,m,h)}
+	else{ 									var E =mkSkTypeSingleTool(n,yO,k,l,m,h)} return E}
 
 
-function sKMoodMultiToolMouseDown( n,tune){ //sKMoodToolConfigure( n,tune);
-	switch(AL.sKMoodTools[n][0]){ 	case "Plane" 	: 	AL.sKMoodPlane=tune; break;
-									case "TableMT" 	: 	AL.sKMoodTable=tune; break;
-									case "Bottom" 	: 	AL.sKMoodBottom=tune;break;}	draw();}
+function sKMoodSingleToolMouseDown( n){	switch( AL.sKMoodTools[n]){
+		case "mosaicForm" 	: 	AL.mosaicForm=  !AL.mosaicForm; draw(); break;}}
+function sKMoodMultiToolMouseDown( n,tune){ 
+	switch(AL.sKMoodTools[n][0]){ 
+		case "Select" 	: 	AL.sKMoodSelect=tune;	break;
+		case "Plane" 	: 	AL.sKMoodPlane=tune; 	break;
+		case "TableMT" 	: 	AL.sKMoodTable=tune; 	break;
+		case "Bottom" 	: 	AL.sKMoodBottom=tune;	break;
+		case "cell" 	: 	AL.sKMoodCell=tune; }	draw();}
 function mkSkMoodMultiToolKey( n,i,yO,k,l,m,h){ var E=[]; var e=null; var T,b,s,t,tune;
-	switch( AL.sKMoodTools[n][0]){ 	case "Plane" 	: 	tune=AL.sKMoodPlane; break;
-									case "TableMT" 	: 	tune=AL.sKMoodTable; break;
-									case "Bottom" 	: 	tune=AL.sKMoodBottom;break;}
+	switch( AL.sKMoodTools[n][0]){ 	
+		case "Select" 	: 	tune=AL.sKMoodSelect; 	break;
+		case "Plane" 	: 	tune=AL.sKMoodPlane;  	break;
+		case "TableMT" 	: 	tune=AL.sKMoodTable;  	break;
+		case "Bottom" 	: 	tune=AL.sKMoodBottom; 	break;
+		case "cell" 	: 	tune=AL.sKMoodCell; 	break;}
 	if(tune===AL.sKMoodTools[n][i]){b=m; s=h; t=k}
 	else { 							b=l; s=m; t=h}
-	switch(AL.sKMoodTools[n][i]){ 	case "Legend" 	: 	T="Legend"; break;
-									case "Worth" 	: 	T="Worth"; 	break;
-									case "infElem" 	: 	T="infElem";break;
-									case "I & U" 	: 	T="I & U"; 	break;
-									case "Total" 	: 	T="Total"; 	break;
-									case "Stereo." 	: 	T="Stereo.";break;
-									case "Infant." 	: 	T="Age-"; 	break;
-									case "Raise" 	: 	T="Age+"; 	break;
-									case "Queer-" 	: 	T="Queer-"; break;
-									case "Queer+" 	: 	T="Queer+"; break;
-									case "Complex" 	: 	T="Complex";break;
-									case "Table" 	: 	T="Table"; 	break;
-									case "Stage" 	: 	T="Stage"; 	break;}
+	switch(AL.sKMoodTools[n][i]){ 
+		case "off" 		: 	T="Off"; 	break;
+		case "local" 	: 	T="Local"; 	break;
+		case "global" 	: 	T="Global"; break;	
+		case "save" 	: 	T="Save"; 	break;
+		case "Legend" 	: 	T="Legend"; break;
+		case "Worth" 	: 	T="Worth"; 	break;
+		case "infElem" 	: 	T="InfElem";break;
+		case "I & U" 	: 	T="I & U"; 	break;
+		case "Total" 	: 	T="Total"; 	break;
+		case "Stereo." 	: 	T="Stereo.";break;
+		case "Infant." 	: 	T="Age-"; 	break;
+		case "Raise" 	: 	T="Age+"; 	break;
+		case "Queer-" 	: 	T="Queer-"; break;
+		case "Queer+" 	: 	T="Queer+"; break;
+		case "good" 	: 	T="Good"; 	break;
+		case "bad" 		: 	T="Bad"; 	break;
+		case "both" 	: 	T="Both"; 	break;
+		case "Table" 	: 	T="Table"; 	break;
+		case "Stage" 	: 	T="Stage"; 	break;}
 	e =mkL( 4,yO+(ui.sK.tH+2)*i+2, 54, ui.sK.tH, undefined, b, "sKMoodTool-"+n, s,1,undefined,7,7);E.push(e);
 	bindE( e, function(ev,e) { switch( ev){ case "mousedown" : sKMoodMultiToolMouseDown( n, AL.sKMoodTools[n][i]); 	break}});
 	e =mkT( ui.sK.widMid,yO+(ui.sK.tH+2)*i-1, undefined, t, "sKMoodTool-"+n,14,T,"PF","middle"); E.push(e);return E}
 function isSkMoodToolFaded( t){ var r=false; if(Array.isArray(t)){ t =t[0]}	switch(t){
 		case "TableMT": if((AL.sKMoodPlane==="Legend")||(AL.sKMoodBottom==="Stage")){ r=true} 	break;
-		case "Bottom": 	if(AL.sKMoodPlane==="Legend"){ r=true} 									break;} return r}
+		case "Bottom": 	if(AL.sKMoodPlane==="Legend"){ r=true} 									break;
+		case "cell": 	if((AL.sKMoodPlane==="Legend")||(AL.sKMoodBottom==="Stage")){ r=true} 	break;
+		case "Select": 	if(AL.sKMoodPlane==="Legend"){ r=true}} return r}
 function mkSkMoodMultiTool( n,yO,ck,lo,mi,hi){ var E=[];var e=null; var T;
 	var l=AL.sKMoodTools[n].length; var h=l*(ui.sK.tH+2)+2; 
 	e =mkL(2, yO, ui.sK.keyWid, h, undefined, lo, "sKMoodTool-"+n, mi,1, true,7,7); E.push(e);
-	switch(AL.sKMoodTools[n][0]){ 	case "Plane" 	: T="plane"; break;
-									case "TableMT" 	: T="table"; break;
-									case "Bottom" 	: T="bottom";break}
+	switch(AL.sKMoodTools[n][0]){ 
+		case "Select" 	: T="select"; 	break;
+		case "Plane" 	: T="plane"; 	break;
+		case "TableMT" 	: T="table"; 	break;
+		case "Bottom" 	: T="bottom";	break;
+		case "cell" 	: T="cell"; 	break;}
 	e =mkT( ui.sK.widMid,yO, undefined, hi, "sKMoodTool-"+n,14,T,"AI","middle"); E.push(e);
 	for(var i=1; i<l; i++){ e =mkSkMoodMultiToolKey( n,i,yO,ck,lo,mi,hi); E=E.concat(e)} return E}
-function sKMoodSingleToolMouseDown( n){	switch( AL.sKMoodTools[n]){
-		case "stage"  		: 	AL.stage=  	 	!AL.stage; 		draw(); break;
-		case "mosaicForm" 	: 	AL.mosaicForm=  !AL.mosaicForm; draw(); break;}}
 function mkSkMoodSingleTool( n,yO,k,l,m,h){ var E =[]; var e =null; var T,b,s,t;
 	if((!AL.mosaicForm && AL.sKMoodTools[n]==="mosaicForm")||(AL.stage && AL.sKMoodTools[n]==="stage")){b=m; t=k; s=m;}
 	else{  																								b=k; t=h; s=m;}
@@ -836,9 +891,6 @@ function mkSkMoodTool( n){ var yO=2.5; var k,l,m,h;
 							else{ 																		yO+=ui.sK.tH+2}}
 	if( Array.isArray( AL.sKMoodTools[n])){ var E =mkSkMoodMultiTool( n,yO,k,l,m,h)}
 	else{ 									var E =mkSkMoodSingleTool(n,yO,k,l,m,h)} return E}
-function refreshSkMoodTool( n){ var t ="sKMoodTool-"+n; var e =document.getElementsByClassName( t);
-							for (var i =e.length -1; i >=0; --i){ e[i].remove()}
-							t =mkSkMoodTool( n); t.forEach( function( e){ svgSk.appendChild( e)})}
 
 
 
@@ -1070,6 +1122,7 @@ function mkQuiz( q,n){ var b =null; var B=[];
 		Math.floor(ui.qZ.fnt/1.618),"#fff","quiz_2",undefined,2,"#000"); B.push(b);
 	return B}
 
+//sKTypeSelect:"off", sKTypeTable: "Faculty", sKTypeMood: "Total", sKTypeBottom: "Stage",
 function drawType(){ var b =null;
 	drSidebar();
 	drTopBar();
@@ -1079,7 +1132,10 @@ function drawType(){ var b =null;
 	drTypeCage(ui.tY.c2x, ui.tY.c2y, "tYC2"); 	
 	drSequencer( );						
 	drTypeKeys();
-	AL.stage ? drTypeStage() : drTypeTable();					
+	switch( AL.sKTypeBottom){
+		case "Stage" 	: drTypeStage(); 	 	break;
+		case "Faculty" 	: drTypeFacultyTable(); break;
+		case "infElem" 	: drTypeIETable()}				
 	drBottomPanel();
 	document.body.appendChild( divFe);
 	document.body.appendChild( divSk);
@@ -1754,7 +1810,7 @@ function drTypeStage(){ var E=[]; var e=null;
 	e=mkT(ui.winWid-ui.tY.cMarg-ui.sB.disWid, ui.tY.stgy,
 		undefined,"#fff",undefined,ui.tY.stgf,AL.tY.nI,"PF","end");E.push(e)
 	E.forEach( function(E){svgFe.appendChild(E)})}
-function drTypeTable(){ var e=null; var E=[]; var t,b;
+function drTypeFacultyTable(){ var e=null; var E=[]; var t,b;
 	for(var i=0; i<5; i++){
 		for(var j=0; j<4; j++){
 			if(AL.subj){
@@ -1784,6 +1840,38 @@ function drTypeTable(){ var e=null; var E=[]; var t,b;
  				undefined,"#333",undefined,ui.tY.tCF,".000","CH"); E.push(e);
  			e =mkT( ui.tY.tbX+i*ui.tY.coW+ui.tY.tC4, ui.tY.tbY+j*ui.tY.roH+ui.tY.tY2,
  				undefined,"#333",undefined,ui.tY.tCF,".000","CH"); E.push(e);
+
+		}
+	}
+	//e= mkL(ui.tY.tbX, ui.tY.tbY, ui.tY.tbW, ui.tY.tbH, undefined, "#000"); E.push(e);
+	E.forEach( function(E){svgFe.appendChild(E)})}
+
+function drTypeIETable(){ var e=null; var E=[]; var J;
+	for(var i=0; i<4; i++){
+		for(var j=0; j<2; j++){
+			j===0 ? J=1 : J=0;
+ 			e =mkL( ui.tY.tbX+i*ui.tY.coW2, ui.tY.tbY+j*ui.tY.roH2,
+ 				ui.tY.cow2, ui.tY.roh2, undefined, ui.tY.area); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.mD.LineW+1, ui.tY.tbY+j*ui.tY.roH2-1/5*ui.tY.roh,//-ui.tY.aMarg,
+ 				undefined,ui.tY.areaT,undefined,ui.tY.roh,AL.tY.iEs[i*2+J].ni,"PF"); E.push(e);
+
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.tY.tCO2, ui.tY.tbY+j*ui.tY.roH2+ui.tY.tY12,
+ 				undefined,"#fff",undefined,ui.tY.tCF2,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.tY.tC22, ui.tY.tbY+j*ui.tY.roH2+ui.tY.tY12,
+ 				undefined,"#fff",undefined,ui.tY.tCF2,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.tY.tC32, ui.tY.tbY+j*ui.tY.roH2+ui.tY.tY12,
+ 				undefined,"#ccc",undefined,ui.tY.tCF2,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.tY.tC42, ui.tY.tbY+j*ui.tY.roH2+ui.tY.tY12,
+ 				undefined,"#ccc",undefined,ui.tY.tCF2,".000","CH"); E.push(e);
+
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.tY.tCO2, ui.tY.tbY+j*ui.tY.roH2+ui.tY.tY22,
+ 				undefined,"#000",undefined,ui.tY.tCF2,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.tY.tC22, ui.tY.tbY+j*ui.tY.roH2+ui.tY.tY22,
+ 				undefined,"#000",undefined,ui.tY.tCF2,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.tY.tC32, ui.tY.tbY+j*ui.tY.roH2+ui.tY.tY22,
+ 				undefined,"#333",undefined,ui.tY.tCF2,".000","CH"); E.push(e);
+ 			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.tY.tC42, ui.tY.tbY+j*ui.tY.roH2+ui.tY.tY22,
+ 				undefined,"#333",undefined,ui.tY.tCF2,".000","CH"); E.push(e);
 
 		}
 	}
@@ -4800,9 +4888,9 @@ function mkType(ni,ab,parent,subj){
 		case "eNTR": t =new AL.Sociotypes.eNTR( ni,ab,parent,subj); return t;
 		case "NaT" : t =new AL.Sociotypes.NaT(  ni,ab,parent,subj);	return t}}
 function inhTy( tY,parent){ if( parent){ tY.parent =parent.tYs.find( o => o.ni ===tY.ni)}}
-AL.Sociotypes={ //1. CR 2. IE 3. FT 4. SN
-	seed: [ "iSFC","iSFR","eSFC","eSFR","iSTC","iSTR","eSTC","eSTR",
-			"iNFC","iNFR","eNFC","eNFR","iNTC","iNTR","eNTC","eNTR"],
+AL.Sociotypes={
+	seed: [ "iSFC","iSFR","iSTC","iSTR","eSFC","eSFR","eSTC","eSTR",
+			"iNFC","iNFR","iNTC","iNTR","eNFC","eNFR","eNTC","eNTR"],
 	iSFR:function( ni,qua,parent,s){ mkSociotype(this,ni,qua,parent,s,false,false,false,false,
 		"Dolphin", 		"Descending Idealist", 		"Romantic Believer", 	"ESFp","SEE","ESFP")},
 	iSFC:function( ni,qua,parent,s){ mkSociotype(this,ni,qua,parent,s,false,false,false,true, 
@@ -5475,11 +5563,10 @@ function initUserInterface(){
 				AL.lIToolsL 	=AL.lITools.length;
 				AL.bPToolsL 	=AL.bPTools.length;
 
-				AL.sBToolsP 	=[]; for( var n =0; n <AL.sBToolsL; n++){ AL.sBToolsP.push(false)}
-				AL.sKTypeToolsP =[]; for( var n =0; n <AL.sKTypeToolsL; n++){ AL.sKTypeToolsP.push(false)}
-				AL.tBToolsP 	=[]; for( var n =0; n <AL.tBToolsL; n++){ AL.tBToolsP.push(false)}
-				AL.lIToolsP 	=[]; for( var n =0; n <AL.lIToolsL; n++){ AL.lIToolsP.push(false)}				
-				AL.bPToolsP 	=[]; for( var n =0; n <AL.bPToolsL; n++){ AL.bPToolsP.push(false)}}
+				AL.sBToolsP 	=[]; AL.sBTools.forEach(function(){ AL.sBToolsP.push(false)});
+				AL.tBToolsP 	=[]; AL.tBTools.forEach(function(){ AL.tBToolsP.push(false)});
+				AL.lIToolsP 	=[]; AL.lITools.forEach(function(){ AL.lIToolsP.push(false)});			
+				AL.bPToolsP 	=[]; AL.bPTools.forEach(function(){ AL.bPToolsP.push(false)})}
 
 function initDefaultState(){
 				AL.sim =RT.sims[0];
@@ -5672,6 +5759,7 @@ function initQualities(to){
 	to.cRs 		= [];
 	to.tYs 		= [];
 }
+//value should be green?
 function mkQualities(to,parent){
 	to.fQs 		= precalcFeminineQualities( 	AL.FeminineQualities, 					parent);
 	to.mQs 		= precalcMasculineQualities( 	AL.MasculineQualities, 					parent);
