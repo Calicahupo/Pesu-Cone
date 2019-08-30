@@ -1849,11 +1849,10 @@ function drTypeFacultyTable(){ var e=null; var E=[]; var t,b;
 function drTypeIETable(){ var e=null; var E=[]; var J;
 	for(var i=0; i<4; i++){
 		for(var j=0; j<2; j++){
-			j===0 ? J=1 : J=0;
  			e =mkL( ui.tY.tbX+i*ui.tY.coW2, ui.tY.tbY+j*ui.tY.roH2,
  				ui.tY.cow2, ui.tY.roh2, undefined, ui.tY.area); E.push(e);
  			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.mD.LineW+1, ui.tY.tbY+j*ui.tY.roH2-1/5*ui.tY.roh,//-ui.tY.aMarg,
- 				undefined,ui.tY.areaT,undefined,ui.tY.roh,AL.tY.iEs[i*2+J].ni,"PF"); E.push(e);
+ 				undefined,ui.tY.areaT,undefined,ui.tY.roh,AL.tY.iEs[i*2+(1-j)].ni,"PF"); E.push(e);
 
  			e =mkT( ui.tY.tbX+i*ui.tY.coW2+ui.tY.tCO2, ui.tY.tbY+j*ui.tY.roH2+ui.tY.tY12,
  				undefined,"#fff",undefined,ui.tY.tCF2,".000","CH"); E.push(e);
