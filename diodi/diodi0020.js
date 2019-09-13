@@ -33,61 +33,25 @@ function mkName2(o,fem,kid,fin,weird,last,s){ o.fem =fem; o.kid=kid; o.fin=fin; 
  								else{ 		o.last 	=AL.Names.xxsx2}}
 	o.full 	=o.first+" "+o.last; if( s){ s.nMs.push( o)} return o}
 
-	
-function precalcFamilies(a){ return a }
-function mkSubjs(sim){	var r =[]; var b =null;	
-	b =mkReSubj( "subj_A",sim,AT.sQr, 1,1,1);r.push( b);
-	b =mkReSubj( "subj_a",sim,AT.sQr, 1,1,0);r.push( b);
-	b =mkReSubj( "subj_B",sim,AT.sQr, 0,1,1);r.push( b);
-	b =mkReSubj( "subj_b",sim,AT.sQr, 0,1,0);r.push( b);
-	b =mkReSubj( "subj_C",sim,AT.sQr, 1,0,1);r.push( b);
-	b =mkReSubj( "subj_c",sim,AT.sQr, 1,0,0);r.push( b);
-	b =mkReSubj( "subj_D",sim,AT.sQr, 0,0,1);r.push( b);
-	b =mkReSubj( "subj_d",sim,AT.sQr, 0,0,0);r.push( b);
-	r =precalcFamilies( r);
-	b =mkReSubj( "subj_E",sim,AT.sQr, 1,1,1);r.push( b);
-	b =mkReSubj( "subj_e",sim,AT.sQr, 1,1,0);r.push( b);
-	b =mkReSubj( "subj_F",sim,AT.sQr, 0,1,1);r.push( b);
-	b =mkReSubj( "subj_f",sim,AT.sQr, 0,1,0);r.push( b);
-	b =mkReSubj( "subj_G",sim,AT.sQr, 1,0,1);r.push( b);
-	b =mkReSubj( "subj_g",sim,AT.sQr, 1,0,0);r.push( b);
-	b =mkReSubj( "subj_H",sim,AT.sQr, 0,0,1);r.push( b);
-	b =mkReSubj( "subj_h",sim,AT.sQr, 0,0,0);r.push( b);
-	return r}
-function mkReSubj( 	ni,sim,pcReso,pcFem,pcKid,pcFin,pcTys,pcPms,pcPureBad,pcInvMor,pcPureGood,pcObj){ var b;
-	if( !ni){ var ni=""}
-	if( !pcReso){ 		var pcReso 	=AL.pcReso}
-	if( !pcFem){ 		var pcFem 	=AL.pcFem} 	b =Math.random(); b <pcFem ? pcFem =true  : pcFem =false;
-	if( !pcKid){ 		var pcKid 	=AL.pcKid} 	b =Math.random(); b <pcKid ? pcKid =true  : pcKid =false;
-	if( !pcFin){ 		var pcFin 	=AL.pcFin} 	b =Math.random(); b <pcFin ? pcFin =true  : pcFin =false; 
-	if( !pcFin){ b =Math.random();
-		if( !pcPureBad){	var pcPureBad 	=AL.pcPureBad}
-		if( !pcInvMor){		var pcInvMor 	=AL.pcPureBad +AL.pcInvMor}
-		if( !pcPureGood){ 	var pcPureGood 	=AL.pcPureBad +AL.pcInvMor +AL.pcPureGood}
-		if 		( b <pcPureBad){  pcPureBad=true; pcInvMor=false;pcPureGood=false}
-		else if	( b <pcInvMor) {  pcPureBad=false;pcInvMor=true; pcPureGood=false}
-		else if ( b <pcPureGood){ pcPureBad=false;pcInvMor=false;pcPureGood=true }
-		else 					{ pcPureBad=false;pcInvMor=false;pcPureGood=false}}
-	else 		{ b =Math.random();
-		if( !pcPureGood){ 	var pcPureGood 	=AL.pcPureGood}
-		if 		( b <pcPureGood){ pcPureBad=false;pcInvMor=false;pcPureGood=true }
-		else 					{ pcPureBad=false;pcInvMor=false;pcPureGood=false}}
+function mkDefaultModels(s,par){}
+function mkRandModels(s,par){}
 
-	if( !pcTys){ 			var pcTys 		=AL.pcTys}
-	if( pcTys.length==0){ 	pcTys =AL.Sociotypes.seed}
-	else{ 					pcTys =union( pcTys,AL.Sociotypes.seed)}
-	pcTys =pcTys[Math.floor(Math.random() *pcTys.length)];
+function mkDefaultGoals(s,par){}
+function mkRandGoals(s,par){}
 
-	if( !pcPms){ 			var pcPms 		=AL.pcPms}
-		if( pcPms.length==0){ pcPms =AL.PrimalMoods.seed}
-		else{ pcPms =union( pcPms,AL.PrimalMoods.seed); pcPms =pcPms[Math.floor(Math.random()*pcPms.length)]}
-	if( !pcObj){ 		var pcObj	=AL.pcObj} 	b =Math.random(); b <pcObj ? pcObj =true  : pcObj =false;
-	var o =new Subj( ni,sim,pcReso,pcFem,pcKid,pcFin,pcTys,pcPms,pcPureBad,pcInvMor,pcPureGood,pcObj);
-	/*if( AL.sBTunes[2]==AL.sim.subjsL ){ AL.sBTunes[3] =AL.sim.subjs.length+1}*/
-   	return o}
+function mkDefaultPeoples(s,par){}
+function mkRandPeoples(s,par){}
 
-function precalcDefaultPlaces(seed,par){ var ps=[]; var p =null;
-	for(var n=0; n<AL.PlacesL; n++){ p=mkPlace(seed[n],par); ps.push(p)} return ps}
+function mkDefaultFamilies(s,par){}
+function mkRandFamilies(s,par){}
+
+function mkDefaultContexts(s,par){}
+function mkRandContexts(s,par){}
+
+function mkDefaultPlaces(s,par){ var ps=[]; var p =null;
+	for(var n=0; n<AL.PlacesL; n++){ p=mkPlace(AL.Places.seed[n],par); ps.push(p)} return ps}
+function mkRandPlaces(s,par){ var ps=[]; var p =null;
+	for(var n=0; n<AL.PlacesL; n++){ p=mkPlace(AL.Places.seed[n],par); ps.push(p)} return ps}
 function mkPlace(ni,par){ var b =null; switch(ni){
 	case "Sky" 			 	:b=new AL.Places.Sky(ni,12742000,12742000,0,10000,false,false,true,false,["Sea","Land"]); 				inhPl( b,par);return b;
 	case "Sea" 		 		:b=new AL.Places.Sea(ni,12742000,12742000,-5000,0,false,false,true,false,["Sky","Land"]);				inhPl( b,par);return b;
@@ -209,6 +173,101 @@ function isSubjSafe(s,p){ if(p.ni=="Sandbox"){ return true}}
 function putDefaultSubjsToDefaultPlaces(S,P){
 	var p =P.find(o => o.ni =="Sandbox");
 	S.forEach( function(s){ s.at =p; s.safe =isSubjSafe( s,p); p.subjs.push(s)})}
+
+function mkDefaultSubjects(sim){	var r =[]; var b =null;	
+	b =mkReSubj( "subj_A",sim,AT.sQr, 1,1,1);r.push( b);
+	b =mkReSubj( "subj_a",sim,AT.sQr, 1,1,0);r.push( b);
+	b =mkReSubj( "subj_B",sim,AT.sQr, 0,1,1);r.push( b);
+	b =mkReSubj( "subj_b",sim,AT.sQr, 0,1,0);r.push( b);
+	b =mkReSubj( "subj_C",sim,AT.sQr, 1,0,1);r.push( b);
+	b =mkReSubj( "subj_c",sim,AT.sQr, 1,0,0);r.push( b);
+	b =mkReSubj( "subj_D",sim,AT.sQr, 0,0,1);r.push( b);
+	b =mkReSubj( "subj_d",sim,AT.sQr, 0,0,0);r.push( b);
+	b =mkReSubj( "subj_E",sim,AT.sQr, 1,1,1);r.push( b);
+	b =mkReSubj( "subj_e",sim,AT.sQr, 1,1,0);r.push( b);
+	b =mkReSubj( "subj_F",sim,AT.sQr, 0,1,1);r.push( b);
+	b =mkReSubj( "subj_f",sim,AT.sQr, 0,1,0);r.push( b);
+	b =mkReSubj( "subj_G",sim,AT.sQr, 1,0,1);r.push( b);
+	b =mkReSubj( "subj_g",sim,AT.sQr, 1,0,0);r.push( b);
+	b =mkReSubj( "subj_H",sim,AT.sQr, 0,0,1);r.push( b);
+	b =mkReSubj( "subj_h",sim,AT.sQr, 0,0,0);r.push( b);
+	return r}
+function mkRandSubjects(sim){	var r =mkDefaultSubjects(sim); return r}
+/*
+	s.pMd =AT.mDs.filter( mD => mD.sex.fem ===s.fem)
+						.filter( mD => mD.sex.kid ===s.kid)
+							.filter( mD => mD.obj ===s.obj);
+	s.pMd =rmMoods( s.pMd, pM, fin, pureBad, invMor, pureGood); 
+	s.pMd =mkMood( 	s.pMd[Math.floor(Math.random()*s.pMd.length)].ni, sim, s.mDs); 			s.mD =s.pMd;
+
+function Subj( 	   ni,sim,reso,mas,kid,ppl,tY,pM,stereo,bAge,gAge,bQueer,gQueer,obj,fN,cR,bGl,bGd){
+	mkSubj2(  this,ni,sim,reso,mas,kid,ppl,tY,pM,stereo,bAge,gAge,bQueer,gQueer,obj,fN,cR,bGl,bGd)}
+function mkSubj2(s,ni,sim,reso,mas,kid,ppl,tY,pM,stereo,bAge,gAge,bQueer,gQueer,obj,fN,cR,bGl,bGd){
+*/
+function mkReSubj( ni,sim,reso,mas,Ac,ppl,tY,fN,cR,pM,stereo,bAge,gAge,queer,queerBG,loc,dir,obj){ var b;
+	if( !ni){ 	var ni=""}
+	if( !reso){ var reso=AL.pcReso}
+	if( !mas){ 	var mas =AL.pcMas} 	b =Math.random(); b <mas ? mas =true  : mas =false;
+	if( !Ac){ 	var Ac  =AL.pcAc} 	b =Math.random(); b <Ac  ? Ac  =true  : Ac  =false;
+	if( !ppl){ 	var ppl =AL.pcPpl} 	b =Math.random(); b <ppl ? ppl =true  : ppl =false; 
+	if( !(stereo >0)){ var stereo =false; b =Math.random();
+		if(!Ac){if( !bAge){var bAge =AL.pcBAge}
+			if(b <bAge){  		bAge =true;  gAge =false; var bQqueer =false; var gQueer =false}
+			else{ if(!queer){ 	var queer =bAge +AL.pcQueer} else{ var queer =bAge +queer}
+			 	if(b <queer){ 	b =Math.random();
+					if(!queerBG){ 	var queerBG =AL.pcQueerBG}
+					if(b <queerBG){ bAge =false; gAge =false; var bQueer =true;  var gQueer =false}
+					else{ 			bAge =false; gAge =false; var bQueer =false; var gQueer =true}}
+				else{ stereo =true; bAge =false; gAge =false; var bQueer =false; var gQueer =false}}}
+		else{ 	if( !gAge){var gAge =AL.pcGAge}
+			if(b <gAge){  		bAge =false; gAge =true;  var bQqueer =false; var gQueer =false}
+			else{ if(!queer){ 	var queer =gAge +AL.pcQueer} else{ var queer =gAge +queer}
+			 	if(b <queer){ 	b =Math.random();
+					if(!queerBG){ 	var queerBG =AL.pcQueerBG}
+					if(b <queerBG){ bAge =false; gAge =false; var bQueer =true;  var gQueer =false}
+					else{ 			bAge =false; gAge =false; var bQueer =false; var gQueer =true}}
+				else{ stereo =true; bAge =false; gAge =false; var bQueer =false; var gQueer =false}}}}
+	else{ stereo =true; bAge =false; gAge =false; var bQueer =false; var gQueer =false}
+
+	if( !tY){ var tY =AL.pcTys}	if( tY.length===0){ tY =AL.Sociotypes.seed}				else{ tY =union( tY, AL.Sociotypes.seed)}
+	tY =tY[Math.floor(Math.random() *tY.length)];
+	if( !fN){ var fN =AL.pcFns}	if( fN.length===0){ fN =AL.Functions.seed} 				else{ fN =union( fN, AL.Functions.seed)}
+	fN =fN[Math.floor(Math.random() *fN.length)];
+	if( !cR){ var cR =AL.pcCrs}	if( cR.length===0){ cR =AL.Circuits.seed}				else{ cR =union( cR, AL.Circuits.seed)}
+	cR =cR[Math.floor(Math.random() *cR.length)];
+
+	if( !pM){ var pM =AL.pcPms}	if( pM.length===0){ pM =AL.PrimalMoods.seed}			else{ pM =union( pM, AL.PrimalMoods.seed)}
+	pM =pM[Math.floor(Math.random() *pM.length)];
+
+	//if( !xtn){ var xtn =AL.pcXtns}	if( xtn.length===0){ xtn =AL.VectorQualities.seed}	else{ xtn =union( xtn, AL.VectorQualities.seed)}
+	///*filter vQs by function IE*/xtn =xtn[Math.floor(Math.random() *xtn.length)];
+	//if( !ntn){ var ntn =AL.pcNtns}	if( ntn.length===0){ ntn =AL.VectorQualities.seed}	else{ ntn =union( ntn, AL.VectorQualities.seed)}
+	///*filter vQs by function IE*/ntn =ntn[Math.floor(Math.random() *ntn.length)];
+
+	if (!dir){ var dir = { x:0, y:0}}
+	if (!loc){ var loc = { x:0, y:0}}
+	/*if( !){ 			var nD =AL.pcNd} b <nD ? nD =true : nD =false;
+	if( !nD){ if( !cD){ var cD =AL.pcCd} b <cD ? cD =true : cD =false;}
+	var dir={ x:0, y:0};
+	if( nD){ if( !nDs){ var nDs =AL.pcNds} b <nDR ? nDR =true : nDR =false;
+		if( nDR){ 	nDR=[]; for(var i=AL.pcNdx; !i>AL.pcNdX; i++){ nDR.push(i)} dir.x =nDR[Math.floor(Math.random() *nDR.length)];
+					nDR=[]; for(var i=AL.pcNdy; !i>AL.pcNdY; i++){ nDR.push(i)} dir.y =nDR[Math.floor(Math.random() *nDR.length)]}}
+	else if( cD){ }
+
+		if( dir.length===0){ dir =AL.MosaicDirections.seed}	else{ dir =union( dir, AL.MosaicDirections.seed)}
+	dir =dir[Math.floor(Math.random() *dir.length)];*/
+
+	if( !obj){ var obj	=AL.pcObj} 		Math.random() <obj ? obj =true : obj =false;
+
+	var o =new Subj( ni,sim,reso,mas,Ac,ppl,tY,fN,cR,pM,stereo,bAge,gAge,bQueer,gQueer,loc,dir,obj);
+	sim.subjsL++;
+	/*if( AL.sBTunes[2]==AL.sim.subjsL ){ AL.sBTunes[3] =AL.sim.subjs.length+1}*/
+   	return o}
+
+function mkDefaultObjects(s,par){}
+function mkRandObjects(s,par){}
+
+
 
 function precalcDefaultPatterns(seed,par){ var p=null; var ps=[];
 	for(var n=0; n<AL.pattsL; n++){ p=mkPattern(seed[n],par); ps.push(p)}return ps}
