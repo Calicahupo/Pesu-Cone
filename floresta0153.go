@@ -1,8 +1,5 @@
 package main
 
-
-
-
 import (
 	"database/sql"
 	"os"
@@ -21,6 +18,23 @@ func dev(){
 	v := strconv.Itoa(20); log.Println(v)
 //	v := max(2,3)
 }
+
+/*
+type Cq struct{ 
+	mas, ie, s 			bool
+	c 					int8
+	ni 					string}
+type Rq struct{
+	Ac, SN 				bool
+	F, T 				int8
+	ni, desc 			string}
+type Cl struct{ 
+	hue, sat, val, c, r, V, K 	int8
+	hex 				string}
+
+type Ml struct{
+	ni, desc 	string}
+*/
 
 func abs(n int8) int8 { 	if n < 0 { return -n} else { return n}}
 //func max(n1 int8, n2 int8){ if n1<n2 { return n2} else { return n1}}
@@ -378,7 +392,7 @@ func precalcFunctions(){
 	fNs[5]=specFn(false,false,true );//igno
 	fNs[3]=specFn(false,true, false);//prov
 	fNs[4]=specFn(false,true, true );//ego
-	fNs[1]=specFn(true, false,false);//sugg
+	fNs[1]=specFn(true, false,false);//suggest
 	fNs[6]=specFn(true, false,true );//demo
 	fNs[0]=specFn(true, true, false);//role
 	fNs[7]=specFn(true, true, true )}//crea
@@ -419,7 +433,6 @@ type Pt struct{
 
 /*func pointCqByIi( cqs1 []CqS, ft bool,ie bool,sn bool) []*Cq { var cqs2 []*Cq;
 	for i := int8(0); i <40; i++{ if cqs1.ft==ft && cqs1.ie==ie && cqs1.sn==sn{ cqs2 =append(cqs2, &cqs1[i])}}; return cqs2}*/
-//cqs1 ööl fix
 
 
 type Md struct{
@@ -761,13 +774,15 @@ func ask(txt string) string {
 }
 
 
+
+
 var addr = flag.String("addr", ":8080", "http service address")
 
 func serveHome(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.URL)
 	if r.URL.Path != "/" { http.Error(w, "Not found", http.StatusNotFound);	return}
 	if r.Method != "GET" { http.Error(w, "Method not allowed", http.StatusMethodNotAllowed); return}
-	http.ServeFile(w, r, "index1816.html")}
+	http.ServeFile(w, r, "index1818.html")}
 
 func initWebSocket() {
 	flag.Parse()
@@ -781,7 +796,6 @@ func initWebSocket() {
 // Copyright 2013 The Gorilla WebSocket Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
-
 
 
 // Hub maintains the set of active clients and broadcasts messages to the
