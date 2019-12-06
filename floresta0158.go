@@ -470,21 +470,21 @@ func precalcMoods(){
 			case 3, 7, 11,15: mDs[i+12*j].gn =&gNs[3]}}}
 	for i := uint8(0); i < 192;i++ {
 		mDs[i].gwf, mDs[i].bwf =mDs[i].modPm( mDs[i].pm);
-		if mDs[i].sx == mDs[i].gn { 													// if sex and gender aren't same
-			if mDs[i].sx.mas != mDs[i].gn.mas && mDs[i].sx.Ac == mDs[i].gn.Ac { 		// .if sex and gender aren't foam
-				if !mDs[i].sx.mas { mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-4) 		// ..if sex ain't masculine...good 3 bad -4 
-				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-5)} 		// ..otherwise good 3 bad -5
-			} else if mDs[i].sx.mas == mDs[i].gn.mas && mDs[i].sx.Ac != mDs[i].gn.Ac { 	// .else if sex and gender aren't time
-				if !mDs[i].sx.Ac { 	mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-6) 		// ..if sex ain't time...good 3 bad -6
-				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(-3,6)} 		// ..otherwise good -3 bad 6
-			} else { 																	// if sex and gender are the same
-				mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-6); 							// .good 3 bad -6
-				mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(-3,6)}} 							// .and good -3 bad 6
+		if mDs[i].sx == mDs[i].gn { 													// if sex and gender aren't same 		
+			if mDs[i].sx.mas != mDs[i].gn.mas && mDs[i].sx.Ac == mDs[i].gn.Ac { 		// .if sex and gender aren't foam 		
+				if !mDs[i].sx.mas { mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-4) 		// ..if sex ain't masculine...good 3 bad -4 f_iQUEER-
+				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-5)} 		// ..otherwise good 3 bad -5 			m_eQUEER-
+			} else if mDs[i].sx.mas == mDs[i].gn.mas && mDs[i].sx.Ac != mDs[i].gn.Ac { 	// .else if sex and gender aren't time 	
+				if !mDs[i].sx.Ac { 	mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-6) 		// ..if sex ain't time...good 3 bad -6 		A_AGE-
+				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(-3,6)} 		// ..otherwise good -3 bad 6 			c_AGE+
+			} else { 																	// if sex and gender are the same 		
+				mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-6); 							// .good 3 bad -6 						f_iQUEER+
+				mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(-3,6)}} 							// .and good -3 bad 6 					m_eQUEER+
 		mDs[i].gar=mDs[i].gwf.arithWf()
 		mDs[i].bar=mDs[i].bwf.arithWf()
 		mDs[i].qp =mDs[i].quantQp( mDs[i].gar,mDs[i].bar)}}
 func (wf Wf) arithWf() Awf { var a Awf
-	if 			wf[0] == 1 {if wf[1] == 2 { if wf[2] == 3 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r} 	// foam phi alpha psi beta rho gamma
+	if 			wf[0] == 1 {if wf[1] == 2 { if wf[2] == 3 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r} 	// foam phi alpha psi beta rho gamma 	: 
 									} else 	if wf[2] ==-4 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r} 	// 							rho -4
 									} else 	if wf[2] ==-5 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r} 	// 							rho -5
 									} else 	{ 				a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r}} 	// 							rho -6
