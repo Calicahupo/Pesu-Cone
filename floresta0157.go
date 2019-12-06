@@ -441,14 +441,14 @@ type Md struct{
 	gwf, bwf 			Wf
 	gar, bar 			Awf
 	qp 					Qp}
-func (md Md) transPm(pm *Pm) (Wf,Wf) {
-	md.gwf =md.sx.gwf.transPm2(pm.gwf); 	md.bwf =md.sx.bwf.transPm2(pm.bwf); return md.gwf, md.bwf}
-func (f1 Wf) transPm2(pm Wf) Wf { var f2 Wf
+func (md Md) modPm(pm *Pm) (Wf,Wf) {
+	md.gwf =md.sx.gwf.modPm2(pm.gwf); 	md.bwf =md.sx.bwf.modPm2(pm.bwf); return md.gwf, md.bwf}
+func (f1 Wf) modPm2(pm Wf) Wf { var f2 Wf
 	f2[0] =f1[pm[0]]; 	f2[1] =f1[pm[1]]; 	f2[2] =f1[pm[2]]; 	return f2}
-func (md Md) transMd(t1 int8, t2 int8) (Wf,Wf) {
-	if t1 > 0 {	for i := int8(0); i < 3; i++ { var f Wf; f =md.gwf.transWf(0,1,2);
+func (md Md) modMd(t1 int8, t2 int8) (Wf,Wf) {
+	if t1 > 0 {	for i := int8(0); i < 3; i++ { var f Wf; f =md.gwf.modWf(0,1,2);
 		if md.gwf[i] ==t1 { f[i] =t2}; 	if md.gwf[i] ==t2 { f[i] =t1}; return f, md.bwf}
-	} else { 	for i := int8(0); i < 3; i++ { var f Wf; f =md.bwf.transWf(0,1,2);
+	} else { 	for i := int8(0); i < 3; i++ { var f Wf; f =md.bwf.modWf(0,1,2);
 		if md.bwf[i] ==t1 { f[i] =t2}; 	if md.bwf[i] ==t1 { f[i] =t1}; return md.gwf, f}}
 	return md.gwf, md.bwf}
 type Awf func(int8,int8) (int8,int8)
@@ -469,17 +469,17 @@ func precalcMoods(){
 			case 2, 6, 10,14: mDs[i+12*j].gn =&gNs[2];
 			case 3, 7, 11,15: mDs[i+12*j].gn =&gNs[3]}}}
 	for i := uint8(0); i < 192;i++ {
-		mDs[i].gwf, mDs[i].bwf =mDs[i].transPm( mDs[i].pm);
+		mDs[i].gwf, mDs[i].bwf =mDs[i].modPm( mDs[i].pm);
 		if mDs[i].sx == mDs[i].gn { 													// if sex and gender aren't same
 			if mDs[i].sx.mas != mDs[i].gn.mas && mDs[i].sx.Ac == mDs[i].gn.Ac { 		// .if sex and gender aren't foam
-				if !mDs[i].sx.mas { mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(3,-4) 		// ..if sex ain't masculine...good 3 bad -4 
-				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(3,-5)} 		// ..otherwise good 3 bad -5
+				if !mDs[i].sx.mas { mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-4) 		// ..if sex ain't masculine...good 3 bad -4 
+				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-5)} 		// ..otherwise good 3 bad -5
 			} else if mDs[i].sx.mas == mDs[i].gn.mas && mDs[i].sx.Ac != mDs[i].gn.Ac { 	// .else if sex and gender aren't time
-				if !mDs[i].sx.Ac { 	mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(3,-6) 		// ..if sex ain't time...good 3 bad -6
-				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(-3,6)} 		// ..otherwise good -3 bad 6
+				if !mDs[i].sx.Ac { 	mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-6) 		// ..if sex ain't time...good 3 bad -6
+				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(-3,6)} 		// ..otherwise good -3 bad 6
 			} else { 																	// if sex and gender are the same
-				mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(3,-6); 							// .good 3 bad -6
-				mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(-3,6)}} 							// .and good -3 bad 6
+				mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(3,-6); 							// .good 3 bad -6
+				mDs[i].gwf, mDs[i].bwf =mDs[i].modMd(-3,6)}} 							// .and good -3 bad 6
 		mDs[i].gar=mDs[i].gwf.arithWf()
 		mDs[i].bar=mDs[i].bwf.arithWf()
 		mDs[i].qp =mDs[i].quantQp( mDs[i].gar,mDs[i].bar)}}
@@ -556,17 +556,17 @@ type Pm struct{
 	gwf,bwf 			Wf}
 func precalcPrimalMoods(){
 	pMs[5].gwf=defWf(0,1,2); 	pMs[5].bwf=defWf(0,1,2); 							pMs[5].lp =specLp( 2, 2) 								// pea
-	pMs[6].gwf =pMs[5].gwf.transWf(0,2,1); pMs[6].bwf =pMs[5].bwf.transWf(0,1,2); 	pMs[6].lp =specLp( 2,-2); 								// hos
-	pMs[4].gwf =pMs[5].gwf.transWf(0,1,2); pMs[4].bwf =pMs[5].bwf.transWf(2,1,0); 	pMs[4].lp =specLp(-1,-1); 	pMs[4].pp =specPp( 1,-1)	// car
-	pMs[7].gwf =pMs[6].gwf.transWf(0,1,2); pMs[7].bwf =pMs[6].bwf.transWf(2,1,0); 	pMs[7].lp =specLp(-1, 1);  								// esc
-	pMs[3].gwf =pMs[5].gwf.transWf(0,1,2); pMs[3].bwf =pMs[5].bwf.transWf(0,2,1); 	pMs[3].lp =specLp( 1, 1); 	 							// pla
-	pMs[8].gwf =pMs[6].gwf.transWf(0,1,2); pMs[8].bwf =pMs[5].bwf.transWf(0,2,1); 	pMs[8].lp =specLp( 1,-1); 	pMs[8].pp =specPp( 1,-1)	// fig
-	pMs[2].gwf =pMs[4].gwf.transWf(0,1,2); pMs[2].bwf =pMs[4].bwf.transWf(0,2,1); 	pMs[2].lp =specLp( 2, 2); 	pMs[2].pp =specPp(-1, 1)	// cbp
-	pMs[9].gwf =pMs[7].gwf.transWf(0,1,2); pMs[9].bwf =pMs[7].bwf.transWf(0,2,1); 	pMs[9].lp =specLp( 2,-2); 	pMs[9].pp =specPp( 1,-1)	// ebf
-	pMs[1].gwf =pMs[3].gwf.transWf(0,1,2); pMs[1].bwf =pMs[3].bwf.transWf(2,1,0); 	pMs[1].lp =specLp( 2, 2); 	pMs[1].pp =specPp(-1,-1)	// pbc
-	pMs[10].gwf=pMs[8].gwf.transWf(0,1,2); pMs[10].bwf=pMs[8].bwf.transWf(2,1,0); 	pMs[10].lp=specLp( 2,-2); 	pMs[10].pp=specPp(-1,-1)	// fbe
-	pMs[0].gwf =pMs[2].gwf.transWf(0,1,2); pMs[0].bwf =pMs[2].bwf.transWf(2,1,0); 	pMs[0].lp =specLp( 2, 2); 	pMs[0].pp =specPp( 1, 1) 	// cnp
-	pMs[11].gwf=pMs[9].gwf.transWf(0,1,2); pMs[11].bwf=pMs[9].bwf.transWf(2,1,0); 	pMs[11].lp=specLp( 2,-2); 	pMs[11].pp=specPp( 1, 1)}	// fne
+	pMs[6].gwf =pMs[5].gwf.modWf(0,2,1); pMs[6].bwf =pMs[5].bwf.modWf(0,1,2); 	pMs[6].lp =specLp( 2,-2); 								// hos
+	pMs[4].gwf =pMs[5].gwf.modWf(0,1,2); pMs[4].bwf =pMs[5].bwf.modWf(2,1,0); 	pMs[4].lp =specLp(-1,-1); 	pMs[4].pp =specPp( 1,-1)	// car
+	pMs[7].gwf =pMs[6].gwf.modWf(0,1,2); pMs[7].bwf =pMs[6].bwf.modWf(2,1,0); 	pMs[7].lp =specLp(-1, 1);  								// esc
+	pMs[3].gwf =pMs[5].gwf.modWf(0,1,2); pMs[3].bwf =pMs[5].bwf.modWf(0,2,1); 	pMs[3].lp =specLp( 1, 1); 	 							// pla
+	pMs[8].gwf =pMs[6].gwf.modWf(0,1,2); pMs[8].bwf =pMs[5].bwf.modWf(0,2,1); 	pMs[8].lp =specLp( 1,-1); 	pMs[8].pp =specPp( 1,-1)	// fig
+	pMs[2].gwf =pMs[4].gwf.modWf(0,1,2); pMs[2].bwf =pMs[4].bwf.modWf(0,2,1); 	pMs[2].lp =specLp( 2, 2); 	pMs[2].pp =specPp(-1, 1)	// cbp
+	pMs[9].gwf =pMs[7].gwf.modWf(0,1,2); pMs[9].bwf =pMs[7].bwf.modWf(0,2,1); 	pMs[9].lp =specLp( 2,-2); 	pMs[9].pp =specPp( 1,-1)	// ebf
+	pMs[1].gwf =pMs[3].gwf.modWf(0,1,2); pMs[1].bwf =pMs[3].bwf.modWf(2,1,0); 	pMs[1].lp =specLp( 2, 2); 	pMs[1].pp =specPp(-1,-1)	// pbc
+	pMs[10].gwf=pMs[8].gwf.modWf(0,1,2); pMs[10].bwf=pMs[8].bwf.modWf(2,1,0); 	pMs[10].lp=specLp( 2,-2); 	pMs[10].pp=specPp(-1,-1)	// fbe
+	pMs[0].gwf =pMs[2].gwf.modWf(0,1,2); pMs[0].bwf =pMs[2].bwf.modWf(2,1,0); 	pMs[0].lp =specLp( 2, 2); 	pMs[0].pp =specPp( 1, 1) 	// cnp
+	pMs[11].gwf=pMs[9].gwf.modWf(0,1,2); pMs[11].bwf=pMs[9].bwf.modWf(2,1,0); 	pMs[11].lp=specLp( 2,-2); 	pMs[11].pp=specPp( 1, 1)}	// fne
 var pMs [12]Pm
 
 type Gn struct{
@@ -576,7 +576,7 @@ type Gn struct{
 	pp 					Pp}
 type Wf [3]int8 // Windform
 func defWf( t1 int8, t2 int8, t3 int8) Wf { var wf Wf; wf[0]=t1; wf[1]=t2; wf[2]=t3; return wf}
-func (f1 Wf) transWf(t1 int8, t2 int8, t3 int8) Wf { var f2 Wf
+func (f1 Wf) modWf(t1 int8, t2 int8, t3 int8) Wf { var f2 Wf
 	f2[0] =f1[t1]; 	f2[1] =f1[t2]; 	f2[2] =f1[t3]; 	return f2}
 type Lp struct{
 	i,u,gamma,beta				int8}
@@ -587,9 +587,9 @@ func specPp( i int8, u int8) Pp { var pp Pp; pp.i=i; pp.u=u; return pp}
 func quantPp(gamma int8, beta int8) Pp { var pp Pp; pp.gamma=gamma; pp.beta=beta; return pp}
 func precalcGenders(){
 	gNs[0].gwf=defWf( 3, 2, 1); 	gNs[0].bwf=defWf(-1,-3,-2); 															gNs[0].lp.i= 1;gNs[0].pp.i=-1;
-	gNs[1].mas=true;						gNs[1].gwf=gNs[0].gwf.transWf(2,1,0); 	gNs[1].bwf=gNs[0].bwf.transWf(0,1,2); 	gNs[1].lp.i=-1;gNs[1].pp.i= 1;
-						gNs[2].Ac =true;	gNs[2].gwf=gNs[1].gwf.transWf(1,0,2); 	gNs[2].bwf=gNs[1].bwf.transWf(0,1,2); 	gNs[2].lp.i= 1;gNs[2].pp.i=-1;
-	gNs[3].mas=true; 	gNs[3].Ac =true;	gNs[3].gwf=gNs[1].gwf.transWf(0,1,2); 	gNs[3].bwf=gNs[1].bwf.transWf(1,0,2);	gNs[3].lp.i=-1;gNs[3].pp.i= 1}
+	gNs[1].mas=true;						gNs[1].gwf=gNs[0].gwf.modWf(2,1,0); 	gNs[1].bwf=gNs[0].bwf.modWf(0,1,2); 	gNs[1].lp.i=-1;gNs[1].pp.i= 1;
+						gNs[2].Ac =true;	gNs[2].gwf=gNs[1].gwf.modWf(1,0,2); 	gNs[2].bwf=gNs[1].bwf.modWf(0,1,2); 	gNs[2].lp.i= 1;gNs[2].pp.i=-1;
+	gNs[3].mas=true; 	gNs[3].Ac =true;	gNs[3].gwf=gNs[1].gwf.modWf(0,1,2); 	gNs[3].bwf=gNs[1].bwf.modWf(1,0,2);	gNs[3].lp.i=-1;gNs[3].pp.i= 1}
 var gNs [4]Gn
 
 
