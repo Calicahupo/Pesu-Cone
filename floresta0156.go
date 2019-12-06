@@ -29,7 +29,7 @@ type Rq struct{
 	F, T 				int8
 	ni, desc 			string}
 type Cl struct{ 
-	hue, sat, val, c, r, V, K 	int8
+	hue, sat, val, c, r, gamma, beta 	int8
 	hex 				string}
 
 type Ml struct{
@@ -42,7 +42,7 @@ func min(n1 uint8, n2 uint8) uint8 { if n1>n2 { return n2} else { return n1}}
 func odd(n int8) bool { 	if n%2==0{ return false} else { return true}}
 
 
-type Va struct{
+type Va struct{ // ööl
 	inV, inK, exV, exK 	int}
 
 
@@ -438,20 +438,20 @@ type Pt struct{
 type Md struct{
 	sx, gn 				*Gn
 	pm 					*Pm
-	gmf, bmf 			Mf
-	gar, bar 			Amf
+	gwf, bwf 			Wf
+	gar, bar 			Awf
 	qp 					Qp}
-func (md Md) transPm(pm *Pm) (Mf,Mf) {
-	md.gmf =md.sx.gmf.transPm2(pm.gmf); 	md.bmf =md.sx.bmf.transPm2(pm.bmf); return md.gmf, md.bmf}
-func (f1 Mf) transPm2(pm Mf) Mf { var f2 Mf
+func (md Md) transPm(pm *Pm) (Wf,Wf) {
+	md.gwf =md.sx.gwf.transPm2(pm.gwf); 	md.bwf =md.sx.bwf.transPm2(pm.bwf); return md.gwf, md.bwf}
+func (f1 Wf) transPm2(pm Wf) Wf { var f2 Wf
 	f2[0] =f1[pm[0]]; 	f2[1] =f1[pm[1]]; 	f2[2] =f1[pm[2]]; 	return f2}
-func (md Md) transMd(t1 int8, t2 int8) (Mf,Mf) {
-	if t1 > 0 {	for i := int8(0); i < 3; i++ { var f Mf; f =md.gmf.transMf(0,1,2);
-		if md.gmf[i] ==t1 { f[i] =t2}; 	if md.gmf[i] ==t2 { f[i] =t1}; return f, md.bmf}
-	} else { 	for i := int8(0); i < 3; i++ { var f Mf; f =md.bmf.transMf(0,1,2);
-		if md.bmf[i] ==t1 { f[i] =t2}; 	if md.bmf[i] ==t1 { f[i] =t1}; return md.gmf, f}}
-	return md.gmf, md.bmf}
-type Amf func(int8,int8) (int8,int8)
+func (md Md) transMd(t1 int8, t2 int8) (Wf,Wf) {
+	if t1 > 0 {	for i := int8(0); i < 3; i++ { var f Wf; f =md.gwf.transWf(0,1,2);
+		if md.gwf[i] ==t1 { f[i] =t2}; 	if md.gwf[i] ==t2 { f[i] =t1}; return f, md.bwf}
+	} else { 	for i := int8(0); i < 3; i++ { var f Wf; f =md.bwf.transWf(0,1,2);
+		if md.bwf[i] ==t1 { f[i] =t2}; 	if md.bwf[i] ==t1 { f[i] =t1}; return md.gwf, f}}
+	return md.gwf, md.bwf}
+type Awf func(int8,int8) (int8,int8)
 type Qp [9][9]Qv
 type Qv struct{
 	c, r 				int8
@@ -469,71 +469,71 @@ func precalcMoods(){
 			case 2, 6, 10,14: mDs[i+12*j].gn =&gNs[2];
 			case 3, 7, 11,15: mDs[i+12*j].gn =&gNs[3]}}}
 	for i := uint8(0); i < 192;i++ {
-		mDs[i].gmf, mDs[i].bmf =mDs[i].transPm( mDs[i].pm);
-		if mDs[i].sx == mDs[i].gn {
-			if mDs[i].sx.mas != mDs[i].gn.mas && mDs[i].sx.Ac == mDs[i].gn.Ac {
-				if !mDs[i].sx.mas { mDs[i].gmf, mDs[i].bmf =mDs[i].transMd(3,-4)
-				} else { 			mDs[i].gmf, mDs[i].bmf =mDs[i].transMd(3,-5)}
-			} else if mDs[i].sx.mas == mDs[i].gn.mas && mDs[i].sx.Ac != mDs[i].gn.Ac {
-				if !mDs[i].sx.Ac { 	mDs[i].gmf, mDs[i].bmf =mDs[i].transMd(3,-6)
-				} else { 			mDs[i].gmf, mDs[i].bmf =mDs[i].transMd(-3,6)}
-			} else {
-				mDs[i].gmf, mDs[i].bmf =mDs[i].transMd(3,-6);
-				mDs[i].gmf, mDs[i].bmf =mDs[i].transMd(-3,6)}}
-		mDs[i].gar=mDs[i].gmf.arithMf()
-		mDs[i].bar=mDs[i].bmf.arithMf()
+		mDs[i].gwf, mDs[i].bwf =mDs[i].transPm( mDs[i].pm);
+		if mDs[i].sx == mDs[i].gn { 													// if sex and gender aren't same
+			if mDs[i].sx.mas != mDs[i].gn.mas && mDs[i].sx.Ac == mDs[i].gn.Ac { 		// .if sex and gender aren't foam
+				if !mDs[i].sx.mas { mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(3,-4) 		// ..if sex ain't masculine...good 3 bad -4 
+				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(3,-5)} 		// ..otherwise good 3 bad -5
+			} else if mDs[i].sx.mas == mDs[i].gn.mas && mDs[i].sx.Ac != mDs[i].gn.Ac { 	// .else if sex and gender aren't time
+				if !mDs[i].sx.Ac { 	mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(3,-6) 		// ..if sex ain't time...good 3 bad -6
+				} else { 			mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(-3,6)} 		// ..otherwise good -3 bad 6
+			} else { 																	// if sex and gender are the same
+				mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(3,-6); 							// .good 3 bad -6
+				mDs[i].gwf, mDs[i].bwf =mDs[i].transMd(-3,6)}} 							// .and good -3 bad 6
+		mDs[i].gar=mDs[i].gwf.arithWf()
+		mDs[i].bar=mDs[i].bwf.arithWf()
 		mDs[i].qp =mDs[i].quantQp( mDs[i].gar,mDs[i].bar)}}
-func (mf Mf) arithMf() Amf { var a Amf
-	if 			mf[0] == 1 {if mf[1] == 2 { if mf[2] == 3 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r}
-									} else 	if mf[2] ==-4 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r}
-									} else 	if mf[2] ==-5 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r}
-									} else 	{ 				a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r}}
-					} else 	if mf[2] == 2 { if mf[1] == 3 { a =func(c int8, r int8)(int8,int8){ return c-r, -c}
-									} else	if mf[1] ==-4 { a =func(c int8, r int8)(int8,int8){ return c-r, -c}
-									} else 	if mf[1] ==-5 { a =func(c int8, r int8)(int8,int8){	return c-r, -c}
-									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return c-r, -c}}}
-	} else 	if mf[0] == 2 {	if mf[1] == 1 { if mf[2] == 3 { a =func(c int8, r int8)(int8,int8){	return 	-r,	4-c}
-									} else 	if mf[2] ==-4 { a =func(c int8, r int8)(int8,int8){	return 	-r,	4-c}
-									} else 	if mf[2] ==-5 { a =func(c int8, r int8)(int8,int8){	return 	-r,	4-c}
-									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return 	-r,	4-c}}
-					} else 	if mf[2] == 1 { if mf[1] == 3 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-c}
-									} else 	if mf[1] ==-4 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-c}
-									} else 	if mf[1] ==-5 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-c}
-									} else 	{  				a =func(c int8, r int8)(int8,int8){	return c-r, 4-c}}}
-	} else 	if mf[1] == 1 { 				if mf[0] == 3 { a =func(c int8, r int8)(int8,int8){	return 4-c, r}
-									} else 	if mf[0] ==-4 { a =func(c int8, r int8)(int8,int8){	return 4-c, r}
-									} else 	if mf[0] ==-5 { a =func(c int8, r int8)(int8,int8){	return 4-c, r}
-									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return 4-c, r}}
-	} else 	if mf[2] == 1 { 				if mf[0] == 3 { a =func(c int8, r int8)(int8,int8){	return 4-c, c-r}
-									} else 	if mf[0] ==-4 { a =func(c int8, r int8)(int8,int8){	return 4-c, c-r}
-									} else 	if mf[0] ==-5 { a =func(c int8, r int8)(int8,int8){	return 4-c, c-r}
-									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return 4-c, c-r}}
-	} else if mf[0] ==-1 { 	if mf[1] ==-2 { if mf[2] ==-3 { a =func(c int8, r int8)(int8,int8){	return 	-c, c-r}
-									} else 	if mf[2] == 4 { a =func(c int8, r int8)(int8,int8){	return 	-c, c-r}
-									} else 	if mf[2] == 5 { a =func(c int8, r int8)(int8,int8){	return 	-c, c-r}
+func (wf Wf) arithWf() Awf { var a Awf
+	if 			wf[0] == 1 {if wf[1] == 2 { if wf[2] == 3 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r} 	// foam phi alpha psi beta rho gamma
+									} else 	if wf[2] ==-4 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r} 	// 							rho -4
+									} else 	if wf[2] ==-5 {	a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r} 	// 							rho -5
+									} else 	{ 				a =func(c int8, r int8)(int8,int8){ return 	-r,	c-r}} 	// 							rho -6
+					} else 	if wf[2] == 2 { if wf[1] == 3 { a =func(c int8, r int8)(int8,int8){ return c-r, -c} 	// 					psi beta rho gamma
+									} else	if wf[1] ==-4 { a =func(c int8, r int8)(int8,int8){ return c-r, -c} 	// 					psi -4
+									} else 	if wf[1] ==-5 { a =func(c int8, r int8)(int8,int8){	return c-r, -c} 	// 					psi -5
+									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return c-r, -c}}} 	// 					psi -6
+	} else 	if wf[0] == 2 {	if wf[1] == 1 { if wf[2] == 3 { a =func(c int8, r int8)(int8,int8){	return 	-r,	4-c} 	// 		phi beta psi alpha rho gamma
+									} else 	if wf[2] ==-4 { a =func(c int8, r int8)(int8,int8){	return 	-r,	4-c} 	// 							rho -4
+									} else 	if wf[2] ==-5 { a =func(c int8, r int8)(int8,int8){	return 	-r,	4-c} 	// 							rho -5
+									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return 	-r,	4-c}} 	// 							rho -6
+					} else 	if wf[2] == 1 { if wf[1] == 3 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-c} 	// 					psi gamma rho alpha
+									} else 	if wf[1] ==-4 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-c} 	// 					psi -4
+									} else 	if wf[1] ==-5 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-c} 	// 					psi -5
+									} else 	{  				a =func(c int8, r int8)(int8,int8){	return c-r, 4-c}}} 	// 					psi -6
+	} else 	if wf[1] == 1 { 				if wf[0] == 3 { a =func(c int8, r int8)(int8,int8){	return 4-c, r} 		// 		chi gamma psi alpha
+									} else 	if wf[0] ==-4 { a =func(c int8, r int8)(int8,int8){	return 4-c, r} 		// 		chi -4
+									} else 	if wf[0] ==-5 { a =func(c int8, r int8)(int8,int8){	return 4-c, r} 		// 		chi -5
+									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return 4-c, r}} 	// 		chi -6
+	} else 	if wf[2] == 1 { 				if wf[0] == 3 { a =func(c int8, r int8)(int8,int8){	return 4-c, c-r} 	// 					psi gamma rho alpha
+									} else 	if wf[0] ==-4 { a =func(c int8, r int8)(int8,int8){	return 4-c, c-r} 	// 		chi -4
+									} else 	if wf[0] ==-5 { a =func(c int8, r int8)(int8,int8){	return 4-c, c-r} 	// 		chi -5
+									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return 4-c, c-r}} 	// 		chi -6
+	} else if wf[0] ==-1 { 	if wf[1] ==-2 { if wf[2] ==-3 { a =func(c int8, r int8)(int8,int8){	return 	-c, c-r} 	// 		phi -alpha psi -beta rho -gamma
+									} else 	if wf[2] == 4 { a =func(c int8, r int8)(int8,int8){	return 	-c, c-r} 	// 		...
+									} else 	if wf[2] == 5 { a =func(c int8, r int8)(int8,int8){	return 	-c, c-r}
 									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return 	-c, c-r}}
-					} else 	if mf[2] ==-2 { if mf[1] ==-3 { a =func(c int8, r int8)(int8,int8){	return c-r, -c}
-									} else 	if mf[1] == 4 { a =func(c int8, r int8)(int8,int8){	return c-r, -c}
-									} else 	if mf[1] == 5 { a =func(c int8, r int8)(int8,int8){	return c-r, -c}
+					} else 	if wf[2] ==-2 { if wf[1] ==-3 { a =func(c int8, r int8)(int8,int8){	return c-r, -c}
+									} else 	if wf[1] == 4 { a =func(c int8, r int8)(int8,int8){	return c-r, -c}
+									} else 	if wf[1] == 5 { a =func(c int8, r int8)(int8,int8){	return c-r, -c}
 									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return c-r, -c}}}
-	} else if mf[0] ==-2 { 	if mf[1] ==-1 { if mf[2] ==-3 { a =func(c int8, r int8)(int8,int8){	return 	-c, 4-r}
-									} else 	if mf[2] == 4 { a =func(c int8, r int8)(int8,int8){	return 	-c, 4-r}
-									} else 	if mf[2] == 5 { a =func(c int8, r int8)(int8,int8){	return 	-c, 4-r}
+	} else if wf[0] ==-2 { 	if wf[1] ==-1 { if wf[2] ==-3 { a =func(c int8, r int8)(int8,int8){	return 	-c, 4-r}
+									} else 	if wf[2] == 4 { a =func(c int8, r int8)(int8,int8){	return 	-c, 4-r}
+									} else 	if wf[2] == 5 { a =func(c int8, r int8)(int8,int8){	return 	-c, 4-r}
 									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return 	-c, 4-r}}
-					} else 	if mf[2] ==-1 { if mf[1] ==-3 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-r}
-									} else 	if mf[1] == 4 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-r}
-									} else 	if mf[1] == 5 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-r}
+					} else 	if wf[2] ==-1 { if wf[1] ==-3 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-r}
+									} else 	if wf[1] == 4 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-r}
+									} else 	if wf[1] == 5 { a =func(c int8, r int8)(int8,int8){	return c-r, 4-r}
 									} else 	{  				a =func(c int8, r int8)(int8,int8){	return c-r, 4-r}}}
-	} else if mf[1] ==-1 { 		 			if mf[0] ==-3 { a =func(c int8, r int8)(int8,int8){	return r-4, c}
-									} else 	if mf[0] == 4 { a =func(c int8, r int8)(int8,int8){	return r-4, c}
-									} else 	if mf[0] == 5 { a =func(c int8, r int8)(int8,int8){	return r-4, c}
+	} else if wf[1] ==-1 { 		 			if wf[0] ==-3 { a =func(c int8, r int8)(int8,int8){	return r-4, c}
+									} else 	if wf[0] == 4 { a =func(c int8, r int8)(int8,int8){	return r-4, c}
+									} else 	if wf[0] == 5 { a =func(c int8, r int8)(int8,int8){	return r-4, c}
 									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return r-4, c}}
-	} else if mf[2] ==-1 { 		 			if mf[0] ==-3 { a =func(c int8, r int8)(int8,int8){	return r-4, c-r}
-									} else 	if mf[0] == 4 { a =func(c int8, r int8)(int8,int8){	return r-4, c-r}
-									} else 	if mf[0] == 5 { a =func(c int8, r int8)(int8,int8){	return r-4, c-r}
+	} else if wf[2] ==-1 { 		 			if wf[0] ==-3 { a =func(c int8, r int8)(int8,int8){	return r-4, c-r}
+									} else 	if wf[0] == 4 { a =func(c int8, r int8)(int8,int8){	return r-4, c-r}
+									} else 	if wf[0] == 5 { a =func(c int8, r int8)(int8,int8){	return r-4, c-r}
 									} else 	{ 				a =func(c int8, r int8)(int8,int8){	return r-4, c-r}}}
 	return a}
-func (md Md) quantQp(gar Amf, bar Amf) Qp { var p Qp;
+func (md Md) quantQp(gar Awf, bar Awf) Qp { var p Qp;
 	for r, R := int8(0), int8(9); r < R; r++ {
 		for c, C := int8(0), int8(9); c < C; c++ { var l Qv; var ac int8; var ar int8;
 			l.c =c-4; l.r =r-4;
@@ -542,8 +542,8 @@ func (md Md) quantQp(gar Amf, bar Amf) Qp { var p Qp;
 						} else 	if l.r > 0 { l.lp=specLp( 1, 1)
 			}} else if l.c > 0 {if l.r < 0 { l.lp=specLp(-1, 1)
 						} else 	if l.r > 0 { l.lp=specLp( 1,-1)}}
-			if ac <= ar { 	l.lp.V, l.lp.K = md.gar( ac, ar);
-			} else { 		l.lp.V, l.lp.K = md.bar( ac, ar)}
+			if ac <= ar { 	l.lp.gamma, l.lp.beta = md.gar( ac, ar);
+			} else { 		l.lp.gamma, l.lp.beta = md.bar( ac, ar)}
 			p[r][c] =l}} //colors
 	return p}
 var mDs [192]Md
@@ -553,43 +553,43 @@ var mDs [192]Md
 type Pm struct{
 	lp 					Lp
 	pp 					Pp
-	gmf,bmf 			Mf}
+	gwf,bwf 			Wf}
 func precalcPrimalMoods(){
-	pMs[5].gmf=defMf(0,1,2); 	pMs[5].bmf=defMf(0,1,2); 							pMs[5].lp =specLp( 2, 2) 								// pea
-	pMs[6].gmf =pMs[5].gmf.transMf(0,2,1); pMs[6].bmf =pMs[5].bmf.transMf(0,1,2); 	pMs[6].lp =specLp( 2,-2); 								// hos
-	pMs[4].gmf =pMs[5].gmf.transMf(0,1,2); pMs[4].bmf =pMs[5].bmf.transMf(2,1,0); 	pMs[4].lp =specLp(-1,-1); 	pMs[4].pp =specPp( 1,-1)	// car
-	pMs[7].gmf =pMs[6].gmf.transMf(0,1,2); pMs[7].bmf =pMs[6].bmf.transMf(2,1,0); 	pMs[7].lp =specLp(-1, 1);  								// esc
-	pMs[3].gmf =pMs[5].gmf.transMf(0,1,2); pMs[3].bmf =pMs[5].bmf.transMf(0,2,1); 	pMs[3].lp =specLp( 1, 1); 	 							// pla
-	pMs[8].gmf =pMs[6].gmf.transMf(0,1,2); pMs[8].bmf =pMs[5].bmf.transMf(0,2,1); 	pMs[8].lp =specLp( 1,-1); 	pMs[8].pp =specPp( 1,-1)	// fig
-	pMs[2].gmf =pMs[4].gmf.transMf(0,1,2); pMs[2].bmf =pMs[4].bmf.transMf(0,2,1); 	pMs[2].lp =specLp( 2, 2); 	pMs[2].pp =specPp(-1, 1)	// cbp
-	pMs[9].gmf =pMs[7].gmf.transMf(0,1,2); pMs[9].bmf =pMs[7].bmf.transMf(0,2,1); 	pMs[9].lp =specLp( 2,-2); 	pMs[9].pp =specPp( 1,-1)	// ebf
-	pMs[1].gmf =pMs[3].gmf.transMf(0,1,2); pMs[1].bmf =pMs[3].bmf.transMf(2,1,0); 	pMs[1].lp =specLp( 2, 2); 	pMs[1].pp =specPp(-1,-1)	// pbc
-	pMs[10].gmf=pMs[8].gmf.transMf(0,1,2); pMs[10].bmf=pMs[8].bmf.transMf(2,1,0); 	pMs[10].lp=specLp( 2,-2); 	pMs[10].pp=specPp(-1,-1)	// fbe
-	pMs[0].gmf =pMs[2].gmf.transMf(0,1,2); pMs[0].bmf =pMs[2].bmf.transMf(2,1,0); 	pMs[0].lp =specLp( 2, 2); 	pMs[0].pp =specPp( 1, 1) 	// cnp
-	pMs[11].gmf=pMs[9].gmf.transMf(0,1,2); pMs[11].bmf=pMs[9].bmf.transMf(2,1,0); 	pMs[11].lp=specLp( 2,-2); 	pMs[11].pp=specPp( 1, 1)}	// fne
+	pMs[5].gwf=defWf(0,1,2); 	pMs[5].bwf=defWf(0,1,2); 							pMs[5].lp =specLp( 2, 2) 								// pea
+	pMs[6].gwf =pMs[5].gwf.transWf(0,2,1); pMs[6].bwf =pMs[5].bwf.transWf(0,1,2); 	pMs[6].lp =specLp( 2,-2); 								// hos
+	pMs[4].gwf =pMs[5].gwf.transWf(0,1,2); pMs[4].bwf =pMs[5].bwf.transWf(2,1,0); 	pMs[4].lp =specLp(-1,-1); 	pMs[4].pp =specPp( 1,-1)	// car
+	pMs[7].gwf =pMs[6].gwf.transWf(0,1,2); pMs[7].bwf =pMs[6].bwf.transWf(2,1,0); 	pMs[7].lp =specLp(-1, 1);  								// esc
+	pMs[3].gwf =pMs[5].gwf.transWf(0,1,2); pMs[3].bwf =pMs[5].bwf.transWf(0,2,1); 	pMs[3].lp =specLp( 1, 1); 	 							// pla
+	pMs[8].gwf =pMs[6].gwf.transWf(0,1,2); pMs[8].bwf =pMs[5].bwf.transWf(0,2,1); 	pMs[8].lp =specLp( 1,-1); 	pMs[8].pp =specPp( 1,-1)	// fig
+	pMs[2].gwf =pMs[4].gwf.transWf(0,1,2); pMs[2].bwf =pMs[4].bwf.transWf(0,2,1); 	pMs[2].lp =specLp( 2, 2); 	pMs[2].pp =specPp(-1, 1)	// cbp
+	pMs[9].gwf =pMs[7].gwf.transWf(0,1,2); pMs[9].bwf =pMs[7].bwf.transWf(0,2,1); 	pMs[9].lp =specLp( 2,-2); 	pMs[9].pp =specPp( 1,-1)	// ebf
+	pMs[1].gwf =pMs[3].gwf.transWf(0,1,2); pMs[1].bwf =pMs[3].bwf.transWf(2,1,0); 	pMs[1].lp =specLp( 2, 2); 	pMs[1].pp =specPp(-1,-1)	// pbc
+	pMs[10].gwf=pMs[8].gwf.transWf(0,1,2); pMs[10].bwf=pMs[8].bwf.transWf(2,1,0); 	pMs[10].lp=specLp( 2,-2); 	pMs[10].pp=specPp(-1,-1)	// fbe
+	pMs[0].gwf =pMs[2].gwf.transWf(0,1,2); pMs[0].bwf =pMs[2].bwf.transWf(2,1,0); 	pMs[0].lp =specLp( 2, 2); 	pMs[0].pp =specPp( 1, 1) 	// cnp
+	pMs[11].gwf=pMs[9].gwf.transWf(0,1,2); pMs[11].bwf=pMs[9].bwf.transWf(2,1,0); 	pMs[11].lp=specLp( 2,-2); 	pMs[11].pp=specPp( 1, 1)}	// fne
 var pMs [12]Pm
 
 type Gn struct{
 	mas, Ac 			bool
-	gmf, bmf 			Mf
+	gwf, bwf 			Wf
 	lp 					Lp
 	pp 					Pp}
-type Mf [3]int8
-func defMf( t1 int8, t2 int8, t3 int8) Mf { var mf Mf; mf[0]=t1; mf[1]=t2; mf[2]=t3; return mf}
-func (f1 Mf) transMf(t1 int8, t2 int8, t3 int8) Mf { var f2 Mf
+type Wf [3]int8 // Windform
+func defWf( t1 int8, t2 int8, t3 int8) Wf { var wf Wf; wf[0]=t1; wf[1]=t2; wf[2]=t3; return wf}
+func (f1 Wf) transWf(t1 int8, t2 int8, t3 int8) Wf { var f2 Wf
 	f2[0] =f1[t1]; 	f2[1] =f1[t2]; 	f2[2] =f1[t3]; 	return f2}
 type Lp struct{
-	i,u,V,K				int8}
+	i,u,gamma,beta				int8}
 func specLp(i int8, u int8) Lp { var lp Lp; lp.i=i; lp.u=u; return lp}
 type Pp struct{
-	i,u,V,K 			int8}
+	i,u,gamma,beta 			int8}
 func specPp( i int8, u int8) Pp { var pp Pp; pp.i=i; pp.u=u; return pp}
-func quantPp(V int8, K int8) Pp { var pp Pp; pp.V=V; pp.K=K; return pp}
+func quantPp(gamma int8, beta int8) Pp { var pp Pp; pp.gamma=gamma; pp.beta=beta; return pp}
 func precalcGenders(){
-	gNs[0].gmf=defMf( 3, 2, 1); 	gNs[0].bmf=defMf(-1,-3,-2); 															gNs[0].lp.i= 1;gNs[0].pp.i=-1;
-	gNs[1].mas=true;						gNs[1].gmf=gNs[0].gmf.transMf(2,1,0); 	gNs[1].bmf=gNs[0].bmf.transMf(0,1,2); 	gNs[1].lp.i=-1;gNs[1].pp.i= 1;
-						gNs[2].Ac =true;	gNs[2].gmf=gNs[1].gmf.transMf(1,0,2); 	gNs[2].bmf=gNs[1].bmf.transMf(0,1,2); 	gNs[2].lp.i= 1;gNs[2].pp.i=-1;
-	gNs[3].mas=true; 	gNs[3].Ac =true;	gNs[3].gmf=gNs[1].gmf.transMf(0,1,2); 	gNs[3].bmf=gNs[1].bmf.transMf(1,0,2);	gNs[3].lp.i=-1;gNs[3].pp.i= 1}
+	gNs[0].gwf=defWf( 3, 2, 1); 	gNs[0].bwf=defWf(-1,-3,-2); 															gNs[0].lp.i= 1;gNs[0].pp.i=-1;
+	gNs[1].mas=true;						gNs[1].gwf=gNs[0].gwf.transWf(2,1,0); 	gNs[1].bwf=gNs[0].bwf.transWf(0,1,2); 	gNs[1].lp.i=-1;gNs[1].pp.i= 1;
+						gNs[2].Ac =true;	gNs[2].gwf=gNs[1].gwf.transWf(1,0,2); 	gNs[2].bwf=gNs[1].bwf.transWf(0,1,2); 	gNs[2].lp.i= 1;gNs[2].pp.i=-1;
+	gNs[3].mas=true; 	gNs[3].Ac =true;	gNs[3].gwf=gNs[1].gwf.transWf(0,1,2); 	gNs[3].bwf=gNs[1].bwf.transWf(1,0,2);	gNs[3].lp.i=-1;gNs[3].pp.i= 1}
 var gNs [4]Gn
 
 
